@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_margin="24dp"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_blue_500"
+        android:src="@drawable/ic_wifi"
+        app:tint="#FFF"
+        android:padding="24dp" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="5dp"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_internet_connection" />
+
+    <TextView
+        android:textColor="@color/grey_500"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingBottom="24dp"
+        android:layout_marginTop="10dp"
+        android:textSize="@dimen/text_size_menu"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/khongCoInternet" />
+
+
+    <Button
+        android:id="@+id/btnOK"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_rectangle_light_blue_corner"
+        android:text="@string/ok"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_size_menu"
+        android:textColor="@color/light_blue_500"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp" />
+</LinearLayout>

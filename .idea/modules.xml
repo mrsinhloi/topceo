@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/topceo.iml" filepath="$PROJECT_DIR$/.idea/modules/topceo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/topceo.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/topceo.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/camerarecorder/topceo.camerarecorder.iml" filepath="$PROJECT_DIR$/.idea/modules/camerarecorder/topceo.camerarecorder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/corechat/topceo.corechat.iml" filepath="$PROJECT_DIR$/.idea/modules/corechat/topceo.corechat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/devsmartAndroid/topceo.devsmartAndroid.iml" filepath="$PROJECT_DIR$/.idea/modules/devsmartAndroid/topceo.devsmartAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/topceo.library.iml" filepath="$PROJECT_DIR$/.idea/modules/library/topceo.library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mianacropview/topceo.mianacropview.iml" filepath="$PROJECT_DIR$/.idea/modules/mianacropview/topceo.mianacropview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/post-like-facebook/topceo.post-like-facebook.iml" filepath="$PROJECT_DIR$/.idea/modules/post-like-facebook/topceo.post-like-facebook.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sectioned_recyclerview/topceo.sectioned_recyclerview.iml" filepath="$PROJECT_DIR$/.idea/modules/sectioned_recyclerview/topceo.sectioned_recyclerview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/showcaseviewlib/topceo.showcaseviewlib.iml" filepath="$PROJECT_DIR$/.idea/modules/showcaseviewlib/topceo.showcaseviewlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/socialspost/topceo.socialspost.iml" filepath="$PROJECT_DIR$/.idea/modules/socialspost/topceo.socialspost.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/squarecamera/topceo.squarecamera.iml" filepath="$PROJECT_DIR$/.idea/modules/squarecamera/topceo.squarecamera.iml" />
+    </modules>
+  </component>
+</project>

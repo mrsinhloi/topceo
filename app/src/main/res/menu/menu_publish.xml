@@ -1,0 +1,12 @@
+<!--menu_main.xml-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.MH04_FeedEditActivity">
+    <item
+        android:id="@+id/action_publish"
+        android:icon="@drawable/ic_svg_25"
+        android:title="@string/update_profile"
+        app:showAsAction="always"
+        />
+</menu>

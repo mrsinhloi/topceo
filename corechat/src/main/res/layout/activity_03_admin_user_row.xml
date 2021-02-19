@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="false">
+
+        <ImageView
+            android:id="@+id/img1"
+            android:layout_width="@dimen/avatar_size_medium"
+            android:layout_height="@dimen/avatar_size_medium"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:src="@drawable/ic_user_2" />
+
+        <!--<ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="@dimen/ic_on_off_line"
+            android:layout_height="@dimen/ic_on_off_line"
+            android:focusable="false"
+            android:layout_alignRight="@+id/imageView1"
+            android:layout_alignBottom="@+id/imageView1"
+            android:focusableInTouchMode="false"
+            android:src="@drawable/ic_offline"
+            android:visibility="visible"/>-->
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt1"
+            style="@style/TextViewAppearance.TextTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center_vertical"
+            android:paddingBottom="0dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="10dp"
+            android:paddingTop="0dp"
+            android:text="" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt2"
+            style="@style/TextViewAppearance.TextBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center_vertical"
+            android:paddingBottom="0dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingTop="0dp"
+            android:singleLine="true"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="@string/delete"
+            android:textColor="@color/colorPrimaryChat" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,390 @@
+/*ONE SIGNAL*/
+buildscript {
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/' }
+    }
+    dependencies {
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.12.10'
+    }
+}
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+/*ONE SIGNAL*/
+
+
+
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+// Apply the Performance Monitoring plugin
+apply plugin: 'com.google.firebase.firebase-perf'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'realm-android'
+apply plugin: 'com.google.firebase.crashlytics'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.ehubly.topceo" //==> ehubstar.sontung.mtp
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.compileSdkVersion
+        versionCode 1
+        versionName "2.0.1"
+
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+
+        /*ONE SIGNAL*/
+        //onesignal
+        resValue("string", "one_signal_app_id",                  "a45f28ec-eb89-406a-8559-ed635205219f")//getString(R.string.one_signal_app_id)
+        manifestPlaceholders = [onesignal_app_id               : 'a45f28ec-eb89-406a-8559-ed635205219f',
+                                onesignal_google_project_number: 'REMOTE']
+        /*ONE SIGNAL*/
+
+
+        //compress video jni
+        ndk {
+            moduleName "webp"
+        }
+
+    }
+
+    buildTypes {
+        debug {
+            resValue "string", "GOOGLE_MAPS_ANDROID_API_KEY", "AIzaSyCy7KeAztf4LG7BFFoZsxVKkJYDPtC4TL8"
+
+            minifyEnabled false
+            ext.enableCrashlytics = false
+//            ext.alwaysUpdateBuildId = false
+        }
+        release {
+            resValue "string", "GOOGLE_MAPS_ANDROID_API_KEY", "AIzaSyCy7KeAztf4LG7BFFoZsxVKkJYDPtC4TL8"
+
+            minifyEnabled false
+//            shrinkResources true //ERROR
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
+
+
+    //compress video jni
+    sourceSets.main {
+        jniLibs.srcDir 'libs'
+        jni.srcDirs = [] //disable automatic ndk-build call
+    }
+
+
+    //tắt chia ngôn ngữ theo máy => (nếu máy chỉ có tiếng việt thì bundle chỉ gởi về tiếng việt, bị thiếu tiếng anh)
+    bundle {
+        language {
+            // Specifies that the app bundle should not support
+            // configuration APKs for language resources. These
+            // resources are instead packaged with each base and
+            // dynamic feature APK.
+            enableSplit = false
+        }
+
+        //realm bị lỗi tách abi bundle, cần config
+        abi { enableSplit = false }
+    }
+
+
+    /*configurations {
+//        cleanedAnnotations
+        compile.exclude group: 'org.jetbrains' , module:'annotations'
+//        compile.exclude group: 'com.intellij', module:'annotations'
+    }*/
+
+    dataBinding {////https://github.com/ParkSangGwon/TedImagePicker
+        enabled = true
+    }
+
+    kapt.includeCompileClasspath = false
+}
+
+
+repositories {
+    google()//glide, https://github.com/hendraanggrian/socialview
+    jcenter()//https://github.com/MichaelRocks/libphonenumber-android
+    mavenCentral()//facebook, glide, shortcut badger, facebook-share
+    /*maven {
+        url "https://jitpack.io"
+        credentials { username authToken }
+    }*/
+//nekocode, AirLocation, 'com.github.chathuralakmal:AndroidImagePopup:1.2.1'
+    maven { url 'https://maven.google.com' }//ONE SIGNAL
+
+
+    //https://github.com/titansgroup/k4l-video-trimmer
+    maven {
+        url = 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+
+}
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.google.android.material:material:1.3.0' //nang cap len thi UI ko hoat dong
+    testImplementation 'junit:junit:4.13.1'
+    //multidex
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+
+    //Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.5.0-beta01'
+    implementation 'androidx.arch.core:core-common:2.1.0'
+
+    implementation 'jp.co.cyberagent.android:gpuimage:2.0.4'
+
+    //google
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'androidx.browser:browser:1.3.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.palette:palette:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.vectordrawable:vectordrawable-animated:1.1.0'
+    implementation 'androidx.exifinterface:exifinterface:1.3.2'
+    implementation "androidx.constraintlayout:constraintlayout:2.0.4"
+
+
+    implementation 'org.jsoup:jsoup:1.13.1'
+    implementation 'com.google.android.gms:play-services-ads:19.7.0'
+    //core chat da co
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
+    //mikepenz
+    implementation 'com.mikepenz:google-material-typeface:2.2.0.2.original@aar'
+    implementation 'com.mikepenz:material-design-iconic-typeface:2.2.0.2@aar'
+    implementation 'com.mikepenz:fontawesome-typeface:4.6.0.2@aar'
+    implementation 'com.mikepenz:octicons-typeface:3.2.0.2@aar'
+    implementation 'com.mikepenz:itemanimators:0.2.4@aar'
+    implementation 'com.mikepenz:actionitembadge:3.2.6@aar'
+    implementation 'com.microsoft.azure.android:azure-storage-android:2.0.0@aar'
+    implementation 'com.balysv:material-ripple:1.0.2'
+    implementation 'com.drewnoakes:metadata-extractor:2.9.1'
+    implementation 'com.parse.bolts:bolts-tasks:1.4.0'
+    implementation 'com.parse.bolts:bolts-applinks:1.4.0'
+    implementation 'gun0912.ted:tedpermission:2.2.2'
+    implementation('com.mikepenz:materialdrawer:5.6.0@aar') {
+        //can MyApplication moi load hinh duoc
+        transitive = true
+    }
+
+
+    //ACCOUNT-KIT
+
+    //Fix Failed resolution of: Lcom/google/android/gms/common/api/Api$zzf;
+//    implementation 'com.facebook.android:account-kit-sdk:4.39.0'
+
+    //This is happen when we try to authenticate user with some authenticate service like AccountKit FirebaseAuth and
+
+    // those service depends on play-services-auth So, Add
+//    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+
+    //ACCOUNT-KIT
+
+    //graphics
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation 'com.github.nekocode:Badge:2.0'
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    implementation 'com.edmodo:cropper:1.0.1'
+    implementation 'com.dynamitechetan.flowinggradient:flowinggradient:1.1'
+    implementation 'com.borjabravo:readmoretextview:2.0.1'
+
+    //so sanh version update
+    implementation 'com.g00fy2:versioncompare:1.3.0'
+
+
+    //ko nang cap vi dung
+    implementation 'com.mikepenz:iconics-core:3.0.4'
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    kapt 'com.jakewharton:butterknife-compiler:10.2.3'
+
+
+    //services
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+
+    implementation "me.leolin:ShortcutBadger:1.1.22@aar"
+
+    //location
+//    implementation 'io.nlopez.smartlocation:library:3.3.3'
+    implementation('com.github.mumayank:AirLocation:1.2') {
+        exclude group: 'org.jetbrains', module: 'annotations'
+    }
+
+    implementation 'org.greenrobot:eventbus:3.2.0'
+
+    //button
+    implementation 'com.sackcentury:shinebutton:1.0.0'
+
+    //player ko update
+    def exo_version = '2.11.1'
+    implementation "com.google.android.exoplayer:exoplayer:$exo_version"
+    implementation "com.google.android.exoplayer:exoplayer-dash:$exo_version"
+    implementation "com.google.android.exoplayer:exoplayer-ui:$exo_version"
+
+    //indicator
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:3.0.3'
+    implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
+
+    //suggest mention, hashtag,
+//    implementation 'com.otaliastudios:autocomplete:1.1.0'
+//    implementation 'com.github.tylersuehr7:social-text-view:1.0.0'
+//    implementation 'com.github.bachors:Android-WordToSpan:3.1'
+
+//    implementation "com.hendraanggrian.appcompat:socialview:0.2"
+//    implementation "com.hendraanggrian.appcompat:socialview-commons:0.2"
+
+
+    //lyric view
+    implementation files('libs/juniversalchardet-2.3.0.jar')
+
+    //rotate layout
+    implementation 'rongi.rotate-layout:rotate-layout:3.0.0'
+
+    //cat video
+//    implementation 'com.deep.videotrimmer:videotrimmer:1.0'
+
+    implementation 'life.knowledge4:k4l-video-trimmer:1.1.3-SNAPSHOT'
+//    implementation 'life.knowledge4:k4l-video-trimmer:1.0'
+
+    //duration + frame rate
+//    implementation 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.14'
+//    implementation 'com.github.tcking:giraffecompressor:0.1.4'
+
+    //compress video
+    implementation(group: 'com.googlecode.mp4parser', name: 'isoparser', version: '1.0.6') {
+        force = true
+    }
+
+    //webview load apple music
+    implementation 'com.just.agentweb:agentweb:4.0.3-beta'
+
+    implementation 'org.michaelbel:bottomsheet:1.2.3'
+
+    //images
+//    implementation 'com.squareup.picasso:picasso:2.71828'
+//    implementation 'jp.wasabeef:picasso-transformations:2.2.1'
+
+    implementation "com.github.bumptech.glide:glide:${rootProject.ext.glideVersion}"
+    kapt "com.github.bumptech.glide:compiler:${rootProject.ext.glideVersion}"
+
+
+    //check phone validate
+    implementation 'io.michaelrocks:libphonenumber-android:8.11.0'
+    implementation 'com.github.iwgang:countdownview:2.1.6'
+
+    implementation 'cc.cloudist.acplibrary:library:1.2.1'
+
+    implementation 'com.mindorks.android:prdownloader:0.6.0'
+
+    //facebook
+    implementation 'com.facebook.android:audience-network-sdk:5.6.0'
+
+    //libraries
+    implementation project(':corechat')
+    implementation project(':devsmartAndroid')
+    implementation project(':squarecamera')
+    implementation project(':mianacropview')
+    implementation project(':sectioned_recyclerview')
+    implementation project(':showcaseviewlib')
+    implementation project(':socialspost')
+    implementation project(':post-like-facebook')
+
+
+    implementation 'androidx.appcompat:appcompat:1.3.0-beta01'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-beta01'
+
+    //scope
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'
+
+    //video detail
+    implementation 'cn.jzvd:jiaozivideoplayer:7.0.3'
+
+    //preview video in recyclerview + cache
+    implementation 'com.danikula:videocache:2.7.1'
+//    implementation 'com.github.hoanganhtuan95ptit:AutoPlayVideoRecyclerView:1.0.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
+
+    //escape/unescape
+    implementation 'org.apache.commons:commons-text:1.9'
+
+    //compress image
+    implementation 'com.github.hkk595:Resizer:v1.5'
+    implementation 'com.android.support:palette-v7:28.0.0'
+
+    //language
+    implementation "com.github.YarikSOffice:lingver:1.3.0"
+
+    ////FIREBASE SERVICE////
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:26.1.0')
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
+
+    // Add the dependency for the Performance Monitoring library
+    implementation 'com.google.firebase:firebase-perf'
+    implementation 'com.google.firebase:firebase-core'
+    implementation 'com.google.firebase:firebase-messaging'
+
+    //auth
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.firebaseui:firebase-ui-auth:7.1.1'
+
+    //dynamic link
+    implementation 'com.google.firebase:firebase-dynamic-links'
+    ////FIREBASE SERVICE////
+
+    //youtube api
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+
+    implementation "com.folioreader:folioreader:0.5.4"
+    implementation 'androidx.fragment:fragment-ktx:1.3.0'
+
+    implementation 'com.airbnb.android:lottie:3.5.0'
+
+    //onesignal ko update
+    implementation 'com.onesignal:OneSignal:3.15.3'
+}
+androidExtensions {
+    experimental = true
+}

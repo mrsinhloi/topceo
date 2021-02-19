@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "286058919610",
+    "firebase_url": "https://chatcore-7120d.firebaseio.com",
+    "project_id": "chatcore-7120d",
+    "storage_bucket": "chatcore-7120d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:286058919610:android:8dbe50ec4cba74f791f483",
+        "android_client_info": {
+          "package_name": "ehubstar.skysocial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "286058919610-kh1jbo9jiu3mh3l2qeb3h81df9bm7q6m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ehubstar.skysocial",
+            "certificate_hash": "9f956cd5927d2a7b56fedcef99d4362b51c54e8b"
+          }
+        },
+        {
+          "client_id": "286058919610-hi8btf0j9dba9mq3aa0q6lk6rghttpp4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2LNaCDId6SSQX249UrR63e1QwFolghlo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "286058919610-hi8btf0j9dba9mq3aa0q6lk6rghttpp4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "286058919610-q10tt2smuc9gfi5asnt868cqbphj8h49.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mtpentertainment.skysocial"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/blackTransparent"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    android:id="@+id/bottomSettingPrivacy"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/viewBlankPrivacy"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:paddingStart="@dimen/margin_10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgClosePrivacy"
+            android:padding="@dimen/margin_5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close_black_24dp" />
+
+        <TextView
+            android:layout_marginStart="@dimen/margin_10dp"
+            android:text="@string/privacy_select"
+            style="@style/header_bold_row"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/margin_5dp" />
+
+        <TextView
+            android:id="@+id/txtDonePrivacy"
+            android:text="@string/done"
+            style="@style/header_bold_row"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textStyle="normal"
+            android:padding="@dimen/margin_5dp"
+            android:layout_marginEnd="@dimen/dimen_5dp"
+            android:enabled="false"
+            android:textColor="@color/grey_500" />
+    </LinearLayout>
+
+    <include layout="@layout/separate_horizontal" />
+
+    <LinearLayout
+        android:paddingTop="@dimen/margin_10dp"
+        android:paddingBottom="@dimen/margin_10dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:paddingStart="@dimen/margin_16dp"
+            android:id="@+id/relativePublic"
+            android:padding="@dimen/margin_5dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imgPublic"
+                android:layout_alignParentStart="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_round_public_24"
+                android:background="@drawable/bg_circle_grey_300"
+                android:padding="@dimen/dimen_5dp"
+                android:layout_marginEnd="@dimen/margin_10dp"/>
+
+            <TextView
+                android:id="@+id/txtPublic"
+                android:layout_toEndOf="@id/imgPublic"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:text="@string/privacy_public"
+                style="@style/header_bold_row"
+                android:layout_width="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/radioPublic"
+                android:layout_toEndOf="@id/imgPublic"
+                android:layout_below="@id/txtPublic"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:text="@string/privacy_public_des"
+                style="@style/header_bold_row"
+                android:textStyle="normal"
+                android:layout_width="match_parent"
+                android:textColor="@color/grey_700"
+                android:layoutDirection="rtl"
+                android:gravity="top"
+                android:checked="false" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:paddingStart="@dimen/margin_16dp"
+            android:id="@+id/relativePrivate"
+            android:padding="@dimen/margin_5dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imgPrivate"
+                android:layout_alignParentStart="true"
+                android:layout_marginEnd="@dimen/margin_10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_round_lock_24"
+                android:background="@drawable/bg_circle_grey_300"
+                android:padding="@dimen/dimen_5dp" />
+
+            <TextView
+                android:id="@+id/txtPrivate"
+                android:layout_toEndOf="@id/imgPrivate"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:text="@string/privacy_private"
+                style="@style/header_bold_row"
+                android:layout_width="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/radioPrivate"
+                android:layout_toEndOf="@id/imgPrivate"
+                android:layout_below="@id/txtPrivate"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:text="@string/privacy_private_des"
+                style="@style/header_bold_row"
+                android:textStyle="normal"
+                android:layout_width="match_parent"
+                android:textColor="@color/grey_700"
+                android:layoutDirection="rtl"
+                android:gravity="top" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:id="@+id/txtPrivateMore"
+            android:text="@string/privacy_cannot_change_des"
+            style="@style/header_bold_row"
+            android:textStyle="normal"
+            android:layout_width="wrap_content"
+            android:textColor="@color/black"
+            android:padding="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:background="@drawable/bg_rectangle_7_fill" />
+
+    </LinearLayout>
+
+</LinearLayout>

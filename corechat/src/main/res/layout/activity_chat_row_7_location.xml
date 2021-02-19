@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_chat"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="@dimen/margin_10dp">
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right|center_vertical"
+        android:orientation="horizontal">
+
+        <include layout="@layout/activity_chat_row_avatar_left" />
+
+        <RelativeLayout
+            android:id="@+id/relativeContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/linear2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_outcoming_message"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:orientation="vertical"
+                android:paddingTop="3dp">
+
+                <include layout="@layout/activity_item_forward" />
+
+                <TextView
+                    android:id="@+id/txt33"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_7dp"
+                    android:layout_marginRight="@dimen/margin_7dp"
+                    android:focusable="false"
+                    android:gravity="left"
+                    android:text=""
+                    android:textColor="@color/grey_900"
+                    android:textIsSelectable="true"
+                    android:textSize="@dimen/font_size_small"
+                    android:textStyle="bold" />
+
+                <!--<com.google.android.gms.maps.MapView xmlns:map="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="@dimen/map_width"
+                    android:layout_height="@dimen/map_height"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    map:cameraZoom="16"
+                    map:liteMode="true" />-->
+
+                <com.google.android.gms.maps.MapView
+                    xmlns:map="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/map"
+                    android:layout_width="@dimen/map_width"
+                    android:layout_height="@dimen/map_height"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:padding="3dp"
+                    android:background="@drawable/bg_rectangle_grey_corner_border"
+                    map:liteMode="true"
+                    map:mapType="normal"
+                    map:cameraZoom="20"
+                    />
+
+                <!--<ImageView
+                    android:id="@+id/map"
+                    android:layout_width="@dimen/map_width"
+                    android:layout_height="@dimen/map_height"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:paddingLeft="-1dp"
+                    android:paddingRight="-1dp"
+                    android:background="@drawable/bg_rectangle_grey_corner_border"
+                    />-->
+
+
+                <!--hani.momanii.supernova_emoji_library.Helper.EmojiconTextView-->
+                <com.workchat.core.autolink.CustomTextViewLink
+                    android:id="@+id/txt2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:autoLink="web"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/margin_7dp"
+                    android:paddingTop="@dimen/margin_5dp"
+                    android:paddingRight="@dimen/margin_7dp"
+                    android:paddingBottom="@dimen/margin_5dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textColorLink="@color/blue"
+                    app:emojiconAlignment="baseline"
+                    app:emojiconSize="@dimen/icon_emoji_size" />
+
+                <TextView
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:id="@+id/txtCheckin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:background="@drawable/bg_rectangle_red_checkin"
+                    android:gravity="center_vertical"
+                    android:text="@string/checkin"
+                    android:padding="@dimen/margin_5dp"
+                    android:textColor="@color/white"
+                    android:drawableTint="@color/white"
+                    android:drawablePadding="@dimen/margin_10dp"
+                    android:drawableLeft="@drawable/ic_my_location_white_24dp"
+                    android:textAllCaps="true"
+                    android:ellipsize="end"
+                    android:textSize="14sp"
+                    android:textAppearance="?android:attr/textAppearanceListItem" />
+
+
+                <include layout="@layout/activity_chat_row_bottom_time_and_pin" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <include layout="@layout/activity_chat_row_bottom_user_viewed" />
+
+
+</LinearLayout>

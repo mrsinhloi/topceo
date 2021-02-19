@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:id="@+id/linearGroupRoot"
+    android:orientation="vertical">
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/group"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/linearSeeMore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.chip.Chip
+                app:chipIconTint="@color/black"
+                app:chipIcon="@drawable/ic_round_group_24"
+                app:chipStartPadding="@dimen/dimen_10dp"
+                app:chipEndPadding="@dimen/margin_5dp"
+                android:id="@+id/chipGroup"
+                android:text="@string/your_group"
+                style="@style/chipStyle1" />
+
+            <com.google.android.material.chip.Chip
+                app:chipIconTint="@color/black"
+                app:chipIcon="@drawable/ic_round_add_circle_24"
+                app:chipStartPadding="@dimen/dimen_5dp"
+                app:chipEndPadding="@dimen/margin_5dp"
+                android:id="@+id/chipCreate"
+                android:text="@string/create"
+                style="@style/chipStyle1" />
+
+            <com.google.android.material.chip.Chip
+                app:chipIconTint="@color/black"
+                app:chipIcon="@drawable/ic_round_settings_24"
+                app:chipStartPadding="@dimen/dimen_5dp"
+                app:chipEndPadding="@dimen/margin_5dp"
+                android:id="@+id/chipSetting"
+                android:text="@string/settings"
+                style="@style/chipStyle1" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvHorizontal"
+        android:layout_margin="@dimen/margin_10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_10dp"
+        android:background="@color/grey_200" />
+</LinearLayout>

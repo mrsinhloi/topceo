@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_200"
+    android:fillViewport="true"
+    android:scrollbars="none"
+    android:id="@+id/nestedScrollView"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/txtEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="@dimen/margin_16dp"
+            android:text="@string/not_found_data"
+            android:textSize="16sp"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/linearContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_margin="@dimen/margin_10dp"
+                android:id="@+id/relativeSaveMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imgBtn"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_bookmark" />
+                <TextView
+                    android:id="@+id/txtSave"
+                    android:layout_toRightOf="@+id/imgBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/margin_16dp"
+                    android:layout_marginTop="0dp"
+                    android:text="@string/saved_messages"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_small"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_toRightOf="@+id/imgBtn"
+                    android:layout_below="@+id/txtSave"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/margin_16dp"
+                    android:text="@string/forward_here_to_save"
+                    android:textColor="@color/grey_700"
+                    android:textSize="@dimen/font_size_small"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/linearContact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:background="@color/grey_200" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_16dp"
+                    android:text="@string/contacts"
+                    android:textColor="@color/grey_700"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <!--<include layout="@layout/separate_horizontal" />-->
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+                <include layout="@layout/separate_horizontal" />
+
+                <TextView
+                    android:id="@+id/txtReadMore1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/ic_keyboard_arrow_right_grey_500_24dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/margin_16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/read_more"
+                    android:textColor="@color/colorPrimaryChat"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:background="@color/grey_200" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linearChatRecent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_16dp"
+                    android:text="@string/chat_recent"
+                    android:textColor="@color/grey_700"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <!--<include layout="@layout/separate_horizontal" />-->
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+                <include layout="@layout/separate_horizontal" />
+
+                <TextView
+                    android:id="@+id/txtReadMore2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/ic_keyboard_arrow_right_grey_500_24dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/margin_16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/read_more"
+                    android:textColor="@color/colorPrimaryChat"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:background="@color/grey_200" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </FrameLayout>
+
+</androidx.core.widget.NestedScrollView>

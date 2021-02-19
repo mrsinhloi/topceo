@@ -1,0 +1,3 @@
+
+chmod 777 gradlew
+./gradlew app:dependencies

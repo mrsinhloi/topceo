@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_1"
+        android:icon="@drawable/ic_pin_24dp"
+        android:title="@string/pin_message"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/action_2"
+        android:icon="@drawable/ic_unpin_24dp"
+        android:title="@string/unpin_message"
+        app:showAsAction="withText" />
+
+
+    <item
+        android:id="@+id/action_3"
+        android:icon="@drawable/ic_content_copy_black_24dp"
+        android:title="@string/copy"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/action_4"
+        android:icon="@drawable/ic_reply_black_24dp"
+        android:title="@string/reply"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/action_5"
+        android:icon="@drawable/ic_forward_black_24dp"
+        android:title="@string/forward"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/action_6"
+        android:icon="@drawable/ic_delete_black_24dp"
+        android:title="@string/delete"
+        app:showAsAction="withText" />
+
+</menu>

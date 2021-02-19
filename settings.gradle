@@ -1,0 +1,9 @@
+include ':post-like-facebook'
+include ':socialspost'
+include ':app', ':devsmartAndroid', ':squarecamera', ':mianacropview',
+        ':library', /*':imagepicker',*/ ':sectioned_recyclerview',
+        ':camerarecorder', ':showcaseviewlib', ':corechat'
+//, ':videocompressor'
+//':traexripple',
+//, ':gpuimage'
+//

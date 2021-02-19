@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="colorPrimary">@color/sky_end</color>
+    <color name="colorPrimaryDark">@color/sky_end</color>
+    <color name="colorAccent">@color/sky_end</color>
+
+    <color name="colorPrimaryChat">@color/sky_end</color>
+    <color name="colorPrimaryDarkChat">@color/sky_end</color>
+    <color name="colorAccentChat">@color/sky_end</color>
+
+    <!--<color name="colorPrimary">#0288d1</color>
+    <color name="colorPrimaryDark">#0288d1</color>
+    <color name="colorAccent">#FF4081</color>-->
+   <!-- <color name="text_color_1">#0288d1</color>-->
+    <!--<color name="btnColor">#0288d1</color>-->
+    <color name="text_color_1">@color/sky_end</color>
+    <color name="btnColor">@color/sky_end</color>
+
+    <color name="textColorPrimary">@color/black</color>
+    <color name="textInputOutlineColor">@color/sky_end</color>
+
+
+    <color name="white">#FFFFFF</color>
+    <color name="white_transparent">#80FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="black_tran">#40000000</color>
+    <color name="black_transparent">#80000000</color>
+    <color name="background">#f9f9f9</color>
+    <color name="background_new">#4bc1d2</color>
+    <color name="background_tran">#BFf9f9f9</color>
+    <color name="background_tran_90">#E6f9f9f9</color>
+    <color name="background_tran_95">#F2e0e0e0</color>
+    <color name="background_tran_50">#80f9f9f9</color>
+    <color name="background_image">#e0e0e0</color>
+    <color name="coloredit">#131313</color>
+    <color name="color_line">#d0d0d0</color>
+    <color name="color_line_tran">#BFBEBEBE</color>
+    <color name="textcontent">#373737</color>
+    <color name="textbold">#316086</color>
+    <color name="textbold_tran">#BF316086</color>
+    <color name="textbold_tran_25">#40316086</color>
+    <color name="textgreen">#318656</color>
+    <color name="blacknormal">#868686</color>
+    <color name="orangeend">#FFCC33</color>
+    <color name="orange">#FFCC33</color>
+    <color name="orangecenter">#FFCC33</color>
+    <color name="blackcenter">#e2e2e2</color>
+    <color name="brown">#440000</color>
+    <color name="red">#EE0000</color>
+    <color name="backgroundpopup">#FFFFCC</color>
+    <color name="bluename">#27408B</color>
+    <color name="colorcontent">#6a7178</color>
+    <color name="colorcontent_light">#dedede</color>
+    <color name="grayname">#6a7178</color>
+
+
+    //loading progress////////////////////////////
+    <integer-array name="gplus_colors">
+        <item>@color/gplus_color_1</item>
+        <item>@color/gplus_color_2</item>
+        <item>@color/gplus_color_3</item>
+        <item>@color/gplus_color_4</item>
+    </integer-array>
+    <color name="gplus_color_1">#3e802f</color>
+    <color name="gplus_color_2">#f4b400</color>
+    <color name="gplus_color_3">#427fed</color>
+    <color name="gplus_color_4">#b23424</color>
+    //////////////////////////////////////////////
+
+    <color name="primary">#E43F3F</color>
+    <color name="primary_dark">#E12929</color>
+    <color name="primary_darker">#CC1D1D</color>
+    <color name="accent">#FFFFFF</color>
+    <color name="iron">#CCCCCC</color>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="black_overlay_2">#BB000000</color>
+
+    ///////////////////////////////////////////////
+    <color name="btn_send_normal">#02c754</color>
+    <color name="btn_send_pressed">#006633</color>
+
+    ///////////////////////////////////////////////
+    <color name="textTitleColor">@color/sky_end</color>
+    <color name="transparent">@android:color/transparent</color>
+    <color name="action_bar_color">@color/white</color>
+    <color name="hashtag">@color/light_blue_500</color>
+    <color name="mention">@color/orange_500</color>
+    <color name="gold">#FFD700</color>
+    <color name="hint_color">@color/light_blue_500</color>
+
+    <color name="btnNextColor">@color/sky_end</color>
+    <color name="bg_phone_verify">@color/blue_grey_800</color>
+
+
+    <color name="hover_accent">#ff9600</color>
+    <color name="text_subheader">#7c7c7c</color>
+    <color name="sky_end">#0F6F55</color>
+    <color name="sky_start">#2A856F</color>
+
+</resources>

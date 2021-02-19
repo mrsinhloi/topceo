@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearPlan"
+    android:layout_width="wrap_content"
+    android:minWidth="350dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/voice_spacing"
+    android:background="@drawable/bg_rectangle_white_corner"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:padding="@dimen/voice_spacing">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/appointment"
+            android:textSize="@dimen/text_size_plan"
+            android:textAllCaps="true"
+            android:typeface="monospace"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/txt1Plan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trong 30 phút nữa"
+            android:textSize="@dimen/text_size_plan"
+            android:typeface="monospace"
+            android:background="@drawable/bg_rectangle_blue_corner"
+            android:padding="8dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        >
+        <TextView
+            android:id="@+id/txt2Plan"
+            android:layout_toLeftOf="@+id/imgRight"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/appointment"
+            android:textSize="@dimen/text_size_14sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/txt3Plan"
+            android:layout_toLeftOf="@+id/imgRight"
+            android:layout_below="@id/txt2Plan"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/appointment"
+            android:textSize="@dimen/text_size_plan"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/black"/>
+        <View
+            android:layout_below="@+id/txt3Plan"
+            android:layout_width="24dp"
+            android:layout_marginTop="5dp"
+            android:layout_height="1dp"
+            android:background="@color/light_blue_500"/>
+        <ImageView
+            android:id="@+id/imgRight"
+            android:layout_alignParentRight="true"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/ic_meet_card"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/txt4Plan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đồng ý : 1"
+        android:textSize="@dimen/text_size_plan"
+        android:textColor="@color/black"/>
+
+    <com.workchat.core.plan.CustomSeekBar
+        android:id="@+id/pbPlan"
+        android:progressDrawable="@android:color/transparent"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="@dimen/circle_small"
+            android:layout_height="@dimen/circle_small"
+            android:background="@drawable/bg_circle_yes"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/yes"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="@dimen/text_size_plan"
+            android:textColor="@color/black"/>
+
+        <ImageView
+            android:layout_width="@dimen/circle_small"
+            android:layout_height="@dimen/circle_small"
+            android:background="@drawable/bg_circle_no"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="@dimen/text_size_plan"
+            android:textColor="@color/black"/>
+
+        <ImageView
+            android:layout_width="@dimen/circle_small"
+            android:layout_height="@dimen/circle_small"
+            android:background="@drawable/bg_circle_maybe"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/maybe"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="@dimen/text_size_plan"
+            android:textColor="@color/black"/>
+
+        <Button
+            android:id="@+id/btnComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="1dp"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/ic_comment_green_500_18dp"
+            android:drawablePadding="7dp"
+            android:text="@string/comment"
+            android:layout_gravity="right"
+            android:gravity="start|center_vertical"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryChat"
+            android:textSize="@dimen/text_size_plan" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

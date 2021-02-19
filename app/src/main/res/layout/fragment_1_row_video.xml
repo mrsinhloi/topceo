@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/frameLayoutVideo"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <com.topceo.autoplayvideo.VideoView
+        android:id="@+id/vvInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000" />
+
+    <ImageView
+        android:id="@+id/ivInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/imgSound"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_gravity="bottom|start"
+        android:padding="15dp"
+        android:layout_margin="@dimen/margin_10dp"
+        android:src="@drawable/ic_volume_off_white_24dp" />
+
+    <com.topceo.autoplayvideo.CameraAnimation
+        android:id="@+id/ivCameraAnimation"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_margin="@dimen/margin_10dp"
+        android:layout_gravity="bottom|right"
+        android:padding="10dp" />
+</FrameLayout>
+

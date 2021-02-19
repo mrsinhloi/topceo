@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_margin">1dp</dimen>
+    <dimen name="item_margin_2x">4dp</dimen>
+    <dimen name="fb_number_text_size">10sp</dimen>
+    <dimen name="imgPreviewHeight">250dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+
+</resources>

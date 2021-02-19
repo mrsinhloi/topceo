@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:id="@+id/linearAddPostRoot"
+    >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_200" />
+    <LinearLayout
+        android:padding="@dimen/dimen_5dp"
+        android:id="@+id/linearAddPost"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_marginStart="@dimen/dimen_5dp"
+            android:gravity="center"
+            android:layout_width="@dimen/avatar_header"
+            android:layout_height="@dimen/avatar_header"
+            android:orientation="vertical"
+            android:background="@drawable/bg_sky_circle_border">
+
+            <ImageView
+                android:id="@+id/imgAvatar"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_no_avatar" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="@string/add_new_post"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/title_size"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginStart="@dimen/margin_8dp"
+            />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_marginEnd="@dimen/margin_10dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_round_photo_album_24" />
+
+        <ImageView
+            android:layout_marginEnd="@dimen/dimen_5dp"
+            android:layout_width="26dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_round_location_on_24" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_10dp"
+        android:background="@color/grey_200" />
+</LinearLayout>

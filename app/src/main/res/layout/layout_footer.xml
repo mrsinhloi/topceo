@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_marginStart="@dimen/margin_5dp"
+        android:id="@+id/linearLayout2"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/linearLike"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <CheckBox
+                android:id="@+id/imgLike"
+                android:layout_width="@dimen/post_icon_size"
+                android:layout_height="@dimen/post_icon_size"
+                android:background="@drawable/ic_like_anim"
+                android:button="@null"
+                android:checked="false"
+                android:stateListAnimator="@anim/scale" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearComment"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:layout_width="@dimen/post_icon_size"
+            android:layout_height="@dimen/post_icon_size"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="@dimen/post_icon_size"
+                android:layout_height="@dimen/post_icon_size"
+                android:scaleType="fitStart"
+                android:src="@drawable/ic_svg_18"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearShare"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:layout_width="@dimen/post_icon_size"
+            android:layout_height="@dimen/post_icon_size"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_marginTop="2dp"
+                android:padding="2dp"
+                android:layout_width="@dimen/post_icon_size"
+                android:layout_height="@dimen/post_icon_size"
+                android:src="@drawable/ic_svg_21" />
+
+        </LinearLayout>
+        <View android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+        <LinearLayout
+            android:id="@+id/linearSave"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/imgSave"
+                android:layout_width="@dimen/post_icon_size"
+                android:layout_height="@dimen/post_icon_size"
+                android:src="@drawable/ic_svg_22"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginStart="@dimen/margin_10dp"
+        android:layout_marginEnd="@dimen/margin_10dp"
+        android:layout_marginTop="@dimen/margin_5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+        <TextView
+            android:layout_marginStart="4dp"
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1 Likes"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="4dp">
+
+            <!--com.borjabravo.readmoretextview.ReadMoreTextView-->
+            <com.topceo.views.ExpandableTextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_marginTop="5dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="@dimen/title_size"
+                android:textColor="@color/md_black_1000"
+                android:lineSpacingMultiplier="1.4"
+                />
+
+            <TextView
+                android:id="@+id/txtMoreBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_more"
+                android:textSize="@dimen/title_size"
+                android:padding="@dimen/margin_5dp"
+                android:layout_gravity="right"
+                android:visibility="gone"
+                tools:visibility="visible"
+                />
+            <!--app:trimExpandedText="@string/collapse"
+            app:trimCollapsedText="@string/expand"
+            app:colorClickableText="@color/md_grey_500"
+            app:trimMode="trimModeLength"
+            app:trimLength="210"-->
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtViewAllComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view_all_number_comment"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/title_size"
+            android:textColor="@color/md_grey_600"
+            android:layout_marginTop="@dimen/margin_image"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="@dimen/margin_image" />
+
+        <include layout="@layout/activity_comment_row_1_preview" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="21-07-2016 13:02"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/title_size"
+            android:textColor="@color/md_grey_500"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="@dimen/margin_image"
+            android:layout_marginTop="@dimen/dimen_5dp" />
+
+    </LinearLayout>
+</LinearLayout>

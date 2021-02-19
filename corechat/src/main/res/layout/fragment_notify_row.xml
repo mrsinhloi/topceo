@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackground"
+    android:orientation="horizontal"
+    android:id="@+id/linearRoot"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/img1"
+        android:layout_width="@dimen/photo_profile"
+        android:layout_height="@dimen/photo_profile"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/ic_account_circle_grey" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:padding="5dp"
+            android:text="User"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:text="Today"
+            android:textColor="@color/grey_500"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/img2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitStart"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:src="@drawable/ic_more_vert_black_24dp"/>
+
+</LinearLayout>

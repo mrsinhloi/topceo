@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="admob_app_id" translatable="false">ca-app-pub-4447696011162675~5933401746</string>
+    <!--<string name="goolge_map_key" translatable="false">AIzaSyCI54k5zt5g_iDfHRl0oa-AnFxUiwJOW80</string>-->
+
+
+    <string name="preference_file_key" translatable="false">MY_FILE_KEY</string>
+    <!-- Picture Detail View -->
+    <string name="detail_picture_shared_element" translatable="false">detail_picture_shared_element</string>
+    <string name="project_number" translatable="false">175813866741</string>
+
+
+    <string name="notification_channel_id">booksocial.channel.id</string>
+    <string name="notification_channel_name">Nhận thông báo BookSocial</string>
+    <string name="notification_group_id">booksocial.group.id</string>
+    <string name="notification_group_name">BookSocial</string>
+
+
+
+
+</resources>

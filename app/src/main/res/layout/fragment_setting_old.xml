@@ -1,0 +1,802 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/relativeUser"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="@dimen/avatar_size_64"
+                android:layout_height="@dimen/avatar_size_64"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_no_avatar" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageView1"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:padding="5dp"
+                    android:text="User"
+                    android:textColor="@color/black"
+                    android:textIsSelectable="true"
+                    android:textSize="@dimen/title_size"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:padding="5dp"
+                    android:text="0123456789"
+                    android:textColor="@color/grey_500"
+                    android:textIsSelectable="true"
+                    android:textSize="@dimen/title_size" />
+            </LinearLayout>
+
+            <!--<ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />-->
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/grey_100" />
+        <LinearLayout
+            android:id="@+id/vipLinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:padding="20dp"
+                android:focusableInTouchMode="false"
+                android:src="@drawable/ic_king" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/update_to_vip"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_size"
+                    android:typeface="sans" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+        </LinearLayout>
+        <View
+            android:id="@+id/vipSeparate"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/grey_100" />
+        <LinearLayout
+            android:id="@+id/linear2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_person_black_24dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/edit_your_profile"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_size"
+                    android:typeface="sans" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+        </LinearLayout>
+
+        <include layout="@layout/separator_horizoltal" />
+
+        <LinearLayout
+            android:id="@+id/linear8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_view_carousel_black_24dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/insight"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_size"
+                    android:typeface="sans" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+        </LinearLayout>
+
+        <include layout="@layout/separator_horizoltal" />
+
+        <LinearLayout
+            android:id="@+id/linear81"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_insert_chart_black_24dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/thong_ke_hoat_dong"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_size"
+                    android:typeface="sans" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+        </LinearLayout>
+
+        <include layout="@layout/separator_horizoltal" />
+
+        <LinearLayout
+            android:id="@+id/linear9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_favorite_black_24dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/customize_your_insight"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_size"
+                    android:typeface="sans" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+        </LinearLayout>
+
+        <include layout="@layout/separator_horizoltal" />
+
+        <LinearLayout
+            android:id="@+id/linear7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_notifications_black_24dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/notification_config"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_size"
+                    android:typeface="sans" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+        </LinearLayout>
+
+
+        <include layout="@layout/separator_horizoltal" />
+
+        <LinearLayout
+            android:id="@+id/linear1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_search_black_24dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/setting_search"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_size"
+                    android:typeface="sans" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+        </LinearLayout>
+
+        <include layout="@layout/separator_horizoltal" />
+
+        <LinearLayout
+            android:id="@+id/linear4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_rss_feed_black_24dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/following_title"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_size"
+                    android:typeface="sans" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+        </LinearLayout>
+
+        <include layout="@layout/separator_horizoltal" />
+
+        <LinearLayout
+            android:id="@+id/linear3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_person_pin_circle_black_24dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/follower_title"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_size"
+                    android:typeface="sans" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+        </LinearLayout>
+
+        <include layout="@layout/separator_horizoltal" />
+
+        <LinearLayout
+            android:id="@+id/linear6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_copyright_black_24dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/terms_of_services"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_size"
+                    android:typeface="sans" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+        </LinearLayout>
+
+        <include layout="@layout/separator_horizoltal" />
+
+        <LinearLayout
+            android:id="@+id/linear12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_help_outline_black_24dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/view_showcase"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_size"
+                    android:typeface="sans" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/grey_100" />
+
+        <LinearLayout
+            android:id="@+id/linear10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_language_black_24dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/app_language"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_size"
+                    android:typeface="sans" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtLanguage"
+                android:layout_marginRight="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:text="@string/vietnamese"
+                android:textSize="@dimen/text_size_menu"
+                android:textColor="@color/black"
+                app:tint="@color/grey_500" />
+        </LinearLayout>
+
+        <include layout="@layout/separator_horizoltal" />
+
+        <LinearLayout
+            android:id="@+id/linear11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_remove_red_eye_black_24dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/show_admin_page"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_size"
+                    android:typeface="sans" />
+
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_marginRight="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:textSize="@dimen/text_size_menu"
+                android:textColor="@color/black"
+                app:tint="@color/grey_500" />
+        </LinearLayout>
+
+        <include layout="@layout/separator_horizoltal" />
+
+        <LinearLayout
+            android:id="@+id/linear5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_exit_to_app_red_500_24dp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_vertical"
+                android:text="@string/logout"
+                android:textColor="@color/red_500"
+                android:textSize="@dimen/title_size"
+                android:typeface="sans" />
+
+
+        </LinearLayout>
+
+        <include layout="@layout/separator_horizoltal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey_100"
+            android:gravity="center"
+            android:padding="@dimen/margin_24dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="36dp"
+                android:src="@drawable/logo_sky_social_black"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/copyright"
+                android:textColor="@color/grey_700"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:typeface="monospace" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

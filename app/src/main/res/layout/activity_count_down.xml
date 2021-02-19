@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imgClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_close_black_24dp"
+        android:padding="@dimen/margin_15dp"
+        android:layout_alignParentRight="true" />
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/txt"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name" />
+
+
+        <!--
+        app:suffixDay="days"
+        app:suffixHour="hours"
+        app:suffixMinute="minutes"
+        app:suffixSecond="seconds"
+        app:suffixGravity="bottom"
+        app:suffixTextSize="12sp"
+        app:suffixTextColor="@color/black"
+        -->
+        <cn.iwgang.countdownview.CountdownView
+            android:id="@+id/coundownView"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin_24dp"
+            android:layout_marginRight="@dimen/margin_24dp"
+            android:layout_marginTop="@dimen/margin_24dp"
+
+
+            app:isShowDay="true"
+            app:isShowHour="true"
+            app:isShowMinute="true"
+            app:isShowSecond="true"
+            app:isShowMillisecond="false"
+
+            app:timeTextSize="40sp"
+            app:isTimeTextBold="true"
+
+            app:timeTextColor="@color/white"
+            app:isHideTimeBackground="false"
+            app:timeBgColor="@color/black"
+            app:timeBgRadius="4dp"
+
+
+            />
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/margin_5dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:text="DAYS"
+                style="@style/txtStyle1" />
+            <TextView
+                android:text="HRS"
+                style="@style/txtStyle1" />
+            <TextView
+                android:text="MIN"
+                style="@style/txtStyle1" />
+            <TextView
+                android:text="SECS"
+                style="@style/txtStyle1" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

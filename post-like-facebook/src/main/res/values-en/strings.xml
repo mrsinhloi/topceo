@@ -1,0 +1,11 @@
+<resources>
+    <string name="edit">Edit</string>
+    <string name="finish">Finish</string>
+    <string name="add_image_or_video">Add image/video</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_download">Do you want to download this file?</string>
+    <string name="file_downloading_in_app_bar">File is downloading on notify bar.</string>
+
+
+</resources>

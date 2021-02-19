@@ -1,0 +1,130 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!--<dimen name="design_bottom_navigation_height" tools:override="true">48dp</dimen>-->
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="avatar_size_medium">44dp</dimen>
+    <dimen name="avatar_size_medium_smaller">36dp</dimen>
+    <dimen name="avatar_size_list_item">48dp</dimen>
+    <dimen name="avatar_size_suggest">72dp</dimen>
+
+    <dimen name="dimen_10dp">10dp</dimen>
+    <dimen name="icon_small">24dp</dimen>
+    <dimen name="icon_super_small">18dp</dimen>
+    <dimen name="image_size_large">1080dp</dimen>
+
+
+    <dimen name="grid_cell_height">120dp</dimen>
+    <dimen name="grid_cell_offset">0.5dp</dimen>
+    <dimen name="default_elevation">2dp</dimen>
+    <dimen name="publish_photo_thumbnail_size">96dp</dimen>
+    <dimen name="dp_12">12dp</dimen>
+    <dimen name="avatar_size_notification">64dp</dimen>
+    <dimen name="user_profile_avatar_size">80dp</dimen>
+
+
+    <!--dialog date-->
+    <dimen name="text_size_16sp">16sp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="dimen_16dp">16dp</dimen>
+    <dimen name="margin_12dp">12dp</dimen>
+
+    <dimen name="margin_15dp">15dp</dimen>
+    <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="margin_24dp">24dp</dimen>
+    <dimen name="margin_5dp">5dp</dimen>
+    <dimen name="margin_7dp">7dp</dimen>
+    <dimen name="margin_2dp">2dp</dimen>
+
+    <dimen name="font_size_default">13.0sp</dimen>
+    <dimen name="font_size_small">11.0sp</dimen>
+    <dimen name="font_size_xsmall">9.0sp</dimen>
+
+    <dimen name="dimen_80dp">80dp</dimen>
+    <dimen name="dimen_60dp">60dp</dimen>
+    <dimen name="dimen_45dp">45dp</dimen>
+    <dimen name="dimen_120dp">133dp</dimen>
+    <dimen name="dimen_90dp">100dp</dimen>
+    <dimen name="btn_height">56dp</dimen>
+    <dimen name="font_size_medium">14sp</dimen>
+    <dimen name="avatar_size_small">24dp</dimen>
+    <dimen name="avatar_size_smaller">18dp</dimen>
+
+    <dimen name="avatar_size_64">64dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="margin_image">10dp</dimen>
+    <dimen name="dimen_72dp">72dp</dimen>
+    <dimen name="margin_48dp">48dp</dimen>
+    <dimen name="avatar_size">60dp</dimen>
+    <dimen name="margin_4dp">4dp</dimen>
+    <dimen name="notification_large_dim">50dp</dimen>
+    <dimen name="bottom_sheet_padding">128dp</dimen>
+    <dimen name="barcode_height">56dp</dimen>
+    <dimen name="qrcode_height">160dp</dimen>
+    <dimen name="text_size_20sp">20sp</dimen>
+    <dimen name="margin_100dp">100dp</dimen>
+    <dimen name="text_size_14sp">14sp</dimen>
+    <dimen name="grid_round_corner">8dp</dimen>
+    <dimen name="grid_spacing">10dp</dimen>
+    <dimen name="text_size_menu">13sp</dimen>
+    <dimen name="button_width_2">170dp</dimen>
+    <dimen name="font_large">18sp</dimen>
+    <dimen name="text_size_13sp">13sp</dimen>
+    <dimen name="font_button">14sp</dimen>
+    <dimen name="padding_icon">5dp</dimen>
+    <dimen name="ic_width">36dp</dimen>
+
+
+    <dimen name="sky_button_toggle_radius">4dp</dimen>
+    <dimen name="sky_button_toggle_stroke_width">1dp</dimen>
+    <dimen name="sky_bg_circle_border_width">2dp</dimen>
+    <dimen name="sky_avatar_padding">5dp</dimen>
+    <dimen name="sky_btn_height">24dp</dimen>
+    <dimen name="button_height">40dp</dimen>
+    <dimen name="icon_size">64dp</dimen>
+    <dimen name="post_icon_size">36dp</dimen>
+    <dimen name="post_icon_size_small">18dp</dimen>
+
+    <dimen name="dimen_5dp">5dp</dimen>
+    <dimen name="margin_30dp">30dp</dimen>
+    <!--Note 10-->
+    <!--<dimen name="title_size">11sp</dimen>
+    <dimen name="subtitle_size">8sp</dimen>
+    <dimen name="title_size_large">13sp</dimen>
+    <dimen name="appbar_title">14sp</dimen>
+    -->
+    <!--Note 10-->
+
+
+    <dimen name="title_size">12sp</dimen>
+    <dimen name="title_size_large">14sp</dimen>
+    <dimen name="appbar_title">14sp</dimen>
+    <dimen name="subtitle_size">9sp</dimen>
+    <dimen name="btn_follow_text_size">13sp</dimen>
+    <dimen name="dialog_text_size">14sp</dimen>
+
+    <dimen name="ic_social_size">18dp</dimen>
+    <dimen name="btn_follow_width">110dp</dimen>
+    <dimen name="btn_follow_height">28dp</dimen>
+    <dimen name="layout_bottom_height">40dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="group_margin_left">-12dp</dimen>
+    <dimen name="corners_group">12dp</dimen>
+    <dimen name="corners_group_image">10dp</dimen>
+    <dimen name="padding_border">2dp</dimen>
+    <dimen name="cover_preview_size">46dp</dimen>
+    <dimen name="radius_round">4dp</dimen>
+    <dimen name="avatar_size_24">24dp</dimen>
+    <dimen name="logo_top_size">120dp</dimen>
+
+    <dimen name="ic_menu_size">40dp</dimen>
+    <dimen name="ic_menu_padding">10dp</dimen>
+    <dimen name="dimen_24dp">24dp</dimen>
+    <dimen name="logo_height">40dp</dimen>
+    <dimen name="avatar_header">30dp</dimen>
+
+</resources>

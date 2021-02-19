@@ -1,0 +1,304 @@
+HƯỚNG DẪN TÍCH HỢP THƯ VIỆN CHATCORE VÀO APP
+AUTHOR: PHAM TRUNG PHUONG – MYXTEAM
+
+
+1. Cấu hình bản đồ Map SDK:
+
+- Manifest:
+    <meta-data
+    android:name="com.google.android.geo.API_KEY"
+    android:value="@string/GOOGLE_MAPS_ANDROID_API_KEY" />
+
+- build.gradle:
+  buildTypes {
+          debug {
+              resValue "string", "GOOGLE_MAPS_ANDROID_API_KEY", "AIzaSyC1GsimWWBf2337cZOFGbMfymUVZBbHcPY"
+              minifyEnabled false
+          }
+          release {
+              resValue "string", "GOOGLE_MAPS_ANDROID_API_KEY", "AIzaSyC1GsimWWBf2337cZOFGbMfymUVZBbHcPY"
+              minifyEnabled false
+              proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+          }
+  }
+
+
+2. Cấu hình trong file MyApplication của App:
+
+  public class MyApplication extends ChatApplication implements EventControlListener {...}
+    + Khởi tạo các giá trị cấu hình cho ChatCore
+    /////////////////////////////#############/////////////////////////
+    OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
+        @Override
+        public void idsAvailable(String userId, String registrationId) {
+            oneSignalUserId = userId;
+            String appId = getString(R.string.one_signal_app_id);
+            ChatApplication.Companion.setOneSignalUserId(userId);
+            ChatApplication.Companion.setOneSignalAppId(appId);
+            //resize to 36x36dp
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_round_arrow_back_ios_20_128);
+            int iconSize = getResources().getDimensionPixelSize(R.dimen.ic_size_36);
+            Drawable iconBackCustom = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, iconSize, iconSize, false));
+
+            ChatApplication.Companion.init(
+                    getString(R.string.GOOGLE_MAPS_ANDROID_API_KEY),
+                    MyApplication.this,
+                    BuildConfig.APPLICATION_ID,
+                    Webservices.URL_CORE_CHAT,
+                    iconBackCustom,
+                    false,
+                    false
+            );
+        }
+    });
+    /////////////////////////////#############/////////////////////////
+
+- Implement các event từ chatcore gởi ngược về app module (EventControlListener)
+    //#region EventControlListener//////////////////////////////////////////////
+    @Override
+    public void reOpenMainActivity() {
+
+    }
+
+    @Override
+    public void openAddContactActivity() {
+
+    }
+
+    public static int numberChatUnread = 0;
+
+    @Override
+    public void setNumberChatUnread(int i) {
+        numberChatUnread = i;
+
+        //thong bao cho main activity doc lai gia tri numberChatUnread
+        Intent intent = new Intent(MH01_MainActivity.ACTION_SET_NUMBER_CHAT_UNREAD);
+        sendBroadcast(intent);
+    }
+
+    @Override
+    public void setNumberNotifyUnread(int i) {
+
+    }
+
+    @Override
+    public void whenTokenInvalid() {
+
+    }
+
+    @Override
+    public void openMainActivityAndSearchRoom() {
+
+    }
+
+    @Override
+    public void openDeeplink(String s, String s1, Project project, ArrayList<String> arrayList) {
+
+    }
+
+    @Override
+    public void openProfile(String username) {
+        if (!TextUtils.isEmpty(username)) {
+            //thieu context activity nen phai goi 1 broadcast
+            Intent intent = new Intent(MH01_MainActivity.ACTION_OPEN_PROFILE);
+            intent.putExtra(User.USER_NAME, username);
+            context.sendBroadcast(intent);
+        }
+    }
+
+//#endregion/////////////////////////////////////////////////////////////////////////////////////////////
+
+
+- Khi app đăng xuất thì gọi:
+	ChatApplication.Companion.logout();
+
+- App khi đăng nhập loginByIdToken return UserChatCore chỉ cần lưu lại token
+  String token = user.getToken();
+  MyApplication.saveTokenChat(token);
+
+- Khi login thành công app sẽ gọi sự kiện này trong MyApplication: chỉ quan tâm khâu //###tao lai socket
+
+  public static void whenLoginSuccess() {
+      //load lai thong tin user
+      initUser();
+      //tao lai header cho client cho AndroidNetworking
+      initWebservice();
+      //dung chung client vua dc tao ben tren
+      apiManager = ApiManager.getIntanceNew();//tao moi lai
+
+      //###tao lai socket
+      if (user != null) {
+          UserChatCore chatUser = user.getUserChatCore();
+          if (!TextUtils.isEmpty(tokenChat)) {
+              chatUser.setToken(tokenChat);
+          }
+          ChatApplication.Companion.whenHaveUser(chatUser);
+
+          //dang ky onesignal token
+          oneSignalSubscribIfNeed();
+      }
+
+  }
+ 
+
+- Đăng ký onesignal lên server Chat:
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    //#region OneSignal/////////////////////////////////////////////////////////////////////////
+    /**
+     * Kiểm tra nếu app chưa đăng ký onesignal thì sẽ gọi đăng ký
+     * MainActivity co dang ky nhan onOSSubscriptionChanged(lần đầu đăng ký hoặc subscribed -> unsubscribed -> subscribed)
+     * Thì sẽ gọi đăng ký lên server local : [whenHaveOneSignalUserId]
+     * <p>
+     * TH2: //hoặc sau khi logout(xóa token) login lại trạng thái vẫn là subscrib nhưng đã xóa token trên server
+     * // ->cần đăng ký lên lại
+     */
+    public static void oneSignalSubscribIfNeed() {
+        boolean isSubscribed = isOneSignalSubscribed();
+        //set subscription: nếu chưa subscrib
+        if (!isSubscribed) {
+            //Dù có đăng ký lên server local thì trạng thái subscrib vẫn ko enable, phải gọi trực tiếp như sau:
+            OneSignalLog.Companion.printLog("You are not subscrib, request subscrib");
+            OneSignal.setSubscription(true);
+            //MainActivity co dang ky nhan onOSSubscriptionChanged, se goi dang ky lai whenHaveOneSignalUserId
+            //goi dang ky lai
+            oneSignalSubscribIfNeed();
+        } else {
+            //hoặc sau khi logout(xóa token) login lại trạng thái vẫn là subscrib nhưng đã xóa token trên server
+            // ->cần đăng ký lên lại
+            isRegisterOneSignalLocalServer = db.getBoolean(TinyDB.IS_REGISTER_ONESIGNAL_LOCAL_SERVER);
+            if (!isRegisterOneSignalLocalServer) {
+                OneSignalLog.Companion.printLog("You are subscribed, call register to local server");
+                updateOneSignalUserId();
+            }
+        }
+    }
+
+    /**
+     * Kiểm tra đã subscrib hay chưa
+     */
+    public static boolean isOneSignalSubscribed() {
+        boolean isSubscribed = false;
+        OSPermissionSubscriptionState status = OneSignal.getPermissionSubscriptionState();
+        if (status != null) {
+            isSubscribed = status.getSubscriptionStatus().getSubscribed();
+        }
+        return isSubscribed;
+    }
+
+    /**
+     * Đăng ký oneSignalUserId lên server local (WorkChat)
+     */
+    public static void whenHaveOneSignalUserId(String userId) {
+        if (!TextUtils.isEmpty(userId)) {
+            oneSignalUserId = userId;
+            updateOneSignalUserId();
+        }
+    }
+
+    public static boolean isRegisterOneSignalLocalServer = false;
+    //Để tránh onOSSubscriptionChanged gọi nhiều lần
+    public static boolean isCalling = false;
+
+    public static void updateOneSignalUserId() {
+        if (!TextUtils.isEmpty(oneSignalUserId)) {
+            if (MyUtils.checkInternetConnection(context)) {
+
+                String header = ChatApplication.Companion.getHeader();
+                String oneSignalAppId = context.getResources().getString(R.string.one_signal_app_id);
+                String deviceId = MyUtils.getIMEI(context);
+
+                if (!isCalling) {
+                    isCalling = true;
+                    ChatApplication.Companion.getApiManagerChat().updateOneSignalUserId(
+                            header,
+                            oneSignalUserId,
+                            oneSignalAppId,
+                            deviceId,
+                            OS,
+                            new Callback<JsonObject>() {
+                                @Override
+                                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                    JsonObject obj = response.body();
+                                    if (obj != null) {
+                                        com.workchat.core.retrofit.workchat.ReturnResult result = Parser.parseJson(obj.toString(), null, false);
+                                        if (result != null) {
+                                            if (result.getErrorCode() == ReturnResult.SUCCESS) {
+                                                OneSignalLog.Companion.printLog("register oneSignalUserId to local server success");
+                                                isRegisterOneSignalLocalServer = true;
+                                                db.putBoolean(TinyDB.IS_REGISTER_ONESIGNAL_LOCAL_SERVER, isRegisterOneSignalLocalServer);
+                                            } else {
+                                                MyUtils.showToast(context, result.getErrorMessage());
+                                            }
+                                        }
+                                    }
+                                    isCalling = false;
+                                }
+
+                                @Override
+                                public void onFailure(Call<JsonObject> call, Throwable t) {
+                                    isCalling = false;
+                                    OneSignalLog.Companion.printLog("Error " + t.toString());
+                                }
+                            }
+                    );
+                }
+            }
+        }
+    }
+
+    public static void removeOneSignalUserIdAndCloseSocketWhenLogout() {
+
+        isRegisterOneSignalLocalServer = false;
+        if (!TextUtils.isEmpty(oneSignalUserId)) {
+            if (MyUtils.checkInternetConnection(context)) {
+                String header = ChatApplication.Companion.getHeader();
+                ChatApplication.Companion.getApiManagerChat().removeOneSignalUserId(
+                        header,
+                        oneSignalUserId,
+                        new Callback<JsonObject>() {
+                            @Override
+                            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                JsonObject obj = response.body();
+                                if (obj != null) {
+                                    com.workchat.core.retrofit.workchat.ReturnResult result = Parser.parseJson(obj.toString(), null, false);
+                                    if (result != null) {
+                                        if (result.getErrorCode() == ReturnResult.SUCCESS) {
+                                            OneSignalLog.Companion.printLog("When you logout");
+                                        } else {
+                                            MyUtils.showToast(context, result.getErrorMessage());
+                                        }
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<JsonObject> call, Throwable t) {
+
+                            }
+                        }
+                );
+            }
+        }
+
+        //clear notification
+        OneSignal.clearOneSignalNotifications();
+        OneSignal.setSubscription(false);
+
+        //co xoa dc hay ko thi cung phai cho dang xuat
+        //clear cache
+        db.clear();
+        EventBus.getDefault().removeAllStickyEvents();
+        EventBus.clearCaches();
+        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.deleteAll();
+            }
+        });
+        ChatApplication.Companion.logout();
+
+    }
+
+    //#endregion OneSignal/////////////////////////////////////////////////////////////////////////
+
+- Khi MainActivity của App onDestroy() thì gọi: ChatApplication.Companion.whenAppDestroy();

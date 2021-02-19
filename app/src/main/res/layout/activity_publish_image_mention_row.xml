@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:padding="5dip">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="@dimen/avatar_size_medium_smaller"
+        android:layout_height="@dimen/avatar_size_medium_smaller"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_user_bg"
+        />
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_marginLeft="6dp"
+        android:layout_toRightOf="@id/imageView1"
+        android:gravity="center_vertical"
+        android:text="Example application"
+        android:layout_toLeftOf="@+id/imgMenu"
+        android:textSize="14sp"
+        android:textStyle="bold"/>
+
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_toRightOf="@id/imageView1"
+        android:layout_below="@+id/text1"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="Description"
+        android:layout_toLeftOf="@+id/imgMenu"
+        android:textSize="12sp" />
+
+</RelativeLayout>
+

@@ -1,0 +1,10 @@
+
+Layout above keyboard: fullscreen se ko hoat dong, yc phai co NoActionBar
+1. Mainifest:
+    android:windowSoftInputMode="adjustResize"
+    <style name="AppThemeDefault" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+2. Layout: RelativeLayout > top + content + bottom
+
+Load image local tu android 10
+android:requestLegacyExternalStorage="true"

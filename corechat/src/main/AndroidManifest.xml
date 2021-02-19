@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.workchat.corechat">
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+
+    <application>
+
+        <!--#region CHAT -->
+        <activity
+            android:name="com.workchat.core.chat.ChatActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"
+            android:theme="@style/AppThemeDefault.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
+        <activity
+            android:name="com.workchat.core.chat.SearchUserChat2Activity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
+            android:name="com.workchat.core.chat.SearchUserChatFromRestApiActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+
+
+        <activity
+            android:name="com.workchat.core.chat.locations.SearchLocationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+
+        <activity
+            android:name="com.workchat.core.chat.MH24_ShowImageAndVideoActivity"
+            android:configChanges="keyboard|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeDefault.NoActionBar" />
+
+        <activity
+            android:name="com.workchat.core.chat.MH25_ShowVideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenLayout|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.workchat.core.chat.MH26_ViewPdfFile"
+            android:configChanges="keyboard|orientation"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.workchat.core.chat.ChatGroupDetailActivity"
+            android:configChanges="keyboard|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.workchat.core.chat.ChatUserDetailActivity"
+            android:configChanges="keyboard|orientation"
+            android:screenOrientation="portrait" />
+
+        <!--#region CHANNEL -->
+        <activity
+            android:name="com.workchat.core.channel.MH03_ChannelActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.workchat.core.channel.MH01_BanUserActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.workchat.core.channel.MH02_SelectUserActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.workchat.core.channel.MH03_AdminUserActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.workchat.core.channel.MH04_AdminDetailActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.workchat.core.channel.MH06_PinMessageActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.workchat.core.notification.NotificationConfigActivityWc"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" />
+        <!--#endregion CHANNEL -->
+
+        <!--#region ANNCA VIDEO RECORD -->
+        <activity
+            android:name="io.github.memfis19.annca.internal.ui.camera.Camera1Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeFullscreen" />
+        <activity
+            android:name="io.github.memfis19.annca.internal.ui.camera2.Camera2Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeFullscreen" />
+        <activity
+            android:name="io.github.memfis19.annca.internal.ui.preview.PreviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeFullscreen" />
+        <!--#endregion ANNCA VIDEO RECORD -->
+        <activity
+            android:name="com.workchat.core.search.MH09_SearchActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.workchat.core.plan.MH01_Create_Plan"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
+        <activity
+            android:name="com.workchat.core.plan.MH03_Plan_Detail_Activity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name="com.workchat.core.plan.MH04_Comment_Activity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name="com.workchat.core.plan.MH05_Feedback_Activity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
+        <activity
+            android:name="com.workchat.core.chat.MH30_Media_Activity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+
+        <!--#region BUBBLE CHAT-->
+        <service android:name="com.workchat.core.chathead.BubbleHoverMenuService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            />
+        <activity
+            android:name="com.workchat.core.chathead.ChatHeadActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.workchat.core.chathead.NotificationChatheadActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.workchat.core.notification.ChatNotificationActivity"
+            android:screenOrientation="portrait"/>
+
+
+        <!--#endregion-->
+
+        <!--#region Deeplink & Sharing-->
+        <activity
+            android:name="com.workchat.core.share.DeeplinkActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+
+            <!-- Deep Linking -->
+            <!-- mbnappchat://chat/room?type=join&link= -->
+            <intent-filter android:label="Go to Room">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "example://gizmos” -->
+
+                <!--
+                    myxteam://view/project?id=284
+                    myxteam://view/task?id=1984157
+                    myxteam://view/chat?id=67859
+
+                    open timeline user
+                    workchat://view/timeline?id=284&name=phuong&avatar=https://www....
+                -->
+                <data
+                    android:host="view"
+                    android:scheme="workchat" />
+
+                <data
+                    android:host="chat"
+                    android:scheme="workchat" />
+            </intent-filter>
+            <!-- Deep Linking -->
+        </activity>
+
+        <activity
+            android:name="com.workchat.core.share.SharingActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+
+            <!--
+            text/*, senders will often send text/plain, text/rtf, text/html, text/json
+            image/*, senders will often send image/jpg, image/png, image/gif
+            video/*, senders will often send video/mp4, video/3gp
+            -->
+
+            <!--TEXT-->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+            <!--TEXT-->
+
+            <!--IMAGE-->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+            <!--IMAGE-->
+
+            <!--PDF, DOC, EXCEL, PPT, TXT-->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/pdf" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/msword" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/excel" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/mspowerpoint" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/vnd.openxmlformats-officedocument.presentationml.presentation" />
+            </intent-filter>
+
+            <!--<intent-filter>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/*" />
+            </intent-filter>-->
+            <!--PDF-->
+
+            <!--VIDEO SUPPORT 1 VIDEO ONLY-->
+            <!--<intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="video/mp4" />
+            </intent-filter>-->
+            <!--<intent-filter>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+            </intent-filter>-->
+            <!--VIDEO-->
+        </activity>
+        <!--#endregion Deeplink & Sharing-->
+
+
+
+        <!--#endregion-->
+
+    </application>
+</manifest>

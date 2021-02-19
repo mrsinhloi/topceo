@@ -1,0 +1,11 @@
+<resources>
+    <string name="edit">Chỉnh sửa</string>
+    <string name="finish">Xong</string>
+    <string name="add_image_or_video">Thêm ảnh/video</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_download">Bạn muốn tải file này về máy?</string>
+    <string name="file_downloading_in_app_bar">Vui lòng xem tiến trình tải trên thanh notify.</string>
+
+
+</resources>

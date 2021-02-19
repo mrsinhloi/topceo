@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">TopCeo</string>
+    <string name="like_title">Like</string>
+    <string name="commentnum">Comment</string>
+    <string name="welcome">Share the moment the world around you</string>
+    <string name="user_name">Username</string>
+    <string name="select_user_name">Select username</string>
+    <string name="login">Login</string>
+    <string name="loginbyfacebook">Sign in with Facebook</string>
+    <string name="done">Done</string>
+    <string name="loginfacebook">Facebook</string>
+    <string name="sign_up">Register</string>
+    <string name="sign_up1">Register</string>
+    <string name="forgot_pass">Forgot password?</string>
+    <string name="birthday">Birthday</string>
+    <string name="inputforcomplete">Enter the information to complete the registration</string>
+    <string name="country">Country</string>
+    <string name="phone">Phone number</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="otherkind">Moment</string>
+    <string name="tempservice">Click on Register you indicate that you have read and agree</string>
+    <string name="tempservice1">Terms of Service</string>
+    <string name="settingprofile">Photos personal</string>
+    <string name="planet_prompt">Select a country</string>
+    <string name="btnresetpass">Reset password</string>
+    <string name="facebook">Facebook</string>
+    <string name="reshare">Share Back on your wall</string>
+    <string name="reshare_from">Reshared from</string>
+    <string name="location">Location</string>
+    <string name="globalrank">World class: %1$s</string>
+    <string name="localrank">Rank: %1$s</string>
+    <string name="twitter">Twitter</string>
+    <string name="errorkey_relogin">System error occurred, please login or try again</string>
+    <string name="errorkey1">System Error</string>
+    <string name="errorkey2">Username already exists</string>
+    <string name="errorkey3">email already exists</string>
+    <string name="errorkey4">Username or password is incorrect</string>
+    <string name="errorkey5">Account are logged in on other devices</string>
+    <string name="errorkey6">There is no right to connect to the system</string>
+    <string name="errorkey7">Email does not exist</string>
+    <string name="errorkey8">This account has been locked</string>
+    <string name="errorkey9">Photos deleted</string>
+    <string name="errorkey10">This account does not exist</string>
+    <string name="errorphoto">You have no avatar</string>
+    <string name="errorbirthday">You have no birthday</string>
+    <string name="errorusergenaral">You have not entered %1$s.</string>
+    <string name="errorbio">About maximum 80 characters only.</string>
+    <string name="errorban">Your account has been locked.</string>
+    <string name="notifyfollow">tracked</string>
+    <string name="notifylike">likes of</string>
+    <string name="notifycomment">comment form of</string>
+    <string name="notifytag">tagged</string>
+    <string name="notifytagtail">on a photo</string>
+    <string name="notifylike_owner">you</string>
+    <string name="notifyfollow_owner1">you</string>
+    <string name="notifypostimage">add a new</string>
+    <string name="title_comment">Comment</string>
+    <string name="title_editphoto">Edit image</string>
+    <string name="title_Message">Message</string>
+    <string name="title_Chat">Chat</string>
+    <string name="title_Contact">Contacts</string>
+    <string name="title_photos">Image of %1$s</string>
+    <string name="photos">photos</string>
+    <string name="Send">Submit</string>
+    <string name="top_week">Top week</string>
+    <string name="top_month">Top month</string>
+    <string name="top_year">Top year</string>
+    <string name="first_name">Name</string>
+    <string name="bios">Bios</string>
+    <string name="errorbio1">You did not enter the content descriptions, click here to edit your personal information</string>
+    <string name="errorbio2">No content introduction</string>
+    <string name="last_name">Last name</string>
+    <string name="phoneProfile">Phone</string>
+    <string name="website">Website</string>
+    <string name="setting_facebookfriend">Find friends on Facebook</string>
+    <string name="setting_search">Find friends on TopCeo</string>
+    <string name="setting_twitterfriend">Find friends on Twitter</string>
+    <string name="setting_contactlist">Find friends from contacts</string>
+    <string name="setting_invite">Invite</string>
+    <string name="invite_success">Send invitation success</string>
+    <string name="invite_fail">Send invitation failed, please try again</string>
+    <string name="setting_web">The website TopCeo</string>
+    <string name="setting_editprofile">Edit personal information</string>
+    <string name="setting_invite_viber">Invite on Viber</string>
+    <string name="setting_invite_zalo">Invite on Zalo</string>
+    <string name="setting_editprofile_semi">Personal Information</string>
+    <string name="search">Search</string>
+    <string name="search_filter">Filter:</string>
+    <string name="setting_language">Language</string>
+    <string name="followedextra">You have followed this account</string>
+    <string name="notfollowextra">You have not followed this account</string>
+    <string name="nointernet">No network connection</string>
+    <string name="share_dialog">Share via:</string>
+    <string name="current_language">The current language:</string>
+    <string name="language">Language</string>
+    <string name="logout">Sign out</string>
+    <string name="contactfriend">Friends from the contacts</string>
+    <string name="facebookfriend">Friends from Facebook</string>
+    <string name="googlemap">Map</string>
+    <string name="twitterfriend">Friends from Twitter</string>
+    <string name="detail">Details</string>
+    <string name="upload_photo">Upload an image</string>
+    <string name="upload_gender">Category images:</string>
+    <string name="copy_url">Copy photo url</string>
+    <string name="download_image">Download this image</string>
+    <string name="select_action">Choose action</string>
+    <string name="copy_success">Copied photo url</string>
+    <string name="censorship">Browsing</string>
+    <string name="delete_image">Delete</string>
+    <string name="delete_image_success">Delete picture success</string>
+    <string name="delete_image_fail">There was an error, can not erase the image at this time</string>
+    <string name="report_image">Report abuse</string>
+    <string name="newpassword">New password</string>
+    <string name="oldpassword">Old password</string>
+    <string name="changepassword">Change password</string>
+    <string name="changecamera">Change the camera</string>
+    <string name="confirmpassword">Confirm password</string>
+    <string name="erroremail">Email invalid</string>
+    <string name="errorusername">Your name must be letters, numbers, and from 7 to 20 characters, contain no special characters, contains no spaces and no sign</string>
+    <string name="errorusername1">Account name is greater than 7 letters and characters</string>
+    <string name="errorphone">Your telephone number invalid</string>
+    <string name="errorusername_admin">Account name contains the string of characters does not allow \'admin \'</string>
+    <string name="errorpassword">Passwords must be between 7 and 15 characters</string>
+    <string name="errorpassword1">%1$s is from 7 to 15 characters</string>
+    <string name="errorconfirmpass">The new password must be the same password confirmation</string>
+    <string name="changepasswordsuccess">Password changed successfully</string>
+    <string name="contact_confirm">To find your friend, we will access your contacts</string>
+    <string name="dialog_close">Close</string>
+    <string name="bok">OK</string>
+    <string name="yes">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_logout">Do you want to log out?</string>
+    <string name="girl">Female</string>
+    <string name="boy">Male</string>
+    <string name="loadmore">Load more</string>
+    <string name="allitemload">No image more</string>
+    <string name="noitem">No picture</string>
+    <string name="reviouscomment">View previous comments</string>
+    <string name="previousmessage">View previous messages</string>
+    <string name="policy_service">Privacy policy</string>
+    <string name="no_comment">No comments</string>
+    <string name="confirm_delete_comment">You want to delete this comment?</string>
+    <string name="toast_entermessage">Enter a message</string>
+    <string name="toast_chaterror">Chat system error</string>
+    <string name="toast_comment">Enter a comment</string>
+    <string name="toast_send_email_succedd">A new password has been sent to your email</string>
+    <string name="send_request_new_password_success">Send a request success. Please check your email to change your password.</string>
+    <string name="send_request_verify_email_success">Send a request success. Please check your email to verify.</string>
+
+    <string name="toast_erroconnection">Connection problem</string>
+    <string name="toast_errorsystem">System fault. Please try again</string>
+    <string name="toast_errornocamera">Device has no camera</string>
+    <string name="toast_signupsuccess">Sign up for success</string>
+    <string name="toast_signup_errorprofile">Sign up for success, but personal image has errors!</string>
+
+    <string name="toast_contentcheck">Photos feelings maximum 80 characters</string>
+    <string name="toast_contentcheck_error">You did not enter the picture emotions</string>
+    <string name="toast_upload_success">Photos were uploaded successfully</string>
+    <string name="toast_uploaderror">Download image errors</string>
+    <string name="toast_locationerror">Can not find your location, you can enter manually</string>
+    <string name="toast_locationerror_find">Can not find this location</string>
+    <string name="error_setavatar">Unable to change the avatar</string>
+    <string name="toast_setavatar">Avatar has successfully changed</string>
+    <string name="setting_edtchangeavatar">Change avatar</string>
+    <string name="internal_storage">Internal storage</string>
+    <string name="topuserRank">Rank</string>
+    <string name="topuser100">Top 100 users</string>
+    <string name="topimage100">Top 100 shots</string>
+    <string name="loading">Loading ...</string>
+    <string name="no_fbfriend">No friends on facebook</string>
+    <string name="no_twitterfriend">No friends on twitter</string>
+    <string name="report_tittle">Options reason:</string>
+    <string name="gallery_dialog">Photo gallery</string>
+    <string name="camera_diaglog">Camera</string>
+    <string name="pick_photo">Select an image</string>
+    <string name="pick_photo1">Share your moments</string>
+    <string name="no_image_home_screen">Let\'s become the top male/female Now</string>
+    <string name="error_report">Select a reason</string>
+    <string name="saving_image">Saving photos</string>
+    <string name="save">Save</string>
+    <string name="discard">Cancel</string>
+    <string name="pleasewait">Please wait ...</string>
+    <string name="registergcm">Error registering accounts</string>
+    <string name="updateinfo">Submit success</string>
+    <string name="reshare_success">Shared success on your wall located in Profile</string>
+    <string name="reshare_fail">Share failed, please try again</string>
+    <string name="updateinfo_error">Submit failed</string>
+    <string name="updatefacebook_error">Submit failure, go to settings, clear the cache and try again</string>
+    <string name="youmustselect">You must choose a friend to send the invitation.</string>
+    <string name="onlyonefriend">Currently facebook only allows you to choose one friend</string>
+    <string name="submit">Submit</string>
+    <string name="findfriend">Search for friends</string>
+    <string name="camera_not_support">Error starting the camera</string>
+    <string name="camera_not_support_mess">Phone you do not support your camera or camera hardware failure, go to the "Settings" and uncheck the camera TopCeo</string>
+    <string name="exit_app">Do you want to exit the application?</string>
+    <string name="turnongps">Network positioning is disabled, you want to enable it (Check Use wireless network / wireless use)?</string>
+    <string name="reshareconfirm">Photos will be shared on your homepage?</string>
+    <string name="resharefacebookconfirm">Photos will be shared on your facebook?</string>
+    <string name="nofriend">Unable to find a friend, you try to find another way?</string>
+    <string name="downloadwinkjoy">Downloads TopCeo on Android, Capture and share your moments with the beautiful effects</string>
+    <string name="uploadfail">Upload image failed</string>
+    <string name="uploadfailforduplicate">Upload image failure due to identical content</string>
+    <string name="helpfindnewfriend">Find more, to have more beautiful pictures</string>
+    <string name="connectsuccess">Connect success</string>
+    <string name="connectfail">Connect failed</string>
+    <string name="findfriendtitle">You are not connected to your friends?</string>
+    <string name="findfriendcontent">Currently you probably have not "interested" anyone, you want to you to see images of their daily updates?</string>
+    <string name="findfriendbutton">Find friends</string>
+    <string name="postnewtitle">You do not have any photos?</string>
+    <string name="postnewcontent">Please post a picture of your moments to share to everyone?</string>
+    <string name="invitefriendtitle">Invite friends TopCeo used.</string>
+    <string name="invitefriendcontent">Invite friends to get more people using TopCeo relatives and friends to share moments with you. \ N \ nYou will increase after inviting successful class.</string>
+    <string name="postconfirm">Post photos</string>
+    <string name="suggestfriend">Suggest friends</string>
+    <string name="maintenancesystem">TopCeo are in the process of maintenance, please come back later.</string>
+    <string name="Update">TopCeo have a new version, you may want to update?</string>
+    <string name="imagesizelarge">Error, Can image size is too large, please try again with a different image.</string>
+    <string name="contentimage">Write photo description:</string>
+    <string name="contenthint">Up to 1,000 characters</string>
+    <string name="locationhint">Locate ...</string>
+    <string name="userguide">Guide</string>
+    <string name="title_activity_you">You</string>
+    <string name="following_title">Following</string>
+    <string name="follower_title">Follower</string>
+    <string name="follow_title">Follow</string>
+    <string name="send_message">Send message</string>
+    <string name="address">Address</string>
+    <string name="job">Job</string>
+    <string name="favorite">Favorite</string>
+    <string name="status_userinfo">Status</string>
+    <string name="status_single">Single</string>
+    <string name="status_relationship">Being familiar somebody</string>
+    <string name="status_married">Married</string>
+    <string name="infonoinput">Unknown</string>
+    <string name="gender">Gender</string>
+    <string name="exitfacebook">Exit facebook</string>
+    <string name="clearcache">Clear cache</string>
+    <string name="clearcachesuccess">Cache deleted</string>
+    <string name="exitfacebooksuccess">Exited facebook</string>
+    <string name="selecteffect">Select an effect:</string>
+    <string name="selectemotion">Add emotions (use two fingers to zoom and scroll)</string>
+    <string name="selecttext">Add script (use two fingers to zoom and scroll)</string>
+    <string name="errorzalo">Can not find an app on your computer Zalo</string>
+    <string name="errorviber">Can not find the app Viber on</string>
+    <string name="linkinvitefriend">Applications Vietnam photo sharing, downloads: https://play.google.com/store/apps/details?id=com.appsaboutphoto.chuphinhdep I have participated on it</string>
+    <string name="time_s">second</string>
+    <string name="time_mi">minute</string>
+    <string name="time_h">now</string>
+    <string name="time_d">date</string>
+    <string name="time_mo">month</string>
+    <string name="time_y">year</string>
+    <string name="viewpreviouscomment">View comments before</string>
+    <string name="textforimage">Enter the text (max 40 characters)</string>
+    <string name="titleforimage">Enter</string>
+    <string name="youhavenewmessage">You have %1$s new notifications from friends</string>
+    <string name="rate_title">Review TopCeo</string>
+    <string name="rate_explanation">If you prefer TopCeo, you want to win a little time to evaluate it? There will be no longer than one minute. Thanks for your support!</string>
+    <string name="rate_now">Reviews right</string>
+    <string name="rate_later">Remind me</string>
+    <string name="rate_never">No, thanks</string>
+    <string name="filterreset">Restore</string>
+    <string name="editfilter">EFFECT</string>
+    <string name="editexposure">LIGHT</string>
+    <string name="editcontrast">CONTRAST</string>
+    <string name="editsharpen">Sharpen</string>
+    <string name="editunsharp">DETAILS PHOTOS</string>
+    <string name="edithightlightsave">EMERGENCY LIGHTING</string>
+    <string name="editshadowsave">RESEARCH gloss</string>
+    <string name="edittemperature">TEMPERATURE</string>
+    <string name="editvignette">border around</string>
+    <string name="editcontent">Edit</string>
+    <string name="txt_empty">Could not find content</string>
+    <string name="you_followered">You</string>
+    <string name="khongCoInternet">Please check WIFI / 3G connection</string>
+    <string name="ok">OK</string>
+    <string name="like">Like</string>
+    <string name="comments">Comments</string>
+    <string name="share">Share</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">Contacts permissions are needed for email Providing completions.</string>
+    <string name="title_activity_signup">Sign Up</string>
+    <string name="no_account">No account yet?<b><font fgcolor='#e91e63'> Register Now!</font></b></string>
+    <string name="or">Or</string>
+    <string name="sign_up_by_email">Register by email</string>
+    <string name="exist_account">Already have an account? <b>Login</b></string>
+    <string name="create_account">Create an account</string>
+    <string name="restore_password">Password recovery</string>
+    <string name="authenticating">Authenticating ...</string>
+    <string name="login_failed">Error log</string>
+    <string name="invalid_email">Email is invalid</string>
+    <string name="password_request_lenght">Password minimum 6 characters</string>
+    <string name="name_request_lenght">name at least 5 characters</string>
+    <string name="expand"><u>More</u></string>
+    <string name="collapse"><u>Collapse</u></string>
+    <string name="login_with_alias">Sign in as <b>%1$s</b></string>
+    <string name="logining">Login ...</string>
+    <string name="name_request_validate">Username allow only lowercase letters, numbers, periods, underscores, and no spaces</string>
+    <string name="sign_up_success">Sign up for success</string>
+    <string name="phone_or_username">Phone/Username</string>
+    <string name="user_name_exist">Username already exist</string>
+    <string name="user_name_not_exist">Username does not exist</string>
+
+    <string name="sign_up_by_facebook">Sign up with Facebook</string>
+    <string name="title_activity_loading">LoadingActivity</string>
+    <string name="user_name_invalid">Invalid username</string>
+    <string name="welcome_register">Please register your new account</string>
+    <string name="number_likes">%1$d Likes</string>
+    <string name="number_comment">%1$d Comments</string>
+    <string name="number_share">%1$d Share</string>
+    <string name="action_settings">Settings</string>
+    <string name="not_found">​​Not found</string>
+    <string name="image_uploading">Uploading ...</string>
+    <string name="video_uploading">Uploading ...</string>
+    <string name="avatar_uploading">Uploading ...</string>
+    <string name="camera">Camera</string>
+    <string name="media">Media</string>
+    <string name="refreshing">Refreshing ...</string>
+    <string name="attach_location">Include location</string>
+    <string name="publish_image">Post photos</string>
+    <string name="image_description">Describe your photos</string>
+    <string name="add_location">Add location</string>
+    <string name="update_success">Update successful</string>
+    <string name="report_reason">Reason for reporting</string>
+    <string name="in_the_future">Future</string>
+    <string name="just_now">Just send</string>
+    <string name="moments_ago">A few minutes before</string>
+    <string name="a_minute_ago">One minute before</string>
+    <string name="minutes_ago">minutes before</string>
+    <string name="an_hour_ago">An hour before</string>
+    <string name="hours_ago">hour ago</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="days_ago">days ago</string>
+    <string name="years_ago">years ago</string>
+    <string name="report_success">Sent report</string>
+    <string name="delete_success">Delete success</string>
+    <string name="edit">Edit</string>
+    <string name="do_you_delete_image">You want to delete this post?</string>
+    <string name="delete">Delete</string>
+    <string name="no">No</string>
+    <string name="delete_not_success">Failed to delete</string>
+    <string name="report_not_success">Can not send notifications</string>
+    <string name="type_a_message">Enter your message</string>
+    <string name="add_message">Write a message sharing</string>
+    <string name="share_with_a_friend">Share to a Friend</string>
+    <string name="zalo">Zalo</string>
+    <string name="post_facebook_success">Post facebook success</string>
+    <string name="post_twitter_success">Post twitter success</string>
+    <string name="facebook_ready">Facebook ready. Click the Share button to complete</string>
+    <string name="twitter_ready">Twitter is ready. Click the Share button to complete</string>
+    <string name="posting">Posting ....</string>
+    <string name="edit_your_profile">Edit profile</string>
+    <string name="posts">Post</string>
+    <string name="change_photo">Change avatar</string>
+    <string name="full_name">Full Name</string>
+    <string name="user_email_exist">Email already exists</string>
+    <string name="explore">Explore</string>
+    <string name="top">Top</string>
+    <string name="people">People</string>
+    <string name="tags">Tags</string>
+    <string name="searching">Searching ...</string>
+    <string name="hashtag_empty">Not found hashtag</string>
+    <string name="no_suggesstion">There is no suggestion</string>
+    <string name="like_title_long">People liked your photos</string>
+    <string name="update_notify">Update application</string>
+    <string name="update_have_new_version">Application has a new version, invite you updated!</string>
+    <string name="update">Update</string>
+    <string name="app_not_rung_without_permission">The app can not run in the absence of this right</string>
+    <string name="please_input_email_or_username">Please enter your Email or Username</string>
+    <string name="email_not_exist">Email does not exist</string>
+    <string name="please_check_input_login">Please verify your login information</string>
+    <string name="please_check_input_login_username_or_phone">Wrong username</string>
+    <string name="please_check_input_login_password">Wrong password</string>
+    <string name="please_check_input_sigup">Please check your registration information</string>
+    <string name="not_found_user">Could not find user</string>
+    <string name="tap_to_select_image">Click to select a photo</string>
+    <string name="sending">Sending ...</string>
+    <string name="user_shared">The shared your photos</string>
+    <string name="update_profile">Update profile</string>
+    <string name="updating">Updating ...</string>
+    <string name="updating_not_dot">Updating</string>
+    <string name="seemore">See more</string>
+    <string name="doodle_alert">TopCeo miss you, invite you to view new images!</string>
+    <string name="txt_doi_mat_khau">Change password</string>
+    <string name="password">Password</string>
+    <string name="use_phone_number_login_to_system">Use your phone number to log into the system</string>
+    <string name="verify_your_number_before_login_into_system">Verify your phone number before accessing the system</string>
+    <string name="start">Start</string>
+    <string name="your_profile">Your Profile</string>
+    <string name="next">Next</string>
+    <string name="fullname">Fullname</string>
+    <string name="fullname_">Fullname (*)</string>
+    <string name="email_">Email (*)</string>
+    <string name="email">Email</string>
+    <string name="please_input_fullname">Enter your name</string>
+    <string name="please_input_email">Enter email</string>
+    <string name="email_invalid">Email is invalid</string>
+    <string name="please_select_another_email">Email already registered, please choose another email.</string>
+    <string name="number_phone_incorrect">The phone number is incorrect</string>
+    <string name="input_phone_hint">Input phone number</string>
+    <string name="please_input_phone">Input phone number, please</string>
+    <string name="please_input_phone_correct">Phone number is invalid</string>
+    <string name="deny_permission_notify">Please granted to applications can operate. \nSelect rights (or permissions) to authorize applications</string>
+    <string name="settings">Settings</string>
+    <string name="retype_password">Enter password</string>
+    <string name="user_name_explain_1">Username:</string>
+    <string name="user_name_explain_2">Just received unsigned letters, numbers, -, _</string>
+    <string name="please_input_password">Please enter a password</string>
+    <string name="password_not_mach">Password does not match</string>
+    <string name="username_invalid">Invalid username</string>
+    <string name="creating_account">Create account ...</string>
+    <string name="phone_not_detect">An unknown phone numbers</string>
+    <string name="checking">Checking ...</string>
+    <string name="phone_exists">Phone number already exists</string>
+    <string name="phone_exists_please_chose_another_phone">The phone number %1$s already exists, please choose another phone number to sign up.</string>
+    <string name="phone_not_exists_please_chose_another_phone">The phone number %1$s does not exist, please choose another phone number.</string>
+    <string name="please_input_info">Please enter the full information requested</string>
+    <string name="signin_">Login ...</string>
+    <string name="phone_input_and_phone_validate_not_match">Old phone number and this phone number do not match.</string>
+    <string name="phone_invalid">The phone number is invalid</string>
+    <string name="phone_validate_is_not_of_owner">Phone number is not yours</string>
+    <string name="reset_password">Reset password</string>
+    <string name="argree">Argree</string>
+    <string name="reply">Reply</string>
+    <string name="view_reply_number">View reply ( %1$d)</string>
+    <string name="hide_reply_number">Hide reply</string>
+    <string name="liked">Liked</string>
+    <string name="username_or_phone">Username</string>
+    <string name="password_new">New password</string>
+    <string name="add_comment">Add comment</string>
+    <string name="copyright">\u00a9TopCeo - Version %1$s</string>
+    <string name="me">Me</string>
+    <string name="notification">Notifications</string>
+    <string name="post_image">Post photos</string>
+    <string name="skygram">Skygram</string>
+    <string name="home">Home</string>
+    <string name="free">FREE</string>
+    <string name="my_store">My Store</string>
+    <string name="my_card">My Card</string>
+    <string name="options">Options</string>
+    <string name="payment">Payment</string>
+    <string name="no_lyric">Songs without words</string>
+    <string name="no_song">No song</string>
+    <string name="no_media">No Media</string>
+    <string name="no_video">No video</string>
+    <string name="mention">Mention</string>
+    <string name="vip_member">Vip Member</string>
+    <string name="fan_member">Fan Member</string>
+    <string name="fan_mobile">FANSKY - %1$s</string>
+    <string name="vip_mobile">VIPSKY - %1$s</string>
+    <string name="vvip_mobile">VVIPSKY - %1$s</string>
+
+    <string name="terms_of_services">Terms Of Service</string>
+    <string name="update_to_vip">Update to VIP</string>
+    <string name="update_to_vip_confirm">You want to upgrade your account to VIP?</string>
+    <string name="my_store_empty">You do not have content in MyStore</string>
+    <string name="have_not_content">No content</string>
+    <string name="vip_fan">Vip Fan</string>
+    <string name="boss">Boss</string>
+    <string name="refuse">Refuse</string>
+    <string name="close">Close</string>
+    <string name="notification_config">Configure notify</string>
+    <string name="please_post_first_photo">We invite you to post the first picture</string>
+    <string name="you_have_not_notify">You do not have any notifications</string>
+    <string name="action_receive_notify">Receive notifications</string>
+    <string name="account_is_banned">Your account has been locked. Please contact admin@skysocial.vn</string>
+    <string name="select_cover">Select the cover</string>
+    <string name="trimming_progress">Trimming của video …</string>
+    <string name="file_not_found">File does not exist</string>
+    <string name="video_processing">Video processing …</string>
+    <string name="publish_video">Facebook video</string>
+    <string name="video_description_hint">Description of your video</string>
+    <string name="instagram">Instagram</string>
+    <string name="youtube">YouTube</string>
+    <string name="not_save">Do not save</string>
+    <string name="save_success">Save successful</string>
+    <string name="insight">Insight</string>
+    <string name="thong_ke_hoat_dong">Statistics activity</string>
+    <string name="web_invalid">Web invalid</string>
+    <string name="facebook_invalid">Facebook invalid</string>
+    <string name="twitter_invalid">Twitter invalid</string>
+    <string name="instagram_invalid">Instagram invalid</string>
+    <string name="youtube_invalid">Youtube invalid</string>
+    <string name="select_one_or_more_topic">Select one or more topics</string>
+    <string name="select_min_x_topic">Select at least %1$d topic</string>
+    <string name="select_max_x_topic">Select up %1$d topic</string>
+    <string name="select_from_x_to_y_topic">Select from %1$d to %2$d topic</string>
+    <string name="skip">Skip</string>
+    <string name="update_your_info">Update information about you</string>
+    <string name="sex">Gender</string>
+    <string name="marital_status">Marital status</string>
+    <string name="customize_your_insight">Customize your preferences</string>
+    <string name="app_language">Language applications</string>
+    <string name="change_language">Change Language</string>
+    <string name="restart_app">Restart applications</string>
+    <string name="restart_app_desc_for_language">Need to restart the application to change the language for you</string>
+    <string name="restart_app_desc_for_admin_screen">The application needs to be restarted to change the Home screen</string>
+    <string name="welcome_to_skysocial">Welcome to TopCeo</string>
+    <string name="existed">%1$s already exist</string>
+    <string name="invalid">%1$s is invalid</string>
+    <string name="join_to_skysocial">Join to TopCeo</string>
+    <string name="login_to_skysocial">Login to TopCeo</string>
+    <string name="developing">Developing…</string>
+    <string name="server_data_error">Data processing server error</string>
+    <string name="email_verify">Email authentication</string>
+    <string name="user_info">User info</string>
+    <string name="social_networking_site">Social networking site</string>
+    <string name="email_auth_please">Please verify the email to complete the profile</string>
+    <string name="mark_all_viewed">Mark read all notifications?</string>
+    <string name="phone_auth_please">Phone number has not been verified</string>
+    <string name="phone_change_confirm">Phone number has changed, the system will update the phone number before authenticating.</string>
+    <string name="error_verification">The phone number has not been verified</string>
+    <string name="reading_info">Reading info…</string>
+    <string name="show_admin_page">Show home page of admin</string>
+    <string name="new_post">New post</string>
+    <string name="accept">Accept</string>
+    <string name="ignore">Ignore</string>
+    <string name="email_exist">Email exist</string>
+    <string name="url">URL</string>
+    <string name="username">Username</string>
+    <string name="post_is_deleted">This post has been deleted, please view other posts.</string>
+
+    //////////////////////////////////////////////////////////////
+    <string name="new_update">New update</string>
+    <!--<string name="confirm_update_notify">App has a new version. Please update version!</string>-->
+    <string name="confirm_update_notify">A new version of TopCeo is available.\nPlease update to version\n%1$s</string>
+    <string name="confirm_update_notify_debug">TopCeo has new upgrade!\nThis is a DEBUG version. Uninstall and Install from Play Store, please.</string>
+    <string name="confirm_update_force_notify">TopCeo has new upgrade. You need to update to continue using. Thank you!</string>
+    <string name="uninstall">Uninstall</string>
+    <string name="view_showcase">See instructions for use</string>
+    <string name="restart_app_for_showcase">The application will restart to show you the instructions.</string>
+    /////////////////////////////////////////////////////////////
+    <string name="have_not_post">No posts yet</string>
+    <string name="you_have_not_save_post">No posts have been saved</string>
+    <string name="user_in_group">Groups</string>
+    <string name="_members">members</string>
+    <string name="not_have_group">Has not joined any group</string>
+    <string name="view_all_number_comment">View all %1$d comments</string>
+    <string name="view_comment">View comments</string>
+    <string name="username_and_comment"><b>%1$s</b> %2$s</string>
+    <string name="group">Group</string>
+    <string name="back">Back</string>
+    <string name="write_description">Description</string>
+    <string name="list_x_items">The list has %1$d items</string>
+    <string name="x_comment">%1$d Comment</string>
+    <string name="x_like">%1$d Like</string>
+    <string name="downloading">Downloading …</string>
+    <string name="storage_access_required">Access memory to save epub to download.</string>
+    <string name="storage_unavailable">Please grant permission to download and read epub. To grant permissions go to Application Info > Permissions > Storage</string>
+    <string name="user_has_not_page">No pages have been selected. Open the Facebook app to change accounts</string>
+    <string name="facebook_posting">Facebook posting...</string>
+    <string name="post">Post</string>
+    <string name="write_description_images">Write description about images...</string>
+    <string name="preview">Preview</string>
+    <string name="input_link">Input link...</string>
+    <string name="please_input_link">Please input a link</string>
+    <string name="are_you_thinking">Are you thinking?</string>
+    <string name="add_to_post">Add to your post</string>
+    <string name="content_no_change">Content is not change</string>
+
+    <string name="current_location">Current location</string>
+    <string name="current_location_checkin">Current location (CHECK-IN)</string>
+    <string name="your_group">Your group</string>
+    <string name="group_public_x_members">Public group &#183; %1$d members</string>
+    <string name="group_private_x_members">Private group &#183; %1$d members</string>
+    <string name="members">Members</string>
+    <string name="admins">Admins</string>
+    <string name="invite_group">Invite group</string>
+    <string name="invited">Invited</string>
+    <string name="username_invite_groupname">%1$s invited join to group %2$s</string>
+    <string name="decline_invited">Decline invited</string>
+    <string name="confirm_join_request">Confirm join group</string>
+    <string name="discover_group">Discover</string>
+    <string name="joinned_groups">Joinned groups</string>
+    <string name="other_groups">Other groups</string>
+    <string name="join_to_group_success">Join to group success</string>
+    <string name="about">About</string>
+    <string name="edit_banner">Edit banner</string>
+    <string name="leave_group">Leave group</string>
+    <string name="confirm_leave_group">Leave this group?</string>
+    <string name="group_notify">Group notification</string>
+    <string name="feed">Feed</string>
+    <string name="when_have_request_join_group">When have request join group</string>
+
+    <string name="group_setting_feed_1"> Notify only when there are new posts of the following user </string>
+    <string name="group_setting_feed_2"> No notification of new posts </string>
+    <string name="please_wait">Please wait …</string>
+    <string name="create_group">Create group</string>
+    <string name="name_your_group">Name your group</string>
+    <string name="cover_photo">Cover photo</string>
+    <string name="optional">Optional</string>
+    <string name="add_cover_photo">Add cover photo</string>
+    <string name="change_cover_photo">Change cover photo</string>
+    <string name="remove_cover">Remove cover</string>
+
+    <string name="privacy">Privacy</string>
+    <string name="privacy_select">Select privacy</string>
+    <string name="privacy_public">Public</string>
+    <string name="privacy_public_des">Anyone can see everyone on the group and what they post</string>
+    <string name="privacy_private">Private</string>
+    <string name="privacy_private_des">Only members can see everyone in the group and what they post</string>
+    <string name="privacy_cannot_change_des">To protect a member\'s privacy, private groups cannot be changed to public.</string>
+    <string name="group_creating">Group creating…</string>
+    <string name="group_hide">Hide group</string>
+    <string name="show">Show</string>
+    <string name="hide">Hide</string>
+    <string name="show_des">Anyone can search this group</string>
+    <string name="hide_des">Only registered members can find this group</string>
+    <string name="info_not_change">Info is not change</string>
+    <string name="edit_cover">Edit Cover</string>
+    <string name="delete_group">Delete group</string>
+    <string name="confirm_password_for_delete_group">To remove this group, you need to confirm the password. You can not restore on the group after a complete.</string>
+    <string name="group_config">Group config</string>
+    <string name="group_config_allow_join_group">Who is allowed to approve members join the group</string>
+    <string name="admin_or_mod">Admin / Mod</string>
+    <string name="everyone">Everyone</string>
+    <string name="auto">Auto</string>
+    <string name="member_can_post">Thành viên có thể post</string>
+    <string name="post_need_approve">Post của member cần duyệt trước khi publish</string>
+    <string name="confirm_group_delete_member">Do you want to remove this user from the group?</string>
+
+
+
+    <string name="image_icon" translatable="false">Image icon</string>
+    <string name="icon_dot" translatable="false">\u0020&#8226;\u0020</string>
+    <string name="large_text" translatable="false">
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts.\n\n"
+
+        "Bold, graphic, intentional.\n\n"
+
+        "The foundational elements of print based design typography, grids, space, scale, color, "
+        "and use of imagery guide visual treatments. These elements do far more than please the "
+        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+        "imagery, large scale typography, and intentional white space create a bold and graphic "
+        "interface that immerse the user in the experience.\n"
+        "An emphasis on user actions makes core functionality immediately apparent and provides "
+        "waypoints for the user.\n\n"
+
+        "Motion provides meaning.\n\n"
+
+        "Motion respects and reinforces the user as the prime mover. Primary user actions are "
+        "inflection points that initiate motion, transforming the whole design.\n"
+        "All action takes place in a single environment. Objects are presented to the user without "
+        "breaking the continuity of experience even as they transform and reorganize.\n"
+        "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
+        "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
+
+        "3D world.\n\n"
+
+        "The material environment is a 3D space, which means all objects have x, y, and z "
+        "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
+        "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
+        "position along the z-axis and has a standard 1dp thickness.\n"
+        "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
+        "emulated by manipulating the y-axis.\n\n"
+
+        "Light and shadow.\n\n"
+
+        "Within the material environment, virtual lights illuminate the scene. Key lights create "
+        "directional shadows, while ambient light creates soft shadows from all angles.\n"
+        "Shadows in the material environment are cast by these two light sources. In Android "
+        "development, shadows occur when light sources are blocked by sheets of material at "
+        "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
+        "y-axis only. The following example shows the card with a height of 6dp.\n\n"
+
+        "Resting elevation.\n\n"
+
+        "All material objects, regardless of size, have a resting elevation, or default elevation "
+        "that does not change. If an object changes elevation, it should return to its resting "
+        "elevation as soon as possible.\n\n"
+
+        "Component elevations.\n\n"
+
+        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+        "does not vary from 6dp in one app to 16dp in another app).\n"
+        "Components may have different resting elevations across platforms, depending on the depth "
+        "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
+
+        "Responsive elevation and dynamic elevation offsets.\n\n"
+
+        "Some component types have responsive elevation, meaning they change elevation in response "
+        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+        "changes are consistently implemented using dynamic elevation offsets.\n"
+        "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
+        "to the component’s resting state. They ensure that elevation changes are consistent "
+        "across actions and component types. For example, all components that lift on press have "
+        "the same elevation change relative to their resting elevation.\n"
+        "Once the input event is completed or cancelled, the component will return to its resting "
+        "elevation.\n\n"
+
+        "Avoiding elevation interference.\n\n"
+
+        "Components with responsive elevations may encounter other components as they move between "
+        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+        "through other material, components avoid interfering with one another any number of ways, "
+        "whether on a per component basis or using the entire app layout.\n"
+        "On a component level, components can move or be removed before they cause interference. "
+        "For example, a floating action button (FAB) can disappear or move off screen before a "
+        "user picks up a card, or it can move if a snackbar appears.\n"
+        "On the layout level, design your app layout to minimize opportunities for interference. "
+        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+        "when a user tries to pick up one of cards.\n\n"
+    </string>
+    <string name="sample_text" translatable="false">Nhom Blockchain Research</string>
+    <string name="vietnamese" translatable="false">Tiếng Việt</string>
+    <string name="english" translatable="false">English</string>
+    <string name="browse_the_post">Browse the post</string>
+    <string name="required_to_join">Required to join</string>
+    <string name="member_request">Member request</string>
+    <string name="add_new_post">Add new post</string>
+    <string name="common_group">Common group</string>
+    <string name="_more">More…</string>
+    <string name="atsign_username">&#64;username</string>
+    <string name="linkedin">LinkedIn</string>
+    <string name="linkedin_invalid">LinkedIn invalid</string>
+    <string name="name">Name</string>
+    <string name="account">Account</string>
+    <string name="update_your_profile">Update your profile</string>
+    <string name="setting">Setting</string>
+    <string name="activities">Activities</string>
+    <string name="friend">Friend</string>
+    <string name="invite_your_friend">Invite your friend</string>
+    <string name="share_with_friends_link">Share link</string>
+    <string name="share_with_friends_methods">Share the referral link through:</string>
+    <string name="more">More</string>
+    <string name="intro_link" translatable="false">Xin chào! Tôi đang dùng ứng dụng TopCeo - Cộng đồng Sách Việt Nam, mời Bạn tham gia cùng tôi để chia sẻ kiến thức, kết nối, và phát triển kinh doanh.</string>
+    <string name="facebook_share_to_page">Facebook share to pages</string>
+    <string name="to_pages">To: %1$s</string>
+</resources>

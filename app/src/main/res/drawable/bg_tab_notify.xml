@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector android:variablePadding="true" android:constantSize="true" xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_svg_6" android:state_checked="false"/>
+    <item android:drawable="@drawable/ic_svg_7" android:state_checked="true" />
+</selector>
+

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "634367870032",
+    "project_id": "topolympia-6325d",
+    "storage_bucket": "topolympia-6325d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634367870032:android:433393bc985d5d19087d55",
+        "android_client_info": {
+          "package_name": "com.ehubly.topceo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634367870032-3nbd0q26t95pmf4taikligq7h3s8u5vq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_DKDULQjfrkxC9tu7K0eSmu_WjEf3ZLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634367870032-3nbd0q26t95pmf4taikligq7h3s8u5vq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "634367870032-g58bn7ekcdvu7iitk76ua0bm7tdmu035.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ehubly.topceo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

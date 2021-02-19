@@ -1,0 +1,196 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.compileSdkVersion
+        versionCode 1
+        versionName "1.0.1"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    // Butterknife requires Java 8.
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    /*buildFeatures {
+        viewBinding true
+    }*/
+}
+
+repositories {
+    //glide
+    mavenCentral()
+    google()
+
+
+    //https://github.com/amulyakhare/TextDrawable
+    maven {
+        url 'http://dl.bintray.com/amulyakhare/maven'
+    }
+
+    //ucrop
+    jcenter()
+    maven { url "https://jitpack.io" }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //Kotlin
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api 'androidx.core:core-ktx:1.5.0-alpha05'
+    api "androidx.work:work-runtime-ktx:2.4.0" //
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1"
+
+    api 'com.google.code.gson:gson:2.8.6'
+    api 'com.github.castorflex.smoothprogressbar:library:1.1.0'
+    api "androidx.recyclerview:recyclerview:${rootProject.ext.recyclerView}"
+    api "androidx.appcompat:appcompat:${rootProject.ext.appCompat}"
+
+
+    //recyclerview alphabet
+    api 'com.github.graviton57:alphabet-recyclerview:1.0.1'
+
+    //chat
+    api ('io.socket:socket.io-client:1.0.0') {
+        // excluding org.json which is provided by Android
+        exclude group: 'org.json', module: 'json'
+    }
+    api 'com.microsoft.azure.android:azure-storage-android:2.0.0@aar'
+    api 'com.devbrackets.android:exomedia:4.2.1'
+
+    //empty view
+    api 'com.cipolat.android:superstateview:1.0.3'
+
+    //record video
+    api 'com.devbrackets.android:exomedia:4.2.1'
+
+    //record audio
+    api 'com.github.zhaolewei:ZlwAudioRecorder:1.0.2'
+
+    //so sanh version update
+    api 'com.g00fy2:versioncompare:1.3.0'
+
+
+    //check phone validate
+    api 'io.michaelrocks:libphonenumber-android:8.11.0'
+
+    //input phone number have country code
+    api 'com.github.joielechong:countrycodepicker:2.2.0'
+
+    //https://github.com/amulyakhare/TextDrawable
+    api 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+
+    //log
+    api 'com.orhanobut:logger:2.2.0'
+
+    //chat
+    api 'com.google.maps.android:android-maps-utils:1.1.0'
+    api 'com.google.android.gms:play-services-location:17.1.0'
+    api 'com.google.android.gms:play-services-maps:17.0.0'
+    api 'com.google.android.libraries.places:places:2.4.0'
+
+
+
+    //glide
+    api 'com.github.bumptech.glide:glide:4.11.0'
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    //picasso
+    api 'com.squareup.picasso:picasso:2.71828'
+    api 'jp.wasabeef:picasso-transformations:2.2.1'
+
+
+
+    //Threeten
+    api 'com.jakewharton.threetenabp:threetenabp:1.2.4'
+
+    //crop image
+    api 'com.github.yalantis:ucrop:2.2.4'
+    //camera
+    api 'com.otaliastudios:cameraview:2.4.0'
+
+    def lifecycle_version = '2.2.0'
+    api "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    api "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+
+    //services
+    api 'com.squareup.retrofit2:retrofit:2.9.0'
+    api 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    //Fast Adapter
+    api "com.mikepenz:fastadapter:4.1.0"
+    api "com.mikepenz:fastadapter-extensions-utils:4.1.0"
+    api "com.mikepenz:fastadapter-extensions-scroll:4.1.0"
+    api "com.mikepenz:fastadapter-extensions-ui:4.1.0"
+
+    //
+    api 'org.jsoup:jsoup:1.13.1'
+
+    api 'androidx.constraintlayout:constraintlayout:2.0.4'
+    api "com.google.android.material:material:${rootProject.ext.material}"
+    api "androidx.cardview:cardview:${rootProject.ext.cardView}"
+
+    //butterknife
+    implementation "com.jakewharton:butterknife:${rootProject.ext.butterknife}"
+    kapt "com.jakewharton:butterknife-compiler:${rootProject.ext.butterknife}"
+
+    api 'com.mikhaellopez:circularimageview:4.2.0'
+    //dialog
+    api 'org.michaelbel:bottomsheet:1.2.3'
+
+    //support kotlin [annotationProcessor->kapt]
+    //#1 EventBus
+    api 'org.greenrobot:eventbus:3.2.0'
+    kapt 'org.greenrobot:eventbus-annotation-processor:3.2.0'
+
+    api 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+
+    implementation 'com.github.mrsinhloi:Hover:1.0.1'
+    implementation 'com.github.mrsinhloi:SuperNovaEmoji:1.0.1'
+    implementation 'com.github.mrsinhloi:AnncaVideoRecord:1.0.1'
+    implementation 'com.github.mrsinhloi:filepicker:1.0.2'
+    api 'com.github.mrsinhloi:ImagePicker:1.0.2'
+    api 'com.github.mrsinhloi:MaterialChips:1.0.2'
+    api 'com.github.mrsinhloi:Utilities:1.0.2'
+
+    api 'com.permissionx.guolindev:permissionx:1.4.0'
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
+}
+
+//#2 EventBus
+kapt {
+    arguments {
+        arg('eventBusIndex', 'com.workchat.core.MyEventBusIndex')
+    }
+}
+
+androidExtensions {
+    experimental = true
+}
+
+

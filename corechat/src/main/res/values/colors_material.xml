@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="light_blue_500">#03a9f4</color>
+    <color name="orange_500">#ff9800</color>
+    <color name="grey_400">#bdbdbd</color>
+    <color name="blue_grey_50">#eceff1</color>
+    <color name="grey_500">#9e9e9e</color>
+    <color name="grey_300">#e0e0e0</color>
+    <color name="red_500">#e51c23</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="light_blue_600">#039be5</color>
+    <color name="grey_200">#eeeeee</color>
+    <color name="transparent">@android:color/transparent</color>
+    <color name="green_500">#259b24</color>
+    <color name="cyan_600">#00acc1</color>
+    <color name="grey_100">#f5f5f5</color>
+    <color name="grey_900">#212121</color>
+    <color name="blue_grey_100">#cfd8dc</color>
+    <color name="cyan_500">#00bcd4</color>
+    <color name="blue_500">#5677fc</color>
+    <color name="grey_600">#757575</color>
+    <color name="red_A700">#e00032</color>
+    <color name="light_blue_50">#e1f5fe</color>
+    <color name="green_700">#0a7e07</color>
+    <color name="grey_700">#616161</color>
+    <color name="grey_800">#424242</color>
+    <color name="blue_grey_200">#b0bec5</color>
+</resources>

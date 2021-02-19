@@ -1,0 +1,66 @@
+package com.luvapay.ether.test
+
+import android.os.Bundle
+import android.os.PersistableBundle
+import androidx.appcompat.app.AppCompatActivity
+import kotlin.random.Random
+
+//Activity implement Interface
+class Activity1 : AppCompatActivity(), ThirdPartyLibrary.Callback {
+
+    override fun onCompleted() {
+        super.onCompleted()
+        println("completed")
+    }
+
+    override fun onFailed() {
+        super.onFailed()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+
+        val library = ThirdPartyLibrary()
+        library.getData(this@Activity1)
+    }
+}
+
+//Interface is variable
+class Activity2 : AppCompatActivity() {
+
+    private val callback = object : ThirdPartyLibrary.Callback {
+        override fun onCompleted() {
+            super.onCompleted()
+            println("completed")
+        }
+
+        override fun onFailed() {
+            super.onFailed()
+            println("failed")
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+
+        val library = ThirdPartyLibrary()
+        library.getData(callback)
+    }
+}
+
+class ThirdPartyLibrary {
+
+    interface Callback {
+        fun onCompleted() {}
+        fun onFailed() {}
+    }
+
+    fun getData(callback: Callback) {
+        //...doing
+        if (Random.nextBoolean()) {
+            callback.onCompleted()
+        } else {
+            callback.onFailed()
+        }
+    }
+}

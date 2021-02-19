@@ -1,0 +1,29 @@
+
+CAPTURE
+
+- CameraFragment:
+onPictureTaken -ImageUtility.decodeSampledBitmapFromByte chuyen byte[] thanh bitmap -scaleCenterCrop de tao anh 1080x1080
+=> sau do luu -ImageUtils.saveBitmapTemp(bitmap, rotation);
+=> Tro ve man hinh chinh: set duong dan cho bien toan cuc, vao man hinh ImageActivity de edit anh
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+https://github.com/googlesamples/android-Camera2Basic
+https://github.com/PkmX/lcamera
+https://github.com/commonsguy/cwac-camera/blob/master/README-original.markdown
+https://github.com/commonsguy/cwac-camera
+https://github.com/commonsguy/cwac-cam2
+https://newcircle.com/s/post/39/using__the_camera_api
+
+http://frogermcs.github.io/InstaMaterial-concept-part-8-capturing-photo/
+
+
+/////////////////////////////////////////////
+http://paulbourke.net/dataformats/bitmaps/
+1080x1080
+
+Quality		KB
+100 		853 - 973
+90			244 - 299
+80			140 - 159
+
+

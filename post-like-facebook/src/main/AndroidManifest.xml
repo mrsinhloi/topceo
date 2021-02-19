@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.smartapp.post_like_facebook">
+
+    <application>
+        <activity android:name="com.smartapp.gallery.ShowGalleryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FBAppTheme.Fullscreen"/>
+        <activity
+            android:name=".EditImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FBAppTheme" />
+        <activity
+            android:name=".PostLikeFacebookDemoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FBAppTheme" />
+    </application>
+
+</manifest>

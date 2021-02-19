@@ -1,0 +1,62 @@
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rlmainroot">
+
+    <com.edmodo.cropper.CropImageView
+        android:id="@+id/CropImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="#464646" />
+    
+	<RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">      
+        
+        <ImageView
+            android:layout_alignParentLeft="true"
+            android:contentDescription="@string/app_name"
+            android:id="@+id/discard"
+            android:layout_width="40dp"
+            android:layout_marginRight="30dp"
+            android:layout_height="fill_parent"                
+            android:background="@drawable/cancel_button"
+        />
+
+        <ImageView
+            android:id="@+id/rotateLeft"
+            android:contentDescription="@string/app_name"
+            android:layout_width="40dp"
+            android:layout_marginRight="30dp"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@id/discard"
+            android:background="@drawable/rotate_left"
+        />
+
+        <ImageView
+            android:id="@+id/rotateRight"
+            android:contentDescription="@string/app_name"
+            android:layout_width="40dp"
+            android:layout_marginRight="30dp"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@id/rotateLeft"
+            android:background="@drawable/rotate_right"
+       	/>
+        
+        <ImageView                
+           android:id="@+id/save"
+           android:contentDescription="@string/app_name"
+           android:layout_width="40dp"
+           android:layout_toRightOf="@id/rotateRight"
+           android:layout_height="fill_parent"
+           android:background="@drawable/ok_button"
+       	/>
+
+    </RelativeLayout>
+</RelativeLayout>

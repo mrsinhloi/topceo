@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="@dimen/avatar_size_list_item"
+        android:layout_height="@dimen/avatar_size_list_item"
+        android:src="@drawable/ic_no_avatar" />
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
+            android:text="Example application"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="21-07-2016 13:02"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/subtitle_size"
+            android:textColor="@color/md_grey_800"
+            android:layout_marginTop="2dp" />
+    </LinearLayout>
+
+
+    <ToggleButton
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="@dimen/btn_follow_width"
+        android:layout_height="@dimen/btn_follow_height"
+        android:textOn="@string/following_title"
+        android:textOff="@string/follow_title"
+        android:id="@+id/button1"
+        android:textAllCaps="false"
+        android:paddingLeft="@dimen/margin_10dp"
+        android:paddingRight="@dimen/margin_10dp"
+        android:background="@drawable/bg_sky_button_toggle"
+        android:textSize="@dimen/btn_follow_text_size"
+        android:checked="true"
+        android:textColor="@color/toggle_color"
+        android:layout_marginStart="5dp" />
+
+
+</LinearLayout>

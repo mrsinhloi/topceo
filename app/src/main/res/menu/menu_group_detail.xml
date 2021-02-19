@@ -1,0 +1,57 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".group.GroupDetailActivity">
+    <item
+        android:id="@+id/overflowMenu"
+        android:icon="@drawable/ic_round_more_vert_24_end_color"
+        android:title=""
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/action_1"
+                android:title="@string/edit_cover"
+                android:icon="@drawable/ic_round_crop_original_24"
+                app:showAsAction="withText"
+                android:visible="false"
+                />
+            <item
+                android:id="@+id/action_5"
+                android:title="@string/browse_the_post"
+                android:icon="@drawable/ic_round_rss_feed_24_grey"
+                app:showAsAction="withText"
+                android:visible="false"
+                />
+            <item
+                android:id="@+id/action_6"
+                android:title="@string/required_to_join"
+                android:icon="@drawable/ic_round_person_24_grey"
+                app:showAsAction="withText"
+                android:visible="false"
+                />
+
+            <item
+                android:id="@+id/action_3"
+                android:title="@string/action_settings"
+                android:icon="@drawable/ic_settings"
+                app:showAsAction="withText"
+                />
+            <item
+                android:id="@+id/action_2"
+                android:title="@string/leave_group"
+                android:icon="@drawable/ic_round_directions_run_24"
+                app:showAsAction="withText"
+                />
+            <item
+                android:id="@+id/action_4"
+                android:title="@string/delete_group"
+                android:icon="@drawable/ic_round_delete_forever_24"
+                app:showAsAction="withText"
+                android:visible="false"
+                />
+
+        </menu>
+    </item>
+
+
+</menu>

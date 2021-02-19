@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@+id/frameLayoutFacebook"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linearDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--<com.ehubstar.socialview.core.widget.SocialTextViewExpand
+                android:id="@+id/txtDescription"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="@dimen/title_size"
+                android:textColor="@color/md_black_1000"
+                android:lineSpacingMultiplier="1.2"
+                app:hashtagColor="@color/hashtag"
+                app:mentionColor="@color/mention"
+                app:hyperlinkColor="@color/green_500"
+                app:socialFlags="hashtag|mention|hyperlink"
+                android:textIsSelectable="true" />-->
+
+            <com.topceo.views.ExpandableTextView
+                android:id="@+id/txtDescription"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="@dimen/title_size"
+                android:textColor="@color/md_black_1000"
+                android:lineSpacingMultiplier="1.4"
+                />
+            <TextView
+                android:id="@+id/txtMoreTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_more"
+                android:textSize="@dimen/title_size"
+                android:padding="@dimen/margin_5dp"
+                android:layout_marginEnd="@dimen/margin_5dp"
+                android:layout_gravity="right"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                />
+
+            <include layout="@layout/link_preview" />
+
+        </LinearLayout>
+        <!--<com.smartapp.collage.CollageImageView
+            android:id="@+id/feed_post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCollage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </LinearLayout>
+
+    <!--<com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/spin_kit"
+        style="@style/SpinKitView.Large.Circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:SpinKit_Color="@color/grey_400" />-->
+</FrameLayout>
+

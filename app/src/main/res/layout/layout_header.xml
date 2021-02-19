@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relative1"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:padding="@dimen/dimen_5dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:orientation="vertical"
+        android:background="@drawable/bg_sky_circle_border">
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_no_avatar" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:hint="name"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="@dimen/title_size"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imgVip"
+                    android:layout_width="15dp"
+                    android:layout_height="18dp"
+                    app:tint="@color/sky_end"
+                    android:src="@drawable/ic_king" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                tools:text="Ho Chi Minh"
+                android:ellipsize="end"
+                android:textSize="@dimen/subtitle_size"
+                android:gravity="center_vertical" />
+            <ImageView
+                android:id="@+id/imgClearLocation"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_close_black_24dp"
+                app:tint="@color/md_grey_500"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="130dp"
+            android:layout_height="26dp"
+            android:text="@string/follow_title"
+            android:id="@+id/button1"
+            android:textAllCaps="false"
+            android:paddingLeft="@dimen/margin_10dp"
+            android:paddingRight="@dimen/margin_10dp"
+            android:background="@drawable/bg_sky_radian"
+            android:textSize="@dimen/title_size"
+            android:textColor="@color/white"
+            android:layout_margin="5dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <ImageView
+        android:rotation="90"
+        android:id="@+id/imgMenu2"
+        android:padding="2dp"
+        android:layout_width="24dp"
+        android:layout_height="match_parent"
+        app:tint="@color/sky_end"
+        android:src="@drawable/ic_more_horiz_grey_500_24dp" />
+</LinearLayout>

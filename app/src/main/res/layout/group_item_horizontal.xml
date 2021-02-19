@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/dimen_5dp"
+    android:layout_marginStart="@dimen/dimen_5dp"
+    android:clickable="true"
+    android:background="?android:attr/selectableItemBackground"
+    android:focusable="true">
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_border"
+        android:background="@drawable/bg_rectangle_rounded_8_not_fill"
+        >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/image"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:src="@drawable/no_media_small"
+            app:layout_constraintBottom_toBottomOf="@+id/linear1"
+            app:layout_constraintEnd_toEndOf="@+id/linear1"
+            app:layout_constraintStart_toStartOf="@+id/linear1"
+            app:layout_constraintTop_toTopOf="@+id/linear1" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_margin="@dimen/padding_border"
+        android:id="@+id/txtNumber"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_rectangle_rounded_8_fill"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/linear1"
+        app:layout_constraintEnd_toEndOf="@+id/linear1"
+        app:layout_constraintStart_toStartOf="@+id/linear1"
+        app:layout_constraintTop_toTopOf="@+id/linear1"
+        tools:text="3+"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:paddingTop="@dimen/dimen_5dp"
+        android:gravity="center"
+        android:lines="2"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linear1"
+        app:layout_constraintStart_toStartOf="@+id/linear1"
+        app:layout_constraintTop_toBottomOf="@+id/linear1"
+        tools:text="Trade Coin - Kiem Tien So" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

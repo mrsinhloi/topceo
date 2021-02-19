@@ -1,0 +1,229 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_marginTop="@dimen/margin_5dp"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:padding="@dimen/margin_10dp"
+            android:src="@drawable/logo_sky_social_black_small" />
+        <!--<RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_toLeftOf="@+id/btnNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/app_name"
+                android:textColor="@color/textTitleColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/subTitle"
+                android:layout_toLeftOf="@+id/btnNext"
+                android:layout_below="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/update_your_info"
+                android:textColor="@color/textTitleColor"
+                android:textSize="16sp" />
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/btnNext"
+                android:background="@drawable/bg_sky_radian_rounded"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/white"
+                android:paddingLeft="@dimen/margin_16dp"
+                android:paddingRight="@dimen/margin_16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height"
+                android:textAllCaps="false"
+                android:layout_marginEnd="@dimen/margin_8dp"
+                android:text="@string/next" />
+        </RelativeLayout>-->
+    </androidx.appcompat.widget.Toolbar>
+
+    <include layout="@layout/separate_horizontal" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/update_your_info"
+        android:maxLines="4"
+        android:ellipsize="end"
+        android:textSize="@dimen/title_size_large"
+        android:textAllCaps="true"
+        android:padding="@dimen/margin_24dp"
+        android:textColor="@color/btnNextColor" />
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_15dp">
+
+
+        <include layout="@layout/separate_horizontal" />
+
+        <LinearLayout
+            android:id="@+id/linear1"
+            android:clickable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:padding="@dimen/margin_15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/birthday"
+                style="@style/textview_style_title_1" />
+
+            <TextView
+                android:padding="@dimen/margin_15dp"
+                android:id="@+id/txt1"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textSize="@dimen/text_size_menu"
+                android:hint="@string/birthday"
+                android:layout_marginRight="0dp"
+                android:textColor="@color/grey_900"
+                style="@style/textview_style_title_1" />
+
+        </LinearLayout>
+
+        <include layout="@layout/separate_horizontal" />
+
+        <LinearLayout
+            android:id="@+id/linear2"
+            android:clickable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:padding="@dimen/margin_15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sex"
+                style="@style/textview_style_title_1" />
+
+            <TextView
+                android:padding="@dimen/margin_15dp"
+                android:id="@+id/txt2"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textSize="@dimen/text_size_menu"
+                android:hint="@string/sex"
+                android:textAllCaps="false"
+                android:layout_marginRight="0dp"
+                android:textColor="@color/grey_900"
+
+                style="@style/textview_style_title_1" />
+
+        </LinearLayout>
+
+        <include layout="@layout/separate_horizontal" />
+
+        <LinearLayout
+            android:id="@+id/linear3"
+            android:clickable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:padding="@dimen/margin_15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/marital_status"
+                style="@style/textview_style_title_1" />
+
+            <TextView
+                android:padding="@dimen/margin_15dp"
+                android:id="@+id/txt3"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textSize="@dimen/text_size_menu"
+                android:hint="@string/marital_status"
+                android:textColor="@color/grey_900"
+                android:layout_marginRight="0dp"
+                android:textAllCaps="false"
+                style="@style/textview_style_title_1" />
+
+        </LinearLayout>
+
+        <include layout="@layout/separate_horizontal" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_15dp">
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/btnPrevious"
+            android:background="@drawable/bg_sky_radian_rounded"
+            android:layout_alignParentStart="true"
+            android:textColor="@color/white"
+            android:paddingStart="@dimen/margin_16dp"
+            android:paddingEnd="@dimen/margin_16dp"
+            android:layout_width="120dp"
+            android:layout_height="34dp"
+            android:textAllCaps="false"
+            android:layout_centerVertical="true"
+            android:text="@string/back" />
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/btnNext"
+            android:background="@drawable/bg_sky_radian_rounded"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/white"
+            android:paddingStart="@dimen/margin_16dp"
+            android:paddingEnd="@dimen/margin_16dp"
+            android:layout_width="120dp"
+            android:layout_height="34dp"
+            android:textAllCaps="false"
+            android:layout_centerVertical="true"
+            android:text="@string/next" />
+    </RelativeLayout>
+
+
+</LinearLayout>

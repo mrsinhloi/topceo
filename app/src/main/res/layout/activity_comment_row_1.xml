@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="left|top"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="3dp">
+
+            <ImageView
+                android:id="@+id/img1"
+                android:layout_width="@dimen/avatar_size_medium"
+                android:layout_height="@dimen/avatar_size_medium"
+                android:elevation="2dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_no_avatar" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical"
+
+            android:gravity="top">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/txt1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:focusable="false"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text="Vsoft Phuong"
+                    android:textColor="@color/black"
+                    android:textIsSelectable="true"
+                    android:textSize="@dimen/title_size"
+                    android:textStyle="bold"/>
+
+                <com.sackcentury.shinebuttonlib.ShineButton
+                    android:id="@+id/btnLike"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="@dimen/margin_5dp"
+                    android:src="@color/grey_400"
+                    app:allow_random_color="false"
+                    app:btn_color="@color/grey_400"
+                    app:btn_fill_color="@color/sky_end"
+                    app:siShape="@raw/heart" />
+            </LinearLayout>
+
+
+            <!--<TextView
+                android:id="@+id/txt2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:autoLink="all"
+                android:focusable="false"
+                android:lineSpacingMultiplier="1.2"
+                android:text="Message"
+                android:textSize="@dimen/font_size_default"
+                android:textColor="@color/black"/>-->
+            <com.topceo.socialview.core.widget.SocialTextView
+                android:id="@+id/txt2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:autoLink="all"
+                android:focusable="false"
+                android:lineSpacingMultiplier="1.2"
+                android:text="Message"
+                android:textSize="@dimen/title_size"
+                android:textColor="@color/black"
+                app:hashtagColor="@color/hashtag"
+                app:mentionColor="@color/mention"
+                app:hyperlinkColor="@color/green_500"
+                app:socialFlags="hashtag|mention|hyperlink"
+                android:textIsSelectable="true"
+                />
+
+            <LinearLayout
+                android:id="@+id/linear3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/txt3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:focusable="false"
+                    android:gravity="right"
+                    android:text="Khoảng 1 giờ"
+                    android:textColor="@color/grey_500"
+                    android:textIsSelectable="true"
+                    android:textSize="@dimen/font_size_small" />
+
+                <LinearLayout
+                    android:id="@+id/linear5"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    >
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/bg_circle_grey_500"/>
+                <TextView
+                    android:id="@+id/txt4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/like"
+                    android:textSize="@dimen/font_size_small"
+                    android:padding="@dimen/margin_5dp"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/blue_900"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linear4"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    >
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/bg_circle_blue_900"/>
+                    <TextView
+                        android:id="@+id/txt5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/reply"
+                        android:padding="@dimen/margin_5dp"
+                        android:textSize="@dimen/font_size_small"
+                        android:textColor="@color/blue_900"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear6"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    >
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/bg_circle_blue_900"/>
+                    <TextView
+                        android:id="@+id/txt6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/delete"
+                        android:padding="@dimen/margin_5dp"
+                        android:textSize="@dimen/font_size_small"
+                        android:textColor="@color/blue_900"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearReplyMore"
+                android:paddingTop="@dimen/margin_10dp"
+                android:paddingBottom="@dimen/margin_10dp"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="36dp"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/grey_400"/>
+                <TextView
+                    android:id="@+id/txtReplyMoreCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="right"
+                    android:text="@string/view_reply_number"
+                    android:textColor="@color/grey_500"
+                    android:textSize="@dimen/font_size_small" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

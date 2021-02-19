@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/action_bar_color"
+        android:elevation="@dimen/default_elevation"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/share"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/appbar_title" />
+    </androidx.appcompat.widget.Toolbar>
+    <include layout="@layout/separate_horizontal"/>
+    <FrameLayout
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#eeeeee" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/transparent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white">
+                <EditText
+                    android:id="@+id/editText1"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_margin="6dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="top"
+                    android:hint="@string/add_message"
+                    android:lines="20"
+                    android:padding="8dp"
+                    android:scrollHorizontally="false"
+                    android:scrollbars="vertical"
+                    android:singleLine="false"
+                    android:inputType="textCapSentences"
+                    android:text=""
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <include layout="@layout/separator_horizoltal"/>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="42dp"
+                    android:layout_margin="6dp"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:gravity="top"
+                        android:hint="@string/share_with_a_friend"
+                        android:padding="8dp"
+                        android:scrollHorizontally="false"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textColor="#333333"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_search_grey_500_24dp"/>
+                </LinearLayout>
+                <include layout="@layout/separator_horizoltal"/>
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="42dp"
+                    android:layout_margin="6dp"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="@dimen/icon_small"
+                        android:layout_height="@dimen/icon_small"
+                        android:layout_margin="6dp"
+                        android:src="@mipmap/ic_launcher"/>
+                    <!--<TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="top"
+                        android:hint="@string/app_name"
+                        android:padding="8dp"
+                        android:scrollHorizontally="false"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textColor="#333333"
+                        android:textSize="14sp" />-->
+
+                    <CheckBox
+                        android:text="@string/app_name"
+                        android:textColor="#333333"
+                        android:button="@null"
+                        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/checkBox1" />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="42dp"
+                    android:layout_margin="6dp"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_margin="6dp"
+                        android:src="@drawable/ic_facebook_blue"/>
+                    <CheckBox
+                        android:text="@string/facebook"
+                        android:textColor="#333333"
+                        android:button="@null"
+                        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/checkBox2" />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="42dp"
+                    android:layout_margin="6dp"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_margin="6dp"
+                        android:src="@drawable/ic_zalo"/>
+                    <CheckBox
+                        android:text="@string/zalo"
+                        android:textColor="#333333"
+                        android:button="@null"
+                        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/checkBox3" />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="42dp"
+                    android:layout_margin="6dp"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="@dimen/icon_small"
+                        android:layout_height="@dimen/icon_small"
+                        android:layout_margin="6dp"
+                        android:src="@drawable/ic_twitter"/>
+                    <CheckBox
+                        android:text="@string/twitter"
+                        android:textColor="#333333"
+                        android:button="@null"
+                        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/checkBox4" />
+
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/share"
+                    android:id="@+id/button1"
+                    android:layout_margin="12dp"
+                    style="@style/sky_button_fill" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </FrameLayout>
+
+
+
+
+</RelativeLayout>

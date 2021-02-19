@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearAcceptRefuse"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginBottom="@dimen/margin_8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnAccept"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:text="@string/accept"
+            android:textAllCaps="false"
+            android:textSize="@dimen/font_size_medium"/>
+        <Button
+            android:id="@+id/btnRefuse"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:backgroundTint="@color/grey_500"
+            android:textColor="@color/black"
+            android:text="@string/refuse"
+            android:textAllCaps="false"
+            android:textSize="@dimen/font_size_medium"/>
+    </LinearLayout>
+    <include layout="@layout/separate_horizontal"/>
+</LinearLayout>

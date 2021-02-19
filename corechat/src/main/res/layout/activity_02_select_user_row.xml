@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:id="@+id/linearRoot"
+    android:padding="5dp">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="false">
+
+        <ImageView
+            android:id="@+id/img1"
+            android:layout_width="@dimen/avatar_size_medium"
+            android:layout_height="@dimen/avatar_size_medium"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:src="@drawable/ic_user_2" />
+
+        <!--<ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="@dimen/ic_on_off_line"
+            android:layout_height="@dimen/ic_on_off_line"
+            android:focusable="false"
+            android:layout_alignRight="@+id/imageView1"
+            android:layout_alignBottom="@+id/imageView1"
+            android:focusableInTouchMode="false"
+            android:src="@drawable/ic_offline"
+            android:visibility="visible"/>-->
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TextViewAppearance.TextTitle"
+            android:id="@+id/txt1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text=""
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:paddingRight="10dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TextViewAppearance.TextBody"
+            android:id="@+id/txt2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text=""
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:paddingLeft="0dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:paddingRight="0dp" />
+    </LinearLayout>
+
+</LinearLayout>

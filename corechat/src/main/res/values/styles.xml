@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="empty_view_style_1">
+        <item name="android:textColor">@color/grey_500</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <dimen name="dimen_15dp">15dp</dimen>
+
+    <style name="editTextStyle2" parent="editTextStyle1">
+        <item name="android:background">@drawable/bg_rectangle_grey_corner_border</item>
+    </style>
+
+    <style name="AppThemeDefault.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppThemeDefault.NoActionBar.Fullscreen">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="TextViewAppearance" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingLeft">26dp</item>
+        <item name="android:paddingRight">26dp</item>
+        <!-- Supports API Level 17+ -->
+        <!-- <item name="android:paddingStart">26dp</item> -->
+        <!-- Supports API Level 17+ -->
+        <!-- <item name="android:paddingEnd">26dp</item> -->
+    </style>
+    <style name="TextViewAppearance.TextTitle">
+        <item name="android:textSize">@dimen/text_size_menu</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:padding">2dp</item>
+    </style>
+
+    <style name="TextViewAppearance.TextBody">
+        <item name="android:textSize">@dimen/text_size_menu</item>
+        <item name="android:textColor">@color/grey_500</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="iconTint">@color/colorPrimaryChat</item>
+    </style>
+
+    <style name="MyCustomTabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">13sp</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="ThemeFullscreen" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryChat</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkChat</item>
+        <item name="colorAccent">@color/colorAccentChat</item>
+        <item name="android:windowBackground">@color/white</item>
+
+        <!--<item name="pf_lock_screen">@style/MyLockScreenStyle</item>-->
+    </style>
+
+    <style name="editTextStyle1">
+        <item name="android:layout_height">48dp</item>
+        <item name="android:paddingLeft">@dimen/dimen_15dp</item>
+        <item name="android:paddingRight">@dimen/dimen_15dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:background">@drawable/bg_rectangle_light_blue_corner_2</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/btnColor</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+    </style>
+
+    <style name="MyLockScreenStyle">
+        <item name="android:background">@color/primary</item>
+    </style>
+
+    <style name="PaymentTitleNormal" ><!--parent="TextAppearance.AppCompat.Subhead"-->
+        <!--<item name="fontFamily">sans-serif-light</item>
+        <item name="android:fontFamily">sans-serif-light</item>-->
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/grey_500</item>
+        <item name="android:letterSpacing">0.00714285714</item>
+    </style>
+
+    <style name="PaymentTitleBold" parent="PaymentTitleNormal"><!--parent="TextAppearance.MaterialComponents.Subtitle2"-->
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="ic_chat_style">
+        <item name="android:layout_width">@dimen/menu_chat_size_1</item>
+        <item name="android:layout_height">@dimen/menu_chat_size_1</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:tint">@color/colorPrimaryChat</item>
+    </style>
+
+
+</resources>

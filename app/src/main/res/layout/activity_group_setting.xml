@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.topceo.group.SettingGroupActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:elevation="@dimen/default_elevation"
+        app:title=""
+        app:navigationIcon="@drawable/ic_svg_16_24dp"
+        app:theme="@style/ThemeOverlay.MaterialComponents.ActionBar">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text="@string/settings"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_size_default"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/group_notify"
+            android:textColor="@color/black"
+            android:padding="@dimen/margin_16dp"
+            android:background="@color/grey_100"
+            android:textSize="@dimen/title_size_large"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/linear1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/avatar_size"
+                    android:layout_height="@dimen/avatar_size"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:padding="15dp"
+                    android:src="@drawable/ic_round_notifications_24" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginEnd="@dimen/dimen_5dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:text="@string/feed"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_size"
+                    android:typeface="sans" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt1"
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:layout_weight="1"
+                    android:lines="2"
+                    android:ellipsize="end"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    tools:text="@string/group_setting_feed_1"
+                    android:textColor="@color/grey_600"
+                    android:textSize="@dimen/title_size"
+                    android:typeface="sans" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <include layout="@layout/separator_horizoltal" />
+
+        <LinearLayout
+            android:id="@+id/linear2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:padding="15dp"
+                android:src="@drawable/ic_round_emoji_people_24" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/when_have_request_join_group"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_size"
+                    android:typeface="sans" />
+
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/switch1"
+                android:paddingEnd="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end|center_vertical"
+                android:textSize="@dimen/text_size_menu"
+                android:textColor="@color/black"
+                app:tint="@color/grey_500" />
+        </LinearLayout>
+
+        <include layout="@layout/separator_horizoltal" />
+
+        <LinearLayout
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:id="@+id/linearAdminConfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/group_config"
+                android:textColor="@color/black"
+                android:padding="@dimen/margin_16dp"
+                android:background="@color/grey_100"
+                android:textSize="@dimen/title_size_large"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/avatar_size"
+                    android:layout_height="match_parent"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:scaleType="fitStart"
+                    android:paddingLeft="@dimen/margin_15dp"
+                    android:paddingEnd="@dimen/margin_15dp"
+                    android:paddingTop="@dimen/margin_5dp"
+                    android:src="@drawable/ic_round_person_24" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center_vertical"
+                        android:text="@string/group_config_allow_join_group"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/title_size"
+                        android:typeface="sans" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
+                        android:checkedButton="@+id/radio_button_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/radio1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/auto"
+                            android:checked="true" />
+
+                        <RadioButton
+                            android:id="@+id/radio2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/everyone" />
+
+                        <RadioButton
+                            android:id="@+id/radio3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/admin_or_mod" />
+                    </RadioGroup>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <include layout="@layout/separate_horizontal" />
+
+            <LinearLayout
+                android:id="@+id/linear3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="?android:attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/avatar_size"
+                    android:layout_height="@dimen/avatar_size"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:padding="15dp"
+                    android:src="@drawable/ic_rss_feed_black_24dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center_vertical"
+                        android:text="@string/member_can_post"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/title_size"
+                        android:typeface="sans" />
+
+                </LinearLayout>
+
+                <Switch
+                    android:id="@+id/switch2"
+                    android:paddingEnd="24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end|center_vertical"
+                    android:textSize="@dimen/text_size_menu"
+                    android:textColor="@color/black"
+                    app:tint="@color/grey_500"
+                    android:checked="true" />
+            </LinearLayout>
+
+            <include layout="@layout/separate_horizontal" />
+
+            <LinearLayout
+                android:id="@+id/linear4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="?android:attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/avatar_size"
+                    android:layout_height="@dimen/avatar_size"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:padding="15dp"
+                    android:src="@drawable/ic_round_check_circle_24" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center_vertical"
+                        android:text="@string/post_need_approve"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/title_size"
+                        android:typeface="sans" />
+
+                </LinearLayout>
+
+                <Switch
+                    android:id="@+id/switch3"
+                    android:paddingEnd="24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end|center_vertical"
+                    android:textSize="@dimen/text_size_menu"
+                    android:textColor="@color/black"
+                    app:tint="@color/grey_500"
+                    android:checked="true" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:background="@color/grey_100" />
+    </LinearLayout>
+
+</LinearLayout>

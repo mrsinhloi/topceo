@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_chat"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_10dp">
+
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right|center_vertical"
+        android:orientation="horizontal">
+
+        <include layout="@layout/activity_chat_row_avatar_left" />
+
+        <RelativeLayout
+            android:id="@+id/relativeContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/linear2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_outcoming_message"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:orientation="vertical"
+                android:paddingTop="3dp">
+
+                <LinearLayout
+                    android:id="@+id/linearReply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/light_blue_500" />
+
+                    <include layout="@layout/activity_item_reply" />
+                </LinearLayout>
+
+                <include layout="@layout/activity_item_forward" />
+
+                <TextView
+                    android:id="@+id/txt33"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_7dp"
+                    android:layout_marginRight="@dimen/margin_7dp"
+                    android:focusable="false"
+                    android:gravity="left"
+                    android:text=""
+                    android:textColor="@color/grey_900"
+                    android:textIsSelectable="true"
+                    android:textSize="@dimen/font_size_small"
+                    android:textStyle="bold" />
+
+                <!--hani.momanii.supernova_emoji_library.Helper.EmojiconTextView-->
+                <com.workchat.core.autolink.CustomTextViewLink
+                    android:id="@+id/txt2"
+                    android:layout_width="match_parent"
+                    android:minWidth="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:autoLink="web"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/margin_7dp"
+                    android:paddingTop="@dimen/margin_2dp"
+                    android:paddingRight="@dimen/margin_7dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textColorLink="@color/blue"
+                    app:emojiconAlignment="baseline"
+                    app:emojiconSize="@dimen/icon_emoji_size" />
+
+
+                <include layout="@layout/activity_chat_row_bottom_time_and_pin" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <include layout="@layout/activity_chat_row_bottom_user_viewed" />
+
+
+</LinearLayout>

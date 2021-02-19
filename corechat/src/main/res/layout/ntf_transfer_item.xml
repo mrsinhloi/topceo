@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/ntfTransfer_avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_avatar"
+        android:scaleType="centerInside"
+        android:layout_centerVertical="true"/>
+
+    <LinearLayout
+        android:id="@+id/ntfTransfer_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical"
+        android:layout_alignTop="@id/ntfTransfer_avatar"
+        android:layout_toEndOf="@id/ntfTransfer_avatar">
+        <TextView
+            android:id="@+id/ntfTransfer_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:text="@string/loading"/>
+        <TextView
+            android:id="@+id/ntfTransfer_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:text="@string/loading"/>
+        <TextView
+            android:id="@+id/ntfTransfer_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            android:text="@string/loading"/>
+    </LinearLayout>
+
+</RelativeLayout>

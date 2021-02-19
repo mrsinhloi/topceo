@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:orientation="horizontal">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/app_name"
+        android:textColor="@color/textTitleColor"
+        android:textSize="@dimen/appbar_title" />
+
+    <ImageView
+        android:id="@+id/imgBack"
+        style="@style/ic_back_style"
+        android:src="@drawable/ic_svg_16" />
+
+    <include
+        android:layout_marginEnd="3dp"
+        layout="@layout/header_icons_chat_cart"
+        android:layout_gravity="end"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"/>
+</FrameLayout>

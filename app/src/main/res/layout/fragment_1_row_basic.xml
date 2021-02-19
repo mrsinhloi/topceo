@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/separate_horizontal" />
+
+    <include layout="@layout/layout_header" />
+
+
+    <!--SquaredFrameLayout-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        tools:layout_height="100dp">
+
+
+        <LinearLayout
+            android:id="@+id/linearContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+
+        <View
+            android:id="@+id/vBgLike"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_like_circle_background"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/ivLike"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/avd_instagram_like" />
+
+    </FrameLayout>
+
+    <include
+        layout="@layout/layout_ads"
+        android:visibility="gone" />
+
+    <include layout="@layout/layout_footer" />
+
+    <include
+        layout="@layout/activity_group_post_approve_row"
+        android:visibility="gone" />
+
+</LinearLayout>

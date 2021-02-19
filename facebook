@@ -1,0 +1,129 @@
+/**
+publish_actions: cần được facebook review trước khi publish app, quay phim và gởi mô tả + apk để facebook kiểm duyệt
+Trong quá trình phát triển có thể add tài khoản facebook để test trước, với vai trò là người thử nghiệm hoặc nhà phát triển
+add vào username: vd: phamtrungphuong
+**/
+
+CallbackManager callbackManager;
+//onCreate
+callbackManager = CallbackManager.Factory.create();
+//init facebook
+initFacebookPermissions();
+
+//
+private boolean isLogined() {
+        return AccessToken.getCurrentAccessToken() != null;
+    }
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    //facebook
+    callbackManager.onActivityResult(requestCode, resultCode, data);
+}
+
+//
+public void initFacebookPermissions() {
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        // User succesfully login with all permissions
+                        // After this with these json and ParseUser , you can save your user to Parse
+                        MyUtils.log(object.toString());
+                        getPublishPermissions();
+                    }
+                });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,first_name,last_name,name,email,gender,birthday");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                MyUtils.log("facebook cancel publish_actions");
+            }
+
+            @Override
+            public void onError(FacebookException facebookException) {
+                MyUtils.log("facebook error publish_actions");
+            }
+        });
+
+    }
+
+    private boolean isAllowPostFacebook=false;
+    public void getPublishPermissions() {
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        // User succesfully login with all permissions
+                        // After this with these json and ParseUser , you can save your user to Parse
+                        MyUtils.log(object.toString());
+                        isAllowPostFacebook=true;
+                        MyUtils.showToast(context, R.string.facebook_ready);
+
+                    }
+                });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,first_name,last_name,name,email,gender,birthday");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                MyUtils.log("facebook cancel publish_actions");
+                cb1.setChecked(false);
+                isAllowPostFacebook=false;
+            }
+
+            @Override
+            public void onError(FacebookException facebookException) {
+                MyUtils.log("facebook error publish_actions");
+                cb1.setChecked(false);
+                isAllowPostFacebook=false;
+            }
+        });
+
+        LoginManager.getInstance().logInWithPublishPermissions(FeedShareActivity.this, Arrays.asList("publish_actions"));
+    }
+
+    private void postToFacebook(String link, String description){
+
+        if (isLogined() && isAllowPostFacebook) {
+            if (!TextUtils.isEmpty(link)) {
+
+                final ProgressDialog dialog=ProgressDialog.show(context,"","Posting...");
+                Bundle bundle = new Bundle();
+                bundle.putString("url", link);
+                bundle.putString("message", description);
+                new GraphRequest(
+                        AccessToken.getCurrentAccessToken(),
+                        "me/photos",
+                        bundle,
+                        HttpMethod.POST,
+                        new GraphRequest.Callback() {
+                            public void onCompleted(GraphResponse response) {
+                                //{Response:  responseCode: 200, graphObject: {"id":"1048094951948232_1094758590615201"}, error: null}
+                                MyUtils.log("user = " + response.toString());
+//                                isAllowPostFacebook=false;
+                                dialog.dismiss();
+                                MyUtils.showToast(context, R.string.post_facebook_success);
+                                finish();
+                            }
+
+                        }
+                ).executeAsync();
+            }
+        }
+    }
+
+Webservices.UPDATE_IMAGE_ITEM_DESCRIPTION(item.getImageItemId(), description, hashtags, mentions, item.getItemData())

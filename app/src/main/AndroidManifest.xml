@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.topceo">
+
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!--
+<uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    -->
+    <!--
+    Attribute application@appComponentFactory value=(android.support.v4.app.CoreComponentFactory) from
+    [com.android.support:support-compat:28.0.0] AndroidManifest.xml:22:18-91
+    is also present at [androidx.core:core:1.0.0] AndroidManifest.xml:22:18-86 value=(androidx.core.app.CoreComponentFactory).
+    Suggestion: add 'tools:replace="android:appComponentFactory"' to <application>
+    element at AndroidManifest.xml:31:5-300:19 to override.
+    -->
+    <!-- wake lock to prevent the cpu from sleeping while a song Is playing even after the phone goes idle -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- show notification in lockscreen -->
+    <!-- <permission android:name="android.permission.MEDIA_CONTENT_CONTROL" /> -->
+    <!-- ANDROID 9 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+        android:name=".config.MyApplication"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
+        android:supportsRtl="true"
+        android:theme="@style/ThemeFullscreenDefault"
+        tools:replace="android:theme,android:allowBackup"
+        tools:targetApi="q">
+
+        <activity
+            android:name=".chat.MainChatActivity"
+            android:screenOrientation="portrait" />
+        <!--
+        <activity
+            android:name=".accountkit.LoadingActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+        -->
+        <!-- crop image -->
+        <activity
+            android:name=".crop.CropImageActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".crop.ImageActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" /> <!-- crop image -->
+        <activity
+            android:name=".activity.MH00_LoadingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeFullscreenDefault">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+
+                <!--dynamiclink-->
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="book.ehubstar.com/ref"
+                    android:scheme="https" />
+                <data
+                    android:host="book.ehubstar.com/share"
+                    android:scheme="https" />
+
+
+            </intent-filter>
+
+
+        </activity>
+        <activity
+            android:name=".shopping.PaymentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MH01_MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "example://gizmos” -->
+                <data
+                    android:host="page"
+                    android:scheme="topceo" />
+            </intent-filter>
+
+            <!--
+             <intent-filter>
+                 <action android:name="android.intent.action.VIEW" />
+                 <category android:name="android.intent.category.DEFAULT" />
+                 <category android:name="android.intent.category.BROWSABLE" />
+                 &lt;!&ndash; Accepts URIs that begin with "example://gizmos” &ndash;&gt;
+                 <data
+                     android:host="promotion?screen="
+                     android:scheme="topceo" />
+             </intent-filter>
+            -->
+
+        </activity> <!-- google map, place -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/GOOGLE_MAPS_ANDROID_API_KEY" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"
+            tools:replace="android:value" /> <!-- google map, place -->
+        <!--
+            <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"
+            tools:replace="android:value" />
+        -->
+        <activity
+            android:name=".gallery.PickImageActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.Fullscreen2" />
+        <activity
+            android:name=".activity.MH03_PostActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activity.MH04_FeedEditActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name=".activity.MH06_FeedShareActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name=".profile.MH19_UserProfileActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".profile.MH20_UserEditProfileActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" /> <!-- ImagePicker -->
+        <!-- Twitter -->
+        <!--
+<meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="142ade5d4def803750bf662419ad246721c6b0c7" />
+        -->
+        <!-- Twitter -->
+        <activity
+            android:name=".activity.MH11_LikeActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activity.MH09_FollowersActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activity.MH10_FollowingsActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activity.MH05_ShareActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activity.MH02_PhotoDetailActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".search.SearchActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysVisible" />
+        <activity
+            android:name=".hashtag.HashTagActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activity.MH08_SuggestActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".amazon.ControlNavigationNotifyActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" /> <!-- ADMOB -->
+        <meta-data
+            android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+            android:value="true" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_app_id" /> <!-- ADMOB -->
+        <!-- Facebook Ads -->
+        <activity
+            android:name="com.facebook.ads.AudienceNetworkActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" /> <!-- Facebook Ads -->
+        <!-- FACEBOOK -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationName"
+            android:value="@string/app_name" /> <!-- Disbale opening of launcher Activity -->
+        <service
+            android:name=".onesignal.OnesignalNotificationExtender"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+            <intent-filter>
+                <action android:name="com.onesignal.NotificationExtender" />
+            </intent-filter>
+        </service> <!-- Disable opening of launcher Activity -->
+        <!--
+        <meta-data
+            android:name="com.onesignal.NotificationOpened.DEFAULT"
+            android:value="DISABLE" />
+        -->
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" /> <!-- Neu ko muon hien notify, minh tu custom -->
+        <activity
+            android:name=".onesignal.NotificationActivity"
+            android:configChanges="keyboard|orientation"
+            android:screenOrientation="portrait" />
+        <!--
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorPrimary" />
+        -->
+        <!-- ONE SIGNAL -->
+        <activity
+            android:name=".comments.CommentActivityParent"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".comments.CommentUserLikedActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" /> <!-- LOGIN -->
+        <!-- LOGIN -->
+        <!-- SIGNUP -->
+        <!--
+<activity
+            android:name=".accountkit.MH01_InputPhoneNumber_Activity"
+            android:screenOrientation="portrait"
+            
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
+        -->
+        <activity
+            android:name=".accountkit.MH02_Update_Profile_Activity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name=".login.ResetPasswordActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" /> <!-- SIGNUP -->
+        <activity
+            android:name=".shopping.ShoppingActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" /> <!-- android:theme="@style/AppTheme.NoActionBar4" -->
+        <activity
+            android:name=".profile.MH22_SettingActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".mediaplayer.audio.PlayerService" />
+
+        <activity
+            android:name=".mediaplayer.audio.MediaPlayerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".mediaplayer.video.VideoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".shopping.ShowAlbumActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".activity.MH07_MyCardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeDialog" />
+        <activity
+            android:name=".profile.MH21_NotifySettingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".mediaplayer.preview.VideoPreviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mediaplayer.preview.VideoSelectThumbnailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mediaplayer.preview.TrimmerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MH13_InsightActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".selections.SelectFavoritesActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".login.MH15_SigninActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeFullscreenDefault"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".login.MH16_SignupActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeFullscreenDefault"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".login.WelcomeActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.MH17_ForgetPasswordActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.MH18_EmailVerifyActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="true" />
+
+        <activity
+            android:name=".firebase_auth.InputPhoneActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name=".activity.MH12_CountDownActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MH15_GroupUserActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MH14_TermsOfServiceActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait" /> <!-- Đã add từ thư viện trong module post-like-facebook nên ẩn provider này -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"
+                tools:replace="android:resource" />
+        </provider>
+
+        <activity
+            android:name=".post.PostLikeFacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeDefault"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" /> <!-- GROUP -->
+        <activity
+            android:name=".group.GroupDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeFullscreenDefault.TitleBarTransparent" />
+        <activity
+            android:name=".group.members.MemberGroupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".group.members.InviteMemberActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name=".group.AllGroupActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name=".group.SettingGroupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".group.CreateGroupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".group.members.ApproveMemberActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name=".group.members.ApprovePostActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+
+        <activity
+            android:name=".login.workchat.ui.InputPhoneActivityWc"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
+        <activity
+            android:name=".activity.MH16_ReferalActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+
+    </application>
+
+</manifest>

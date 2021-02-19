@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@color/action_bar_color"
+        android:elevation="@dimen/default_elevation"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgBack"
+                style="@style/ic_back_style"
+                android:src="@drawable/ic_svg_16_24dp" />
+
+            <TextView
+                android:id="@+id/txtTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/new_post"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/appbar_title" />
+
+
+            <TextView
+                android:id="@+id/txtShare"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_10dp"
+                android:paddingRight="@dimen/margin_10dp"
+                android:text="@string/post"
+                android:textColor="@color/textTitleColor"
+                android:textSize="@dimen/appbar_title"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/layout_header" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.topceo.socialview.commons.widget.SocialAutoCompleteTextView
+                    android:id="@+id/txtDes"
+                    style="@style/style_edit_description"
+                    android:focusable="true"
+                    android:hint="@string/are_you_thinking"
+                    android:lineSpacingMultiplier="1.4"
+                    android:text=""
+                    app:hashtagColor="@color/hashtag"
+                    app:hyperlinkColor="@color/green_500"
+                    app:mentionColor="@color/mention"
+                    app:socialFlags="mention|hashtag" />
+
+                <include layout="@layout/link_preview" />
+
+            </LinearLayout>
+
+            <!--<com.smartapp.collage.CollageImageView
+                android:id="@+id/feed_post"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCollage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearGroupBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/grey_100"
+        android:orientation="vertical">
+
+        <include layout="@layout/separate_horizontal" />
+
+        <LinearLayout
+            android:id="@+id/linearFacebookPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_10dp"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/margin_24dp"
+                    android:layout_height="@dimen/margin_24dp"
+                    android:layout_margin="6dp"
+                    android:src="@drawable/ic_facebook_blue" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchFacebook"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/margin_10dp"
+                    android:layout_weight="1"
+                    android:checked="false"
+                    android:text="@string/facebook_share_to_page" />
+
+                <ImageView
+                    android:id="@+id/imgFacebookConfig"
+                    tools:visibility="visible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="@dimen/margin_10dp"
+                    android:src="@drawable/ic_round_more_vert_24"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtPages"
+                tools:text="@string/to_pages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_30dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:paddingStart="@dimen/margin_16dp"
+                android:paddingEnd="@dimen/dimen_5dp"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearBottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_bottom_height"
+            android:background="@color/grey_100"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtAddPhoto"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_10dp"
+                android:text="@string/add_to_post"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:id="@+id/imgPhoto"
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/margin_10dp"
+                android:src="@drawable/ic_round_photo_album_24" />
+
+            <ImageView
+                android:id="@+id/imgLocation"
+                android:layout_width="26dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/margin_10dp"
+                android:src="@drawable/ic_round_location_on_24" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

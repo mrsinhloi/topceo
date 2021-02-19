@@ -1,0 +1,87 @@
+Tham khao viet library: https://github.com/ahmedadeltito/socialmediasignup
+
+1. FACEBOOK:
+- Cấu hình SDK: https://developers.facebook.com/quickstarts/359536575017147/?platform=android
+- Cấu hình Login để lấy Access Token: https://developers.facebook.com/docs/facebook-login/android/?sdk=fbsdk
+- Xem 10. Kiểm tra trạng thái đăng nhập
+- Graph API: https://developers.facebook.com/docs/android/graph
++ Lấy thông tin page: https://developers.facebook.com/docs/graph-api/reference/user/accounts/
+{
+  "data": [
+    {
+      "access_token": "EAAFGZCyHWcLsBACBJZC910ulZAWvS7STCqhlD9jYcmPcK723C4bhmAJelp8uRTRjSuhbMne5W3SdGYiVL1QPgAxBE2pUx6qCIoEoOHIJ5y48CCpEjPDwS4eIwlxeeeUrzoo5BbBE2TuS8dzFmXhrG6ntLhqqW3q4tZAmKZAZB9uDtzpGt8v3gEFFZCATvLpIEQ6KGbpZANZAG4AZDZD",
+      "category": "Giải trí",
+      "category_list": [
+        {
+          "id": "129417183848258",
+          "name": "Giải trí"
+        }
+      ],
+      "name": "Photo & Music Fans",
+      "id": "108908437552484",
+      "tasks": [
+        "ANALYZE",
+        "ADVERTISE",
+        "MODERATE",
+        "CREATE_CONTENT",
+        "MANAGE"
+      ]
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "MTA4OTA4NDM3NTUyNDg0",
+      "after": "MTA4OTA4NDM3NTUyNDg0"
+    }
+  }
+}
+
++ Profile:
+profile = {Profile@21122}
+ firstName = "Phạm"
+ id = "3079569485467425"
+ lastName = "Phương"
+ linkUri = {Uri$StringUri@21130} ""
+ middleName = "Trung"
+ name = "Phạm Trung Phương"
+
+
++ Post in Page: https://developers.facebook.com/docs/graph-api/reference/page/#validation-rules-3  (search /{page_id}/feed)
+Thiếu param access_token của page
+{Response:  responseCode: 403, graphObject: null, error: {HttpStatus: 403, errorCode: 200, subErrorCode: -1, errorType: OAuthException,
+errorMessage: (#200) If posting to a group, requires app being installed in the group, and \
+          either publish_to_groups permission with user token, or both pages_read_engagement \
+          and pages_manage_posts permission with page token; If posting to a page, \
+          requires both pages_read_engagement and pages_manage_posts as an admin with \
+          sufficient administrative permission}}
+{AccessToken token:ACCESS_TOKEN_REMOVED permissions:[pages_manage_posts, public_profile, pages_manage_engagement, pages_read_engagement, pages_read_user_content]}
+
+
++ Photo: https://developers.facebook.com/docs/graph-api/reference/page/photos/
+Uploading and publishing page photos requires a page access token with "manage_pages" and "publish_pages" permissions.
+You can only publish as a page, not a as a user.
+
+
++ Video:
+
+
++ Đọc các feed trong page: https://developers.facebook.com/docs/graph-api/reference/v7.0/page/feed
++ https://developers.facebook.com/docs/apps/features-reference
++ https://developers.facebook.com/docs/facebook-login/android/permissions
+
+- Chuyen user: https://github.com/facebook/facebook-android-sdk/tree/master/samples/SwitchUserSample
+https://www.programcreek.com/java-api-examples/?class=com.facebook.Profile&method=getCurrentProfile
+
+- Duyệt app:
+1. Login screen:
+- Username: tester
+- Password: 123456
+2. Select Plus icon in center on bottom menu to post image > select image > Next > Select effect > OK
+3. New post screen: switch ON facebook option > Facebook Auth > Select page > Next > Finish > OK
+4. Select Page to post image > OK
+5. Press Share to post in app BookSocial and post to page selected.
+
+
+
+2. TWITTER:
+

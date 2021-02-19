@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SocialsPost</string>
+
+    <string name="facebook_app_id">359536575017149</string>
+    <string name="fb_login_protocol_scheme">fb359536575017149</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="facebook_select_page_title">Select page to post</string>
+    <string name="logout">Logout</string>
+
+</resources>

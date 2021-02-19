@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <!--<androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        android:elevation="@dimen/default_elevation"
+        app:contentInsetStartWithNavigation="0dp"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="30dp"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text=""
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    -->
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imgBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/margin_16dp"
+                        android:src="@drawable/ic_arrow_back_black_24dp" />
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="@dimen/photo_profile"
+                        android:layout_height="@dimen/photo_profile"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="16dp"
+                        android:src="@drawable/ic_account_circle_grey" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:layout_marginBottom="@dimen/margin_10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_toLeftOf="@+id/imageView3"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:padding="10dp"
+                        android:text="Large"
+                        android:textSize="@dimen/text_size_16sp"
+                        android:textColor="@color/black" />
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_pen_grey_700_24dp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <include layout="@layout/separate_horizontal" />
+
+            <LinearLayout
+                android:id="@+id/linearInviteLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/margin_16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/invite_link"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_menu"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtInviteLink"
+                    android:textSize="@dimen/text_size_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:text="@string/channel_description" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_16dp"
+                android:orientation="vertical">
+
+                <include layout="@layout/separate_horizontal"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_16dp"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:text="@string/description"
+                    android:textSize="@dimen/text_size_menu"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_16dp"
+                    android:layout_marginRight="@dimen/margin_16dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:textSize="@dimen/text_size_menu"
+                    android:text="@string/channel_description" />
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:id="@+id/linear2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/separate_horizontal" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/ic_menu_size_wc"
+                        android:layout_height="@dimen/ic_menu_size_wc"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:padding="15dp"
+                        app:tint="@color/colorPrimaryChat"
+                        android:src="@drawable/ic_notifications_black_24dp" />
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/cbNotify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="@dimen/text_size_16sp"
+                        android:layout_weight="1"
+                        android:focusable="false"
+                        android:checked="true"
+                        android:layoutDirection="rtl"
+                        android:focusableInTouchMode="false"
+                        android:gravity="center_vertical"
+                        android:text="@string/receive_notification"
+                        android:textSize="@dimen/text_size_menu"
+                        android:textColor="@color/black"
+                        android:typeface="sans" />
+                </LinearLayout>
+
+                <include layout="@layout/separate_horizontal" />
+
+                <LinearLayout
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:id="@+id/linearInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/ic_menu_size_wc"
+                            android:layout_height="@dimen/ic_menu_size_wc"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:padding="15dp"
+                            app:tint="@color/colorPrimaryChat"
+                            android:src="@drawable/ic_info_black_24dp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="center_vertical"
+                            android:text="@string/update_channel"
+                            android:textSize="@dimen/text_size_menu"
+                            android:typeface="sans"
+                            android:textColor="@color/black" />
+
+                        <ImageView
+                            android:layout_width="@dimen/ic_menu_size_wc"
+                            android:layout_height="@dimen/ic_menu_size_wc"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:padding="15dp"
+                            app:tint="@color/grey_300"
+                            android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+                    </LinearLayout>
+
+                    <include layout="@layout/separate_horizontal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:id="@+id/linearAddmember"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="@dimen/ic_menu_size_wc"
+                            android:layout_height="@dimen/ic_menu_size_wc"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:padding="15dp"
+                            app:tint="@color/colorPrimaryChat"
+                            android:src="@drawable/ic_person_add_black_24dp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="center_vertical"
+                            android:text="@string/add_person"
+                            android:textSize="@dimen/text_size_menu"
+                            android:textColor="@color/black"
+                            android:typeface="sans" />
+
+                        <ImageView
+                            android:layout_width="@dimen/ic_menu_size_wc"
+                            android:layout_height="@dimen/ic_menu_size_wc"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:padding="15dp"
+                            app:tint="@color/grey_300"
+                            android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+                    </LinearLayout>
+                    <include layout="@layout/separate_horizontal" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:id="@+id/linearBanUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/ic_menu_size_wc"
+                            android:layout_height="@dimen/ic_menu_size_wc"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:padding="15dp"
+                            app:tint="@color/red_500"
+                            android:src="@drawable/ic_remove_circle_outline_black_24dp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="center_vertical"
+                            android:text="@string/ban_user"
+                            android:textSize="@dimen/text_size_menu"
+                            android:textColor="@color/red_500"
+                            android:typeface="sans" />
+
+                        <ImageView
+                            android:layout_width="@dimen/ic_menu_size_wc"
+                            android:layout_height="@dimen/ic_menu_size_wc"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:padding="15dp"
+                            app:tint="@color/grey_300"
+                            android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+                    </LinearLayout>
+                    <include layout="@layout/separate_horizontal"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:id="@+id/linearAdmin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/ic_menu_size_wc"
+                            android:layout_height="@dimen/ic_menu_size_wc"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:padding="15dp"
+                            app:tint="@color/orange_500"
+                            android:src="@drawable/ic_star_black_24dp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="center_vertical"
+                            android:text="@string/administrator"
+                            android:textSize="@dimen/text_size_menu"
+                            android:textColor="@color/orange_500"
+                            android:typeface="sans" />
+
+                        <ImageView
+                            android:layout_width="@dimen/ic_menu_size_wc"
+                            android:layout_height="@dimen/ic_menu_size_wc"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:padding="15dp"
+                            app:tint="@color/grey_300"
+                            android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+                    </LinearLayout>
+                    <include layout="@layout/separate_horizontal"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:id="@+id/linearPinMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/ic_menu_size_wc"
+                            android:layout_height="@dimen/ic_menu_size_wc"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:padding="15dp"
+                            app:tint="@color/colorPrimaryChat"
+                            android:src="@drawable/ic_pin_96dp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="center_vertical"
+                            android:text="@string/pin_message"
+                            android:textSize="@dimen/text_size_menu"
+                            android:textColor="@color/black"
+                            android:typeface="sans" />
+
+                        <ImageView
+                            android:layout_width="@dimen/ic_menu_size_wc"
+                            android:layout_height="@dimen/ic_menu_size_wc"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:padding="15dp"
+                            app:tint="@color/grey_300"
+                            android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+                    </LinearLayout>
+                    <include layout="@layout/separate_horizontal"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearMedia"
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/ic_menu_size_wc"
+                            android:layout_height="@dimen/ic_menu_size_wc"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:padding="17dp"
+                            app:tint="@color/colorPrimaryChat"
+                            android:src="@drawable/ic_perm_media_black_24dp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="center_vertical"
+                            android:text="@string/media"
+                            android:textSize="@dimen/text_size_menu"
+                            android:textColor="@color/black"
+                            android:typeface="sans" />
+
+                        <ImageView
+                            android:layout_width="@dimen/ic_menu_size_wc"
+                            android:layout_height="@dimen/ic_menu_size_wc"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:padding="15dp"
+                            app:tint="@color/grey_300"
+                            android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+                    </LinearLayout>
+                    <include layout="@layout/separate_horizontal"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearProject"
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/ic_menu_size_wc"
+                            android:layout_height="@dimen/ic_menu_size_wc"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:padding="17dp"
+                            android:src="@drawable/ic_myxteam" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="center_vertical"
+                            android:text="@string/open_myxteam_project"
+                            android:textSize="@dimen/text_size_menu"
+                            android:textColor="@color/black"
+                            android:typeface="sans" />
+
+                        <ImageView
+                            android:layout_width="@dimen/ic_menu_size_wc"
+                            android:layout_height="@dimen/ic_menu_size_wc"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:padding="15dp"
+                            app:tint="@color/grey_300"
+                            android:src="@drawable/ic_keyboard_arrow_right_grey_500_24dp" />
+                    </LinearLayout>
+                    <include layout="@layout/separate_horizontal"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:id="@+id/linearLeftGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/ic_menu_size_wc"
+                            android:layout_height="@dimen/ic_menu_size_wc"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:padding="15dp"
+                            app:tint="@color/red_500"
+                            android:src="@drawable/ic_exit_to_app_black_24dp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txtLeftGroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="center_vertical"
+                            android:text="@string/left_group"
+                            android:textSize="@dimen/text_size_menu"
+                            android:textColor="@color/red_500"
+                            android:typeface="sans" />
+                    </LinearLayout>
+                    <include layout="@layout/separate_horizontal"/>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:id="@+id/linearMembers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!--<include layout="@layout/separate_horizontal" />-->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/margin_16dp"
+                        android:text="@string/list_member"
+                        android:textColor="@color/black"
+                        android:background="@color/grey_100"
+                        android:textSize="@dimen/text_size_menu"
+                        android:textStyle="bold" />
+
+                    <!--<include layout="@layout/separate_horizontal" />-->
+
+                    <com.workchat.core.widgets.NonScrollListView
+                        android:id="@+id/listView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:dividerHeight="0.5dp"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <include layout="@layout/separate_horizontal" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/header_height"
+                    android:background="@color/gray_light"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+                <include layout="@layout/separate_horizontal" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/ic_menu_size_wc"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:text="@string/left_group"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/blue_500"
+                    android:typeface="sans" />
+
+                <include layout="@layout/separate_horizontal" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

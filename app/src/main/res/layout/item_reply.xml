@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/linearReply"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <include layout="@layout/separator_horizoltal"/>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="200dp"
+        android:padding="@dimen/margin_16dp">
+
+        <ImageView
+            android:id="@+id/imgReply"
+            android:layout_marginTop="7dp"
+            android:layout_width="@dimen/avatar_size_64"
+            android:layout_height="@dimen/avatar_size_64"
+            android:layout_marginRight="@dimen/margin_10dp"
+            android:scaleType="fitStart"
+            android:visibility="gone"
+            android:src="@drawable/ic_no_avatar" />
+
+        <TextView
+            android:id="@+id/txtReply1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/imgReplyClose"
+            android:layout_toRightOf="@+id/imgReply"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="3"
+            android:text="name"
+            android:textColor="@color/light_blue_500"
+            android:textSize="@dimen/title_size_large"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imgReplyClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_close_black_24dp" />
+
+        <TextView
+            android:id="@+id/txtReply2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtReply1"
+            android:layout_toRightOf="@+id/imgReply"
+            android:hint="comment"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+</LinearLayout>
+

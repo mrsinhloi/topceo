@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/action_bar_color"
+        android:elevation="@dimen/default_elevation"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <ImageView
+            android:id="@+id/imgBack"
+            android:src="@drawable/ic_svg_16_24dp"
+            style="@style/ic_back_style" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginEnd="@dimen/ic_width"
+            android:text="@string/edit"
+            android:textColor="@color/textTitleColor"
+            android:textSize="@dimen/appbar_title" />
+    </androidx.appcompat.widget.Toolbar>
+    <include layout="@layout/separate_horizontal"/>
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/relative1"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:padding="5dip">
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="@dimen/avatar_size_medium"
+                    android:layout_height="@dimen/avatar_size_medium"
+                    android:layout_alignParentLeft="true"
+                    android:contentDescription="TODO"
+                    android:src="@drawable/ic_no_avatar" />
+
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/textView2"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:layout_marginLeft="6dp"
+                    android:layout_toLeftOf="@+id/imgMenu"
+                    android:layout_toRightOf="@id/imageView1"
+                    android:gravity="center_vertical"
+                    android:text="Example application"
+                    android:textSize="@dimen/title_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="26dip"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="6dp"
+                    android:layout_toLeftOf="@+id/imgMenu"
+                    android:layout_toRightOf="@id/imageView1"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:text="Description"
+                    android:textSize="@dimen/subtitle_size" />
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="#eeeeee" />
+
+            <com.topceo.socialview.commons.widget.SocialAutoCompleteTextView
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxHeight="96dp"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="top"
+                android:hint="@string/image_description"
+                android:lines="20"
+                android:minLines="1"
+                android:padding="8dp"
+                android:scrollHorizontally="false"
+                android:inputType="textMultiLine|textCapSentences"
+                android:scrollbars="vertical"
+                android:singleLine="false"
+                android:text=""
+                android:textColor="#333333"
+                android:textSize="@dimen/title_size"
+                app:socialFlags="mention|hashtag"
+                app:hyperlinkColor="@color/green_500"
+                app:hashtagColor="@color/hashtag"
+                app:mentionColor="@color/mention"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

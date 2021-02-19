@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.desmond.squarecamera" >
+    <application android:theme="@style/squarecamera__CameraFullScreenTheme" >
+        <activity
+            android:name=".RuntimePermissionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/squarecamera__CameraFullScreenTheme.NoUI" >
+        </activity>
+        <activity android:name=".myproject.VideoPreviewActivity"
+            android:screenOrientation="portrait"/>
+    </application>
+
+</manifest>

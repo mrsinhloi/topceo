@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeRely"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone"
+    tools:visibility="visible"
+    android:minWidth="200dp"
+    android:padding="@dimen/margin_10dp">
+
+    <ImageView
+        android:id="@+id/imgReply"
+        android:layout_marginTop="7dp"
+        android:layout_width="@dimen/avatar_size_64"
+        android:layout_height="@dimen/avatar_size_64"
+        android:layout_marginRight="@dimen/margin_10dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/no_media_small" />
+
+    <TextView
+        android:id="@+id/txtReply1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/imgReplyClose"
+        android:layout_toRightOf="@+id/imgReply"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="3"
+        android:text="name"
+        android:textColor="@color/light_blue_500"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imgReplyClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_close_black_24dp" />
+
+    <TextView
+        android:id="@+id/txtReply2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtReply1"
+        android:layout_toRightOf="@+id/imgReply"
+        android:text="455,000"
+        android:maxLines="5"
+        android:ellipsize="end"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+</RelativeLayout>
+

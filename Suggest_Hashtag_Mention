@@ -1,0 +1,174 @@
+//layout
+<com.ehubstar.socialview.commons.widget.SocialAutoCompleteTextView
+        android:id="@+id/editText1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@null"
+        android:textCursorDrawable="@drawable/cursor_black"
+        android:ems="10"
+        android:layout_marginLeft="@dimen/margin_5dp"
+        android:layout_marginRight="@dimen/margin_5dp"
+        android:hint="@string/add_comment"
+        android:imeOptions="actionDone"
+        android:inputType="textCapSentences"
+        android:padding="10dp"
+        android:text=""
+        app:socialFlags="mention|hashtag"
+        app:hyperlinkColor="@color/green_500"
+        app:hashtagColor="@color/hashtag"
+        app:mentionColor="@color/mention"
+        />
+
+
+//onCreate()
+//HASHTAG MENTION//////////////////////////////////////////////////////////////////////////////////////////////
+        txtInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                handler.removeMessages(TRIGGER_AUTO_COMPLETE);
+                handler.sendEmptyMessageDelayed(TRIGGER_AUTO_COMPLETE, AUTO_COMPLETE_DELAY);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        handler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message msg) {
+                if (msg.what == TRIGGER_AUTO_COMPLETE) {
+                    String string = txtInput.getText().toString();
+                    if (!TextUtils.isEmpty(string)) {
+                        String[] words = string.split(" ");
+                        if (words.length > 0) {
+                            String lastWord = words[words.length - 1];
+
+                            //#h, @t
+                            if(lastWord.length()>=2){
+                                if (lastWord.charAt(0) == '#') {
+                                    String keyword = lastWord.substring(1);
+                                    searchHashtag(keyword);
+                                } else if (lastWord.charAt(0) == '@') {
+                                    String keyword = lastWord.substring(1);
+                                    searchMetion(keyword);
+
+
+                                }
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+        });
+//HASHTAG MENTION//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+ //HASHTAG MENTION//////////////////////////////////////////////////////////////////////////////////////////////
+    private static final int TRIGGER_AUTO_COMPLETE = 100;
+    private static final long AUTO_COMPLETE_DELAY = 300;
+    private Handler handler;
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private void searchMetion(String keyword) {
+        MyApplication.apiManager.searchUserForMention(
+                keyword,
+                new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        JsonObject data = response.body();
+                        if (data != null) {
+                            Type collectionType = new TypeToken<List<SearchMention>>() {
+                            }.getType();
+                            ReturnResult result = Webservices.parseJson(data.toString(), collectionType, true);
+
+                            if (result != null) {
+                                if (result.getErrorCode() == ReturnResult.SUCCESS) {//da ton tai thi vao
+                                    ArrayList<SearchMention> list = (ArrayList<SearchMention>) result.getData();
+                                    if (list.size() > 0) {
+                                        setAdapterMention(list);
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+
+                    }
+                });
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private void searchHashtag(String keyword) {
+        MyApplication.apiManager.searchHashtag(
+                keyword,
+                new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        JsonObject data = response.body();
+                        if (data != null) {
+                            Type collectionType = new TypeToken<List<SearchHashtag>>() {
+                            }.getType();
+                            ReturnResult result = Webservices.parseJson(data.toString(), collectionType, true);
+
+                            if (result != null) {
+                                if (result.getErrorCode() == ReturnResult.SUCCESS) {//da ton tai thi vao
+                                    ArrayList<SearchHashtag> list = (ArrayList<SearchHashtag>) result.getData();
+                                    if (list.size() > 0) {
+                                        setAdapterHashtag(list);
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+
+                    }
+                });
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private void setAdapterHashtag(ArrayList<SearchHashtag> list) {
+        if (list != null && list.size() > 0) {
+            ArrayList<Hashtag> data = new ArrayList<>();
+            for (int i = 0; i < list.size(); i++) {
+                SearchHashtag item = list.get(i);
+                data.add(new Hashtag(item.getHashtag(), item.getPostCount()));
+            }
+            ArrayAdapter<Hashtag> hashtagAdapter = new HashtagArrayAdapter<Hashtag>(context);
+            hashtagAdapter.addAll(data);
+            txtInput.setHashtagAdapter(hashtagAdapter);
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private void setAdapterMention(ArrayList<SearchMention> list) {
+        if (list != null && list.size() > 0) {
+
+            MentionArrayAdapter<Mention> mentionAdapter = new MentionArrayAdapter<Mention>(context);
+            for (int i = 0; i < list.size(); i++) {
+                SearchMention item = list.get(i);
+                mentionAdapter.add(new Mention(item.getUserName(), item.getFullName(), item.getAvatarSmall()));
+            }
+
+            txtInput.setMentionAdapter(mentionAdapter);
+        }
+    }
+
+
+    //HASHTAG MENTION//////////////////////////////////////////////////////////////////////////////////////////////

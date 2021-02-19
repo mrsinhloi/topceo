@@ -1,0 +1,32 @@
+http://chdapi.phonestagram.com:3000/
+//login
+http://chdapi.phonestagram.com:3000/User/Login?username=xgiang001vn@nhatvietgroup.com&password=Manhhong123
+
+//signup
+http://chdapi.phonestagram.com:3000/user/signupByEmail?Email=tui2@gmail.com&UserName=tui2&Password=123456&OS=Android&CountryId=1&CountryName=Việt Nam
+
+//newfeed
+http://chdapi.phonestagram.com:3000/data?query={Newsfeed(Count:20){ ImageOriginal, Description, IsOwner, IsLiked, IsShared, IsOwner,LikeCount, CommentCount, CreateDate, Owner{UserName, FollowerCount, FollowingCount, AvatarSmall}}}
+//load tiep newsfeed
+http://chdapi.phonestagram.com:3000/data?query={Newsfeed(Count:20, LastItemId:38544, LastItemDate:"2016-06-23 20:20:32"){ ImageItemId, ImageOriginal, Description, IsOwner, IsLiked, IsShared, IsOwner,LikeCount, CommentCount, CreateDate, Owner{UserName, FollowerCount, FollowingCount, AvatarSmall}}}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+1.LoadingActivity: chay ham tao cookie truoc khi su dung
+2.SignIn: login bằng Facebook, đã từng login thì vào MainActivity, chưa có thì chuyển qua màn hình đăng ký
+3.SignUp: Facebook nếu đã từng vào thì vào MainActivity, chưa thì tạo tài khoản mới
+//mặc dù đã thoát facebook app nhưng AccessToken.getCurrentAccessToken()!=null; vẫn true, tức là nó đang cache nên phải gọi lại:
+LoginManager.getInstance().logInWithReadPermissions(SigninActivity.this, Arrays.asList("email", "public_profile", "user_friends"));
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//upload file
+http://chdapi.phonestagram.com:3000/data?query=mutation{AddImageItem(ItemGUID:"87887bd0-7fd3-4dbb-8305-8474624290d6",ImageExtension:".png",IsPrivate:false,Description:"Home",Location:"",Lat:"",Long:""){ ImageItemId, ImageOriginal, Description, IsOwner, IsLiked, IsShared, IsOwner,LikeCount, CommentCount,ShareCount, CreateDate, Location, Owner{UserName, AvatarSmall}}}
+replace domain do chua chuyen server: String img1=item.getImageOriginal().replace("http://service.winkjoy.vn/Pictures","https://chds.blob.core.windows.net/");
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////

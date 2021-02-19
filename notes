@@ -1,0 +1,190 @@
+https://material.io/tools/icons/?icon=home&style=outline
+
+Android:
+
+Server key: AIzaSyBHx2p5i7z5djUNItOGhlrq7pyppN-EH-Y Sender ID: 175813866741
+
+///////////////////////////////////////////////////////////////////////////////
+http://app.myxteam.com/Task/?id=328799
+
+https://android-arsenal.com/details/1/3863
+https://android-arsenal.com/details/1/3944
+https://github.com/pwittchen/ReactiveWiFi
+
+https://github.com/futurobot/Glide-Download-Progress-Interceptor/blob/master/app/src/main/java/ru/futurobot/glidedownloadintercenptor/MainActivity.java
+Glide.with(context)
+     .load(imageUrl)
+     .into(new GlideDrawableImageViewTarget(imageView) {
+         @Override
+         public void onResourceReady(GlideDrawable drawable, GlideAnimation anim) {
+             super.onResourceReady(drawable, anim);
+             progressBar.setVisibility(View.GONE);
+         }
+     });
+
+//APIs///////////////////////////////////////////////////////////////////////////////////////////////////
+
+https://docs.google.com/spreadsheets/d/1EYr1Pt6uIhFEHavW--O19JFFisN6IaF2b1Xb4EefpG4/edit#gid=120029119
+tài khoản Fiseo test: xgiang001vn@nhatvietgroup.com / Manhhong123
+username/hashtag: khong co khoang trang
+
+https://docs.google.com/spreadsheets/d/1EYr1Pt6uIhFEHavW--O19JFFisN6IaF2b1Xb4EefpG4/edit#gid=1237591097
+shareImageItemToUser, shareImageItemToChatRoom
+cả 2 đều là share qua chat, cái đầu là dùng để share tới User trong trường hợp chưa biết ChatRoomId thì dùng UserId của người muốn share, server sẽ tự tạo chatRoom
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+https://github.com/mcharmas/android-parcelable-intellij-plugin
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+https://github.com/amitshekhariitbhu/Fast-Android-Networking
+https://github.com/amitshekhariitbhu/awesome-android-complete-reference
+//Parse faster Json
+https://google.github.io/flatbuffers/flatbuffers_benchmarks.html
+https://github.com/google/flatbuffers
+http://frogermcs.github.io/flatbuffers-in-android-introdution/
+https://github.com/frogermcs/FlatBuffs
+
+http://frogermcs.github.io/flatbuffers-performance-in-android-allocation-tracking/
+http://frogermcs.github.io/MultiDex-solution-for-64k-limit-in-Dalvik/
+
+https://github.com/Instagram/ig-json-parser
+https://developers.google.com/games/#Tools
+https://pages.github.com/
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+https://github.com/frogermcs/InstaMaterial
+https://github.com/dynamitechetan/Flowing-Gradient
+https://github.com/adilansari/Instafeeder
+https://github.com/dynamitechetan/FogView_Library
+http://web.stanford.edu/class/cs193a/lectures.shtml
+
+https://github.com/Manabu-GT/GlassView
+////////////////////////////////////////////////////////////////////////////////////////////////////
+1080x1080
+width max: 1080, height: ratio
+96 dpi
+24 bit depth
+////////////////////////////////////////////////////////////////////////////////////////////////////
+http://graphql.org/blog/
+https://github.com/facebook/graphql
+https://github.com/graphql-java/graphql-java
+https://github.com/boxme/SquareCamera
+https://github.com/balysv/material-ripple
+https://github.com/lawloretienne/ImageGallery
+https://github.com/dibakarece
+https://github.com/HoraApps/LeafPic (hay)
+https://github.com/lyft/scissors //crop image (ko xai do ko hay bang https://github.com/mianamiana/MianaCropView)
+https://github.com/mianamiana/MianaCropView  //crop image for instagram ()
+https://github.com/mianamiana
+
+https://github.com/drewnoakes/metadata-extractor
+https://lab.getbase.com/android/
+https://github.com/shalskar/PeekAndPop
+https://github.com/futurice/android-best-practices
+
+///////////////////////////////////////////////////
+#AlphaRedGreenBlue
+#4D000000
+
+100% — FF
+95% — F2
+90% — E6
+85% — D9
+80% — CC
+75% — BF
+70% — B3
+65% — A6
+60% — 99
+55% — 8C
+50% — 80
+45% — 73
+40% — 66
+35% — 59
+30% — 4D
+25% — 40
+20% — 33
+15% — 26
+10% — 1A
+5% — 0D
+0% — 00
+
+////////////////////////////////////////////////////////////////////////////////////////
+Instagram source code
+https://github.com/frogermcs/InstaMaterial
+http://frogermcs.github.io/Instagram-with-Material-Design-concept-is-getting-real-the-summary/
+http://frogermcs.github.io/InstaMaterial-concept-part-9-photo-publishing/
+https://github.com/frogermcs/InstaMaterial/tree/Post-8
+http://frogermcs.github.io/Instagram-with-Material-Design-concept-is-getting-real/
+
+https://android-arsenal.com/details/1/2447
+
+
+///////////////////////////////
+//hashtag
+http://sourabhsoni.com/implementing-hashtags-in-android-application/
+
+//
+https://github.com/webianks/PopupBubble
+https://github.com/EgorBo/Xamarin.GradleBindings
+https://github.com/salRoid/Filmy
+
+//comment////////////////////////////////////////////
+{ImageItem(Id:100){ImageLarge, Description, CommentCount, CommentLike, Comments(Count:30, LastItemId:5000){ItemId, User{UserName, AvatarSmall}, Comment, CreateDate}}
+
+//INSTAGRAM OPEN LIBRARY
+https://github.com/ACRA/acra
+
+//bolts-android of facebook//////////////////////////////////
+https://github.com/BoltsFramework/Bolts-Android
+https://github.com/hacket/Bolts-Android-translate
+https://github.com/ersin-ertan/BoltsExamples
+/////////////////////////////////////////////////////////////
+https://github.com/arlindiDev/CircleCheckBox
+//Twitter////////////////////////////////////////////////////
+http://www.androidwarriors.com/2015/11/twitter-login-android-studio-example.html
+http://www.androidwarriors.com/2015/12/retrofit-20-android-example-web.html
+https://fabric.io/kits/android/twitterkit/features
+https://fabric.io/kits/android/twitterkit/install //OR su dung Fabric.io tien loi hon
+https://docs.fabric.io/android/twitter/compose-tweets.html //post bai
+//LOADING ANIMATION/////////////////////
+https://github.com/ybq/Android-SpinKit
+https://github.com/ybq/Endless-RecyclerView
+//#Hashtash, @mention
+https://github.com/apradanas/simple-linkable-text
+https://github.com/ParkSangGwon/TedPicker
+https://github.com/nguyenhoanglam/ImagePicker
+
+//animation
+https://android-arsenal.com/details/1/2956
+https://github.com/jd-alexander/LikeButton
+
+
+
+//TRANSLUCENT STATUS BAR////////////////////////////////////////////////////////////////////////////
+B1:
+    <style name="AppTheme.NoActionBar2" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+        <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
+    </style>
+
+B2: ROOT LAYOUT
+    android:fitsSystemWindows="true"
+
+B3:
+    // In Activity's onCreate() for instance
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        Window w = getWindow();
+        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    }
+//TRANSLUCENT STATUS BAR////////////////////////////////////////////////////////////////////////////
+https://www.studytutorial.in/android-share-images-or-content-to-facebook-from-android-application-tutorial-using-facebook-sdk
+https://stackoverflow.com/questions/34487872/media-player-controls-in-notification
+https://github.com/carloscj6/BlurryLayout
+
+//Ngôn ngữ sử dụng kết hợp LocalizationUtil + implementation "com.github.YarikSOffice:lingver:1.3.0"
+//youtube https://blog.kotlin-academy.com/building-a-youtube-player-using-kotlin-b0e4beef302a

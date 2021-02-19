@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_rectangle_grey_corner_border"
+    android:focusable="false"
+    android:layout_gravity="center"
+    android:visibility="visible"
+    android:layout_margin="1dp"
+    android:padding="0.5dp">
+
+
+    <ImageView
+        android:id="@+id/imgThumb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:focusable="false"
+        android:minHeight="@dimen/image_size"
+        android:minWidth="@dimen/image_size"
+        android:src="@drawable/no_media_small" />
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/imgPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_circle_white"
+        android:src="@drawable/ic_play_circle_outline_grey_700_36dp" />
+
+    <!--<ProgressBar
+        android:id="@+id/pb"
+        android:layout_width="@dimen/progress_size"
+        android:layout_height="@dimen/progress_size"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:focusable="false"
+        android:visibility="visible" />-->
+
+    <include layout="@layout/cir_layout"/>
+
+</RelativeLayout>

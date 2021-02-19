@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="get_images_from">
+        <item>Chụp ảnh</item>
+        <item>Chọn từ thư viện</item>
+    </string-array>
+    <string-array name="arr_position">
+        <item>CEO / Founder</item>
+        <item>Quản lý</item>
+        <item>Nhân viên</item>
+        <item>Vị trí khác</item>
+    </string-array>
+</resources>

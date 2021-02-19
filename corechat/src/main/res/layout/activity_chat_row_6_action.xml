@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.workchat.core.autolink.CustomTextViewLink xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/txt2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:autoLink="web"
+    android:gravity="center"
+    android:padding="@dimen/dimen_10dp"
+    android:text=""
+    android:clickable="false"
+    android:focusable="false"
+    android:textColor="@color/grey_500"
+    android:textColorLink="@color/blue"
+    android:textSize="@dimen/font_size_small"
+    app:emojiconAlignment="baseline"
+    app:emojiconSize="@dimen/icon_emoji_size" />

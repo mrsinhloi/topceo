@@ -1,0 +1,10 @@
+
+ShoppingAdapter -> click item  -> sendBroadcast to ShoppingActivity -> get list item of media -> pass to PlayerService and play
+
+*** Chú ý khi gắn corechat:
+- MainActivity lưu tạm danh sách follower vào ChatApplication
+- Khi tạo nhóm chat: load danh sách tạm này trước trong main,
+- search thì dùng api theo Server_Api goi o main, goi qua lai corechat theo eventbus
+    (MH01_MainActivity nhan: EventSearchContactChat_Request, SearchUserChatFromRestApiActivity: EventSearchContactChat_Receive)
+- app theme phai mo rong tu material :
+ <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">

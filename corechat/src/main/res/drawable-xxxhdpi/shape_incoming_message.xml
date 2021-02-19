@@ -1,0 +1,15 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <corners
+        android:bottomLeftRadius="0dp"
+        android:bottomRightRadius="@dimen/radius_chat_box"
+        android:topLeftRadius="@dimen/radius_chat_box"
+        android:topRightRadius="@dimen/radius_chat_box" />
+
+    <solid android:color="@color/white" />
+    <stroke
+        android:color="@color/blue_grey_100"
+        android:width="0.5dp" />
+
+</shape>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_1"
+        android:icon="@drawable/ic_group_black_24dp"
+        android:title="@string/create_room"
+        app:showAsAction="withText" />
+
+
+    <item
+        android:id="@+id/action_2"
+        android:icon="@drawable/ic_channel_black_24dp"
+        android:title="@string/create_channel"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/action_3"
+        android:icon="@drawable/ic_person_add_black_24dp"
+        android:title="@string/find_and_add_contact"
+        app:showAsAction="withText" />
+
+
+</menu>

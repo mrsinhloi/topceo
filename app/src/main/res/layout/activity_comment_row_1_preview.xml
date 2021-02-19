@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/linearCommentPreview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/relativePreview1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dimen_10dp"
+        android:paddingBottom="@dimen/dimen_10dp"
+        android:paddingRight="@dimen/dimen_10dp"
+        android:paddingLeft="@dimen/dimen_5dp">
+
+       <!-- <ImageView
+            android:visibility="gone"
+            android:id="@+id/avatar1"
+            android:layout_width="@dimen/avatar_size_smaller"
+            android:layout_height="@dimen/avatar_size_smaller"
+            android:elevation="2dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_no_avatar" />-->
+        <TextView
+            android:id="@+id/txtName1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_size_default"
+            android:textStyle="bold"/>
+
+        <com.topceo.socialview.core.widget.SocialTextView
+            android:id="@+id/txtDes1"
+            android:layout_toRightOf="@+id/txtName1"
+            android:layout_toLeftOf="@+id/btnLike1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"
+            android:autoLink="all"
+            android:focusable="false"
+            android:lineSpacingMultiplier="1.2"
+            android:text=""
+            android:textSize="@dimen/font_size_default"
+            android:textColor="@color/black"
+            app:hashtagColor="@color/hashtag"
+            app:mentionColor="@color/mention"
+            app:hyperlinkColor="@color/green_500"
+            app:socialFlags="hashtag|mention|hyperlink"
+            android:textIsSelectable="true" />
+
+        <com.sackcentury.shinebuttonlib.ShineButton
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@color/grey_400"
+            android:id="@+id/btnLike1"
+            android:layout_alignParentRight="true"
+            app:btn_color="@color/grey_400"
+            app:btn_fill_color="@color/sky_end"
+            app:allow_random_color="false"
+            app:siShape="@raw/heart" />
+
+
+    </RelativeLayout>
+
+    <include layout="@layout/separate_horizontal" />
+
+    <RelativeLayout
+        android:id="@+id/relativePreview2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dimen_10dp"
+        android:paddingBottom="@dimen/dimen_10dp"
+        android:paddingRight="@dimen/dimen_10dp"
+        android:paddingLeft="@dimen/dimen_5dp"
+        >
+
+        <!--<ImageView
+            android:visibility="gone"
+            android:id="@+id/avatar2"
+            android:layout_width="@dimen/avatar_size_smaller"
+            android:layout_height="@dimen/avatar_size_smaller"
+            android:elevation="2dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_no_avatar" />-->
+        <TextView
+            android:id="@+id/txtName2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_size_default"
+            android:textStyle="bold"/>
+        <com.topceo.socialview.core.widget.SocialTextView
+            android:id="@+id/txtDes2"
+            android:layout_toLeftOf="@+id/btnLike2"
+            android:layout_toRightOf="@+id/txtName2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"
+            android:autoLink="all"
+            android:focusable="false"
+            android:lineSpacingMultiplier="1.2"
+            android:text=""
+            android:textSize="@dimen/font_size_default"
+            android:textColor="@color/black"
+            app:hashtagColor="@color/hashtag"
+            app:mentionColor="@color/mention"
+            app:hyperlinkColor="@color/green_500"
+            app:socialFlags="hashtag|mention|hyperlink"
+            android:textIsSelectable="true" />
+
+        <com.sackcentury.shinebuttonlib.ShineButton
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@color/grey_400"
+            android:id="@+id/btnLike2"
+            android:layout_alignParentRight="true"
+            app:btn_color="@color/grey_400"
+            app:btn_fill_color="@color/sky_end"
+            app:allow_random_color="false"
+            app:siShape="@raw/heart" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

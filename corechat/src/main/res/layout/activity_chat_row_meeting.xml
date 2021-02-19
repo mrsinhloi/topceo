@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/relativeMeeting1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minWidth="200dp"
+        android:padding="@dimen/margin_5dp">
+
+        <ImageView
+            android:id="@+id/imgMeeting"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="@dimen/margin_5dp"
+            android:layout_width="@dimen/avatar_size_medium_smaller"
+            android:layout_height="@dimen/avatar_size_medium_smaller"
+            android:layout_marginRight="@dimen/margin_10dp"
+            android:src="@drawable/ic_zoom" />
+
+        <TextView
+            android:id="@+id/txtMeeting1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/imgMeeting"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="name"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtMeeting2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtMeeting1"
+            android:layout_toRightOf="@+id/imgMeeting"
+            android:text="455,000"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="@color/grey_300"
+        android:id="@+id/relativeMeeting2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/txtMeeting0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:layout_marginRight="@dimen/margin_5dp"
+            android:text="@string/meeting_id"
+            android:textColor="@color/grey_700"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/txtMeeting3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/txtMeeting0"
+            android:text="455,000"
+            android:maxLines="5"
+            android:ellipsize="end"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtMeeting00"
+            android:layout_below="@+id/txtMeeting0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:layout_marginRight="@dimen/margin_5dp"
+            android:text="@string/status"
+            android:textColor="@color/grey_700"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/txtMeeting4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/txtMeeting00"
+            android:layout_below="@+id/txtMeeting3"
+            android:text="455,000"
+            android:maxLines="1"
+            android:textAllCaps="true"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnMeeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:layout_marginTop="-7dp"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/light_blue_500"
+            android:text="@string/join"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

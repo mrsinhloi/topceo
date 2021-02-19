@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearRoot"
+    android:layout_margin="@dimen/margin_5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/dimen_15dp"
+            android:text="@string/create_zoom_meeting"
+            android:paddingRight="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/meetingImgClose"
+            android:paddingLeft="@dimen/dimen_10dp"
+            android:paddingRight="@dimen/dimen_10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            android:src="@drawable/ic_close_grey_500_24dp" />
+
+    </LinearLayout>
+
+    <include layout="@layout/separate_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/margin_5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/meetingTxtTitle"
+                style="@style/editTextStyle2"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:gravity="start|center_vertical"
+                android:hint="@string/title_option"
+                android:inputType="textCapSentences" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="@dimen/margin_5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/meetingTxtPassword"
+                style="@style/editTextStyle2"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:gravity="start|center_vertical"
+                android:hint="@string/password_option"
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"/>
+        </LinearLayout>
+
+
+<!--
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                app:hintEnabled="false"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/meetingTxtPassword"
+                    style="@style/editTextStyle2"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/password_option"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/dimen_10dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/create_zoom_meeting_desc"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+
+        <include layout="@layout/separate_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/meetingBtnClose"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/btn_height"
+                android:backgroundTint="@color/grey_100"
+                android:text="@string/close"
+                android:textAllCaps="false"
+                android:layout_marginRight="@dimen/dimen_10dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_medium"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/meetingBtnCreate"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/btn_height"
+                android:backgroundTint="@color/light_blue_500"
+                android:text="@string/create_short"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_medium"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

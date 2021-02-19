@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--<TextView
+        android:id="@+id/txt1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:isScrollContainer="true"
+        android:hint="@string/no_lyric"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:gravity="center"
+        android:padding="@dimen/margin_16dp"
+        android:textSize="@dimen/text_size_16sp"/>-->
+
+    <com.topceo.mediaplayer.audio.LyricView
+        android:id="@+id/txt1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="@string/no_lyric"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:gravity="center"
+        android:padding="@dimen/margin_16dp"
+        android:textSize="@dimen/text_size_16sp"
+        app:textSize="@dimen/text_size_16sp" />
+
+</LinearLayout>

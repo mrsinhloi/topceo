@@ -1,0 +1,82 @@
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+ALIAS :        ehubstar
+PASS KEYSTORE: ehubstar@2019
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+* Đăng ký mới ngày 14/03/2019 [EhubStar]
+epapersmart.team.08@gmail.com
+epapersmart.team.09@gmail.com
+epapersmart.team.10@gmail.com
+
+////////////////GOOGLE//////////////////////////////////////////////////////////////////////////////
+DEBUG KEY
+keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
+MD5:        28:68:F7:BE:B3:6B:BB:DF:59:6B:25:71:05:08:4B:B3
+SHA1:       9F:95:6C:D5:92:7D:2A:7B:56:FE:DC:EF:99:D4:36:2B:51:C5:4E:8B
+SHA-256:    F7:90:EF:B0:CB:B1:0F:D4:21:49:02:9E:C4:DA:DC:45:05:65:A2:E1:33:98:39:3C:1B:97:98:CE:88:DA:C1:3C
+Valid until: Tuesday, August 18, 2048
+
+
+RELEASE KEY
+keytool -list -v -keystore /Users/admin/Desktop/29122018/ANDROID/PROJECTS_2018/SON_TUNG_MTP/SonTungMTP/ehubstar.jks -alias ehubstar -storepass ehubstar@2019 -keypass ehubstar@2019
+SHA1: 74:C4:C0:8B:31:CB:8A:91:F4:60:B2:25:9A:7E:08:10:1B:B6:7C:73
+SHA256: BF:F3:85:39:24:A0:BE:06:E6:60:55:F9:52:01:73:45:DD:8B:A6:55:14:4D:5E:5A:5B:60:06:81:C3:B1:8C:25
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+FIREBASE
+Server Key: AAAArY3V8Vg:APA91bGQrEegTJURc9CE68smbjtHXJKl2e0tEtWrsmiiZwPGU2WrH7xRLe6pbAt2f6VihDsMjms0MDSVpaRd8cMEr-pmufQWDUGgn4a5O2I79U1GwwxfHKKbT65cGMM_sxE-Iz-3AJOP
+Sender ID: 745408950616
+
+ONE SIGNAL
+APP_ID: 16bce071-4f8d-42ea-891a-b78247254c8f
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////FACEBOOK///////////////////////////////////////////////////////////////////////////
+DEBUG KEY
+keytool -exportcert -alias androiddebugkey -storepass android -keystore ~/.android/debug.keystore | openssl sha1 -binary | openssl base64
+n5Vs1ZJ9KntW/tzvmdQ2K1HFTos=
+
+
+RELEASE KEY
+keytool -exportcert -alias ehubstar -storepass ehubstar@2019 -keystore /Users/admin/Desktop/29122018/ANDROID/PROJECTS_2018/SON_TUNG_MTP/SonTungMTP/ehubstar.jks | openssl sha1 -binary | openssl base64
+dMTAizHLipH0YLIlmn4IEBu2fHM=
+dMTAizHLipH0YLIlmn4IEBu2fHM=
+
+ACCOUNT KIT
+Secret Key:       a78dd960f7d6a1f82ee1a1404c75e5e7
+Client Token:     5f318b420e0c7e1b47a385e9596bdfa2
+ID ứng dụng:      2337861689569697
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+private final String DEFAULT_COUNTRY = Locale.getDefault().getCountry();
+if (!TextUtils.isEmpty(phone)) {
+    boolean isValid = PhoneUtils.isValidNumber(phone, countryCode);
+    if (isValid) {
+        String phoneValided = PhoneUtils.getE164FormattedMobileNumber(phone, countryCode);
+        if(phoneValided!=null){
+            findByPhone(phoneValided);
+            MyUtils.hideKeyboard(context);
+        }else{
+            MyUtils.showToast(context, R.string.please_input_phone_correct);
+        }
+
+    } else {
+        MyUtils.showToast(context, R.string.please_input_phone_correct);
+    }
+} else {
+    MyUtils.showToast(context, R.string.please_input_phone);
+}
+//////////////////////////////////////////////////////////////////////////////
+
+App Signing: dùng các key này để ký vào các api
+MD5 certificate fingerprint
+MD5: 81:54:CE:DE:1C:16:BA:8E:65:2E:B7:8F:DC:F2:88:B9
+
+SHA-1 certificate fingerprint
+SHA1: 6E:0A:0A:18:38:95:37:7B:86:F5:6B:AE:A8:A2:5C:C9:69:F9:69:06
+
+SHA-256 certificate fingerprint
+SHA256: 0C:76:62:D9:87:D7:7E:55:63:4C:9E:A0:5F:6E:EA:2B:2B:F4:EB:DF:6A:FD:E2:0D:75:B5:B6:48:26:69:14:85

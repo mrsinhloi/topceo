@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="type_images">
+        <item>{gmi-camera}  Camera</item>
+        <item>{gmi-collection-folder-image}  Gallery</item>
+    </string-array>
+
+    <string-array name="arr_lang">
+        <item>Vietnamese</item>
+        <item>English</item>
+    </string-array>
+
+
+    <string-array name="get_images_from">
+        <item>Camera</item>
+        <item>Gallery</item>
+    </string-array>
+
+
+    <string-array name="arr_reports_string_image">
+        <item>News spam</item>
+        <item>News invalid</item>
+        <item>Make-harming</item>
+        <item>Harassment</item>
+        <item>Drugs</item>
+        <item>Weapons</item>
+        <item>Nude</item>
+        <item>Violence</item>
+        <item>Words bad</item>
+        <item>Piracy</item>
+        <item>Dislikes</item>
+    </string-array>
+
+    <string-array name="arr_reports_string_user">
+        <item>Spam</item>
+        <item>Sensitive content</item>
+    </string-array>
+
+    //"{NewComment, NewLike, NewFollower, FollowAccepted, FollowUploadImage,
+    // Chat, MentionInComment, FollowingAction, CommentHasReply, CommentHasLike}"//5 cai sau mac  dinh la false
+    <string-array name="arr_notify_setting">
+        <item>When a Comment (comments) new</item>
+        <item>When someone Like</item>
+        <item>When someone Follow (track) you</item>
+        <item>When others accept Follow</item>
+        <item>When someone you follow uploads a new photo</item>
+
+        <!--TAM THOI CHUA XAI, SET MAC DINH LA FALSE-->
+        <!--<item>Khi có chat mới</item>
+        <item>Khi có người @ bạn trong Comment (bình luận)</item>
+        <item>Khi người bạn theo dõi Like hoặc Comment một hình nào đó</item>
+        <item>Khi comment có phản hồi</item>
+        <item>Khi comment có like</item>-->
+
+    </string-array>
+
+
+    <string-array name="arr_gender">
+        <item>Other</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <!--MaritalStatus: nvarchar (Single, Marriage, Widow, Relationship, Complicated)-->
+    <string-array name="arr_marital_status_appear">
+        <item>Single</item>
+        <item>Marriage</item>
+        <item>Widow</item>
+        <item>Relationship</item>
+        <item>Complicated</item>
+    </string-array>
+
+    <string-array name="arr_titles_showcase">
+        <item>Chia sẻ ngay khoảnh khắc\ncủa bạn đi nào!!!</item>
+        <item>Idol đăng hình kìa!!!</item>
+        <item>Cùng xem hôm nay\nbạn bè đăng gì!?!?</item>
+        <item>Nghe nhạc, xem clip,\nmua sắm</item>
+        <item>Khám phá, kết bạn\ncùng mọi người</item>
+        <item>Về \"nhà\" của bạn thôi!!!</item>
+    </string-array>
+
+    <string-array name="arr_group_setting_feed">
+        <item>@string/group_setting_feed_1</item>
+        <item>@string/group_setting_feed_2</item>
+    </string-array>
+
+
+    <integer-array name="arr_gender_value">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
+    </integer-array>
+    <string-array name="arr_marital_status_keyword">
+        <item>Single</item>
+        <item>Marriage</item>
+        <item>Widow</item>
+        <item>Relationship</item>
+        <item>Complicated</item>
+    </string-array>
+    <string-array name="arr_reports_int_image">
+        <item>1</item>
+        <item>2</item>
+        <item>201</item>
+        <item>202</item>
+        <item>203</item>
+        <item>204</item>
+        <item>205</item>
+        <item>206</item>
+        <item>207</item>
+        <item>208</item>
+        <item>209</item>
+    </string-array>
+    <string-array name="arr_reports_int_user">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="arr_socials">
+        <item>Web</item>
+        <item>Facebook</item>
+        <item>Twitter</item>
+        <item>Instagram</item>
+        <item>Youtube</item>
+        <item>LinkedIn</item>
+
+    </string-array>
+
+</resources>

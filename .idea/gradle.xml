@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="delegatedBuild" value="false" />
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/camerarecorder" />
+            <option value="$PROJECT_DIR$/corechat" />
+            <option value="$PROJECT_DIR$/devsmartAndroid" />
+            <option value="$PROJECT_DIR$/library" />
+            <option value="$PROJECT_DIR$/mianacropview" />
+            <option value="$PROJECT_DIR$/post-like-facebook" />
+            <option value="$PROJECT_DIR$/sectioned_recyclerview" />
+            <option value="$PROJECT_DIR$/showcaseviewlib" />
+            <option value="$PROJECT_DIR$/socialspost" />
+            <option value="$PROJECT_DIR$/squarecamera" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

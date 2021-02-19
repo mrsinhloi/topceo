@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryChat">@color/green_500</color>
+    <color name="colorPrimaryDarkChat">@color/green_700</color>
+    <color name="colorAccentChat">#F7A824</color>
+
+    <color name="yes">@color/cyan_500</color>
+    <color name="no">@color/red_500</color>
+    <color name="maybe">@color/orange_500</color>
+    <color name="bg_chat">@color/blue_grey_50</color>
+    <color name="blue">#0000FF</color>
+    <color name="gray_light">#eeeeee</color>
+    <integer-array name="gplus_colors">
+        <item>@color/gplus_color_1</item>
+        <item>@color/gplus_color_2</item>
+        <item>@color/gplus_color_3</item>
+        <item>@color/gplus_color_4</item>
+    </integer-array>
+
+    <color name="cir_foreground">@color/light_blue_500</color>
+    <color name="gplus_color_1">#3e802f</color>
+    <color name="gplus_color_2">#f4b400</color>
+    <color name="gplus_color_3">#427fed</color>
+    <color name="gplus_color_4">#b23424</color>
+
+    <color name="cir_background">@color/grey_500</color>
+    <color name="btnColor">@color/colorPrimaryChat</color>
+    <color name="primary">@color/colorPrimaryChat</color>
+
+    <color name="background_dark">#212121</color>
+    <color name="hover_accent">#ff9600</color>
+    <color name="hover_base">#212121</color>
+    <color name="text_body">#7c7c7c</color>
+    <color name="text_subheader">#7c7c7c</color>
+    <color name="menu_item_title_color">#AAAAAA</color>
+
+    <color name="fly_color">#006886</color>
+</resources>

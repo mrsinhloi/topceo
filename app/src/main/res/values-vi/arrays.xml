@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="type_images">
+        <item>{gmi-camera}  Chụp ảnh</item>
+        <item>{gmi-collection-folder-image}  Thư viện ảnh</item>
+    </string-array>
+
+    <string-array name="arr_lang">
+        <item>Tiếng Việt</item>
+        <item>English</item>
+    </string-array>
+
+
+    <string-array name="get_images_from">
+        <item>Chụp ảnh</item>
+        <item>Chọn từ thư viện</item>
+    </string-array>
+
+
+    <string-array name="arr_reports_string_image">
+        <item>Tin spam</item>
+        <item>Tin không hợp lệ</item>
+        <item>Làm hại bản thân</item>
+        <item>Quấy rối</item>
+        <item>Thuốc</item>
+        <item>Vũ khí</item>
+        <item>Khoả thân</item>
+        <item>Bạo lực</item>
+        <item>Ngôn từ xấu</item>
+        <item>Vi phạm bản quyền</item>
+        <item>Không thích</item>
+    </string-array>
+
+
+
+
+
+    <string-array name="arr_reports_string_user">
+        <item>Spam</item>
+        <item>Nội dung không phù hợp</item>
+    </string-array>
+
+
+
+    //"{NewComment, NewLike, NewFollower, FollowAccepted, FollowUploadImage,
+    // Chat, MentionInComment, FollowingAction, CommentHasReply, CommentHasLike}"//5 cai sau mac
+    dinh la false
+    <string-array name="arr_notify_setting">
+        <item>Khi có Comment (bình luận) mới</item>
+        <item>Khi có người Like (thích)</item>
+        <item>Khi có người Follow (theo dõi) bạn</item>
+        <item>Khi được người khác chấp nhập Follow</item>
+        <item>Khi người bạn theo dõi upload hình mới</item>
+
+        <!--TAM THOI CHUA XAI, SET MAC DINH LA FALSE-->
+        <!--<item>Khi có chat mới</item>
+        <item>Khi có người @ bạn trong Comment (bình luận)</item>
+        <item>Khi người bạn theo dõi Like hoặc Comment một hình nào đó</item>
+        <item>Khi comment có phản hồi</item>
+        <item>Khi comment có like</item>-->
+
+    </string-array>
+
+
+
+
+    <string-array name="arr_gender">
+        <item>Không xác định</item>
+        <item>Nam</item>
+        <item>Nữ</item>
+    </string-array>
+
+
+    <!--MaritalStatus: nvarchar (Single, Marriage, Widow, Relationship, Complicated)-->
+    <string-array name="arr_marital_status_appear">
+        <item>Độc thân</item>
+        <item>Đã kết hôn</item>
+        <item>Goá phụ</item>
+        <item>Đang tìm hiểu</item>
+        <item>Phức tạp</item>
+    </string-array>
+
+
+    <string-array name="effect_array">
+        <item>Normal</item>
+        <item>Lovely</item>
+        <item>Cute</item>
+        <item>Real</item>
+        <item>Warm</item>
+        <item>Classic</item>
+        <item>Cool</item>
+        <item>Dark</item>
+        <item>Night</item>
+        <item>Hot</item>
+        <item>Sunset</item>
+        <item>Rise</item>
+        <item>Noon</item>
+        <item>Ancient</item>
+        <item>Twilight</item>
+        <item>Wind</item>
+        <item>Fog</item>
+        <item>Old</item>
+        <item>Eclipse</item>
+        <item>Future</item>
+        <item>Past</item>
+    </string-array>
+
+    <string-array name="arr_titles_showcase">
+        <item>Chia sẻ ngay khoảnh khắc\ncủa bạn đi nào!!!</item>
+        <item>Idol đăng hình kìa!!!</item>
+        <item>Cùng xem hôm nay\nbạn bè đăng gì!?!?</item>
+        <item>Nghe nhạc, xem clip,\nmua sắm</item>
+        <item>Khám phá, kết bạn\ncùng mọi người</item>
+        <item>Về \"nhà\" của bạn thôi!!!</item>
+    </string-array>
+
+
+
+</resources>

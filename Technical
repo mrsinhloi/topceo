@@ -1,0 +1,59 @@
+Edit hinh thi update lai: list home Fragment_1, PhotoDetailActivity, Grid image of user, Grid image Explorer
+Xoa 1 bai post thi update: list home Fragment_1, Grid image of user, Grid image Explorer
+
+
+https://blog.clevertap.com/fixing-notification-icon-for-android-lollipop-and-above/
+
+    boolean isLostCookie=CustomApplication.controlException((ANError) task.getError());
+    MyUtils.log("Fragment_1_Home - getNewFeed() - Exception = "+((ANError) task.getError()).getErrorCode());
+
+    if(isLostCookie) {
+        CustomApplication.initCookie(context).continueWith(new Continuation<Object, Void>() {
+            @Override
+            public Void then(Task<Object> task) throws Exception {
+                if (task.getResult() != null) {
+                    User kq = (User) task.getResult();
+                    if (kq!=null) {
+                        getNewFeed();
+                    }
+                }
+                if (swipeContainer!=null && swipeContainer.isRefreshing()) swipeContainer.setRefreshing(false);
+                return null;
+            }
+        });
+    }else{
+        if(!TextUtils.isEmpty(task.getError().getMessage())) {
+            MyUtils.showToast(context, task.getError().getMessage());
+        }
+    }
+
+
+ //DIEU KHIEN QUA LAI FRAGMENT TRONG VIEWPAGER, XAC DINH FRAGMENT KHI NAO NGUOI DUNG XEM
+ //https://stackoverflow.com/questions/10024739/how-to-determine-when-fragment-becomes-visible-in-viewpager
+     private boolean fragmentResume=false;
+     private boolean fragmentVisible=false;
+     private boolean fragmentOnCreated=false;
+     @Override
+     public void setUserVisibleHint(boolean isVisibleToUser) {
+         super.setUserVisibleHint(isVisibleToUser);
+
+         if (isVisibleToUser && isResumed()){   // only at fragment screen is resumed
+             fragmentResume=true;
+             fragmentVisible=false;
+             fragmentOnCreated=true;
+             requestStopVideo(false);
+             MyUtils.showToastDebug(getContext(), "resume "+isVisibleToUser);
+         }else  if (isVisibleToUser){        // only at fragment onCreated
+             fragmentResume=false;
+             fragmentVisible=true;
+             fragmentOnCreated=true;
+             MyUtils.showToastDebug(getContext(), "onCreated "+isVisibleToUser);
+         }
+         else if(!isVisibleToUser && fragmentOnCreated){// only when you go out of fragment screen
+             fragmentVisible=false;
+             fragmentResume=false;
+             MyUtils.showToastDebug(getContext(), "go out "+isVisibleToUser);
+             requestStopVideo(true);
+         }
+
+     }

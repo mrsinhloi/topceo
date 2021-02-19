@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_1"
+        android:icon="@drawable/ic_pin_24dp"
+        android:title="@string/pin_room"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/action_2"
+        android:icon="@drawable/ic_unpin_24dp"
+        android:title="@string/unpin_room"
+        app:showAsAction="withText" />
+
+
+    <item
+        android:id="@+id/action_3"
+        android:icon="@drawable/ic_directions_run_black_24dp"
+        android:title="@string/left_group"
+        app:showAsAction="withText" />
+
+</menu>

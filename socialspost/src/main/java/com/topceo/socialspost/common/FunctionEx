@@ -1,0 +1,97 @@
+
+import android.os.Bundle
+import android.os.PersistableBundle
+import androidx.appcompat.app.AppCompatActivity
+import java.lang.Exception
+import kotlin.random.Random
+
+//Kotlin Style
+class ThirdPartyLibrary {
+
+    //Required onCompleted function, type is "() -> Unit"
+    //Required onFailed function,    type is "(Exception) -> Unit"
+    fun getData(onCompleted: () -> Unit, onFailed: (Exception) -> Unit) {
+        //...doing
+        if (Random.nextBoolean()) {
+            onCompleted.invoke()
+        } else {
+            onFailed.invoke(Exception("error"))
+        }
+    }
+}
+
+//Save function as variable
+class Activity : AppCompatActivity() {
+
+    //Function, type is "() -> Unit"
+    private val onCompleted: () -> Unit = {
+        println("completed")
+    }
+
+    //Function, type is "(Exception) -> Unit"
+    private val onFailed: (Exception) -> Unit = { exception: Exception ->
+        println("failed")
+        exception.printStackTrace()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+
+        val library = ThirdPartyLibrary()
+        library.getData(onCompleted, onFailed)
+    }
+
+}
+
+//Use original function
+class Activity2 : AppCompatActivity() {
+
+    //Same as variable with type: "() -> Unit"
+    private fun onCompleted() {
+        println("completed")
+    }
+
+    //Same as variable with type: "(Exception) -> Unit"
+    private fun onFailed(exception: Exception) {
+        println("failed")
+        exception.printStackTrace()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+
+        val library = ThirdPartyLibrary()
+        library.getData(::onCompleted, ::onFailed)
+    }
+}
+
+//Anonymous function and local variable
+class Activity3 : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+
+        //Anonymous
+        val library = ThirdPartyLibrary()
+        library.getData(
+                onCompleted = {
+                    println("completed")
+                },
+                onFailed = { exception ->
+                    println("failed")
+                    exception.printStackTrace()
+                }
+        )
+
+        //Local variable
+        val onCompleted: () -> Unit = {
+            println("completed")
+        }
+        val onFailed: (Exception) -> Unit = { exception: Exception ->
+            println("failed")
+            exception.printStackTrace()
+        }
+        library.getData(onCompleted, onFailed)
+    }
+
+}
