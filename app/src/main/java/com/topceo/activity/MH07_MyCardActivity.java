@@ -65,9 +65,9 @@ public class MH07_MyCardActivity extends AppCompatActivity {
     private int screenWidth = 100;
 
     private int[] levels = new int[]{
-            R.drawable.card_member,
-            R.drawable.card_vip,
-            R.drawable.card_vvip
+            R.drawable.ic_svg_29_card_member,
+            R.drawable.ic_svg_30_card_vip,
+            R.drawable.ic_svg_31_card_vvip
     };
 
     private int position = 0;
@@ -153,19 +153,19 @@ public class MH07_MyCardActivity extends AppCompatActivity {
 //                    txt2.setText(getString(R.string.fan_mobile, user.getUserName()));
                     txt2.setText(user.getUserName());
 
-                    imgLevel.setImageResource(R.drawable.card_member);
+                    imgLevel.setImageResource(R.drawable.ic_svg_29_card_member);
                     break;
                 case User.VIP_LEVEL_VIP:
 //                    txt2.setText(getString(R.string.vip_mobile, user.getUserName()));
                     txt2.setText(user.getUserName());
 
-                    imgLevel.setImageResource(R.drawable.card_vip);
+                    imgLevel.setImageResource(R.drawable.ic_svg_30_card_vip);
                     break;
                 case User.VIP_LEVEL_VVIP:
 //                    txt2.setText(getString(R.string.vvip_mobile, user.getUserName()));
                     txt2.setText(user.getUserName());
 
-                    imgLevel.setImageResource(R.drawable.card_vvip);
+                    imgLevel.setImageResource(R.drawable.ic_svg_31_card_vvip);
                     break;
             }
 
@@ -265,7 +265,7 @@ public class MH07_MyCardActivity extends AppCompatActivity {
 
                 } else {
 //                    pixels[i * width + j] = 0xffffffff;
-                    pixels[i * width + j] = 0xff2a856f;
+                    pixels[i * width + j] = 0xffe01b22;
                 }
             }
         }

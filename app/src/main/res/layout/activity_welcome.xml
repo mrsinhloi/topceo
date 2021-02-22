@@ -28,7 +28,7 @@
                 android:layout_height="180dp"
                 android:layout_margin="@dimen/margin_24dp"
                 android:layout_weight="8"
-                android:src="@drawable/ic_sky_logo_bubble" />
+                android:src="@drawable/ic_svg_logo_512" />
 
         </LinearLayout>
         <LinearLayout

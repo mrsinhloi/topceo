@@ -15,7 +15,7 @@
         android:minHeight="?attr/actionBarSize"
         android:elevation="@dimen/default_elevation"
         app:title=""
-        app:navigationIcon="@drawable/ic_svg_16_24dp"
+        app:navigationIcon="@drawable/ic_svg_16_36dp"
         app:theme="@style/ThemeOverlay.MaterialComponents.ActionBar">
 
         <TextView

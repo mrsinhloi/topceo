@@ -4,9 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <ImageView
+        android:visibility="invisible"
         android:id="@+id/imageView6"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -28,5 +30,5 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView6"
         app:layout_constraintStart_toStartOf="@+id/imageView6"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_sky_logo_bubble" />
+        app:srcCompat="@drawable/ic_svg_logo_512" />
 </androidx.constraintlayout.widget.ConstraintLayout>

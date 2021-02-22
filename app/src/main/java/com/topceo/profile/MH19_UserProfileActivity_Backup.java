@@ -132,11 +132,11 @@ public class MH19_UserProfileActivity_Backup extends AppCompatActivity {
                     break;
                 case User.VIP_LEVEL_VIP:
                     imgVipLevel.setVisibility(View.VISIBLE);
-                    imgVipLevel.setImageResource(R.drawable.bg_1_star);
+                    imgVipLevel.setImageResource(R.drawable.ic_svg_26_1_star);
                     break;
                 case User.VIP_LEVEL_VVIP:
                     imgVipLevel.setVisibility(View.VISIBLE);
-                    imgVipLevel.setImageResource(R.drawable.bg_3_star);
+                    imgVipLevel.setImageResource(R.drawable.ic_svg_28_3_star);
                     break;
             }
 
@@ -167,7 +167,7 @@ public class MH19_UserProfileActivity_Backup extends AppCompatActivity {
 */
 
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_svg_16_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_svg_16_36dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

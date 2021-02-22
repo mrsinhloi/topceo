@@ -222,11 +222,11 @@ public class Fragment_Profile_Owner extends Fragment {
                     break;
                 case User.VIP_LEVEL_VIP:
                     imgVipLevel.setVisibility(View.VISIBLE);
-                    imgVipLevel.setImageResource(R.drawable.bg_1_star);
+                    imgVipLevel.setImageResource(R.drawable.ic_svg_26_1_star);
                     break;
                 case User.VIP_LEVEL_VVIP:
                     imgVipLevel.setVisibility(View.VISIBLE);
-                    imgVipLevel.setImageResource(R.drawable.bg_3_star);
+                    imgVipLevel.setImageResource(R.drawable.ic_svg_28_3_star);
                     break;
             }
 
@@ -292,7 +292,7 @@ public class Fragment_Profile_Owner extends Fragment {
     private int[] tabIcons = {
 //            R.drawable.ic_grid,
             R.drawable.ic_user_post,
-            R.drawable.ic_svg_22_24dp
+            R.drawable.ic_svg_22_36dp
 //            R.drawable.ic_place_white_48dp,
 //            R.drawable.ic_label_white_48dp
     };
@@ -793,7 +793,7 @@ public class Fragment_Profile_Owner extends Fragment {
             toolbar.setVisibility(View.GONE);
         } else {//man hinh profile cua user, co the la owner
             toolbar.setVisibility(View.VISIBLE);
-            toolbar.setNavigationIcon(R.drawable.ic_svg_16_24dp);
+            toolbar.setNavigationIcon(R.drawable.ic_svg_16_36dp);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

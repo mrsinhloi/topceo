@@ -1,0 +1,48 @@
+
+CÁC BƯỚC CLONE APP
+1. Copy source mới, thay đổi package name trong Manifest và app.gradle
+2. Đăng ký firebase, onesignal và cấu hình
+3. Build và upload lên github
+4. Tải icon và đổi tên theo danh sách:
+ic_svg_1.xml
+ic_svg_2.xml
+ic_svg_3.xml
+ic_svg_4.xml
+ic_svg_5.xml
+ic_svg_6.xml
+ic_svg_7.xml
+ic_svg_8.xml
+ic_svg_9.xml
+ic_svg_10.xml
+ic_svg_11.xml
+ic_svg_12.xml
+ic_svg_13.xml
+ic_svg_14.xml
+ic_svg_15.xml
+ic_svg_16.xml
+ic_svg_16_36dp.xml
+ic_svg_17.xml
+ic_svg_18.xml
+ic_svg_19.xml
+ic_svg_20.xml
+ic_svg_21.xml
+ic_svg_22.xml
+ic_svg_22_36dp.xml
+ic_svg_23.xml
+ic_svg_24.xml
+ic_svg_25.xml
+ic_svg_26_1_star.xml
+ic_svg_27_2_star.xml
+ic_svg_28_3_star.xml
+ic_svg_29_card_member.xml
+ic_svg_30_card_vip.xml
+ic_svg_31_card_vvip.xml
+ic_svg_32_card_bg.webp
+ic_svg_logo_512.xml
+ic_svg_logo_toolbar_214.xml
+5. Import svg từng icon, nếu bị lỗi bỏ qua
+6. Tổng hợp tất cả icon lỗi, vào https://vectr.com/ và upload/save về máy
+7. Đổi tên các file đã tải về, xoá file gốc, import svg
+8. File nào không thể upload đc để convert(do quá lớn) thì chuyển về webp https://boxy-svg.com/app
+9. Đổi màu sky_start, sky_end theo style thiết kế, build và chạy lại app
+10.Đổi màu background qrcode theo sky_start MH07_MyCardActivity.java

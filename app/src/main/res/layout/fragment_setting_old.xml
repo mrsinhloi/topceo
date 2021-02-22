@@ -781,7 +781,7 @@
             <ImageView
                 android:layout_width="72dp"
                 android:layout_height="36dp"
-                android:src="@drawable/logo_sky_social_black"
+                android:src="@drawable/ic_svg_logo_512"
                 android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatTextView

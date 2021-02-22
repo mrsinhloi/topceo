@@ -337,13 +337,13 @@
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">@dimen/logo_height</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:src">@drawable/logo_sky_social_black_small</item>
+        <item name="android:src">@drawable/ic_svg_logo_toolbar_40</item>
 
     </style>
     <style name="sky_bar_logo_2">
         <item name="android:layout_height">@dimen/logo_height</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:src">@drawable/logo_sky_social_black_small</item>
+        <item name="android:src">@drawable/ic_svg_logo_toolbar_40</item>
     </style>
 
 

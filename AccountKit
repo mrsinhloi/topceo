@@ -38,10 +38,12 @@ APP_ID: 16bce071-4f8d-42ea-891a-b78247254c8f
 DEBUG KEY
 keytool -exportcert -alias androiddebugkey -storepass android -keystore ~/.android/debug.keystore | openssl sha1 -binary | openssl base64
 n5Vs1ZJ9KntW/tzvmdQ2K1HFTos=
+RxDiQ7g+4Z7txLlXz3NEVxS3vaQ=
 
 
 RELEASE KEY
-keytool -exportcert -alias ehubstar -storepass ehubstar@2019 -keystore /Users/admin/Desktop/29122018/ANDROID/PROJECTS_2018/SON_TUNG_MTP/SonTungMTP/ehubstar.jks | openssl sha1 -binary | openssl base64
+keytool -exportcert -alias ehubstar -storepass ehubstar@2019 -keystore /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/ehubstar.jks | openssl sha1 -binary | openssl base64
+dMTAizHLipH0YLIlmn4IEBu2fHM=
 dMTAizHLipH0YLIlmn4IEBu2fHM=
 dMTAizHLipH0YLIlmn4IEBu2fHM=
 

@@ -101,7 +101,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/bg_1_star"
+                                android:src="@drawable/ic_svg_26_1_star"
                                 android:visibility="gone"
                                 tools:visibility="visible" />
                         </FrameLayout>

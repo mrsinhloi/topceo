@@ -56,7 +56,7 @@
                         android:layout_height="200dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_weight="6"
-                        android:src="@drawable/logo_sky_social_black" />
+                        android:src="@drawable/ic_svg_logo_512" />
 
                 </LinearLayout>
 

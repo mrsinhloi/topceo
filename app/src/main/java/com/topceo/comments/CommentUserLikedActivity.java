@@ -56,7 +56,7 @@ public class CommentUserLikedActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_svg_16_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_svg_16_36dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

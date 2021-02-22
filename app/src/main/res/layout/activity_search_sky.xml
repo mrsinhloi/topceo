@@ -14,7 +14,7 @@
         android:elevation="@dimen/default_elevation"
         app:contentInsetStart="0dp"
         app:contentInsetStartWithNavigation="0dp"
-        app:navigationIcon="@drawable/ic_svg_16_24dp"
+        app:navigationIcon="@drawable/ic_svg_16_36dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <!--<EditText
             android:layout_width="match_parent"

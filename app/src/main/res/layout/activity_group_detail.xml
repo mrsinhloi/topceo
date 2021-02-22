@@ -49,7 +49,7 @@
         android:background="@color/action_bar_color"
         android:elevation="@dimen/default_elevation"
         android:layout_marginStart="-10dp"
-        app:navigationIcon="@drawable/ic_svg_16_24dp"
+        app:navigationIcon="@drawable/ic_svg_16_36dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <ImageView
@@ -57,7 +57,7 @@
             android:layout_height="@dimen/logo_height"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/dimen_10dp"
-            android:src="@drawable/logo_sky_social_black_small" />
+            android:src="@drawable/ic_svg_logo_toolbar_40" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

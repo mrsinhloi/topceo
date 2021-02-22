@@ -60,7 +60,7 @@ class AllGroupActivity : AppCompatActivity() {
         setContentView(R.layout.activity_all_group)
 
         setSupportActionBar(toolbar)
-        toolbar.setNavigationIcon(R.drawable.ic_svg_16_24dp)
+        toolbar.setNavigationIcon(R.drawable.ic_svg_16_36dp)
         toolbar.setNavigationOnClickListener { finish() }
         setTitle("")
 

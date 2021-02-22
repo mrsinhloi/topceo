@@ -64,7 +64,7 @@
                             android:outlineProvider="background"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/card_sky_bg"
+                            android:src="@drawable/ic_svg_32_card_bg"
                             android:scaleType="centerCrop" />
 
                         <LinearLayout
@@ -82,7 +82,8 @@
                                 android:layout_weight="5"
                                 android:scaleType="centerInside"
                                 android:layout_height="124dp"
-                                android:src="@drawable/logo_sky_social_black" />
+                                android:visibility="gone"
+                                android:src="@drawable/ic_svg_logo_512" />
                         </LinearLayout>
 
                         <RelativeLayout
@@ -95,8 +96,8 @@
                                 android:id="@+id/imgLevel"
                                 android:layout_centerHorizontal="true"
                                 android:layout_width="wrap_content"
-                                android:layout_height="24dp"
-                                android:src="@drawable/card_member"
+                                android:layout_height="48dp"
+                                android:src="@drawable/ic_svg_29_card_member"
                                 android:layout_marginBottom="24dp"/>
                         </RelativeLayout>
 

@@ -27,7 +27,7 @@
             <ImageView
                 android:id="@+id/imgBack"
                 style="@style/ic_back_style"
-                android:src="@drawable/ic_svg_16_24dp" />
+                android:src="@drawable/ic_svg_16_36dp" />
 
             <TextView
                 android:id="@+id/txtTitle"

@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
     <ImageView
         android:id="@+id/imgLogo"
-        android:src="@drawable/logo_sky_social_black_small"
+        android:src="@drawable/ic_svg_logo_toolbar_40"
         style="@style/sky_bar_logo_2"
         android:layout_gravity="center"/>
     <include

@@ -174,7 +174,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
 //                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_round_arrow_back_ios_20);
                 int iconSize = getResources().getDimensionPixelSize(R.dimen.ic_size_36);
 //                Drawable iconBackCustom = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, iconSize, iconSize, false));
-                Drawable iconBackCustom = getResources().getDrawable(R.drawable.ic_svg_16_24dp);
+                Drawable iconBackCustom = getResources().getDrawable(R.drawable.ic_svg_16_36dp);
                 ChatApplication.Companion.init(
                         //todo dang dung key cua workchat
                         getString(R.string.GOOGLE_MAPS_ANDROID_API_KEY),
