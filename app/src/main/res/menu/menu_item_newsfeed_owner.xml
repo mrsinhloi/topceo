@@ -1,4 +1,5 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <!--<item
         android:id="@+id/action_report"
         android:orderInCategory="100"
@@ -8,10 +9,14 @@
         android:id="@+id/action_edit"
         android:orderInCategory="101"
         android:title="@string/editcontent"
+        android:icon="@drawable/ic_baseline_edit_24"
+        app:showAsAction="withText"
         />
 
     <item
         android:id="@+id/action_delete"
         android:orderInCategory="102"
-        android:title="@string/delete_image" />
+        android:title="@string/delete_image"
+        android:icon="@drawable/ic_round_delete_forever_24"
+        app:showAsAction="withText"/>
 </menu>

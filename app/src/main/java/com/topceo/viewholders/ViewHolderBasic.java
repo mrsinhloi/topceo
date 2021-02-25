@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Animatable;
@@ -24,6 +25,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -71,7 +74,7 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
     public void setVip(UserShort user) {
         if (user.isVip()) {
             imgVip.setVisibility(View.VISIBLE);
-            imgVip.setImageResource(R.drawable.ic_king);
+            imgVip.setImageResource(R.drawable.ic_svg_24);
         } else {
             imgVip.setVisibility(View.GONE);
         }
@@ -536,6 +539,7 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
     /**
      * Showing popup menu when tapping on 3 dots
      */
+    @SuppressLint("RestrictedApi")
     private void showPopupMenu(View view, final ImageItem item, final int position, ImageView imgSave) {
         // inflate menu
         final PopupMenu popup = new PopupMenu(context, view);
@@ -549,8 +553,10 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
             MenuItem menuSave = menu.findItem(R.id.action_save);
             if (item.isSaved()) {
                 menuSave.setTitle(R.string.not_save);
+                menuSave.setIcon(R.drawable.ic_svg_23_24dp);
             } else {
-                menuSave.setTitle(R.string.save);
+                menuSave.setTitle(R.string.save_post);
+                menuSave.setIcon(R.drawable.ic_svg_22_24dp);
             }
         }
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -589,7 +595,10 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
 
 
         });
-        popup.show();
+//        popup.show();
+        @SuppressLint("RestrictedApi") MenuPopupHelper menuHelper = new MenuPopupHelper(context, (MenuBuilder) popup.getMenu(), view);
+        menuHelper.setForceShowIcon(true);
+        menuHelper.show();
     }
 
 

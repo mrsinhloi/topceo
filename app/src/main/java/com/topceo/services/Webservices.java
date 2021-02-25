@@ -47,13 +47,13 @@ public class Webservices {
     public static final String COUNTRY_NAME = Locale.getDefault().getDisplayCountry();//Viet Nam
 
 
-    public static final String URL = "https://abook-api.ehubstar.com/";
+    public static final String URL = "https://topceo-api.ehubstar.com/";
 //    public static final String URL = "http://10.10.9.76:3002/";
 
     public static final String URL_GRAPHQL = URL + "data";
     public static final String URL_CORE_CHAT = "https://apichat.app/";
-    public static final String URL_PAYMENT = "http://abook-pay.ehubstar.com";
-    public static final String URL_INSIGHT = "http://abook-insight.ehubstar.com";
+    public static final String URL_PAYMENT = "http://topceo-pay.ehubstar.com";
+    public static final String URL_INSIGHT = "http://topceo-insight.ehubstar.com";
 
 
     /**

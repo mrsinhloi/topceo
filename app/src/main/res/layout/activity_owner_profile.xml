@@ -97,7 +97,8 @@
                                     android:id="@+id/imgVipLevel"
                                     android:layout_gravity="center"
                                     android:layout_width="90dp"
-                                    android:layout_height="100dp"
+                                    android:layout_height="90dp"
+                                    android:adjustViewBounds="true"
                                     android:src="@drawable/ic_svg_26_1_star" />
                             </FrameLayout>
 

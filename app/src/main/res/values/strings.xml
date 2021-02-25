@@ -744,4 +744,5 @@
     <string name="intro_link" translatable="false">Xin chào! Tôi đang dùng ứng dụng TopCeo - Cộng đồng Sách Việt Nam, mời Bạn tham gia cùng tôi để chia sẻ kiến thức, kết nối, và phát triển kinh doanh.</string>
     <string name="facebook_share_to_page">Facebook share to pages</string>
     <string name="to_pages">To: %1$s</string>
+    <string name="save_post">Save post</string>
 </resources>

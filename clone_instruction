@@ -46,3 +46,15 @@ ic_svg_logo_toolbar_214.xml
 8. File nào không thể upload đc để convert(do quá lớn) thì chuyển về webp https://boxy-svg.com/app
 9. Đổi màu sky_start, sky_end theo style thiết kế, build và chạy lại app
 10.Đổi màu background qrcode theo sky_start MH07_MyCardActivity.java
+----
+11. Cấu hình facebook trong module socialspost: facebook_app_id, fb_login_protocol_scheme
+12. Enable xác thực số điện thoại:
+- Authentication enable Phone Number
+- Enable Android Device Verification
+https://console.cloud.google.com/apis/api/androidcheck.googleapis.com/overview?project=booksocial-9179e&authuser=0
+- Bổ sung SHA-256 vào config trên firebase: debug + release
+13. Deeplink và insight: cấu hình SHA1
+book.ehubstar.com/ref
+book.ehubstar.com/share
+public static final String URL_PAYMENT = "http://abook-pay.ehubstar.com";
+public static final String URL_INSIGHT = "http://abook-insight.ehubstar.com";

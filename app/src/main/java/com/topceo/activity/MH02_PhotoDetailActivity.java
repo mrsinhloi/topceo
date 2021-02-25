@@ -4,18 +4,21 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Animatable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,6 +40,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuItemImpl;
+import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.widget.NestedScrollView;
@@ -245,7 +251,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
             } else {
                 imgVip.setImageResource(R.drawable.ic_king);
             }*/
-            imgVip.setImageResource(R.drawable.ic_king);
+            imgVip.setImageResource(R.drawable.ic_svg_24);
         } else {
             imgVip.setVisibility(View.GONE);
         }
@@ -865,6 +871,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
     /**
      * Showing popup menu when tapping on 3 dots
      */
+    @SuppressLint("RestrictedApi")
     private void showPopupMenu(View view, final ImageItem item) {
         // inflate menu
         final PopupMenu popup = new PopupMenu(context, view);
@@ -877,8 +884,10 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
             MenuItem menuSave = menu.findItem(R.id.action_save);
             if (item.isSaved()) {
                 menuSave.setTitle(R.string.not_save);
+                menuSave.setIcon(R.drawable.ic_svg_23_24dp);
             } else {
-                menuSave.setTitle(R.string.save);
+                menuSave.setTitle(R.string.save_post);
+                menuSave.setIcon(R.drawable.ic_svg_22_24dp);
             }
         }
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -926,7 +935,13 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
                 return false;
             }
         });
-        popup.show();
+
+//        popup.show();
+
+        @SuppressLint("RestrictedApi") MenuPopupHelper menuHelper = new MenuPopupHelper(context, (MenuBuilder) popup.getMenu(), view);
+        menuHelper.setForceShowIcon(true);
+        menuHelper.show();
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////

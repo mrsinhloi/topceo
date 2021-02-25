@@ -190,7 +190,6 @@ public class MyApplication extends ChatApplication implements EventControlListen
         /////////////////////////////#############/////////////////////////
 
 
-
         //notify tren android 8.0
         initAndroidOreo();
     }
@@ -453,7 +452,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
 
                                                 task.setResult(user);
                                             }
-                                        }).run();
+                                        }).start();
 
 
                                     } else {
@@ -1070,6 +1069,11 @@ public class MyApplication extends ChatApplication implements EventControlListen
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //#region OneSignal/////////////////////////////////////////////////////////////////////////
 
+    private static void updateExternalUserId(){
+        if (getUser() != null) {
+            OneSignal.setExternalUserId(String.valueOf(getUser().getUserId()));
+        }
+    }
     /**
      * Kiểm tra nếu app chưa đăng ký onesignal thì sẽ gọi đăng ký
      * MainActivity co dang ky nhan onOSSubscriptionChanged(lần đầu đăng ký hoặc subscribed -> unsubscribed -> subscribed)
@@ -1085,6 +1089,8 @@ public class MyApplication extends ChatApplication implements EventControlListen
             //Dù có đăng ký lên server local thì trạng thái subscrib vẫn ko enable, phải gọi trực tiếp như sau:
             OneSignalLog.Companion.printLog("You are not subscrib, request subscrib");
             OneSignal.setSubscription(true);
+            updateExternalUserId();
+
             //MainActivity co dang ky nhan onOSSubscriptionChanged, no se goi dang ky lai whenHaveOneSignalUserId
             //goi dang ky lai
 //            oneSignalSubscribIfNeed();
@@ -1100,6 +1106,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
             if (!isRegisterOneSignalLocalServer) {
                 OneSignalLog.Companion.printLog("You are subscribed, call register to local server");
                 updateOneSignalUserId();
+                updateExternalUserId();
             }
         }
     }

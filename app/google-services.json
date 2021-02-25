@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "634367870032-1br45ncpihd9qii3uh7vn3u8c77i80ai.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ehubly.topceo",
+            "certificate_hash": "4710e243b83ee19eedc4b957cf73445714b7bda4"
+          }
+        },
+        {
+          "client_id": "634367870032-eh79ikhfvcm4m36tee458hbs76a4t4lg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ehubly.topceo",
+            "certificate_hash": "74c4c08b31cb8a91f460b2259a7e08101bb67c73"
+          }
+        },
+        {
           "client_id": "634367870032-3nbd0q26t95pmf4taikligq7h3s8u5vq.apps.googleusercontent.com",
           "client_type": 3
         }

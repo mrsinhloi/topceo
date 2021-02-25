@@ -66,7 +66,7 @@
                     android:layout_width="15dp"
                     android:layout_height="18dp"
                     app:tint="@color/sky_end"
-                    android:src="@drawable/ic_king" />
+                    android:src="@drawable/ic_svg_24" />
             </LinearLayout>
         </LinearLayout>
 

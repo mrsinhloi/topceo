@@ -5,43 +5,59 @@
       <map>
         <entry key="app/src/main/res/drawable/bg_1_star.xml" value="0.171875" />
         <entry key="app/src/main/res/drawable/bg_3_star.xml" value="0.171875" />
+        <entry key="app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.171875" />
+        <entry key="app/src/main/res/drawable/ic_outline_info_24.xml" value="0.171875" />
+        <entry key="app/src/main/res/drawable/ic_round_delete_forever_24.xml" value="0.171875" />
         <entry key="app/src/main/res/drawable/ic_svg_1.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_10.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_11.xml" value="0.25" />
-        <entry key="app/src/main/res/drawable/ic_svg_12.xml" value="0.171875" />
-        <entry key="app/src/main/res/drawable/ic_svg_13.xml" value="0.171875" />
-        <entry key="app/src/main/res/drawable/ic_svg_14.xml" value="0.171875" />
+        <entry key="app/src/main/res/drawable/ic_svg_12.xml" value="0.5" />
+        <entry key="app/src/main/res/drawable/ic_svg_13.xml" value="0.5" />
+        <entry key="app/src/main/res/drawable/ic_svg_14.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_15.xml" value="0.171875" />
         <entry key="app/src/main/res/drawable/ic_svg_16.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_16_24dp.xml" value="0.171875" />
+        <entry key="app/src/main/res/drawable/ic_svg_16_36dp.xml" value="0.171875" />
         <entry key="app/src/main/res/drawable/ic_svg_17.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_18.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_19.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_2.xml" value="0.171875" />
-        <entry key="app/src/main/res/drawable/ic_svg_20.xml" value="0.171875" />
+        <entry key="app/src/main/res/drawable/ic_svg_20.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_21.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_22.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_22_24dp.xml" value="0.5" />
-        <entry key="app/src/main/res/drawable/ic_svg_23.xml" value="0.171875" />
-        <entry key="app/src/main/res/drawable/ic_svg_24.xml" value="0.171875" />
-        <entry key="app/src/main/res/drawable/ic_svg_25.xml" value="0.171875" />
-        <entry key="app/src/main/res/drawable/ic_svg_26_1_star.xml" value="0.16988416988416988" />
+        <entry key="app/src/main/res/drawable/ic_svg_23.xml" value="0.5" />
+        <entry key="app/src/main/res/drawable/ic_svg_23_24dp.xml" value="0.171875" />
+        <entry key="app/src/main/res/drawable/ic_svg_24.xml" value="0.5" />
+        <entry key="app/src/main/res/drawable/ic_svg_25.xml" value="0.5" />
+        <entry key="app/src/main/res/drawable/ic_svg_26_1_star.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_29_card_member.xml" value="0.171875" />
         <entry key="app/src/main/res/drawable/ic_svg_3.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_4.xml" value="0.5" />
-        <entry key="app/src/main/res/drawable/ic_svg_5.xml" value="0.171875" />
-        <entry key="app/src/main/res/drawable/ic_svg_6.xml" value="0.171875" />
-        <entry key="app/src/main/res/drawable/ic_svg_7.xml" value="0.171875" />
+        <entry key="app/src/main/res/drawable/ic_svg_5.xml" value="0.5" />
+        <entry key="app/src/main/res/drawable/ic_svg_6.xml" value="0.5" />
+        <entry key="app/src/main/res/drawable/ic_svg_7.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_8.xml" value="0.5" />
-        <entry key="app/src/main/res/drawable/ic_svg_9.xml" value="0.171875" />
+        <entry key="app/src/main/res/drawable/ic_svg_9.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_logo_512.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_logo_toolbar_214.xml" value="0.171875" />
         <entry key="app/src/main/res/drawable/ic_tab_1.xml" value="0.171875" />
+        <entry key="app/src/main/res/layout/activity_group_detail.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_loading_00.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_owner_profile.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_signin.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_1_row_basic.xml" value="0.159765625" />
+        <entry key="app/src/main/res/layout/fragment_1_row_old.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_3.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_setting_old.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/layout_footer.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/layout_header.xml" value="0.375" />
         <entry key="app/src/main/res/layout/my_card_activity.xml" value="0.23273942093541203" />
+        <entry key="app/src/main/res/menu/menu_item_newsfeed.xml" value="0.159765625" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.171875" />
       </map>
     </option>
   </component>

@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,11 +25,11 @@
                 android:id="@+id/txtEmpty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableTop="@drawable/ic_notify_2"
                 android:text="@string/you_have_not_notify"
-                android:drawablePadding="@dimen/text_size_16sp"
+                android:drawablePadding="-16sp"
                 tools:visibility="visible"
-                style="@style/EmptyViewStyle" />
+                style="@style/EmptyViewStyle"
+                app:drawableTopCompat="@drawable/ic_svg_6" />
         </FrameLayout>
 
 

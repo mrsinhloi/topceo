@@ -78,8 +78,8 @@
                 android:layout_height="@dimen/ic_menu_size"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:padding="12dp"
-                android:src="@drawable/ic_king" />
+                android:padding="10dp"
+                android:src="@drawable/ic_svg_24" />
 
             <LinearLayout
                 android:layout_width="0dp"
