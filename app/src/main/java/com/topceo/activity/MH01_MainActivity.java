@@ -1638,11 +1638,13 @@ public class MH01_MainActivity extends AppCompatActivity {
             long imageId = db.getLong(DynamicData.IMAGE_ID, 0);
             if (imageId > 0) {
                 MyUtils.gotoDetailImage(context, imageId);
+                db.putLong(DynamicData.IMAGE_ID, 0);
             }
             //profile
             long profileId = db.getLong(DynamicData.PROFILE_ID, 0);
             if (profileId > 0) {
                 MyUtils.gotoProfile(profileId, context);
+                db.putLong(DynamicData.PROFILE_ID, 0);
             }
         }
     }

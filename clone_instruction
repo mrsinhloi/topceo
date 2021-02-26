@@ -53,6 +53,7 @@ ic_svg_logo_toolbar_214.xml
 - Enable Android Device Verification
 https://console.cloud.google.com/apis/api/androidcheck.googleapis.com/overview?project=booksocial-9179e&authuser=0
 - Bổ sung SHA-256 vào config trên firebase: debug + release
+- Add SHA-256 + SHA1 sau khi publish lên store nếu sử dụng App Bundle (key lúc này lấy theo google cấp)
 13. Deeplink và insight: cấu hình SHA1
 book.ehubstar.com/ref
 book.ehubstar.com/share

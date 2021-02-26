@@ -46,7 +46,9 @@
         <entry key="app/src/main/res/layout/activity_loading_00.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_owner_profile.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_post_like_facebook.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/activity_signin.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_1_row_basic.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/fragment_1_row_old.xml" value="0.1" />

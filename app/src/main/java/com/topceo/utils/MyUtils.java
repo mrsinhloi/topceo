@@ -1884,7 +1884,7 @@ public class MyUtils {
         //resize bitmap follow width, auto height
         float aspectRatio = (float) scaledBitmap.getWidth() / (float) scaledBitmap.getHeight();
         int width = targetWidth;    //your width
-        if(width>scaledBitmap.getWidth()){
+        if (width > scaledBitmap.getWidth()) {
             width = scaledBitmap.getWidth();
         }
         int height = Math.round(width / aspectRatio);
@@ -2318,6 +2318,7 @@ public class MyUtils {
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
         }
     }
+
     public static void showKeyboard(Activity context, EditText txt) {
         if (context != null) {
             InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -3063,6 +3064,7 @@ public class MyUtils {
         final Matcher matcher = pattern.matcher(value);
         return matcher.matches();
     }
+
     public static final String getUsername(String value) {
         String username = "";
         String regex = "^@((?=.*[a-zA-Z])\\w{3,25})$";

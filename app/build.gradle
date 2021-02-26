@@ -30,8 +30,8 @@ android {
         applicationId "com.ehubly.topceo" //==> ehubstar.sontung.mtp
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.compileSdkVersion
-        versionCode 2
-        versionName "2.0.2"
+        versionCode 4
+        versionName "2.0.4"
 
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -53,14 +53,14 @@ android {
 
     buildTypes {
         debug {
-            resValue "string", "GOOGLE_MAPS_ANDROID_API_KEY", "AIzaSyCy7KeAztf4LG7BFFoZsxVKkJYDPtC4TL8"
+            resValue "string", "GOOGLE_MAPS_ANDROID_API_KEY", "AIzaSyD_DKDULQjfrkxC9tu7K0eSmu_WjEf3ZLg"
 
             minifyEnabled false
             ext.enableCrashlytics = false
 //            ext.alwaysUpdateBuildId = false
         }
         release {
-            resValue "string", "GOOGLE_MAPS_ANDROID_API_KEY", "AIzaSyCy7KeAztf4LG7BFFoZsxVKkJYDPtC4TL8"
+            resValue "string", "GOOGLE_MAPS_ANDROID_API_KEY", "AIzaSyD_DKDULQjfrkxC9tu7K0eSmu_WjEf3ZLg"
 
             minifyEnabled false
 //            shrinkResources true //ERROR

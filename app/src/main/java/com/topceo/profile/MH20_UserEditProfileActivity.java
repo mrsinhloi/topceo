@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.Toolbar;
@@ -34,6 +36,10 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.topceo.R;
 import com.topceo.accountkit.PhoneUtils;
 import com.topceo.activity.MH01_MainActivity;
@@ -66,6 +72,7 @@ import com.nguyenhoanglam.imagepicker.activity.ImagePicker;
 import com.nguyenhoanglam.imagepicker.activity.ImagePickerActivity;
 import com.nguyenhoanglam.imagepicker.model.Image;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -76,6 +83,7 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 import bolts.Continuation;
 import bolts.Task;
@@ -259,12 +267,32 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
 //            MyUtils.showToast(context, "Welcome "+user.getUserName());
 
             if (context != null) {
-                Glide.with(context)
-                        .load(user.getAvatarMedium())//"http://d2i37wz5q98nd1.cloudfront.net/wp-content/uploads/2015/08/VCCircle_Sundar_Pichai.png")
+                String url = user.getAvatarSmall();
+                /*Glide.with(context)
+                        .load(url)//"http://d2i37wz5q98nd1.cloudfront.net/wp-content/uploads/2015/08/VCCircle_Sundar_Pichai.png")
                         .placeholder(R.drawable.ic_no_avatar)
                         .override(avatarSize, avatarSize)
                         .transform(new GlideCircleTransform(context))
-                        .into(avatar);
+                        .into(avatar);*/
+
+                Glide.with(context)
+                        .load(url)
+                        .placeholder(R.drawable.ic_no_avatar)
+                        .override(avatarSize, avatarSize)
+                        .transform(new GlideCircleTransform(context))
+                        .into(new CustomTarget<Drawable>() {
+                            @Override
+                            public void onResourceReady(@NonNull @NotNull Drawable resource, @Nullable @org.jetbrains.annotations.Nullable Transition<? super Drawable> transition) {
+                                avatar.setImageDrawable(resource);
+                            }
+
+                            @Override
+                            public void onLoadCleared(@Nullable @org.jetbrains.annotations.Nullable Drawable placeholder) {
+
+                            }
+                        });
+
+
 
                 txt1.setText(user.getFullName());
                 txt2.setText(user.getUserName());
@@ -848,14 +876,16 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... strings) {
             int uploadNumber = 0;
+            File temp = MyUtils.createImageFile(context);
+
 
             //upload origin
             SasChild original = parent.getOriginal();
             if (original != null) {
 
-                Bitmap b = MyUtils.resizeAndRotateImage(imgPath, ImageSize.ORIGINAL_WIDTH, ImageSize.ORIGINAL_HEIGHT);
+                Bitmap b = MyUtils.resizeAndRotateImage(imgPath, ImageSize.MEDIUM_WIDTH, ImageSize.MEDIUM_WIDTH);
                 MyUtils.log("image_size " + b.getWidth() + " - " + b.getHeight());
-                imgPath = MyUtils.saveBitmap(b, imgPath);
+                imgPath = MyUtils.saveBitmap(b, temp.getAbsolutePath());
 
                 boolean isSuccessed = uploadImageToAzure(original, imgPath);
                 if (isSuccessed) {
@@ -867,7 +897,7 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
             SasChild medium = parent.getMedium();
             if (medium != null) {
 
-                Bitmap b = MyUtils.resizeAndRotateImage(imgPath, ImageSize.MEDIUM_WIDTH, ImageSize.MEDIUM_HEIGHT);
+                Bitmap b = MyUtils.resizeAndRotateImage(imgPath, ImageSize.MEDIUM_WIDTH, ImageSize.MEDIUM_WIDTH);
                 MyUtils.log("image_size " + b.getWidth() + " - " + b.getHeight());
                 imgPath = MyUtils.saveBitmap(b, imgPath);
 
@@ -881,7 +911,7 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
             SasChild small = parent.getSmall();
             if (small != null) {
 
-                Bitmap b = MyUtils.resizeAndRotateImage(imgPath, ImageSize.SMALL_WIDTH, ImageSize.SMALL_HEIGHT);
+                Bitmap b = MyUtils.resizeAndRotateImage(imgPath, ImageSize.SMALL_WIDTH, ImageSize.SMALL_WIDTH);
                 MyUtils.log("image_size " + b.getWidth() + " - " + b.getHeight());
                 imgPath = MyUtils.saveBitmap(b, imgPath);
 
@@ -914,9 +944,9 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
                         .getAsJSONObject(new JSONObjectRequestListener() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                MyUtils.log("ok");
+//                                MyUtils.log("ok");
                                 //upload thanh cong
-                                MyUtils.showToast(context, R.string.toast_upload_success);
+                                MyUtils.showToast(context, R.string.update_success);
                                 //sau do goi lai login de lay User.class
                                 initCookie();
 
@@ -1044,14 +1074,7 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
                         intent = new Intent(Fragment_1_Home_User.ACTION_REFRESH);
                         sendBroadcast(intent);
 
-                        MyUtils.log("avatar = " + user.getAvatarSmall());
-
-                        new Handler().postDelayed(new Runnable() {
-                            public void run() {
-                                // do something
-                                initUser();
-                            }
-                        }, 1000);
+                        initUser();
 
 
                     }

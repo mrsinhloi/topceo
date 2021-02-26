@@ -30,6 +30,14 @@
           }
         },
         {
+          "client_id": "634367870032-m895p4tom6arc4fq0ituncni3vrc8e2a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ehubly.topceo",
+            "certificate_hash": "905ec5635dad762830a1cee857dccc9f59d04f50"
+          }
+        },
+        {
           "client_id": "634367870032-3nbd0q26t95pmf4taikligq7h3s8u5vq.apps.googleusercontent.com",
           "client_type": 3
         }

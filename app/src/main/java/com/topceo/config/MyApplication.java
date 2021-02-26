@@ -470,7 +470,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
                                 } else {
 
                                     if (!TextUtils.isEmpty(result.getErrorMessage())) {
-                                        MyUtils.showToast(context, result.getErrorMessage());
+//                                        MyUtils.showToast(context, result.getErrorMessage());
                                     }
 
                                     task.setResult(null);
