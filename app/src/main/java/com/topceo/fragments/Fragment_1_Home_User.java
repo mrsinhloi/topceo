@@ -592,7 +592,7 @@ public class Fragment_1_Home_User extends Fragment {
         swipeContainer.post(new Runnable() {
             @Override
             public void run() {
-                swipeContainer.setRefreshing(true);
+                setRefresh(true);
                 whenRefresh();
             }
         });

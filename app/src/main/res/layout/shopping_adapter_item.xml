@@ -80,6 +80,7 @@
                 android:layout_marginEnd="@dimen/dimen_10dp"
                 android:textColor="@color/grey_500"
                 android:drawablePadding="3dp"
+                android:gravity="center_vertical"
                 android:drawableStart="@drawable/ic_favorite_18_grey_500"
                 android:textSize="10sp" />
 

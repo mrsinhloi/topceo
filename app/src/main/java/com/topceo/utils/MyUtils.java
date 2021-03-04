@@ -730,6 +730,18 @@ public class MyUtils {
         }
     }
 
+    public static String createNickname(String fullname) {
+        String nickname = "";
+        if(!TextUtils.isEmpty(fullname)){
+            nickname = getUnsignedString(fullname.toLowerCase(Locale.ROOT));
+            if(!TextUtils.isEmpty(nickname) && nickname.contains(" ")){
+                nickname = nickname.replaceAll("\\s+","");
+            }
+        }
+
+        return nickname;
+    }
+
 
     /////DATE/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public String getNameOfDay() {

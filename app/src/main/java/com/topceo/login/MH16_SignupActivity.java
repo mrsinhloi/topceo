@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +63,8 @@ public class MH16_SignupActivity extends AppCompatActivity {
     private Activity context = this;
     private static final String TAG = "MH16_SignupActivity";
 
+    @BindView(R.id.linearRoot)
+    LinearLayout linearRoot;
     @BindView(R.id.txt1)
     TextInputEditText txt1;
     @BindView(R.id.txt2)
@@ -98,7 +101,7 @@ public class MH16_SignupActivity extends AppCompatActivity {
 
     private String usernameTemp = "";
     private String passTemp = "";
-    private String emailTemp = "";
+    private String fullnameTemp = "";
     private String phoneTemp = "";
     private int positionTemp = 0;
     private TinyDB db;
@@ -106,13 +109,24 @@ public class MH16_SignupActivity extends AppCompatActivity {
     User user;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new TinyDB(this);
 
-        user = getIntent().getParcelableExtra(User.USER);
-        initUI();
+        Bundle b = getIntent().getExtras();
+        if (b != null) {
+            String phone = b.getString(User.PHONE, "");
+            String token = b.getString(User.TOKEN, "");
 
+            user =new User();
+            user.setPhone(phone);
+            user.setToken(token);
+        }
+        if (user != null) {
+            initUI();
+        }else{
+            finish();
+        }
     }
 
     private void initUI() {
@@ -146,6 +160,13 @@ public class MH16_SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        linearRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyUtils.hideKeyboard(MH16_SignupActivity.this);
             }
         });
 
@@ -251,9 +272,9 @@ public class MH16_SignupActivity extends AppCompatActivity {
             }
         });
 
-        //email
-        if (!TextUtils.isEmpty(emailTemp)) {
-            txt1.setText(emailTemp);
+        //fullname
+        if (!TextUtils.isEmpty(fullnameTemp)) {
+            txt1.setText(fullnameTemp);
         }
         txt1.addTextChangedListener(new TextWatcher() {
             @Override
@@ -268,7 +289,11 @@ public class MH16_SignupActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                emailTemp = s.toString();
+                fullnameTemp = s.toString();
+
+                //tao nickname tu fullname, bo dau va bo khoang trang
+                String nickname = MyUtils.createNickname(fullnameTemp);
+                txt2.setText(nickname);
             }
         });
 
@@ -346,14 +371,14 @@ public class MH16_SignupActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    String email;
+    String fullname;
     String name;
     String password;
     String phone;
     int gender = -1;
 
     private void readData() {
-        email = txt1.getText().toString().trim();
+        fullname = txt1.getText().toString().trim();
         name = txt2.getText().toString().trim();
         password = txt3.getText().toString().trim();
         phone = txt4.getText().toString().trim();
@@ -423,14 +448,14 @@ public class MH16_SignupActivity extends AppCompatActivity {
             txt3.setError(null);
         }
 
-        /*if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            txt1.setError(getText(R.string.invalid_email));
+        if (fullname.isEmpty()) {
+            txt1.setError(getText(R.string.fullname_empty));
             txt1.requestFocus();
             valid = false;
             return valid;
         } else {
             txt1.setError(null);
-        }*/
+        }
 
 
         if (TextUtils.isEmpty(phone)) {
@@ -795,44 +820,45 @@ public class MH16_SignupActivity extends AppCompatActivity {
             MyUtils.hideKeyboard(context);
             ProgressUtils.show(context);
 
-            String token = "bearer "+user.getToken();
+            String token = "bearer " + user.getToken();
             MyApplication.apiManager.signupComplete(
                     token,
                     name,
                     password,
                     gender,
+                    fullname,
                     new Callback<JsonObject>() {
-                @Override
-                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    JsonObject obj = response.body();
-                    if (obj != null) {
+                        @Override
+                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                            JsonObject obj = response.body();
+                            if (obj != null) {
 
-                        ReturnResult result = Webservices.parseJson(obj.toString(), User.class, false);
-                        if (result != null) {
-                            //Thanh cong thi tra ve UserMBN -> qua man hinh nhap thong tin
-                            if (result.getErrorCode() == ReturnResult.SUCCESS) {//da ton tai thi vao
-                                if (result.getData() != null) {
-                                    User user = (User) result.getData();
-                                    Intent data = new Intent();
-                                    data.putExtra(User.USER, user);
-                                    setResult(RESULT_OK, data);
-                                    finish();
+                                ReturnResult result = Webservices.parseJson(obj.toString(), User.class, false);
+                                if (result != null) {
+                                    //Thanh cong thi tra ve UserMBN -> qua man hinh nhap thong tin
+                                    if (result.getErrorCode() == ReturnResult.SUCCESS) {//da ton tai thi vao
+                                        if (result.getData() != null) {
+                                            User user = (User) result.getData();
+                                            Intent data = new Intent();
+                                            data.putExtra(User.USER, user);
+                                            setResult(RESULT_OK, data);
+                                            finish();
+                                        }
+
+                                    } else {
+                                        //tai khoan da ton tai, thi dang nhap
+                                        MyUtils.showAlertDialog(context, result.getErrorMessage());
+                                    }
                                 }
-
-                            } else {
-                                //tai khoan da ton tai, thi dang nhap
-                                MyUtils.showAlertDialog(context, result.getErrorMessage());
                             }
+                            ProgressUtils.hide();
                         }
-                    }
-                    ProgressUtils.hide();
-                }
 
-                @Override
-                public void onFailure(Call<JsonObject> call, Throwable t) {
-                    ProgressUtils.hide();
-                }
-            });
+                        @Override
+                        public void onFailure(Call<JsonObject> call, Throwable t) {
+                            ProgressUtils.hide();
+                        }
+                    });
         } else {
             MyUtils.showThongBao(context);
         }

@@ -609,7 +609,8 @@ public interface WebserviceApi {
             @Field("Email") String Email,
             @Field("Gender") int Gender,
             @Field("CountryId") String CountryId,
-            @Field("CountryName") String CountryName
+            @Field("CountryName") String CountryName,
+            @Field("FullName") String FullName
 
     );
 

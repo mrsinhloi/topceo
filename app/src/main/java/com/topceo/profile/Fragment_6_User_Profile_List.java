@@ -336,7 +336,7 @@ public class Fragment_6_User_Profile_List extends Fragment {
                 ;
             }
 
-            holder.txt1.setText(item.getOwner().getUserName());
+            holder.txt1.setText(item.getOwner().getFullName());
             holder.txt2.setText(item.getLocation());
             holder.txt6.setText(MyUtils.formatDate(item.getCreateDate(), DateFormat.DATE_FORMAT_VN_DDMMYYYY_HHMM, context));
 

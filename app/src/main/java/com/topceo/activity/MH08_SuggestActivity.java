@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -58,8 +59,15 @@ public class MH08_SuggestActivity extends AppCompatActivity {
 
     private void setRefresh(boolean isRefresh) {
         if (isRefresh) {//on
-            if (swipeContainer != null && !swipeContainer.isRefreshing())
+            if (swipeContainer != null && !swipeContainer.isRefreshing()) {
                 swipeContainer.setRefreshing(isRefresh);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setRefresh(false);
+                    }
+                }, 2500);
+            }
         } else {//off
             if (swipeContainer != null && swipeContainer.isRefreshing())
                 swipeContainer.setRefreshing(isRefresh);
@@ -97,7 +105,7 @@ public class MH08_SuggestActivity extends AppCompatActivity {
         user = (User) db.getObject(User.USER, User.class);
 
         initAdapter();
-        getSuggestFollow(true);
+        getSuggestFollow(false);
 
         //////////////////////////////////////////////////////////////////////////////////
         // Configure the refreshing colors
@@ -112,7 +120,7 @@ public class MH08_SuggestActivity extends AppCompatActivity {
                 if (MyUtils.checkInternetConnection(context)) {
                     //lay page 0
                     setRefresh(true);
-                    getSuggestFollow(true);
+                    getSuggestFollow(false);
                 } else {
                     setRefresh(false);
                     MyUtils.showThongBao(context);
@@ -157,7 +165,6 @@ public class MH08_SuggestActivity extends AppCompatActivity {
     ////////////////////////////////////////////////////////////////////////////////////////////
 
     private int suggestItems = Webservices.SUGGEST_ITEMS;
-
     private void getSuggestFollow(boolean isRelative) {
         if (MyUtils.checkInternetConnection(context)) {
             Webservices.getSuggestFollow(isRelative).continueWith(new Continuation<Object, Void>() {

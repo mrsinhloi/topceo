@@ -34,7 +34,7 @@ public class Media implements Parcelable {
     private long CreateDate;//	unix timestamp		Ngày tạo
     private long LastModifyDate;//	unix timestamp		Ngày cập nhật cuối
     private int LikeCount;//	int		Số lượng Like
-    private int CommentCount;//	int		Số lượng Comment
+    private int CommentCount = 0;//	int		Số lượng Comment
     private boolean IsLiked;//	bit		Đã like media chưa
     private boolean IsLock;
 
@@ -128,7 +128,7 @@ public class Media implements Parcelable {
     }
 
     public String getCover() {
-        if(Cover == null) Cover = "";
+        if (Cover == null) Cover = "";
         return Cover;
     }
 
@@ -297,6 +297,7 @@ public class Media implements Parcelable {
     }
 
     public int getCommentCount() {
+        if (CommentCount < 0) CommentCount = 0;
         return CommentCount;
     }
 
@@ -317,6 +318,7 @@ public class Media implements Parcelable {
 
     /**
      * Get all
+     *
      * @return
      */
     public boolean isLock() {

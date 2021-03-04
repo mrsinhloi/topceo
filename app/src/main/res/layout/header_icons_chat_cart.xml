@@ -32,7 +32,7 @@
 
     <ImageView
         android:id="@+id/imgShop"
-        android:src="@drawable/ic_svg_25"
+        android:src="@drawable/ic_svg_5"
         style="@style/sky_bar_icon_1"
         android:visibility="gone"
         />

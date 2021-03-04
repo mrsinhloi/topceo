@@ -325,7 +325,7 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
 
             //SET THONG TIN
             if (item.getOwner() != null) {
-                txt1.setText(item.getOwner().getUserName());
+                txt1.setText(item.getOwner().getFullName());
                 setVip(item.getOwner());
             }
 
@@ -756,7 +756,7 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
         UserShort user = comment.getUser();
         if (user != null) {
             url = user.getAvatarSmall();
-            txtName.setText(user.getUserName());
+            txtName.setText(user.getFullName());
             //description
 //            String s = context.getString(R.string.username_and_comment, "<b>"+user.getUserName()+"</b>", comment.getComment());
             txtDes.setText(MyUtils.fromHtml(comment.getComment()));

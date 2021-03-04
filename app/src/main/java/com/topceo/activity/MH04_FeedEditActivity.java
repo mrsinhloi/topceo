@@ -150,7 +150,7 @@ public class MH04_FeedEditActivity extends AppCompatActivity {
                         .into(img2);
 
                 txtInput.setText(MyUtils.fromHtml(item.getDescription()));
-                txt1.setText(item.getOwner().getUserName());
+                txt1.setText(item.getOwner().getFullName());
                 txt2.setText(item.getLocation());
 
                 int positon = 0;

@@ -14,7 +14,6 @@ import com.androidnetworking.error.ANError;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.topceo.BuildConfig;
 import com.topceo.R;
 import com.topceo.ads.AdConfigModel;
 import com.topceo.ads.AdUtils;
@@ -187,8 +186,9 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private AdView adView;
     private String native_admob_id = "";
 
+    boolean isDebug = true;
     private void initAdmobAds() {
-        if (BuildConfig.DEBUG) {
+        if (isDebug) {
             native_admob_id = "ca-app-pub-3940256099942544/6300978111";
         }
         if (!TextUtils.isEmpty(native_admob_id)) {
@@ -202,7 +202,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             // Create an ad request.
             AdRequest.Builder adRequestBuilder = new AdRequest.Builder();
 
-            if (BuildConfig.DEBUG) {
+            if (isDebug) {
                 // Optionally populate the ad request builder.
                 adRequestBuilder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
             }
@@ -759,7 +759,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private void initNativeAd(String unitId) {
         if (!TextUtils.isEmpty(unitId)) {
-            if (BuildConfig.DEBUG) {
+            if (isDebug) {
                 AdSettings.addTestDevice("77c85917a6e881dad0fa2bf972b8e29d");
             }
             countFacebookAds = 0;

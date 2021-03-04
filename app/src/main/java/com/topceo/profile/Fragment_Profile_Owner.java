@@ -230,9 +230,9 @@ public class Fragment_Profile_Owner extends Fragment {
                     break;
             }
 
-            String name = user.getUserName();
-            if (!TextUtils.isEmpty(user.getFullName())) {
-                name += " - " + user.getFullName();
+            String name = user.getFullName();
+            if (!TextUtils.isEmpty(user.getUserName())) {
+                name += " (" + user.getUserName() + ")";
             }
             MyUtils.setText(name, txtFullName);
             MyUtils.setText(user.getFavorite(), txtDescription);
@@ -253,8 +253,9 @@ public class Fragment_Profile_Owner extends Fragment {
         user = (User) db.getObject(User.USER, User.class);
         if (user != null) {
             Glide.with(this)
-                    .load(user.getAvatarMedium())//"http://d2i37wz5q98nd1.cloudfront.net/wp-content/uploads/2015/08/VCCircle_Sundar_Pichai.png")
+                    .load(user.getAvatarSmall())//"http://d2i37wz5q98nd1.cloudfront.net/wp-content/uploads/2015/08/VCCircle_Sundar_Pichai.png")
                     .placeholder(R.drawable.ic_no_avatar)
+                    .centerCrop()
                     .override(avatarSize, avatarSize)
                     .transform(new GlideCircleTransform(context))
                     .into(avatar);
@@ -283,7 +284,7 @@ public class Fragment_Profile_Owner extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
-        if(!isOwner){
+        if (!isOwner) {
             tabLayout.setVisibility(View.GONE);
         }
 
@@ -447,7 +448,8 @@ public class Fragment_Profile_Owner extends Fragment {
                     initOwner();
                 } else if (ACTION_SCROLL_TO_TOP.equalsIgnoreCase(intent.getAction())) {
                     if (f6 != null) {
-                        f6.imgGotoTop.performClick();
+                        if (f6.imgGotoTop != null)
+                            f6.imgGotoTop.performClick();
                         appBarLayout.setActivated(true);
                         appBarLayout.setExpanded(true, true);
                     }
@@ -517,8 +519,9 @@ public class Fragment_Profile_Owner extends Fragment {
 
         if (user != null) {
             Glide.with(context)
-                    .load(user.getAvatarMedium())//"http://d2i37wz5q98nd1.cloudfront.net/wp-content/uploads/2015/08/VCCircle_Sundar_Pichai.png")
+                    .load(user.getAvatarSmall())//"http://d2i37wz5q98nd1.cloudfront.net/wp-content/uploads/2015/08/VCCircle_Sundar_Pichai.png")
                     .placeholder(R.drawable.ic_no_avatar)
+                    .centerCrop()
                     .override(avatarSize, avatarSize)
                     .transform(new GlideCircleTransform(context))
                     .into(avatar);
@@ -958,27 +961,30 @@ public class Fragment_Profile_Owner extends Fragment {
                     public void onResponse(JSONObject response) {
 //                        MyUtils.log("ok");
                         //{"data":{"User":{"UserId":7,"UserName":"phuongphammtp","SocialInfo":[{"NameCode":"Web","Link":"myweb.com"},{"NameCode":"Facebook","Link":""},{"NameCode":"Twitter","Link":""},{"NameCode":"Instagram","Link":""},{"NameCode":"Youtube","Link":""}]}}}
-                        if (response != null) {
+                        if (response != null && response.has("data")) {
                             try {
                                 JSONObject data = response.getJSONObject("data");
-                                JSONObject user = data.getJSONObject("User");
-                                JSONArray socials = user.getJSONArray("SocialInfo");
+                                if (data.has("User")) {
+                                    JSONObject user = data.getJSONObject("User");
+                                    JSONArray socials = user.getJSONArray("SocialInfo");
 
-                                ArrayList<SocialItem> list = new ArrayList<>();
-                                for (int i = 0; i < socials.length(); i++) {
-                                    JSONObject item = socials.getJSONObject(i);
-                                    String name = item.getString("NameCode");
-                                    String link = item.getString("Link");
+                                    ArrayList<SocialItem> list = new ArrayList<>();
+                                    for (int i = 0; i < socials.length(); i++) {
+                                        JSONObject item = socials.getJSONObject(i);
+                                        String name = item.getString("NameCode");
+                                        String link = item.getString("Link");
 
-                                    SocialItem social = new SocialItem();
-                                    social.setNameCode(name);
-                                    social.setLink(link);
-                                    list.add(social);
+                                        SocialItem social = new SocialItem();
+                                        social.setNameCode(name);
+                                        social.setLink(link);
+                                        list.add(social);
+                                    }
+
+                                    if (list.size() > 0) {
+                                        ProfileUtils.setSocialText(getContext(), getLayoutInflater(), linearSocials, list);
+                                    }
                                 }
 
-                                if (list.size() > 0) {
-                                    ProfileUtils.setSocialText(getContext(), getLayoutInflater(), linearSocials, list);
-                                }
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

@@ -667,4 +667,8 @@
     <string name="facebook_share_to_page">Facebook share to pages</string>
     <string name="to_pages">To: %1$s</string>
     <string name="save_post">Lưu bài viết</string>
+    <string name="fullname_empty">Vui lòng nhập tên đầy đủ</string>
+    <string name="nickname">Nickname</string>
+    <string name="nick_name">Nickname</string>
+    <string name="asign">\@</string>
 </resources>

@@ -332,12 +332,13 @@ public class VideoActivity extends AppCompatActivity {
                 txtLikeCount.setVisibility(View.GONE);
             }
 
-            if (media.getCommentCount() > 0) {
+            /*if (media.getCommentCount() > 0) {
                 txtCommentCount.setVisibility(View.VISIBLE);
                 txtCommentCount.setText(String.valueOf(media.getCommentCount()));
             } else {
                 txtCommentCount.setVisibility(View.GONE);
-            }
+            }*/
+            txtCommentCount.setText(String.valueOf(media.getCommentCount()));
         }
     }
 

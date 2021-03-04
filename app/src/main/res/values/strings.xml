@@ -361,7 +361,7 @@
     <string name="edit_your_profile">Edit profile</string>
     <string name="posts">Post</string>
     <string name="change_photo">Change avatar</string>
-    <string name="full_name">Full Name</string>
+    <string name="full_name">Full name</string>
     <string name="user_email_exist">Email already exists</string>
     <string name="explore">Explore</string>
     <string name="top">Top</string>
@@ -745,4 +745,8 @@
     <string name="facebook_share_to_page">Facebook share to pages</string>
     <string name="to_pages">To: %1$s</string>
     <string name="save_post">Save post</string>
+    <string name="fullname_empty">Please enter your full name</string>
+    <string name="nickname">Nickname</string>
+    <string name="nick_name">Nickname</string>
+    <string name="asign">\@</string>
 </resources>

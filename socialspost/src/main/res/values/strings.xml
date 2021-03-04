@@ -3,6 +3,7 @@
 
     <string name="facebook_app_id">1327217820972422</string>
     <string name="fb_login_protocol_scheme">fb1327217820972422</string>
+    <string name="fb_authorities">com.facebook.app.FacebookContentProvider1327217820972422</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="facebook_select_page_title">Select page to post</string>

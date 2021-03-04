@@ -416,80 +416,82 @@ public class MyApplication extends ChatApplication implements EventControlListen
             String username = db.getString(TinyDB.USER_NAME);
             String password = db.getString(TinyDB.USER_PASSWORD);
 
-            isCallingInitCookie = true;
-            AndroidNetworking.post(Webservices.URL + "user/login")
-                    .addBodyParameter("username", username)
-                    .addBodyParameter("password", password)
-                    .setOkHttpClient(client)
-                    .setPriority(Priority.MEDIUM)
-                    .build()
-                    .getAsJSONObject(new JSONObjectRequestListener() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            MyUtils.howLong(start, "user/login");
-                            isCallingInitCookie = false;
+            if(!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)){
+                isCallingInitCookie = true;
+                AndroidNetworking.post(Webservices.URL + "user/login")
+                        .addBodyParameter("username", username)
+                        .addBodyParameter("password", password)
+                        .setOkHttpClient(client)
+                        .setPriority(Priority.MEDIUM)
+                        .build()
+                        .getAsJSONObject(new JSONObjectRequestListener() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                MyUtils.howLong(start, "user/login");
+                                isCallingInitCookie = false;
 
-                            ReturnResult result = Webservices.parseJson(response, User.class, false);
-                            if (result != null) {
-                                if (result.getErrorCode() == ReturnResult.SUCCESS) {
+                                ReturnResult result = Webservices.parseJson(response, User.class, false);
+                                if (result != null) {
+                                    if (result.getErrorCode() == ReturnResult.SUCCESS) {
 
-                                    //luu user
-                                    if (result.getData() != null) {
-                                        User user = (User) result.getData();
-                                        new Thread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                db.putObject(User.USER, user);
+                                        //luu user
+                                        if (result.getData() != null) {
+                                            User user = (User) result.getData();
+                                            new Thread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    db.putObject(User.USER, user);
 
-                                                db.putBoolean(TinyDB.IS_LOGIN_BY_FACEBOOK, false);
-                                                db.putBoolean(TinyDB.IS_LOGINED, true);
+                                                    db.putBoolean(TinyDB.IS_LOGIN_BY_FACEBOOK, false);
+                                                    db.putBoolean(TinyDB.IS_LOGINED, true);
 
-                                                //tao lai cache user short
-                                                userShort = user.getUserShort();
+                                                    //tao lai cache user short
+                                                    userShort = user.getUserShort();
 
-                                                //Khi login thanh cong thi co cookie moi nen goi khoi tao retrofit
-                                                MyApplication.whenLoginSuccess();
+                                                    //Khi login thanh cong thi co cookie moi nen goi khoi tao retrofit
+                                                    MyApplication.whenLoginSuccess();
 
-                                                task.setResult(user);
-                                            }
-                                        }).start();
+                                                    task.setResult(user);
+                                                }
+                                            }).start();
 
 
+                                        } else {
+                                            task.setResult(null);
+                                        }
+
+                                    } else if (result.getErrorCode() == ReturnResult.ERROR_CODE_BANNED) {
+                                        Object obj = db.getObject(User.USER, User.class);
+                                        if (obj != null) {
+                                            User user = (User) obj;
+                                            user.setBanned(true);
+                                            db.putObject(User.USER, user);
+                                        }
+                                        task.setResult(ReturnResult.ERROR_CODE_BANNED);
                                     } else {
+
+                                        if (!TextUtils.isEmpty(result.getErrorMessage())) {
+//                                        MyUtils.showToast(context, result.getErrorMessage());
+                                        }
+
                                         task.setResult(null);
                                     }
-
-                                } else if (result.getErrorCode() == ReturnResult.ERROR_CODE_BANNED) {
-                                    Object obj = db.getObject(User.USER, User.class);
-                                    if (obj != null) {
-                                        User user = (User) obj;
-                                        user.setBanned(true);
-                                        db.putObject(User.USER, user);
-                                    }
-                                    task.setResult(ReturnResult.ERROR_CODE_BANNED);
                                 } else {
-
-                                    if (!TextUtils.isEmpty(result.getErrorMessage())) {
-//                                        MyUtils.showToast(context, result.getErrorMessage());
-                                    }
-
                                     task.setResult(null);
                                 }
-                            } else {
-                                task.setResult(null);
+
+
                             }
 
-
-                        }
-
-                        @Override
-                        public void onError(ANError ANError) {
-                            isCallingInitCookie = false;
-                            if (ANError.getMessage() != null)
-                                MyUtils.showToast(context, ANError.getMessage());
-                            task.setError(ANError);
-                        }
-                    });
+                            @Override
+                            public void onError(ANError ANError) {
+                                isCallingInitCookie = false;
+                                if (ANError.getMessage() != null)
+                                    MyUtils.showToast(context, ANError.getMessage());
+                                task.setError(ANError);
+                            }
+                        });
+            }
         }
 
         return task.getTask();

@@ -4,15 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/relative1"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:padding="@dimen/dimen_5dp"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/margin_10dp"
+    android:paddingBottom="@dimen/margin_10dp"
     android:orientation="horizontal"
     android:gravity="center_vertical">
 
     <LinearLayout
         android:gravity="center"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginEnd="@dimen/margin_10dp"
+        android:layout_marginStart="@dimen/margin_10dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:orientation="vertical"
@@ -57,7 +58,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginStart="@dimen/margin_5dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -123,6 +124,7 @@
         android:rotation="90"
         android:id="@+id/imgMenu2"
         android:padding="2dp"
+        android:layout_marginEnd="@dimen/margin_5dp"
         android:layout_width="24dp"
         android:layout_height="match_parent"
         app:tint="@color/sky_end"

@@ -10,6 +10,7 @@
     <include layout="@layout/separate_horizontal"/>
 
     <include layout="@layout/layout_header"/>
+    <include layout="@layout/layout_description" />
 
     <!--SquaredFrameLayout-->
     <FrameLayout

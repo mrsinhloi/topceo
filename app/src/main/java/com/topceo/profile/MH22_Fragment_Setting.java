@@ -359,6 +359,8 @@ public class MH22_Fragment_Setting extends Fragment {
             }
         });
 
+        //topceo ko su dung nang cap thanh vien
+        vipLinear.setVisibility(View.GONE);
         vipLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

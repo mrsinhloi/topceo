@@ -278,6 +278,7 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
                 Glide.with(context)
                         .load(url)
                         .placeholder(R.drawable.ic_no_avatar)
+                        .centerCrop()
                         .override(avatarSize, avatarSize)
                         .transform(new GlideCircleTransform(context))
                         .into(new CustomTarget<Drawable>() {

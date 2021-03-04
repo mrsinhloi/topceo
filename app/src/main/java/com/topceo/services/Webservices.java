@@ -54,6 +54,7 @@ public class Webservices {
     public static final String URL_CORE_CHAT = "https://apichat.app/";
     public static final String URL_PAYMENT = "http://topceo-pay.ehubstar.com";
     public static final String URL_INSIGHT = "http://topceo-insight.ehubstar.com";
+    public static final String URL_TERM = "http://topceo-term.ehubstar.com/term-vi.html";
 
 
     /**
@@ -67,10 +68,8 @@ public class Webservices {
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
-//    private static final String feedItem = "{ ImageItemId, ImageOriginal, ImageLarge, ImageMedium, ImageSmall, Description, IsOwner, IsLiked, IsShared, IsOwner,LikeCount, CommentCount,ShareCount, CreateDate, Location, Owner{UserId, UserName, AvatarSmall}, ImageLargeWidth, ImageLargeHeight, WebLink}";
-//    private static final String feedItem = "{ImageItemId,ItemContent{ItemType, Large{Link, Width, Height, SizeInKb},Medium{Link, Width, Height, SizeInKb}, Small{Link, Width, Height, SizeInKb}, Info{Icon, Text, Link, Target}},Description,CreateDate,Location,LikeCount,CommentCount, ShareCount,IsLiked,IsShared,IsSaved,SavedDate,Owner{UserId,UserName,AvatarSmall,IsVip},WebLink}";
-    public static final String commentPreview = "Comments(Count:2){User{UserName, AvatarSmall}, Comment, ItemId, IsLiked, ReplyToId, CreateDate}";
-    private static final String feedItem = "{ImageItemId,ItemContent{ItemType, Large{Link, Width, Height, SizeInKb},Medium{Link, Width, Height, SizeInKb}, Small{Link, Width, Height, SizeInKb}, Info{Icon, Text, Link, Target}},Description,CreateDate,Location,LikeCount,CommentCount,IsLiked,IsShared,IsSaved,SavedDate,Owner{UserId,UserName,AvatarSmall,IsVip},WebLink," + commentPreview + ",ItemType,ItemData{LinkPreview{Link,Title,Caption,Image,SiteName}}}";
+    public static final String commentPreview = "Comments(Count:2){User{UserName,FullName, AvatarSmall}, Comment, ItemId, IsLiked, ReplyToId, CreateDate}";
+    private static final String feedItem = "{ImageItemId,ItemContent{ItemType, Large{Link, Width, Height, SizeInKb},Medium{Link, Width, Height, SizeInKb}, Small{Link, Width, Height, SizeInKb}, Info{Icon, Text, Link, Target}},Description,CreateDate,Location,LikeCount,CommentCount,IsLiked,IsShared,IsSaved,SavedDate,Owner{UserId,UserName,FullName,AvatarSmall,IsVip},WebLink," + commentPreview + ",ItemType,ItemData{LinkPreview{Link,Title,Caption,Image,SiteName}}}";
 
     private static final String feedItemShort = "{ImageItemId,Description,LikeCount,CommentCount}";//ShareCount
 
@@ -117,7 +116,7 @@ public class Webservices {
     /**
      * Sau khi upload image len azure thi goi tiep ham nay
      * mutation{CreateImageItem(ItemGUID:"0a4e0fe9-d08d-4efe-a422-9474cee9f56f",ImageExtension:".jpg",IsPrivate:false,Description:"hohoho",Hashtags:["abc","xyz"]){ImageItemId, ItemGUID}}
-     * mutation{AddImageItem(ItemGUID:"f2d7a90d-62e4-45dd-ad2a-8a37c83368d4",ImageExtension:".jpg",IsPrivate:false,Description:"#myxteam",Hashtags:["myxteam"],UserTags:[],Location:"9A Đinh Tiên Hoàng, Đa Kao, Quận 1, Hồ Chí Minh",Lat:"10.7871296",Long:"106.7004713"){ ImageItemId, ImageOriginal, Description, IsOwner, IsLiked, IsShared, IsOwner,LikeCount, CommentCount,ShareCount, CreateDate, Location, Owner{UserName, AvatarSmall}}}
+     * mutation{AddImageItem(ItemGUID:"f2d7a90d-62e4-45dd-ad2a-8a37c83368d4",ImageExtension:".jpg",IsPrivate:false,Description:"#myxteam",Hashtags:["myxteam"],UserTags:[],Location:"9A Đinh Tiên Hoàng, Đa Kao, Quận 1, Hồ Chí Minh",Lat:"10.7871296",Long:"106.7004713"){ ImageItemId, ImageOriginal, Description, IsOwner, IsLiked, IsShared, IsOwner,LikeCount, CommentCount,ShareCount, CreateDate, Location, Owner{UserName,FullName, AvatarSmall}}}
      */
     public static String GET_AFTER_UPLOAD_IMAGE(String GUID, String extension, int imgWidth, int imgHeight, String description, String location, String latitude, String longitude) {
         String hashtag = "";
@@ -221,47 +220,25 @@ public class Webservices {
             return "mutation{UpdateImageItem(ImageItemId:" + imageItemId + /*", Description:\"" + description + "\"" +*/ hashtag + mention + location + "){ImageItemId}}";
         }
     }
+
     //////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * data?query={ImageComment(Id:100){Comments(Count:30, LastItemId:5000){User{UserName, AvatarSmall}, Comment, CreateDate}}
-     * {ImageComment(Id:100){ImageLarge, Description, CommentCount, CommentLike, Comments(Count:30, LastItemId:5000){ItemId, User{UserName, AvatarSmall}, Comment, CreateDate}}
-     *
-     * @param imageItemId
-     * @param lastItemId  phan tu dau tien lastItemId=null, truyen vao 0, vao ham nay chuyen lai
-     * @return
-     */
-    /*public static String GET_COMMENTS(long imageItemId, long lastItemId, long lastItemDate) {
-        if (lastItemId == 0) {
-            return "{ImageComment(Id:" + imageItemId + "){Comments(Count:30){ItemId, User{UserName, AvatarSmall}, Comment, CreateDate}}}";
-        } else {
-            return "{ImageComment(Id:" + imageItemId + "){Comments(Count:30, LastItemId:" + lastItemId + ", LastItemDate:" + getLastItemDate(lastItemDate) + "){ItemId, User{UserName, AvatarSmall}, Comment, CreateDate}}}";
-        }
-
-    }*/
-
-//    private static final String itemCommentParent = "ItemId,ImageItemId,Comment,CreateDate,CreateOS,LastModifyDate,LastModifyOS,ReplyToId,Edited,LikeCount,ReplyCount";
     private static final String itemCommentParent = "ItemId,ImageItemId,Comment,CreateDate,ReplyToId,LikeCount,ReplyCount,IsLiked";
     private static final String itemCommentShort = "ItemId,ImageItemId,ReplyToId";
 
     public static String GET_COMMENTS(long imageItemId, long lastItemId, long lastItemDate) {
         if (lastItemId == 0) {
-//          return "{ImageComment(Id:" + imageItemId + "){Comments(Count:30){ItemId, User{UserName, AvatarSmall}, Comment, CreateDate}}}";
-            return "{Comments(ImageItemId:" + imageItemId + ",Count:30){User{UserId, UserName, AvatarSmall}, " + itemCommentParent + "}}";
+            return "{Comments(ImageItemId:" + imageItemId + ",Count:30){User{UserId, UserName,FullName, AvatarSmall}, " + itemCommentParent + "}}";
         } else {
-//            return "{ImageComment(Id:" + imageItemId + "){Comments(Count:30, LastItemId:" + lastItemId + ", LastItemDate:" + getLastItemDate(lastItemDate) + "){ItemId, User{UserName, AvatarSmall}, Comment, CreateDate}}}";
-            return "{Comments(ImageItemId:" + imageItemId + ",Count:30, LastItemDate: " + getLastItemDate(lastItemDate) + ", LastItemId:" + lastItemId + "){User{UserId, UserName, AvatarSmall}, " + itemCommentParent + "}}";
+            return "{Comments(ImageItemId:" + imageItemId + ",Count:30, LastItemDate: " + getLastItemDate(lastItemDate) + ", LastItemId:" + lastItemId + "){User{UserId, UserName,FullName, AvatarSmall}, " + itemCommentParent + "}}";
         }
 
     }
 
     public static String GET_COMMENTS_CHILD(long imageItemId, long replyToId, long lastItemId, long lastItemDate) {
         if (lastItemId == 0) {
-//          return "{ImageComment(Id:" + imageItemId + "){Comments(Count:30){ItemId, User{UserName, AvatarSmall}, Comment, CreateDate}}}";
-            return "{Comments(ImageItemId:" + imageItemId + ",ReplyToId:" + replyToId + ",Count:30){User{UserId, UserName, AvatarSmall}, " + itemCommentParent + "}}";
+            return "{Comments(ImageItemId:" + imageItemId + ",ReplyToId:" + replyToId + ",Count:30){User{UserId, UserName,FullName, AvatarSmall}, " + itemCommentParent + "}}";
         } else {
-//            return "{ImageComment(Id:" + imageItemId + "){Comments(Count:30, LastItemId:" + lastItemId + ", LastItemDate:" + getLastItemDate(lastItemDate) + "){ItemId, User{UserName, AvatarSmall}, Comment, CreateDate}}}";
-            return "{Comments(ImageItemId:" + imageItemId + ",ReplyToId:" + replyToId + ",Count:30, LastItemDate: " + getLastItemDate(lastItemDate) + ", LastItemId:" + lastItemId + "){User{UserId, UserName, AvatarSmall}, " + itemCommentParent + "}}";
+            return "{Comments(ImageItemId:" + imageItemId + ",ReplyToId:" + replyToId + ",Count:30, LastItemDate: " + getLastItemDate(lastItemDate) + ", LastItemId:" + lastItemId + "){User{UserId, UserName,FullName, AvatarSmall}, " + itemCommentParent + "}}";
         }
 
     }
@@ -281,9 +258,9 @@ public class Webservices {
      */
     public static String SEND_COMMENT(long imageItemId, String comment, long replyToId) {
         if (replyToId > 0) {
-            return "mutation{AddImageComment(ImageItemId:" + imageItemId + ", ReplyToId:" + replyToId + ", Comment:\"" + comment + "\"){ItemId, User{UserId, UserName, AvatarSmall}, " + itemCommentShort + "}}";
+            return "mutation{AddImageComment(ImageItemId:" + imageItemId + ", ReplyToId:" + replyToId + ", Comment:\"" + comment + "\"){ItemId, User{UserId, UserName,FullName, AvatarSmall}, " + itemCommentShort + "}}";
         } else {
-            return "mutation{AddImageComment(ImageItemId:" + imageItemId + ", Comment:\"" + comment + "\"){ItemId, User{UserId, UserName, AvatarSmall}, " + itemCommentShort + "}}";
+            return "mutation{AddImageComment(ImageItemId:" + imageItemId + ", Comment:\"" + comment + "\"){ItemId, User{UserId, UserName,FullName, AvatarSmall}, " + itemCommentShort + "}}";
         }
 
 
@@ -489,40 +466,52 @@ public class Webservices {
                         result.setErrorMessage("");
 
                     } else if (!child.isNull("ImageItemList") && type != null) {//image list of user
-                            JSONArray data = child.getJSONArray("ImageItemList");
+                        JSONArray data = child.getJSONArray("ImageItemList");
+                        long start = System.currentTimeMillis();
+                        Object object = new Gson().fromJson(data.toString(), type);
+                        MyUtils.howLong(start, "Gson().fromJson ImageItemList");
+                        result.setData(object);
+                        result.setErrorCode(ReturnResult.SUCCESS);
+                        result.setErrorMessage("");
+
+                    } else
+
+                        //image list of user favorite
+                        if (!child.isNull("SavedImages") && type != null) {
+                            JSONArray data = child.getJSONArray("SavedImages");
                             long start = System.currentTimeMillis();
                             Object object = new Gson().fromJson(data.toString(), type);
-                            MyUtils.howLong(start, "Gson().fromJson ImageItemList");
+                            MyUtils.howLong(start, "Gson().fromJson SavedImages");
+                            result.setData(object);
+                            result.setErrorCode(ReturnResult.SUCCESS);
+                            result.setErrorMessage("");
+
+                        } else if (!child.isNull("AddImageItem") && type != null) {
+                            JSONObject data = child.getJSONObject("AddImageItem");
+                            long start = System.currentTimeMillis();
+                            Object object = new Gson().fromJson(data.toString(), type);
+                            MyUtils.howLong(start, "Gson().fromJson Newsfeed");
                             result.setData(object);
                             result.setErrorCode(ReturnResult.SUCCESS);
                             result.setErrorMessage("");
 
                         } else
 
-                            //image list of user favorite
-                            if (!child.isNull("SavedImages") && type != null) {
-                                JSONArray data = child.getJSONArray("SavedImages");
+                            //Explores
+                            if (!child.isNull("Explores") && type != null) {
+                                JSONArray data = child.getJSONArray("Explores");
                                 long start = System.currentTimeMillis();
                                 Object object = new Gson().fromJson(data.toString(), type);
-                                MyUtils.howLong(start, "Gson().fromJson SavedImages");
-                                result.setData(object);
-                                result.setErrorCode(ReturnResult.SUCCESS);
-                                result.setErrorMessage("");
-
-                            } else if (!child.isNull("AddImageItem") && type != null) {
-                                JSONObject data = child.getJSONObject("AddImageItem");
-                                long start = System.currentTimeMillis();
-                                Object object = new Gson().fromJson(data.toString(), type);
-                                MyUtils.howLong(start, "Gson().fromJson Newsfeed");
+                                MyUtils.howLong(start, "Gson().fromJson Explores");
                                 result.setData(object);
                                 result.setErrorCode(ReturnResult.SUCCESS);
                                 result.setErrorMessage("");
 
                             } else
 
-                                //Explores
-                                if (!child.isNull("Explores") && type != null) {
-                                    JSONArray data = child.getJSONArray("Explores");
+                                //ImageItemListByHashtag
+                                if (!child.isNull("ImageItemListByHashtag") && type != null) {
+                                    JSONArray data = child.getJSONArray("ImageItemListByHashtag");
                                     long start = System.currentTimeMillis();
                                     Object object = new Gson().fromJson(data.toString(), type);
                                     MyUtils.howLong(start, "Gson().fromJson Explores");
@@ -532,9 +521,9 @@ public class Webservices {
 
                                 } else
 
-                                    //ImageItemListByHashtag
-                                    if (!child.isNull("ImageItemListByHashtag") && type != null) {
-                                        JSONArray data = child.getJSONArray("ImageItemListByHashtag");
+                                    //Suggest Follow SuggestFollow
+                                    if (!child.isNull("SuggestFollow") && type != null) {
+                                        JSONArray data = child.getJSONArray("SuggestFollow");
                                         long start = System.currentTimeMillis();
                                         Object object = new Gson().fromJson(data.toString(), type);
                                         MyUtils.howLong(start, "Gson().fromJson Explores");
@@ -544,9 +533,9 @@ public class Webservices {
 
                                     } else
 
-                                        //Suggest Follow SuggestFollow
-                                        if (!child.isNull("SuggestFollow") && type != null) {
-                                            JSONArray data = child.getJSONArray("SuggestFollow");
+                                        //admin
+                                        if (!child.isNull("MostInteractivePosts") && type != null) {
+                                            JSONArray data = child.getJSONArray("MostInteractivePosts");
                                             long start = System.currentTimeMillis();
                                             Object object = new Gson().fromJson(data.toString(), type);
                                             MyUtils.howLong(start, "Gson().fromJson Explores");
@@ -554,19 +543,7 @@ public class Webservices {
                                             result.setErrorCode(ReturnResult.SUCCESS);
                                             result.setErrorMessage("");
 
-                                        } else
-
-                                            //admin
-                                            if (!child.isNull("MostInteractivePosts") && type != null) {
-                                                JSONArray data = child.getJSONArray("MostInteractivePosts");
-                                                long start = System.currentTimeMillis();
-                                                Object object = new Gson().fromJson(data.toString(), type);
-                                                MyUtils.howLong(start, "Gson().fromJson Explores");
-                                                result.setData(object);
-                                                result.setErrorCode(ReturnResult.SUCCESS);
-                                                result.setErrorMessage("");
-
-                                            }
+                                        }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1228,7 +1205,7 @@ public class Webservices {
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
-    private static String listUserLike = "{ItemId, User{UserName, AvatarSmall}, Comment, CreateDate}";
+    private static String listUserLike = "{ItemId, User{UserName,FullName, AvatarSmall}, Comment, CreateDate}";
 
     public static String GET_LIST_USER_LIKE(long imageItemId, long lastItemId, long lastItemDate) {
 
@@ -1561,7 +1538,8 @@ public class Webservices {
                     @Override
                     public void onResponse(JSONObject response) {
 //                        MyUtils.log("Fragment_3_Notify: getUserNotify JSONObject=" + response.toString());
-                        Type collectionType = new TypeToken<List<MyNotify>>() {}.getType();
+                        Type collectionType = new TypeToken<List<MyNotify>>() {
+                        }.getType();
                         ReturnResult result = Webservices.parseJson(response, collectionType, true);
 //                        progressDialog.dismiss();
 
@@ -1904,7 +1882,7 @@ public class Webservices {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////////
-    private static String listUserFollowing = "{ UserId, Followings(Count:10000){UserId, UserName, AvatarSmall}}";
+    private static String listUserFollowing = "{ UserId, Followings(Count:10000){UserId, UserName,FullName, AvatarSmall}}";
 
     public static String GET_LIST_USER_FOLLOWING(long userId) {
         return "{User(Id:" + userId + ")" + listUserFollowing + "}";
@@ -2445,7 +2423,7 @@ public class Webservices {
 
 
     public static String GET_USER_SOCIAL(long UserId) {
-        return "{User(Id:" + UserId + "){UserId, UserName, SocialInfo{NameCode, Link}}}";
+        return "{User(Id:" + UserId + "){UserId, UserName,FullName, SocialInfo{NameCode, Link}}}";
 
     }
 
@@ -2866,6 +2844,7 @@ public class Webservices {
                 });
         return successful.getTask();
     }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
     public static Task<Object> getFeedGroup(long groupId, long lastItemId) {
@@ -2882,7 +2861,8 @@ public class Webservices {
                     public void onResponse(JSONObject response) {
                         MyUtils.howLong(start, "GET_NEWSFEED_MORE");
 
-                        Type collectionType = new TypeToken<List<ImageItem>>() {}.getType();
+                        Type collectionType = new TypeToken<List<ImageItem>>() {
+                        }.getType();
                         ReturnResult result = Webservices.parseJsonGraphQL(response, collectionType);
                         if (result != null) {
                             if (result.getData() != null) {

@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bg_1_star.xml" value="0.171875" />
         <entry key="app/src/main/res/drawable/bg_3_star.xml" value="0.171875" />
+        <entry key="app/src/main/res/drawable/bg_circle_share.xml" value="0.16988416988416988" />
+        <entry key="app/src/main/res/drawable/bg_sky_radian.xml" value="0.171875" />
         <entry key="app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.171875" />
         <entry key="app/src/main/res/drawable/ic_outline_info_24.xml" value="0.171875" />
         <entry key="app/src/main/res/drawable/ic_round_delete_forever_24.xml" value="0.171875" />
@@ -29,7 +32,7 @@
         <entry key="app/src/main/res/drawable/ic_svg_23.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_23_24dp.xml" value="0.171875" />
         <entry key="app/src/main/res/drawable/ic_svg_24.xml" value="0.5" />
-        <entry key="app/src/main/res/drawable/ic_svg_25.xml" value="0.5" />
+        <entry key="app/src/main/res/drawable/ic_svg_25.xml" value="0.165" />
         <entry key="app/src/main/res/drawable/ic_svg_26_1_star.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_29_card_member.xml" value="0.171875" />
         <entry key="app/src/main/res/drawable/ic_svg_3.xml" value="0.5" />
@@ -43,21 +46,29 @@
         <entry key="app/src/main/res/drawable/ic_svg_logo_toolbar_214.xml" value="0.171875" />
         <entry key="app/src/main/res/drawable/ic_tab_1.xml" value="0.171875" />
         <entry key="app/src/main/res/layout/activity_group_detail.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_group_member.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/activity_loading_00.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/activity_owner_profile.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_owner_profile.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/activity_photo_detail.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/activity_post_like_facebook.xml" value="0.159765625" />
-        <entry key="app/src/main/res/layout/activity_signin.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.159765625" />
+        <entry key="app/src/main/res/layout/activity_signin.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_user_profile_edit.xml" value="0.15138888888888888" />
+        <entry key="app/src/main/res/layout/activity_video.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_1_row.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/fragment_1_row_basic.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/fragment_1_row_old.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_1_row_post_facebook.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/fragment_3.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_setting_old.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/header_icons_chat_cart.xml" value="0.14722222222222223" />
         <entry key="app/src/main/res/layout/layout_footer.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/layout_header.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/layout_header.xml" value="0.165" />
         <entry key="app/src/main/res/layout/my_card_activity.xml" value="0.23273942093541203" />
+        <entry key="app/src/main/res/layout/shopping_adapter_item.xml" value="0.25" />
         <entry key="app/src/main/res/menu/menu_item_newsfeed.xml" value="0.159765625" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.171875" />
       </map>

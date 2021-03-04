@@ -60,10 +60,11 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_email"
                     android:background="@drawable/bg_sky_rectangle_border"
-                    android:hint="@string/username"
+                    android:hint="@string/phone"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:maxLength="30"
+                    android:inputType="phone"
                     android:imeOptions="actionNext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -137,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/margin_16dp"
                     android:paddingBottom="@dimen/margin_16dp"
-                    android:textColor="@color/black_overlay_2"
+                    android:textColor="@color/light_blue_700"
                     android:textSize="@dimen/font_medium"
                     android:typeface="sans" />
 

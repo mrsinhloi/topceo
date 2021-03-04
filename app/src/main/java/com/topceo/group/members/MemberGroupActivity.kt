@@ -91,7 +91,7 @@ class MemberGroupActivity : AppCompatActivity() {
         scrollListener = RecyclerViewLoadMoreScroll(layoutManager)
         scrollListener.setOnLoadMoreListener(object : OnLoadMoreListener {
             override fun onLoadMore() {
-                getMembers(pageIndex++)
+                getMembers(++pageIndex)
             }
 
         })

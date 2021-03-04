@@ -8,6 +8,8 @@
     <LinearLayout
         android:layout_marginStart="@dimen/margin_16dp"
         android:layout_marginEnd="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_5dp"
+        android:layout_marginBottom="@dimen/margin_5dp"
         android:id="@+id/linearLayout2"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
@@ -128,14 +130,13 @@
             android:textColor="@color/black" />
 
 
-        <LinearLayout
+        <!--<LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginStart="4dp">
 
-            <!--com.borjabravo.readmoretextview.ReadMoreTextView-->
             <com.topceo.views.ExpandableTextView
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
@@ -159,13 +160,7 @@
                 android:visibility="gone"
                 tools:visibility="visible"
                 />
-            <!--app:trimExpandedText="@string/collapse"
-            app:trimCollapsedText="@string/expand"
-            app:colorClickableText="@color/md_grey_500"
-            app:trimMode="trimModeLength"
-            app:trimLength="210"-->
-
-        </LinearLayout>
+        </LinearLayout>-->
 
         <TextView
             android:id="@+id/txtViewAllComment"

@@ -40,7 +40,7 @@
         <!--Facebook-->
 
         <!--share-->
-        <provider android:authorities="com.facebook.app.FacebookContentProvider359536575017149"
+        <provider android:authorities="@string/fb_authorities"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true"/>
     </application>

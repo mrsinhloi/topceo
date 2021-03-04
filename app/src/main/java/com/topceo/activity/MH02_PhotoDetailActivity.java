@@ -572,7 +572,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
             }
 
 
-            txt1.setText(item.getOwner().getUserName());
+            txt1.setText(item.getOwner().getFullName());
             if (!TextUtils.isEmpty(item.getLocation())) {
                 txt2.setText(item.getLocation());
                 txt2.setVisibility(View.VISIBLE);
@@ -1572,7 +1572,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
 
             //todo set hinh, ten, description
             if (comment.getUser() != null) {
-                String name = comment.getUser().getUserName();
+                String name = comment.getUser().getFullName();
                 txtReply1.setText(name);
             }
 

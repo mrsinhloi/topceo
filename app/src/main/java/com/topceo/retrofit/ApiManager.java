@@ -610,6 +610,7 @@ public class ApiManager {
             String UserName,
             String Password,
             int Gender,
+            String FullName,
             Callback<JsonObject> callback) {
         Call<JsonObject> call = services.signupComplete(
                 Authorization,
@@ -619,7 +620,8 @@ public class ApiManager {
                 "",
                 Gender,
                 Webservices.COUNTRY_ID,
-                Webservices.COUNTRY_NAME
+                Webservices.COUNTRY_NAME,
+                FullName
         );
         call.enqueue(callback);
     }

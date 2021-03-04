@@ -281,7 +281,7 @@ public class CommentAdapterSectionParent_ImageComment extends SectionedRecyclerV
                     .into(holder.img1);
         }
 
-        if (item.getUser() != null) holder.txt1.setText(item.getUser().getUserName());
+        if (item.getUser() != null) holder.txt1.setText(item.getUser().getFullName());
         holder.txt2.setText(MyUtils.fromHtml(item.getComment()));
         MyUtils.whenClickComment(context, holder.txt2);
 
@@ -423,7 +423,7 @@ public class CommentAdapterSectionParent_ImageComment extends SectionedRecyclerV
                         .into(holder.img1);
             }
 
-            holder.txt1.setText(item.getUser().getUserName());
+            holder.txt1.setText(item.getUser().getFullName());
             holder.txt2.setText(MyUtils.fromHtml(item.getComment()));
             MyUtils.whenClickComment(context, holder.txt2);
 

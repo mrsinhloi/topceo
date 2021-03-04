@@ -16,8 +16,8 @@ public interface SocialView {
     int FLAG_MENTION = 2;
     int FLAG_HYPERLINK = 4;
 
-    Pattern PATTERN_HASHTAG = Pattern.compile("(([#]{1})[A-Za-z0-9]+)");
-    Pattern PATTERN_MENTION = Pattern.compile("(([@]{1})[A-Za-z0-9.]+)");
+    Pattern PATTERN_HASHTAG = Pattern.compile("(([#]{1})[_A-Za-z0-9]+)");
+    Pattern PATTERN_MENTION = Pattern.compile("(([@]{1})[_A-Za-z0-9.]+)");
     Pattern PATTERN_HYPERLINK = PatternsCompat.WEB_URL;
 
     /**

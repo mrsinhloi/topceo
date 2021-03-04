@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.topceo.R;
 import com.topceo.chat.ChatUtils;
 import com.topceo.chat.MainChatActivity;
+import com.topceo.services.Webservices;
 import com.topceo.shopping.ShoppingActivity;
 
 import butterknife.BindView;
@@ -72,10 +73,7 @@ public class MH14_TermsOfServiceActivity extends AppCompatActivity {
         txt.setWebViewClient(new WebViewClient());
 //        txt.loadUrl("file:///android_asset/html/terms_of_service.html");
 
-        String linkVi = "http://services-sky.ehubstar.com/term/term-vi.html";
-        String linkEn = "http://services-sky.ehubstar.com/term/term-en.html";
-
-        txt.loadUrl(linkVi);
+        txt.loadUrl(Webservices.URL_TERM);
 
 
     }

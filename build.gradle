@@ -2,7 +2,7 @@
 
 buildscript {
 
-    ext.kotlin_version = '1.4.21'
+    ext.kotlin_version = '1.4.30'
     repositories {
         google()
         jcenter()
@@ -10,11 +10,11 @@ buildscript {
     }
 
 
-
-
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.0-alpha08'
         classpath 'com.google.gms:google-services:4.3.5'
+
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // Crashlytics plugin
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.0'
@@ -30,8 +30,6 @@ buildscript {
 
         //realm ko update
         classpath 'io.realm:realm-gradle-plugin:7.0.7'
-
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         //butterknife module corechat
         classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.1'

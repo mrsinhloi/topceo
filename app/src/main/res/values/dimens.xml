@@ -126,5 +126,6 @@
     <dimen name="dimen_24dp">24dp</dimen>
     <dimen name="logo_height">30dp</dimen>
     <dimen name="avatar_header">30dp</dimen>
+    <dimen name="share_size">80dp</dimen>
 
 </resources>

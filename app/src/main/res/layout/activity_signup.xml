@@ -30,10 +30,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
         android:scrollbars="none">
 
         <LinearLayout
+            android:id="@+id/linearRoot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -114,7 +114,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_16dp"
-                android:hint="@string/user_name"
+                android:hint="@string/full_name"
+                app:boxBackgroundMode="none"
+                app:hintEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_sky_rectangle_border"
+                    android:fontFamily="@font/roboto_medium"
+                    android:hint="@string/full_name"
+                    android:maxLength="100"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:textSize="@dimen/font_medium" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                app:prefixText="@string/asign"
+                app:prefixTextColor="@color/light_blue_500"
+                android:hint="@string/nick_name"
                 app:boxBackgroundMode="none"
                 app:hintEnabled="false">
 
@@ -125,7 +149,8 @@
                     android:background="@drawable/bg_sky_rectangle_border"
                     android:digits="abcdefghijklmnopqrstuvwxyz0123456789_"
                     android:fontFamily="@font/roboto_medium"
-                    android:hint="@string/user_name"
+                    android:hint="@string/nickname"
+                    android:inputType="textVisiblePassword|textNoSuggestions"
                     android:imeOptions="actionNext"
                     android:singleLine="true"
                     android:textSize="@dimen/font_medium" />
@@ -152,27 +177,6 @@
                     android:textSize="@dimen/font_medium" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16dp"
-                android:hint="@string/email"
-                android:visibility="gone"
-                app:boxBackgroundMode="none"
-                app:hintEnabled="false">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_sky_rectangle_border"
-                    android:fontFamily="@font/roboto_medium"
-                    android:hint="@string/email"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress"
-                    android:textSize="@dimen/font_medium" />
-            </com.google.android.material.textfield.TextInputLayout>
 
 
             <LinearLayout

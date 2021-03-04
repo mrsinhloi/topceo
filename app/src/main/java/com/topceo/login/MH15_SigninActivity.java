@@ -504,15 +504,19 @@ public class MH15_SigninActivity extends AppCompatActivity {
                                 if (result.getErrorCode() == ReturnResult.SUCCESS) {//da ton tai thi vao
                                     if (result.getData() != null) {
                                         User user = (User) result.getData();
-                                        whenHaveUser(user);
+                                        //neu da co username thi co tai khoan, vao main
+                                        if (!TextUtils.isEmpty(user.getUserName())) {
+                                            whenHaveUser(user);
+                                        } else {
+                                            //nguoc lai thi vao hoan tat dang ky
+                                            completeSignUp(user);
+                                        }
                                     }
 
                                 } else if (result.getErrorCode() == ReturnResult.ERROR_CODE_COMPLETE_SIGNUP) {
                                     if (result.getData() != null) {
                                         User user = (User) result.getData();
-                                        Intent intent = new Intent(context, MH16_SignupActivity.class);
-                                        intent.putExtra(User.USER, user);
-                                        startActivityForResult(intent, ACTION_COMPLETE_SIGNUP);
+                                        completeSignUp(user);
                                     }
                                 } else {
                                     //tai khoan da ton tai, thi dang nhap
@@ -533,6 +537,15 @@ public class MH15_SigninActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    private void completeSignUp(User user) {
+        if (user != null) {
+            Intent intent = new Intent(context, MH16_SignupActivity.class);
+            intent.putExtra(User.PHONE, user.getPhone());
+            intent.putExtra(User.TOKEN, user.getToken());
+            startActivityForResult(intent, ACTION_COMPLETE_SIGNUP);
+        }
     }
 
     private void whenHaveUser(User user) {

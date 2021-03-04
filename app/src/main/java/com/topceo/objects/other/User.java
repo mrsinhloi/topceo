@@ -21,6 +21,8 @@ public class User implements Parcelable {
     public static final java.lang.String USER_ID = "USER_ID";
     public static final String ARRAY_LIST = "ARRAY_LIST";
     public static final String PHONE = "PHONE";
+    public static final String TOKEN = "TOKEN";
+
     public static final String AUTHORIZATION_CODE = "AUTHORIZATION_CODE";
     public static final String IS_RESET_PASSWORD = "IS_RESET_PASSWORD";
     public static final String IS_SIGN_UP = "IS_SIGN_UP";
@@ -52,6 +54,8 @@ public class User implements Parcelable {
     private long VipStartDate;
     private long VipEndDate;
     private int GroupCount;
+
+    private String QRLink;//Link để Generate QR Code
 
 
     public static final int VIP_LEVEL_SKY = -1;
@@ -89,6 +93,124 @@ public class User implements Parcelable {
     private long LastLoginDate;
     private String LastLoginOS;
     private String Token;
+
+    protected User(Parcel in) {
+        UserId = in.readLong();
+        ChatUserId = in.readString();
+        UserName = in.readString();
+        UserGUID = in.readString();
+        Email = in.readString();
+        Phone = in.readString();
+        FullName = in.readString();
+        AvatarOriginal = in.readString();
+        AvatarSmall = in.readString();
+        AvatarMedium = in.readString();
+        ImageCount = in.readInt();
+        FollowingCount = in.readInt();
+        FollowerCount = in.readInt();
+        IsVip = in.readByte() != 0;
+        VipStartDate = in.readLong();
+        VipEndDate = in.readLong();
+        GroupCount = in.readInt();
+        QRLink = in.readString();
+        VipLevelId = in.readInt();
+        VipLevel = in.readString();
+        Gender = in.readInt();
+        Birthday = in.readString();
+        MaritalStatus = in.readString();
+        HashtagSuggested = in.readByte() != 0;
+        RoleId = in.readInt();
+        EmailVerified = in.readByte() != 0;
+        PhoneVerified = in.readByte() != 0;
+        CanPost = in.readByte() != 0;
+        ReleaseDate = in.readLong();
+        ReleaseMessage = in.readString();
+        Job = in.readString();
+        Address = in.readString();
+        Favorite = in.readString();
+        Biography = in.readString();
+        CountryID = in.readInt();
+        CountryName = in.readString();
+        CreateDate = in.readLong();
+        CreateOS = in.readString();
+        LastLoginDate = in.readLong();
+        LastLoginOS = in.readString();
+        Token = in.readString();
+        CoreChatCustomToken = in.readString();
+        JoinDate = in.readLong();
+        isBanned = in.readByte() != 0;
+        ImageItems = in.createTypedArrayList(ImageItem.CREATOR);
+        Followings = in.createTypedArrayList(User.CREATOR);
+        Followers = in.createTypedArrayList(User.CREATOR);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(UserId);
+        dest.writeString(ChatUserId);
+        dest.writeString(UserName);
+        dest.writeString(UserGUID);
+        dest.writeString(Email);
+        dest.writeString(Phone);
+        dest.writeString(FullName);
+        dest.writeString(AvatarOriginal);
+        dest.writeString(AvatarSmall);
+        dest.writeString(AvatarMedium);
+        dest.writeInt(ImageCount);
+        dest.writeInt(FollowingCount);
+        dest.writeInt(FollowerCount);
+        dest.writeByte((byte) (IsVip ? 1 : 0));
+        dest.writeLong(VipStartDate);
+        dest.writeLong(VipEndDate);
+        dest.writeInt(GroupCount);
+        dest.writeString(QRLink);
+        dest.writeInt(VipLevelId);
+        dest.writeString(VipLevel);
+        dest.writeInt(Gender);
+        dest.writeString(Birthday);
+        dest.writeString(MaritalStatus);
+        dest.writeByte((byte) (HashtagSuggested ? 1 : 0));
+        dest.writeInt(RoleId);
+        dest.writeByte((byte) (EmailVerified ? 1 : 0));
+        dest.writeByte((byte) (PhoneVerified ? 1 : 0));
+        dest.writeByte((byte) (CanPost ? 1 : 0));
+        dest.writeLong(ReleaseDate);
+        dest.writeString(ReleaseMessage);
+        dest.writeString(Job);
+        dest.writeString(Address);
+        dest.writeString(Favorite);
+        dest.writeString(Biography);
+        dest.writeInt(CountryID);
+        dest.writeString(CountryName);
+        dest.writeLong(CreateDate);
+        dest.writeString(CreateOS);
+        dest.writeLong(LastLoginDate);
+        dest.writeString(LastLoginOS);
+        dest.writeString(Token);
+        dest.writeString(CoreChatCustomToken);
+        dest.writeLong(JoinDate);
+        dest.writeByte((byte) (isBanned ? 1 : 0));
+        dest.writeTypedList(ImageItems);
+        dest.writeTypedList(Followings);
+        dest.writeTypedList(Followers);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public String getCoreChatCustomToken() {
         return CoreChatCustomToken;
@@ -378,150 +500,6 @@ public class User implements Parcelable {
     }
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.UserId);
-        dest.writeString(this.UserName);
-        dest.writeString(this.UserGUID);
-        dest.writeString(this.AvatarOriginal);
-        dest.writeString(this.AvatarSmall);
-        dest.writeString(this.AvatarMedium);
-        dest.writeString(this.ChatUserId);
-
-        dest.writeString(this.VipLevel);
-        dest.writeInt(this.RoleId);
-        dest.writeInt(this.ImageCount);
-        dest.writeInt(this.FollowingCount);
-        dest.writeInt(this.FollowerCount);
-        dest.writeInt(this.VipLevelId);
-        dest.writeByte(this.IsVip ? (byte) 1 : (byte) 0);
-
-
-        dest.writeString(this.Email);
-        dest.writeString(this.Phone);
-        dest.writeString(this.FullName);
-        dest.writeInt(this.Gender);
-        dest.writeString(this.Birthday);
-        dest.writeInt(this.GroupCount);
-
-
-
-
-        dest.writeString(this.Job);
-        dest.writeString(this.Address);
-        dest.writeString(this.Favorite);
-        dest.writeString(this.Biography);
-        dest.writeInt(this.CountryID);
-        dest.writeString(this.CountryName);
-        dest.writeLong(this.CreateDate);
-        dest.writeString(this.CreateOS);
-        dest.writeLong(this.LastLoginDate);
-        dest.writeString(this.LastLoginOS);
-
-        dest.writeByte(this.HashtagSuggested ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.EmailVerified ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.PhoneVerified ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.CanPost ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isBanned ? (byte) 1 : (byte) 0);
-
-
-        dest.writeString(this.MaritalStatus);
-        dest.writeString(this.Token);
-        dest.writeString(this.CoreChatCustomToken);
-
-
-        dest.writeLong(this.VipStartDate);
-        dest.writeLong(this.VipEndDate);
-
-        dest.writeList(this.ImageItems);
-        dest.writeList(this.Followings);
-        dest.writeList(this.Followers);
-
-    }
-
-    protected User(Parcel in) {
-        this.UserId = in.readLong();
-        this.UserName = in.readString();
-        this.UserGUID = in.readString();
-        this.AvatarOriginal = in.readString();
-        this.AvatarSmall = in.readString();
-        this.AvatarMedium = in.readString();
-        this.ChatUserId = in.readString();
-
-        this.VipLevel = in.readString();
-        this.ImageCount = in.readInt();
-        this.FollowingCount = in.readInt();
-        this.FollowerCount = in.readInt();
-        this.VipLevelId = in.readInt();
-        this.IsVip = in.readByte() != 0;
-        this.RoleId = in.readInt();
-
-        this.Email = in.readString();
-        this.Phone = in.readString();
-        this.FullName = in.readString();
-        this.Gender = in.readInt();
-        this.Birthday = in.readString();
-        this.GroupCount = in.readInt();
-
-
-
-        this.Job = in.readString();
-        this.Address = in.readString();
-        this.Favorite = in.readString();
-        this.Biography = in.readString();
-        this.CountryID = in.readInt();
-        this.CountryName = in.readString();
-        this.CreateDate = in.readLong();
-        this.CreateOS = in.readString();
-        this.LastLoginDate = in.readLong();
-        this.LastLoginOS = in.readString();
-
-        this.HashtagSuggested = in.readByte() != 0;
-        this.EmailVerified = in.readByte() != 0;
-        this.PhoneVerified = in.readByte() != 0;
-        this.CanPost = in.readByte() != 0;
-        this.isBanned = in.readByte() != 0;
-
-
-        this.MaritalStatus = in.readString();
-        this.Token = in.readString();
-        this.CoreChatCustomToken = in.readString();
-
-
-
-        this.VipStartDate = in.readLong();
-        this.VipEndDate = in.readLong();
-
-        this.ImageItems = new ArrayList<>();
-        in.readList(this.ImageItems, ImageItem.class.getClassLoader());
-//        this.ImageItems = in.createTypedArrayList(ImageItem.CREATOR);
-
-        this.Followings = new ArrayList<>();
-        in.readList(this.Followings, User.class.getClassLoader());
-//        this.Followings = in.createTypedArrayList(User.CREATOR);
-
-        this.Followers = new ArrayList<>();
-        in.readList(this.Followers, User.class.getClassLoader());
-//        this.Followers = in.createTypedArrayList(User.CREATOR);
-    }
-
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel source) {
-            return new User(source);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
-
 
     public boolean isHashtagSuggested() {
         return HashtagSuggested;
@@ -645,7 +623,7 @@ public class User implements Parcelable {
         user.setName(getUserName());
         user.setNameMBN(getFullName());
         user.setEmail(getEmail());
-        user.setAvatar(getAvatarMedium());
+        user.setAvatar(getAvatarSmall());
 //        data.setToken(getToken());
 
         user.setAvatar(getAvatarSmall());
@@ -676,6 +654,15 @@ public class User implements Parcelable {
 
     public void setChatUserId(String chatUserId) {
         ChatUserId = chatUserId;
+    }
+
+
+    public String getQRLink() {
+        return QRLink;
+    }
+
+    public void setQRLink(String QRLink) {
+        this.QRLink = QRLink;
     }
 
 

@@ -1380,42 +1380,46 @@ public class Fragment_1_Home_SonTung extends Fragment {
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                list = realm.where(ImageItemDB.class)
-                        .sort("CreateDate", Sort.DESCENDING)
-                        .limit(2)
-                        .findAll();
-                MyUtils.howLong(start, "read list image");
-                MyUtils.showToastDebug(context, "read list " + list.size());
-                if (list.size() > 0) {
-                    mAdapter.replaceAll(ImageItemDB.copy(list));
-
-                    Long[] ids = null;
-                    if (list.size() == 1) {
-                        ids = new Long[]{list.get(0).getImageItemId()};
-                    } else {
-                        ids = new Long[]{
-                                list.get(0).getImageItemId(),
-                                list.get(1).getImageItemId()};
-                    }
+                try {
                     list = realm.where(ImageItemDB.class)
                             .sort("CreateDate", Sort.DESCENDING)
-                            .not()
-                            .in("ImageItemId", ids)
+                            .limit(2)
                             .findAll();
+                    MyUtils.howLong(start, "read list image");
+                    MyUtils.showToastDebug(context, "read list " + list.size());
                     if (list.size() > 0) {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                mAdapter.addAll(ImageItemDB.copy(list));
-                                checkSonTungHaveNewPost(false);
-                            }
-                        }, 2000);
-                    }
-                } else {
-                    //read newsfeed
-                    setRefresh(true);
-                    getNewFeedFirst();
+                        mAdapter.replaceAll(ImageItemDB.copy(list));
 
+                        Long[] ids = null;
+                        if (list.size() == 1) {
+                            ids = new Long[]{list.get(0).getImageItemId()};
+                        } else {
+                            ids = new Long[]{
+                                    list.get(0).getImageItemId(),
+                                    list.get(1).getImageItemId()};
+                        }
+                        list = realm.where(ImageItemDB.class)
+                                .sort("CreateDate", Sort.DESCENDING)
+                                .not()
+                                .in("ImageItemId", ids)
+                                .findAll();
+                        if (list.size() > 0) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mAdapter.addAll(ImageItemDB.copy(list));
+                                    checkSonTungHaveNewPost(false);
+                                }
+                            }, 2000);
+                        }
+                    } else {
+                        //read newsfeed
+                        setRefresh(true);
+                        getNewFeedFirst();
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });

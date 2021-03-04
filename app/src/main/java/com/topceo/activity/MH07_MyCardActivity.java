@@ -3,8 +3,10 @@ package com.topceo.activity;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,13 +34,6 @@ public class MH07_MyCardActivity extends AppCompatActivity {
 
     private User user;
 
-    /* @BindView(R.id.txt1)
-     TextView txt1;
-     @BindView(R.id.txtVip)
-     TextView txtVip;
-     @BindView(R.id.txtFan)
-     TextView txtFan;
-     */
     @BindView(R.id.txt2)
     TextView txt2;
 
@@ -50,6 +45,8 @@ public class MH07_MyCardActivity extends AppCompatActivity {
     CardView cardView;
     @BindView(R.id.imgLevel)
     ImageView imgLevel;
+    @BindView(R.id.btnShare)
+    Button imgShare;
 
 
     @BindView(R.id.img3)
@@ -118,33 +115,35 @@ public class MH07_MyCardActivity extends AppCompatActivity {
 
 
         if (user != null) {
-//            txt1.setText(user.getUserName());
+            final String data = user.getQRLink();
 
-//            img2.setBackgroundColor(ContextCompat.getColor(context, R.color.transparent));
-//            imgQrcode.setBackgroundColor(ContextCompat.getColor(context, R.color.transparent));
+            if(!TextUtils.isEmpty(data)){
+                try {
 
+                    imgShare.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            MyUtils.share(context, data);
+                        }
+                    });
 
-            try {
+                    //barcode
+                    int size = getResources().getDimensionPixelSize(R.dimen.barcode_height) * 2;
+                    Bitmap b = createImage(data, "Barcode", size * 4, size);
+                    if (b != null) {
+                        img2.setImageBitmap(b);
+                    }
 
-                //barcode
-                int size = getResources().getDimensionPixelSize(R.dimen.barcode_height) * 2;
-                Bitmap b = createImage(user.getUserName(), "Barcode", size * 4, size);
-                if (b != null) {
-                    img2.setImageBitmap(b);
+                    //qrcode
+                    size = getResources().getDimensionPixelSize(R.dimen.qrcode_height) * 2;
+                    b = createImage(data, "QR Code", size, size);
+                    if (b != null) {
+                        imgQrcode.setImageBitmap(b);
+                    }
+
+                } catch (WriterException e) {
+                    e.printStackTrace();
                 }
-
-                //qrcode
-                size = getResources().getDimensionPixelSize(R.dimen.qrcode_height) * 2;
-                b = createImage(user.getUserName(), "QR Code", size, size);
-                if (b != null) {
-                    /*RelativeLayout.LayoutParams layout = (RelativeLayout.LayoutParams) imgQrcode.getLayoutParams();
-                    layout.width = size;
-                    layout.height = size;*/
-                    imgQrcode.setImageBitmap(b);
-                }
-
-            } catch (WriterException e) {
-                e.printStackTrace();
             }
 
 
@@ -264,8 +263,8 @@ public class MH07_MyCardActivity extends AppCompatActivity {
 
 
                 } else {
-//                    pixels[i * width + j] = 0xffffffff;
-                    pixels[i * width + j] = 0xffe01b22;
+                    pixels[i * width + j] = 0x00ffffff;
+//                    pixels[i * width + j] = 0xffe01b22;
                 }
             }
         }
