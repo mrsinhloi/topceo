@@ -329,13 +329,13 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
                     }
                 });
                 ///EMAIL/////////////////////////////////////////////////////////////////////////
-                if (user.isEmailVerified()) {
+                /*if (user.isEmailVerified()) {
                     img1.setImageResource(R.drawable.ic_check_circle_light_blue_500_24dp);
                     txtAlertEmail.setVisibility(View.GONE);
                 } else {
                     img1.setImageResource(R.drawable.ic_info_outline_orange_500_24dp);
                     txtAlertEmail.setVisibility(View.VISIBLE);
-                }
+                }*/
                 img1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

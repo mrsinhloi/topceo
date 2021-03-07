@@ -24,6 +24,7 @@ import com.topceo.R;
 import com.topceo.activity.MH01_MainActivity;
 import com.topceo.config.MyApplication;
 import com.topceo.db.TinyDB;
+import com.topceo.firebase_auth.InputPhoneActivity;
 import com.topceo.language.LocalizationUtil;
 import com.topceo.login.workchat.ui.InputPhoneActivityWc;
 import com.topceo.objects.other.User;
@@ -44,9 +45,11 @@ import retrofit2.Response;
  * A login screen that offers login via email/password.
  */
 public class MH15_SigninActivity extends AppCompatActivity {
-    public static final int REQUEST_SIGNUP = 10;
+    public static final int REQUEST_SIGNUP = 11;
     public static final int ACTION_PHONE_VALIDATE = 12;
     public static final int ACTION_COMPLETE_SIGNUP = 13;
+    public static final int ACTION_PHONE_VALIDATE_FOR_FORGET_PASSWORD = 14;
+    public static final int ACTION_COMPLETE_CHANGE_PASSWORD = 15;
 
 
     public static final String IS_OPEN_SIGN_UP = "IS_OPEN_SIGN_UP";
@@ -270,7 +273,12 @@ public class MH15_SigninActivity extends AppCompatActivity {
                     /*Intent intent = new Intent(context, MH01_InputPhoneNumber_Activity.class);
                     intent.putExtra(User.IS_RESET_PASSWORD, true);
                     startActivityForResult(intent, MH01_InputPhoneNumber_Activity.REQUEST_VALID_NUMBER_PHONE);*/
-                    startActivity(new Intent(context, MH17_ForgetPasswordActivity.class));
+//                    startActivity(new Intent(context, MH17_ForgetPasswordActivity.class));
+
+                    Intent intent = new Intent(context, InputPhoneActivityWc.class);
+                    intent.putExtra(InputPhoneActivityWc.VALIDATE_IN_LOCAL, false);
+                    intent.putExtra(InputPhoneActivityWc.IS_FORGET_PASSWORD, true);
+                    startActivityForResult(intent, ACTION_PHONE_VALIDATE_FOR_FORGET_PASSWORD);
                 } else {
                     MyUtils.showThongBao(context);
                 }
@@ -346,12 +354,17 @@ public class MH15_SigninActivity extends AppCompatActivity {
                 case ACTION_PHONE_VALIDATE:
                     Bundle b = data.getExtras();
                     String code = b.getString(User.AUTHORIZATION_CODE);
-                    loginByFirebase(code);
+                    loginByFirebase(code, false);
                     break;
                 case ACTION_COMPLETE_SIGNUP:
                     b = data.getExtras();
                     User user = b.getParcelable(User.USER);
                     whenHaveUser(user);
+                    break;
+                case ACTION_PHONE_VALIDATE_FOR_FORGET_PASSWORD:
+                    b = data.getExtras();
+                    code = b.getString(User.AUTHORIZATION_CODE);
+                    loginByFirebase(code, true);
                     break;
             }
 
@@ -484,7 +497,27 @@ public class MH15_SigninActivity extends AppCompatActivity {
         }
     }
 
-    private void loginByFirebase(String code) {
+
+    private void completeSignUp(User user) {
+        if (user != null) {
+            Intent intent = new Intent(context, MH16_SignupActivity.class);
+            intent.putExtra(User.PHONE, user.getPhone());
+            intent.putExtra(User.TOKEN, user.getToken());
+            startActivityForResult(intent, ACTION_COMPLETE_SIGNUP);
+        }
+    }
+
+    private void whenHaveUser(User user) {
+        if (user != null) {
+            String token = user.getCoreChatCustomToken();
+            MyApplication.saveTokenChat(token);
+            db.putBoolean(TinyDB.IS_LOGINED, true);
+            db.putObject(User.USER, user);
+            onLoginSuccess();
+        }
+    }
+
+    private void loginByFirebase(String code, boolean isForgetPassword) {
 
         if (!TextUtils.isEmpty(code)) {
             if (MyUtils.checkInternetConnection(context)) {
@@ -505,8 +538,20 @@ public class MH15_SigninActivity extends AppCompatActivity {
                                     if (result.getData() != null) {
                                         User user = (User) result.getData();
                                         //neu da co username thi co tai khoan, vao main
-                                        if (!TextUtils.isEmpty(user.getUserName())) {
-                                            whenHaveUser(user);
+                                        if (user.getUserId() > 0) {
+                                            if (isForgetPassword) {
+                                                //lay token config vao cookie
+                                                db.putObject(User.USER, user);
+                                                //Khi login thanh cong thi co cookie moi nen goi khoi tao retrofit
+                                                MyApplication.whenLoginSuccess();
+
+                                                //nhap mat khau moi
+                                                Intent intent = new Intent(context, ResetPasswordActivity.class);
+                                                intent.putExtra(User.PHONE, user.getPhone());
+                                                startActivity(intent);
+                                            } else {
+                                                whenHaveUser(user);
+                                            }
                                         } else {
                                             //nguoc lai thi vao hoan tat dang ky
                                             completeSignUp(user);
@@ -539,23 +584,5 @@ public class MH15_SigninActivity extends AppCompatActivity {
 
     }
 
-    private void completeSignUp(User user) {
-        if (user != null) {
-            Intent intent = new Intent(context, MH16_SignupActivity.class);
-            intent.putExtra(User.PHONE, user.getPhone());
-            intent.putExtra(User.TOKEN, user.getToken());
-            startActivityForResult(intent, ACTION_COMPLETE_SIGNUP);
-        }
-    }
-
-    private void whenHaveUser(User user) {
-        if (user != null) {
-            String token = user.getCoreChatCustomToken();
-            MyApplication.saveTokenChat(token);
-            db.putBoolean(TinyDB.IS_LOGINED, true);
-            db.putObject(User.USER, user);
-            onLoginSuccess();
-        }
-    }
 }
 

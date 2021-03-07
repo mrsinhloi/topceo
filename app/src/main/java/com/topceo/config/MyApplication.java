@@ -89,6 +89,8 @@ import io.michaelrocks.libphonenumber.android.PhoneNumberUtil;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
+import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -295,6 +297,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
         //trust https
         OkHttpClient.Builder builder = UnsafeOkHttpClient.getBuilder(getToken());
         builder.cookieJar(cookie);
+        builder.protocols(Util.immutableList(Protocol.HTTP_1_1));
         client = builder.build();
         AndroidNetworking.initialize(context, client);
 
@@ -416,7 +419,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
             String username = db.getString(TinyDB.USER_NAME);
             String password = db.getString(TinyDB.USER_PASSWORD);
 
-            if(!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)){
+            if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
                 isCallingInitCookie = true;
                 AndroidNetworking.post(Webservices.URL + "user/login")
                         .addBodyParameter("username", username)
@@ -1071,11 +1074,12 @@ public class MyApplication extends ChatApplication implements EventControlListen
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //#region OneSignal/////////////////////////////////////////////////////////////////////////
 
-    private static void updateExternalUserId(){
+    private static void updateExternalUserId() {
         if (getUser() != null) {
             OneSignal.setExternalUserId(String.valueOf(getUser().getUserId()));
         }
     }
+
     /**
      * Kiểm tra nếu app chưa đăng ký onesignal thì sẽ gọi đăng ký
      * MainActivity co dang ky nhan onOSSubscriptionChanged(lần đầu đăng ký hoặc subscribed -> unsubscribed -> subscribed)

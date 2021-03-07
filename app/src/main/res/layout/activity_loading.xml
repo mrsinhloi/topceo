@@ -17,7 +17,7 @@
             android:layout_height="150dp"
             android:id="@+id/imageView"
             android:layout_weight="2.5"
-            android:src="@drawable/logo_sky_social_white"/>
+            android:src="@drawable/ic_svg_logo_512"/>
     </LinearLayout>
 
     <ProgressBar

@@ -17,11 +17,19 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.gson.JsonObject
 import com.sonhvp.utilities.listeners.textWatcher
+import com.topceo.config.MyApplication
 import com.topceo.login.weteam.BaseActivity
+import com.topceo.services.ReturnResult
+import com.topceo.services.Webservices
+import com.topceo.utils.ProgressUtils
 import kotlinx.android.synthetic.main.wc_mh01_input_phone_number.*
 import kotlinx.android.synthetic.main.wc_mh01_input_phone_number.view.*
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class InputPhoneActivityWc : BaseActivity() {
@@ -60,7 +68,10 @@ class InputPhoneActivityWc : BaseActivity() {
                         if (phone.isNotEmpty()) {
                             checkMobileExisted(phone)
                         } else {
-                            MyUtils.showToast(this@InputPhoneActivityWc, R.string.please_input_phone)
+                            MyUtils.showToast(
+                                this@InputPhoneActivityWc,
+                                R.string.please_input_phone
+                            )
                         }
                     }
                 } else {
@@ -71,9 +82,9 @@ class InputPhoneActivityWc : BaseActivity() {
             editPhone.apply {
                 if (phoneTemp.isNotEmpty()) setText(phoneTemp)
                 textWatcher(
-                        afterTextChanged = {
-                            phoneTemp = it.toString()
-                        }
+                    afterTextChanged = {
+                        phoneTemp = it.toString()
+                    }
                 )
             }
 
@@ -137,7 +148,8 @@ class InputPhoneActivityWc : BaseActivity() {
         }
     }*/
     private fun phoneLogin(phone: String) {
-        phoneE164 = PhoneUtils.getE164FormattedMobileNumber(phone, PhoneUtils.getDefaultCountryNameCode())
+        phoneE164 =
+            PhoneUtils.getE164FormattedMobileNumber(phone, PhoneUtils.getDefaultCountryNameCode())
         if (phoneE164 != null && !phoneE164!!.isNullOrBlank()) {
             startVerificationNumber(phoneE164!!)
 
@@ -238,7 +250,10 @@ class InputPhoneActivityWc : BaseActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 val user = FirebaseAuth.getInstance().currentUser
                 if (user != null) {
-                    val loadingDialog = MyUtils.createDialogLoading(this@InputPhoneActivityWc, R.string.reading_info)
+                    val loadingDialog = MyUtils.createDialogLoading(
+                        this@InputPhoneActivityWc,
+                        R.string.reading_info
+                    )
                     loadingDialog.show()
                     user.getIdToken(true).addOnCompleteListener {
 
@@ -313,36 +328,36 @@ class InputPhoneActivityWc : BaseActivity() {
             // The SafetyNet Attestation API is available.
             if (!TextUtils.isEmpty(number)) {
                 var idpConfig = AuthUI.IdpConfig.PhoneBuilder()
-                        .setDefaultNumber("vn", number)
-                        .build()
+                    .setDefaultNumber("vn", number)
+                    .build()
 
                 startActivityForResult(
-                        AuthUI.getInstance()
-                                .createSignInIntentBuilder()
+                    AuthUI.getInstance()
+                        .createSignInIntentBuilder()
 //                        .setTheme(R.style.GreenTheme)
-                                .setAvailableProviders(listOf(idpConfig))
-                                .setIsSmartLockEnabled(false)
-                                .build(),
-                        APP_REQUEST_CODE
+                        .setAvailableProviders(listOf(idpConfig))
+                        .setIsSmartLockEnabled(false)
+                        .build(),
+                    APP_REQUEST_CODE
                 )
             } else {
                 var idpConfig = AuthUI.IdpConfig.PhoneBuilder()
-                        .setDefaultCountryIso("vn")
-                        .build()
+                    .setDefaultCountryIso("vn")
+                    .build()
 
                 startActivityForResult(
-                        AuthUI.getInstance()
-                                .createSignInIntentBuilder()
+                    AuthUI.getInstance()
+                        .createSignInIntentBuilder()
 //                        .setTheme(R.style.GreenTheme)
-                                .setAvailableProviders(listOf(idpConfig))
-                                .setIsSmartLockEnabled(false)
-                                .build(),
-                        APP_REQUEST_CODE
+                        .setAvailableProviders(listOf(idpConfig))
+                        .setIsSmartLockEnabled(false)
+                        .build(),
+                    APP_REQUEST_CODE
                 )
             }
         } else {
             // Prompt user to update Google Play services.
-            if(api.isUserResolvableError(code)) {
+            if (api.isUserResolvableError(code)) {
                 //prompt the dialog to update google play
                 api.getErrorDialog(this, code, PLAY_SERVICES_RESOLUTION_REQUEST).show();
 
@@ -351,32 +366,43 @@ class InputPhoneActivityWc : BaseActivity() {
 
 
     }
+
     val PLAY_SERVICES_RESOLUTION_REQUEST = 123
 
     //FIREBASE AUTH//////////////////////////////////////////////////////////////////////////////
     private fun checkMobileExisted(phone: String) {
-        /*if (!TextUtils.isEmpty(phone)) {
+        if (!TextUtils.isEmpty(phone)) {
             if (MyUtils.checkInternetConnection(this)) {
                 ProgressUtils.show(this)
-                MyApplication.getInstance().apiManagerMyXteam.checkMobileExisted(phone, object : Callback<JsonObject?> {
-                    override fun onResponse(call: Call<JsonObject?>, response: Response<JsonObject?>) {
+                MyApplication.apiManager.checkPhoneExists(phone, object : Callback<JsonObject?> {
+                    override fun onResponse(
+                        call: Call<JsonObject?>,
+                        response: Response<JsonObject?>
+                    ) {
                         val obj = response.body()
                         if (obj != null) {
-                            val result = ParserWc.parseJson(obj.toString(), Boolean::class.java, false)
+                            val result = Webservices.parseJson(
+                                obj.toString(),
+                                Boolean::class.java, false
+                            )
                             if (result != null) {
                                 //Thanh cong thi tra ve UserMBN -> qua man hinh nhap thong tin
                                 if (result.errorCode == ReturnResult.SUCCESS) { //da ton tai thi vao
-                                    val exist = result.data as Boolean
-                                    if (exist) {
-//                                        phoneLogin(phone)
-                                        startVerificationNumber(phone)
-                                    } else {
-                                        val text = getString(R.string.phone_not_exists_please_chose_another_phone, phone)
-                                        MyUtils.showAlertDialog(this@InputPhoneActivity, text)
+                                    if (result.data != null) {
+                                        val exist = result.data as Boolean
+                                        if (exist) {
+                                            startVerificationNumber(phone)
+                                        } else {
+                                            val text = getString(
+                                                R.string.phone_not_exists_please_chose_another_phone,
+                                                phone
+                                            )
+                                            MyUtils.showAlertDialog(this@InputPhoneActivityWc, text)
+                                        }
                                     }
                                 } else {
-                                    //tb loi
-                                    MyUtils.showAlertDialog(this@InputPhoneActivity, result.message)
+                                    //tai khoan da ton tai, thi dang nhap
+                                    MyUtils.showAlertDialog(this@InputPhoneActivityWc, result.errorMessage)
                                 }
                             }
                         }
@@ -387,10 +413,11 @@ class InputPhoneActivityWc : BaseActivity() {
                         ProgressUtils.hide()
                     }
                 })
+
             } else {
                 MyUtils.showThongBao(this)
             }
-        }*/
+        }
     }
 
 }

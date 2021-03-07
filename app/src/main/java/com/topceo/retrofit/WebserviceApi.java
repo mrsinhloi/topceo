@@ -596,6 +596,11 @@ public interface WebserviceApi {
             @Field("Code") String code,
             @Header("os") String os
     );
+    @FormUrlEncoded
+    @POST("user/checkPhoneExists")
+    Call<JsonObject> checkPhoneExists(
+            @Field("Phone") String phone
+    );
 
     //"Hoàn tất việc đăng kí.
     //Cần truyền Bearer Token lấy đc ở hàm loginByFirebase vào Header Authorization"

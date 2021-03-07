@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.Toolbar;
 
 import com.androidnetworking.error.ANError;
+import com.google.android.material.textfield.TextInputEditText;
 import com.topceo.R;
 import com.topceo.config.MyApplication;
 import com.topceo.db.TinyDB;
@@ -31,24 +33,22 @@ import bolts.Task;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-@Deprecated
 public class ResetPasswordActivity extends AppCompatActivity {
-
 
     private Activity context = this;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.title)
-    TextView title;
     private TinyDB db;
 
 
-    @BindView(R.id.edit1)
-    AppCompatEditText edit1;
-    @BindView(R.id.edit2)
-    AppCompatEditText edit2;
-    @BindView(R.id.btnOK)
-    AppCompatButton btnNext;
+    @BindView(R.id.imgBack)
+    ImageView imgBack;
+    @BindView(R.id.pass1)
+    TextInputEditText edit1;
+    @BindView(R.id.pass2)
+    TextInputEditText edit2;
+    @BindView(R.id.btnUpdate)
+    AppCompatButton btnUpdate;
 
     @BindView(R.id.scrollView)
     ScrollView sv;
@@ -67,16 +67,15 @@ public class ResetPasswordActivity extends AppCompatActivity {
         MyUtils.transparentStatusBar(getWindow());
 
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow_left_white_24dp);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 finish();
             }
         });
 
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -110,7 +109,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         });
 
 
-        linearRoot.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        /*linearRoot.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 int heightDiff = linearRoot.getRootView().getHeight() - linearRoot.getHeight();
@@ -122,25 +121,24 @@ public class ResetPasswordActivity extends AppCompatActivity {
                     Log.d("MyActivity", "keyboard closed");
                 }
             }
-        });
+        });*/
 
         Bundle b = getIntent().getExtras();
         if (b != null) {
             phone = b.getString(User.PHONE, "");
-            if (!TextUtils.isEmpty(phone)) {
+            /*if (!TextUtils.isEmpty(phone)) {
 
             } else {
                 finish();
-            }
+            }*/
         }
     }
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    @Deprecated
     private void setPassword(final String phone, final String password) {
         if (!TextUtils.isEmpty(password) && !TextUtils.isEmpty(phone)) {
-            Webservices.setPassword(context, phone, password).continueWith(new Continuation<Object, Void>() {
+            Webservices.updatePassword(context, password).continueWith(new Continuation<Object, Void>() {
                 @Override
                 public Void then(Task<Object> task) throws Exception {
                     if (task.getError() == null) {

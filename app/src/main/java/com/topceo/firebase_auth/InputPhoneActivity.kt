@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.topceo.R
 import com.topceo.accountkit.PhoneUtils
@@ -25,6 +26,7 @@ class InputPhoneActivity : AppCompatActivity() {
 
     private var phoneTemp = ""
     var isValidateInLocal: Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -243,6 +245,7 @@ class InputPhoneActivity : AppCompatActivity() {
 
         //true: xac thuc local, false: xac thuc tren server
         const val VALIDATE_IN_LOCAL = "VALIDATE_IN_LOCAL"
+        const val IS_FORGET_PASSWORD = "IS_FORGET_PASSWORD"
 
     }
 

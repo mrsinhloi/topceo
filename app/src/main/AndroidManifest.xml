@@ -311,6 +311,7 @@
         <activity
             android:name=".login.ResetPasswordActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/ThemeFullscreenDefault"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" /> <!-- SIGNUP -->
         <activity
             android:name=".shopping.ShoppingActivity"

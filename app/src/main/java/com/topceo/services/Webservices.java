@@ -2174,19 +2174,12 @@ public class Webservices {
     }
 
 
-    @Deprecated
-    public static Task<Object> setPassword(Context context, String phone, String newPassword) {
+    public static Task<Object> updatePassword(Context context, String newPassword) {
         final TaskCompletionSource<Object> successful = new TaskCompletionSource<>();
-
-        /*final ProgressDialog progressDialog = new ProgressDialog(context, R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage(context.getText(R.string.pleasewait));
-        progressDialog.show();*/
         ProgressUtils.show(context);
 
-        AndroidNetworking.post(Webservices.URL + "user/setPassword")
-                .addBodyParameter("Phone", String.valueOf(phone))
-                .addBodyParameter("Password", String.valueOf(newPassword))
+        AndroidNetworking.post(Webservices.URL + "user/updatePassword")
+                .addBodyParameter("Password", newPassword)
                 .setOkHttpClient(MyApplication.getClient())
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -2206,12 +2199,8 @@ public class Webservices {
 
                     @Override
                     public void onError(ANError ANError) {
-                        MyUtils.log("Fragment_3_Notify: getUserNotify ErrorCode=" + ANError.getErrorCode() + ",ErrorMessage=" + ANError.getMessage());
                         ProgressUtils.hide();
-                        MyUtils.log("Fragment_3_Notify: onError setError");
-                        successful.setError(ANError);//RETURN
-//                        MyUtils.log("Fragment_3_Notify: onError setResult");
-//                        successful.setResult(null);
+                        successful.setError(ANError);
                     }
                 });
         return successful.getTask();

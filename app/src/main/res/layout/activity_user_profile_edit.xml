@@ -105,9 +105,10 @@
 
                 </LinearLayout>
 
-                <include layout="@layout/separate_horizontal" />
+                <!--<include layout="@layout/separate_horizontal" />-->
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -134,6 +135,7 @@
                         android:src="@drawable/ic_info_outline_orange_500_24dp" />
                 </LinearLayout>
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/txtAlertEmail"
                     android:text="@string/email_auth_please"
                     style="@style/textview_style_title_1"
@@ -160,9 +162,11 @@
                         android:hint="@string/phone"
                         android:imeOptions="actionNext"
                         android:inputType="phone"
+                        android:enabled="false"
                         style="@style/text_style_input_right" />
                     <ImageView
                         android:id="@+id/img2"
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:paddingLeft="@dimen/margin_10dp"

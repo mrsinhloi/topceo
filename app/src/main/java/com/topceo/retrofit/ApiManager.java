@@ -605,6 +605,11 @@ public class ApiManager {
         Call<JsonObject> call = services.loginByFirebase(code, Webservices.OS);
         call.enqueue(callback);
     }
+    public void checkPhoneExists(String phone,
+                                Callback<JsonObject> callback) {
+        Call<JsonObject> call = services.checkPhoneExists(phone);
+        call.enqueue(callback);
+    }
     public void signupComplete(
             String Authorization,
             String UserName,

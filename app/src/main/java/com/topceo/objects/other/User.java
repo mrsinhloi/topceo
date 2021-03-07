@@ -499,8 +499,6 @@ public class User implements Parcelable {
         VipEndDate = vipEndDate;
     }
 
-
-
     public boolean isHashtagSuggested() {
         return HashtagSuggested;
     }
