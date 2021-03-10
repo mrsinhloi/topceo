@@ -814,6 +814,10 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         isOwnerProfile = true;
         this.groupId = groupId;
         notifyDataSetChanged();
+
+        if (isOwnerProfile) {
+            addItemSuggestAndAds();
+        }
     }
 
     public boolean isRefresh() {

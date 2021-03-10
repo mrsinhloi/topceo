@@ -105,14 +105,13 @@ public class Fragment_1_Home_User extends Fragment {
         if (isRefresh) {//on
             if (swipeContainer != null && !swipeContainer.isRefreshing()) {
                 swipeContainer.setRefreshing(isRefresh);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        setRefresh(false);
-                    }
-                }, 2500);
             }
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    setRefresh(false);
+                }
+            }, 2500);
         } else {//off
             if (swipeContainer != null && swipeContainer.isRefreshing())
                 swipeContainer.setRefreshing(isRefresh);
@@ -186,7 +185,6 @@ public class Fragment_1_Home_User extends Fragment {
             @Override
             public void onRefresh() {
                 // Your code to refresh the list here.
-                // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
 //                fetchTimelineAsync(0);
                 //read newsfeed
@@ -459,7 +457,6 @@ public class Fragment_1_Home_User extends Fragment {
                                                 customLoadMoreDataFromApi();
                                             }
                                         }
-//                                        if (swipeContainer!=null && swipeContainer.isRefreshing()) swipeContainer.setRefreshing(false);
                                         return null;
                                     }
                                 });

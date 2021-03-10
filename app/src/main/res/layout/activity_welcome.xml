@@ -99,14 +99,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="50dp"
                 android:checked="true"
-                android:text="@string/vietnamese" />
+                android:text="@string/vietnamese"
+                android:textColor="@color/colorPrimaryDark"/>
 
             <RadioButton
                 android:id="@+id/radio2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/english"
-                android:textColor="@color/colorPrimaryDark" />
+                 />
         </RadioGroup>
     </LinearLayout>
 

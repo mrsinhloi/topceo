@@ -110,18 +110,31 @@ public class MH15_SigninActivity extends AppCompatActivity {
     private String passTemp = "";
     private TinyDB db;
 
+
+    boolean isSignup = false;
+    private void initIntent(Intent intent) {
+        if (intent != null) {
+            Bundle b = intent.getExtras();
+            if (b != null && b.containsKey(IS_OPEN_SIGN_UP)) {
+                isSignup = b.getBoolean(IS_OPEN_SIGN_UP, false);
+                if (isSignup) {
+                    signUp();
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        initIntent(intent);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle b = getIntent().getExtras();
-        if (b != null && b.containsKey(IS_OPEN_SIGN_UP)) {
-            boolean isSignup = b.getBoolean(IS_OPEN_SIGN_UP, false);
-            if (isSignup) {
-                signUp();
-            }
-        }
-
+        initIntent(getIntent());
         db = new TinyDB(this);
         initUI();
 
@@ -368,6 +381,15 @@ public class MH15_SigninActivity extends AppCompatActivity {
                     break;
             }
 
+        }else{
+            switch (requestCode){
+                case ACTION_PHONE_VALIDATE:
+                    //vao xac thuc de dang ky, nhung back ve thi thoat khoi man hinh login nay
+                    if(isSignup){
+                        finish();
+                    }
+                    break;
+            }
         }
     }
 

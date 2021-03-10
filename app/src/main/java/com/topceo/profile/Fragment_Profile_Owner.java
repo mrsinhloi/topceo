@@ -423,6 +423,8 @@ public class Fragment_Profile_Owner extends Fragment {
     public static final String ACTION_WHEN_FOLLOW_OR_UNFOLLOW = "ACTION_WHEN_FOLLOW_OR_UNFOLLOW_" + Fragment_Profile_Owner.class.getSimpleName();
     public static final String ACTION_RELOAD_USER = "ACTION_RELOAD_USER";
     public static final String ACTION_SCROLL_TO_TOP = "ACTION_SCROLL_TO_TOP" + Fragment_Profile_Owner.class.getSimpleName();
+    public static final String ACTION_WHEN_HAVE_POST = "ACTION_WHEN_HAVE_POST" + Fragment_Profile_Owner.class.getSimpleName();
+
     private BroadcastReceiver receiver;
 
     private void registerReceiver() {
@@ -448,11 +450,18 @@ public class Fragment_Profile_Owner extends Fragment {
                     initOwner();
                 } else if (ACTION_SCROLL_TO_TOP.equalsIgnoreCase(intent.getAction())) {
                     if (f6 != null) {
-                        if (f6.imgGotoTop != null)
+                        if (f6.imgGotoTop != null) {
                             f6.imgGotoTop.performClick();
-                        appBarLayout.setActivated(true);
-                        appBarLayout.setExpanded(true, true);
+                        }
+
+                        if (appBarLayout != null) {
+                            appBarLayout.setActivated(true);
+                            appBarLayout.setExpanded(true, true);
+                        }
+
                     }
+                } else if (ACTION_WHEN_HAVE_POST.equalsIgnoreCase(intent.getAction())) {
+                    whenHavePost();
                 }
             }
         };
@@ -463,6 +472,7 @@ public class Fragment_Profile_Owner extends Fragment {
         filter.addAction(ACTION_WHEN_FOLLOW_OR_UNFOLLOW);
         filter.addAction(ACTION_RELOAD_USER);
         filter.addAction(ACTION_SCROLL_TO_TOP);
+        filter.addAction(ACTION_WHEN_HAVE_POST);
 
 
         context.registerReceiver(receiver, filter);
@@ -491,6 +501,8 @@ public class Fragment_Profile_Owner extends Fragment {
                                     //update model
                                     user.setFollowerCount(u.getFollowerCount());
                                     user.setFollowingCount(u.getFollowingCount());
+                                    user.setGroupCount(u.getGroupCount());
+                                    user.setImageCount(u.getImageCount());
 
                                     //update db truoc roi moi doc len sau
                                     db.putObject(User.USER, user);
@@ -509,6 +521,17 @@ public class Fragment_Profile_Owner extends Fragment {
                     return null;
                 }
             });
+        }
+    }
+
+    private void whenHavePost() {
+        if (isOwner) {
+            if (user != null) {
+                user.setImageCount(user.getImageCount() + 1);
+                //ko can update vi khi load lai se tu update khi doc cung so luong follow,group
+//                db.putObject(User.USER, user);
+                txt1.setText(String.valueOf(user.getImageCount()));
+            }
         }
     }
 
@@ -981,7 +1004,9 @@ public class Fragment_Profile_Owner extends Fragment {
                                     }
 
                                     if (list.size() > 0) {
-                                        ProfileUtils.setSocialText(getContext(), getLayoutInflater(), linearSocials, list);
+                                        if(getActivity()!=null && !getActivity().isFinishing()){
+                                            ProfileUtils.setSocialText(getContext(), getLayoutInflater(), linearSocials, list);
+                                        }
                                     }
                                 }
 

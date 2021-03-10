@@ -41,8 +41,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
     private TinyDB db;
 
 
-    @BindView(R.id.imgBack)
-    ImageView imgBack;
+   /* @BindView(R.id.imgBack)
+    ImageView imgBack;*/
     @BindView(R.id.pass1)
     TextInputEditText edit1;
     @BindView(R.id.pass2)
@@ -67,7 +67,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         MyUtils.transparentStatusBar(getWindow());
 
         setSupportActionBar(toolbar);
-        imgBack.setOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

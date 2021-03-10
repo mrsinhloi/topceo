@@ -53,9 +53,9 @@
 
                     <ImageView
                         android:layout_width="0dp"
-                        android:layout_height="200dp"
+                        android:layout_height="120dp"
                         android:layout_gravity="center_horizontal"
-                        android:layout_weight="6"
+                        android:layout_weight="4"
                         android:src="@drawable/ic_svg_logo_512" />
 
                 </LinearLayout>
@@ -91,7 +91,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_10dp"
                 android:hint="@string/phone"
                 app:boxBackgroundMode="none"
                 app:hintEnabled="false">
@@ -113,7 +113,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_10dp"
                 android:hint="@string/full_name"
                 app:boxBackgroundMode="none"
                 app:hintEnabled="false">
@@ -135,7 +135,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_10dp"
                 app:prefixText="@string/asign"
                 app:prefixTextColor="@color/light_blue_500"
                 android:hint="@string/nick_name"
@@ -160,7 +160,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_10dp"
                 android:hint="@string/password"
                 app:boxBackgroundMode="none"
                 app:hintEnabled="false"
@@ -201,7 +201,7 @@
 
                     <Spinner
                         android:id="@+id/spinner1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="180dp"
                         android:layout_height="wrap_content"
                         android:entries="@array/arr_gender"
                         android:gravity="center_horizontal"

@@ -61,11 +61,11 @@
         <entry key="app/src/main/res/layout/activity_reset_password.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/activity_signin.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/activity_signin_old.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_signup_old.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_user_profile_edit.xml" value="0.15138888888888888" />
         <entry key="app/src/main/res/layout/activity_video.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_1.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/fragment_1_row.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/fragment_1_row_basic.xml" value="0.159765625" />

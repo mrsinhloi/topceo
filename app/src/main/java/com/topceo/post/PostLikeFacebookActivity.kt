@@ -57,6 +57,7 @@ import com.smartapp.collage.OnItemClickListener
 import com.smartapp.collage.RegexUtils
 import com.smartapp.post_like_facebook.EditImageActivity
 import com.sonhvp.utilities.standard.isNotBlankAndNotEmpty
+import com.topceo.profile.Fragment_Profile_Owner
 import com.workchat.core.chat.locations.MyLocation
 import com.workchat.core.chat.locations.SearchLocationActivity
 import gun0912.tedimagepicker.builder.TedImagePicker
@@ -303,6 +304,11 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             //refresh onefragment
             sendBroadcast(Intent(Fragment_1_Home_User.ACTION_REFRESH))
             sendBroadcast(Intent(Fragment_5_User_Profile_Grid.ACTION_REFRESH_LIST))
+
+            //Neu post moi thi tang so luong post trong profile
+            if(!isEdit){
+                sendBroadcast(Intent(Fragment_Profile_Owner.ACTION_WHEN_HAVE_POST))
+            }
 
 
             if (groupId > 0) {

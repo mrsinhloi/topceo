@@ -65,6 +65,7 @@ import com.topceo.post.PostUtils;
 import com.topceo.post.UploadImageListener;
 import com.topceo.post.UploadVideoListener;
 import com.topceo.profile.Fragment_5_User_Profile_Grid;
+import com.topceo.profile.Fragment_Profile_Owner;
 import com.topceo.retrofit.PostImageParam;
 import com.topceo.services.ReturnResult;
 import com.topceo.services.Webservices;
@@ -413,6 +414,10 @@ public class MH03_PostActivity extends AppCompatActivity {
             //refresh onefragment
             sendBroadcast(new Intent(Fragment_1_Home_User.ACTION_REFRESH));
             sendBroadcast(new Intent(Fragment_5_User_Profile_Grid.ACTION_REFRESH_LIST));
+
+            //Neu post moi thi tang so luong post trong profile
+            sendBroadcast(new Intent(Fragment_Profile_Owner.ACTION_WHEN_HAVE_POST));
+
 
             //dong man hinh edit image
             sendBroadcast(new Intent(ImageActivity.ACTION_FINISH));

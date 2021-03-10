@@ -1039,7 +1039,7 @@ public class Webservices {
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     private static final String userItem = "{ UserId, ChatUserId, Email, FullName, UserName, IsVip, AvatarSmall, AvatarMedium, AvatarOriginal, ImageCount, FollowingCount, FollowerCount, VipLevelId, VipLevel, GroupCount, Favorite}";
-    private static final String userItemInfoFollow = "{UserId, FollowingCount, FollowerCount, GroupCount}";
+    private static final String userItemInfoFollow = "{UserId, FollowingCount, FollowerCount, GroupCount, ImageCount}";
 
     public static String GET_USER(String userName) {
         return "{User(UserName:\"" + userName + "\")" + userItem + "}";

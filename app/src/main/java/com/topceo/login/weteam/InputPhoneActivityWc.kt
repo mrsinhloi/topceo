@@ -32,10 +32,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class InputPhoneActivityWc : BaseActivity() {
+class InputPhoneActivityWc : Activity() {
 
 
-    override val fragContainer: Int = 0
+//    override val fragContainer: Int = 0
     lateinit var db: TinyDB
 
     private var phoneTemp = ""
@@ -49,18 +49,27 @@ class InputPhoneActivityWc : BaseActivity() {
     }
 
     private fun init() {
-        //UI
-        setContentView(R.layout.wc_mh01_input_phone_number)
-
         val b: Bundle? = intent.extras
         if (b != null) {
             isValidateInLocal = b.getBoolean(VALIDATE_IN_LOCAL, false)
             isForgetPassword = b.getBoolean(IS_FORGET_PASSWORD, false)
+
+            //Hien thi o nhap de check sdt co ton tai tren he thong truoc
             if (isForgetPassword) {
-                linearInputPhone.visibility = View.VISIBLE
+                initUI()
+            } else {
+                setTheme(R.style.ThemeNoDisplay)
+                //Mac dinh chay vao man hinh xac thuc luon
+                startVerificationNumber("")
+
             }
         }
 
+    }
+
+    fun initUI(){
+        setContentView(R.layout.wc_mh01_input_phone_number)
+        linearInputPhone.visibility = View.VISIBLE
         window.decorView.rootView.apply {
             btnStart.setOnClickListener {
                 if (isForgetPassword) {
@@ -118,8 +127,6 @@ class InputPhoneActivityWc : BaseActivity() {
                 }
             }*/
         }
-
-
     }
 
     var phoneE164: String? = ""
@@ -184,114 +191,123 @@ class InputPhoneActivityWc : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
         super.onActivityResult(requestCode, resultCode, intent)
-        if (requestCode == APP_REQUEST_CODE_SERVER) {
-            /*val loginResult = intent!!.getParcelableExtra<AccountKitLoginResult>(AccountKitLoginResult.RESULT_KEY)
-            when {
-                loginResult.error != null -> messageDialog(loginResult.error.toString())
-                loginResult.wasCancelled() -> progressBar!!.visibility = View.GONE
-                else ->
-                     {
-                    //AQBuYuYyLfW5uhgR8CffEaaEdf7m-drNm-OPaXz3B3WPMvq2So-IOA6nTrymFDZ9Uov0mEFzcxmn6OKleoKoofyp46K1LGqBNHPLGtAA0q2l6jv78zv-a_9-tkZvzp-7CfPT_7RNnVXp7AbXGlswc0wxfXsazgl_9VAJSuybqQOfqGiJnti4RyetMZljWlh0McnUBAZNedfaLFXhXQuhZZLPyoIy5Jva8ybzYCymH-2c0TkrsOjUdkoYVkDVUx_j-Qc
-                    val code = loginResult.getAuthorizationCode()
-                    //tra authorization code ve man hinh yeu cau
-                    var data = Intent()
-                    data.putExtra(UserMBN.AUTHORIZATION_CODE, code)
-                    setResult(Activity.RESULT_OK, data)
-                    finish()
-                }
+        //neu khong xac thuc thi dong man hinh nay lai
+        if (resultCode != RESULT_OK) {
+            finish()
+        } else {
+            if (requestCode == APP_REQUEST_CODE_SERVER) {
+                /*val loginResult = intent!!.getParcelableExtra<AccountKitLoginResult>(AccountKitLoginResult.RESULT_KEY)
+                when {
+                    loginResult.error != null -> messageDialog(loginResult.error.toString())
+                    loginResult.wasCancelled() -> progressBar!!.visibility = View.GONE
+                    else ->
+                         {
+                        //AQBuYuYyLfW5uhgR8CffEaaEdf7m-drNm-OPaXz3B3WPMvq2So-IOA6nTrymFDZ9Uov0mEFzcxmn6OKleoKoofyp46K1LGqBNHPLGtAA0q2l6jv78zv-a_9-tkZvzp-7CfPT_7RNnVXp7AbXGlswc0wxfXsazgl_9VAJSuybqQOfqGiJnti4RyetMZljWlh0McnUBAZNedfaLFXhXQuhZZLPyoIy5Jva8ybzYCymH-2c0TkrsOjUdkoYVkDVUx_j-Qc
+                        val code = loginResult.getAuthorizationCode()
+                        //tra authorization code ve man hinh yeu cau
+                        var data = Intent()
+                        data.putExtra(UserMBN.AUTHORIZATION_CODE, code)
+                        setResult(Activity.RESULT_OK, data)
+                        finish()
+                    }
 
-            }*/
-        } else if (requestCode == APP_REQUEST_CODE_LOCAL) {
-            /*val loginResult = intent!!.getParcelableExtra<AccountKitLoginResult>(AccountKitLoginResult.RESULT_KEY)
-            when {
-                loginResult.error != null -> messageDialog(loginResult.error.toString())
-                loginResult.wasCancelled() -> progressBar!!.visibility = View.GONE
-                else ->
-                    AccountKit.getCurrentAccount(object : AccountKitCallback<Account> {
-                        override fun onSuccess(account: Account?) {
-                            account?.run {
-                                //val rawPhone = account.phoneNumber.rawPhoneNumber
-                                //val phone = account.phoneNumber.phoneNumber
-                                val phoneE164 = phoneNumber.toString()
-                                phoneE164.takeUnless { it.isBlankOrEmpty() }?.let {
-                                    //tra sdt ve man hinh yeu cau
-                                    var data = Intent()
-                                    data.putExtra(UserMBN.PHONE, phoneE164)
-                                    setResult(Activity.RESULT_OK, data)
-                                    finish()
+                }*/
+            } else if (requestCode == APP_REQUEST_CODE_LOCAL) {
+                /*val loginResult = intent!!.getParcelableExtra<AccountKitLoginResult>(AccountKitLoginResult.RESULT_KEY)
+                when {
+                    loginResult.error != null -> messageDialog(loginResult.error.toString())
+                    loginResult.wasCancelled() -> progressBar!!.visibility = View.GONE
+                    else ->
+                        AccountKit.getCurrentAccount(object : AccountKitCallback<Account> {
+                            override fun onSuccess(account: Account?) {
+                                account?.run {
+                                    //val rawPhone = account.phoneNumber.rawPhoneNumber
+                                    //val phone = account.phoneNumber.phoneNumber
+                                    val phoneE164 = phoneNumber.toString()
+                                    phoneE164.takeUnless { it.isBlankOrEmpty() }?.let {
+                                        //tra sdt ve man hinh yeu cau
+                                        var data = Intent()
+                                        data.putExtra(UserMBN.PHONE, phoneE164)
+                                        setResult(Activity.RESULT_OK, data)
+                                        finish()
+                                    }
                                 }
                             }
-                        }
 
-                        override fun onError(accountKitError: AccountKitError) {
+                            override fun onError(accountKitError: AccountKitError) {
 
-                        }
-                    })
+                            }
+                        })
 
-            }*/
-        }
-
-        //Firebase auth
-        /*val loadingDialog = MaterialAlertDialogBuilder(this@InputPhoneActivity)
-                .setTitle(R.string.logging_in)
-                .setView(R.layout.dialog_loading)
-                .setCancelable(false)
-                .create()*/
-
-
-        if (requestCode == APP_REQUEST_CODE && intent != null) {
-            val response = IdpResponse.fromResultIntent(intent)
-            if (response == null) {
-                messageDialog { R.string.error_verification }
-                return
+                }*/
             }
 
+            //Firebase auth
+            /*val loadingDialog = MaterialAlertDialogBuilder(this@InputPhoneActivity)
+                    .setTitle(R.string.logging_in)
+                    .setView(R.layout.dialog_loading)
+                    .setCancelable(false)
+                    .create()*/
 
-            if (resultCode == Activity.RESULT_OK) {
-                val user = FirebaseAuth.getInstance().currentUser
-                if (user != null) {
-                    val loadingDialog = MyUtils.createDialogLoading(
-                        this@InputPhoneActivityWc,
-                        R.string.reading_info
-                    )
-                    loadingDialog.show()
-                    user.getIdToken(true).addOnCompleteListener {
 
-                        loadingDialog.dismiss()
-                        if (isValidateInLocal) {
-                            //verify in local
-                            val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
-                            if (user != null) {
-                                val phone = user.phoneNumber //chuan E164 +84912345678
-                                var data = Intent()
-                                data.putExtra(User.PHONE, phone)
-                                setResult(Activity.RESULT_OK, data)
-                                finish()
-                            }
-                        } else {
-                            //verify in server
-                            if (it.result != null) {
-                                val token = it.result!!.token
-                                if (!token.isNullOrEmpty()) {
+            if (requestCode == APP_REQUEST_CODE && intent != null) {
+                val response = IdpResponse.fromResultIntent(intent)
+                if (response == null) {
+                    messageDialog { R.string.error_verification }
+                    return
+                }
+
+
+                if (resultCode == Activity.RESULT_OK) {
+                    val user = FirebaseAuth.getInstance().currentUser
+                    if (user != null) {
+                        val loadingDialog = MyUtils.createDialogLoading(
+                            this@InputPhoneActivityWc,
+                            R.string.reading_info
+                        )
+                        loadingDialog.show()
+                        user.getIdToken(true).addOnCompleteListener {
+
+                            loadingDialog.dismiss()
+                            if (isValidateInLocal) {
+                                //verify in local
+                                val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+                                if (user != null) {
+                                    val phone = user.phoneNumber //chuan E164 +84912345678
                                     var data = Intent()
-                                    data.putExtra(User.AUTHORIZATION_CODE, token)
+                                    data.putExtra(User.PHONE, phone)
                                     setResult(Activity.RESULT_OK, data)
                                     finish()
                                 }
+                            } else {
+                                //verify in server
+                                if (it.result != null) {
+                                    val token = it.result!!.token
+                                    if (!token.isNullOrEmpty()) {
+                                        var data = Intent()
+                                        data.putExtra(User.AUTHORIZATION_CODE, token)
+                                        setResult(Activity.RESULT_OK, data)
+                                        finish()
+                                    }
+                                }
+
                             }
 
+
                         }
+                    }
 
-
+                } else {
+                    /*if (response.error?.errorCode == ErrorCodes.NO_NETWORK) launch {
+                        messageDialog { R.string.nointernet }
+                    }*/
+                    if(!MyUtils.checkInternetConnection(this)){
+                        messageDialog { R.string.nointernet }
                     }
                 }
-
-            } else {
-                if (response.error?.errorCode == ErrorCodes.NO_NETWORK) launch {
-                    messageDialog { R.string.nointernet }
-                }
             }
         }
+
 
     }
 
@@ -402,7 +418,10 @@ class InputPhoneActivityWc : BaseActivity() {
                                     }
                                 } else {
                                     //tai khoan da ton tai, thi dang nhap
-                                    MyUtils.showAlertDialog(this@InputPhoneActivityWc, result.errorMessage)
+                                    MyUtils.showAlertDialog(
+                                        this@InputPhoneActivityWc,
+                                        result.errorMessage
+                                    )
                                 }
                             }
                         }

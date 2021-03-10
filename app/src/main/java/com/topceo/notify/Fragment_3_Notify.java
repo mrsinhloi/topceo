@@ -77,12 +77,14 @@ public class Fragment_3_Notify extends Fragment {
     SwipeRefreshLayout swipeContainer;
 
     private void setRefresh(boolean isRefresh) {
-        if (isRefresh) {//on
-            if (swipeContainer != null && !swipeContainer.isRefreshing())
-                swipeContainer.setRefreshing(isRefresh);
-        } else {//off
-            if (swipeContainer != null && swipeContainer.isRefreshing())
-                swipeContainer.setRefreshing(isRefresh);
+        if (getActivity() != null && !getActivity().isFinishing()) {
+            if (isRefresh) {//on
+                if (swipeContainer != null && !swipeContainer.isRefreshing())
+                    swipeContainer.setRefreshing(isRefresh);
+            } else {//off
+                if (swipeContainer != null && swipeContainer.isRefreshing())
+                    swipeContainer.setRefreshing(isRefresh);
+            }
         }
 
     }
@@ -164,7 +166,7 @@ public class Fragment_3_Notify extends Fragment {
             public void onLoadMore(int page, int totalItemsCount) {
                 // Triggered only when new data needs to be appended to the list
                 // Add whatever code is needed to append new items to the bottom of the list
-                int count  = mDataset.size();
+                int count = mDataset.size();
                 if (count > 0) {
                     MyNotify notify = mDataset.get(count - 1);
                     getUserNotify(notify.getNotifyId());
@@ -256,13 +258,15 @@ public class Fragment_3_Notify extends Fragment {
             // - replace the contents of the view with that element
             if (position >= 0 && position < getItemCount()) {
                 final MyNotify item = mDataset.get(position);
-                if (item.getNotifyId() > 0) {
-                    bindNotifyNormal(item, holder, position);
-                } else {
-                    //danh sach moi tham gia group
-                    if (item instanceof GroupNotify) {
-                        GroupNotify notify = (GroupNotify) item;
-                        bindNotifyGroup(notify, holder, position);
+                if (item != null) {
+                    if (item.getNotifyId() > 0) {
+                        bindNotifyNormal(item, holder, position);
+                    } else {
+                        //danh sach moi tham gia group
+                        if (item instanceof GroupNotify) {
+                            GroupNotify notify = (GroupNotify) item;
+                            bindNotifyGroup(notify, holder, position);
+                        }
                     }
                 }
             }
@@ -491,7 +495,7 @@ public class Fragment_3_Notify extends Fragment {
         //add by mr.pham
         //clear all items
         public void clear() {
-            if(getItemCount()>0){
+            if (getItemCount() > 0) {
                 mDataset.clear();
                 notifyDataSetChanged();
             }
@@ -499,7 +503,7 @@ public class Fragment_3_Notify extends Fragment {
 
         //add list items
         public void addAll(ArrayList<MyNotify> list) {
-            if(mDataset!=null){
+            if (mDataset != null) {
                 int size = getItemCount();
                 mDataset.addAll(list);
                 notifyItemRangeInserted(size, list.size());
@@ -708,13 +712,14 @@ public class Fragment_3_Notify extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        MyUtils.log("Fragment_3_Notify: onStop");
+//        MyUtils.log("Fragment_3_Notify: onStop");
+        setRefresh(false);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        MyUtils.log("Fragment_3_Notify: onSaveInstanceState");
+//        MyUtils.log("Fragment_3_Notify: onSaveInstanceState");
         outState.putParcelableArrayList(MyNotify.NOTIFY_ARRAY_LIST, mDataset);
     }
 
@@ -815,17 +820,19 @@ public class Fragment_3_Notify extends Fragment {
                         if (result.getErrorCode() == ReturnResult.SUCCESS) {//co sas thi upload len server
                             ArrayList<GroupNotify> list = (ArrayList<GroupNotify>) result.getData();
 
-                            mDataset.clear();
-                            if (list != null && list.size() > 0) {
-                                rv.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mDataset.addAll(list);
-                                        mAdapter.notifyDataSetChanged();
-                                    }
-                                });
+                            if (getActivity() != null && !getActivity().isFinishing()) {
+                                mDataset.clear();
+                                if (list != null && list.size() > 0) {
+                                    rv.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            mDataset.addAll(list);
+                                            mAdapter.notifyDataSetChanged();
+                                        }
+                                    });
+                                }
+                                getUserNotify(0);
                             }
-                            getUserNotify(0);
                         }
                     }
                 }
