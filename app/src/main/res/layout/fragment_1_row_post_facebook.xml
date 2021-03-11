@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="@dimen/title_size"
+                android:textSize="@dimen/font_size_default"
                 android:textColor="@color/md_black_1000"
                 android:lineSpacingMultiplier="1.4"
                 />
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_more"
-                android:textSize="@dimen/title_size"
+                android:textSize="@dimen/font_size_default"
                 android:padding="@dimen/margin_5dp"
                 android:layout_marginEnd="@dimen/margin_5dp"
                 android:layout_gravity="right"

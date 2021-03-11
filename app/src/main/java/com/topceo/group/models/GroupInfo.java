@@ -10,6 +10,7 @@ public class GroupInfo implements Parcelable {
     public static final String GROUP_INFO = "GROUP_INFO";
     public static final String GROUP_ID = "GROUP_ID";
     public static final String IS_INVITE = "IS_INVITE";
+    public static final String COVER_MIN_HEIGHT = "COVER_MIN_HEIGHT";
 
     private long GroupId;
     private String GroupGUID;

@@ -45,7 +45,7 @@
             android:layout_marginLeft="7dp"
             android:autoLink="all"
             android:focusable="false"
-            android:lineSpacingMultiplier="1.2"
+            android:lineSpacingMultiplier="1.1"
             android:text=""
             android:textSize="@dimen/font_size_default"
             android:textColor="@color/black"
