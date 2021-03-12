@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
+
     <LinearLayout
-        android:layout_marginStart="@dimen/margin_16dp"
-        android:layout_marginEnd="@dimen/margin_16dp"
-        android:layout_marginTop="@dimen/margin_5dp"
-        android:layout_marginBottom="@dimen/margin_5dp"
         android:id="@+id/linearLayout2"
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_5dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        android:layout_marginBottom="@dimen/margin_5dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/linearLike"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/imgLike"
@@ -35,99 +36,110 @@
                 android:stateListAnimator="@anim/scale" />
 
             <TextView
-                android:text="@string/like"
-                style="@style/bottom_text_style" />
+                style="@style/bottom_text_style"
+                android:text="@string/like" />
         </LinearLayout>
-        <View android:layout_width="0dp"
+
+        <View
+            android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
+
         <LinearLayout
             android:id="@+id/linearComment"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/post_icon_size"
-            android:orientation="horizontal"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
-            android:focusable="true">
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="@dimen/post_icon_size"
                 android:layout_height="@dimen/post_icon_size"
                 android:scaleType="fitStart"
-                android:src="@drawable/ic_svg_18"
-                />
+                android:src="@drawable/ic_svg_18" />
+
             <TextView
-                android:text="@string/comment"
-                style="@style/bottom_text_style" />
+                style="@style/bottom_text_style"
+                android:text="@string/comment" />
         </LinearLayout>
-        <View android:layout_width="0dp"
+
+        <View
+            android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
+
         <LinearLayout
             android:id="@+id/linearShare"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/post_icon_size"
-            android:orientation="horizontal"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
-            android:focusable="true">
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_marginTop="2dp"
-                android:padding="2dp"
                 android:layout_width="@dimen/post_icon_size"
                 android:layout_height="@dimen/post_icon_size"
+                android:layout_marginTop="2dp"
+                android:padding="2dp"
                 android:src="@drawable/ic_svg_21" />
+
             <TextView
-                android:text="@string/share"
-                style="@style/bottom_text_style" />
+                style="@style/bottom_text_style"
+                android:text="@string/share" />
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/linearSave"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
-            android:focusable="true">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/imgSave"
                 android:layout_width="@dimen/post_icon_size"
                 android:layout_height="@dimen/post_icon_size"
-                android:src="@drawable/ic_svg_22"
-                />
+                android:src="@drawable/ic_svg_22" />
 
         </LinearLayout>
 
     </LinearLayout>
-    <include layout="@layout/separator_horizoltal"/>
 
-    <LinearLayout
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
         android:layout_marginStart="@dimen/margin_10dp"
         android:layout_marginEnd="@dimen/margin_10dp"
-        android:layout_marginTop="@dimen/margin_5dp"
+        android:background="@color/grey_200" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10dp"
+        android:layout_marginTop="@dimen/margin_5dp"
+        android:layout_marginEnd="@dimen/margin_10dp"
         android:orientation="vertical">
 
 
-
         <TextView
-            android:layout_marginStart="4dp"
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:text="1 Likes"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/black"
             android:textSize="@dimen/title_size"
-            android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:textStyle="bold" />
 
 
         <!--<LinearLayout
@@ -166,13 +178,12 @@
             android:id="@+id/txtViewAllComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="@dimen/margin_5dp"
             android:text="@string/view_all_number_comment"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="@dimen/title_size"
             android:textColor="@color/md_grey_600"
-            android:layout_marginTop="@dimen/margin_image"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="@dimen/margin_image" />
+            android:textSize="@dimen/title_size" />
 
         <include layout="@layout/activity_comment_row_1_preview" />
 
@@ -180,13 +191,13 @@
             android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="@dimen/dimen_5dp"
+            android:layout_marginBottom="@dimen/margin_image"
             android:text="21-07-2016 13:02"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="@dimen/title_size"
             android:textColor="@color/md_grey_500"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="@dimen/margin_image"
-            android:layout_marginTop="@dimen/dimen_5dp" />
+            android:textSize="@dimen/font_size_small" />
 
     </LinearLayout>
 </LinearLayout>

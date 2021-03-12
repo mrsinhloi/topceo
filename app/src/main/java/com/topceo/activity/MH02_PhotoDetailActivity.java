@@ -103,7 +103,7 @@ import com.topceo.utils.DateFormat;
 import com.topceo.utils.EndlessRecyclerOnScrollListener;
 import com.topceo.utils.MyUtils;
 import com.topceo.viewholders.HolderUtils;
-import com.topceo.views.ExpandableTextView;
+import com.topceo.views.ShowMoreTextView;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdChoicesView;
 import com.facebook.ads.AdError;
@@ -192,7 +192,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
     @BindView(R.id.textView3)
     TextView txt3;
     @BindView(R.id.textView5)
-    ExpandableTextView txt5;
+    ShowMoreTextView txt5;
     @BindView(R.id.textView6)
     TextView txt6;
 
@@ -1956,7 +1956,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
     @BindView(R.id.linearDescription)
     LinearLayout linearDescription;
     @BindView(R.id.txtDescription)
-    ExpandableTextView txtDescription;
+    ShowMoreTextView txtDescription;
     @BindView(R.id.rvCollage)
     RecyclerView rvCollage;
 

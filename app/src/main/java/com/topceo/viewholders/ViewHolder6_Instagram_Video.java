@@ -65,8 +65,6 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
             linear3.setVisibility(View.VISIBLE);
             HolderUtils.setDescription(item.getDescription(), txt5, context);
 
-
-
             if (adapter != null && adapter.isActivityStop) {
                 stopVideo();
             }
@@ -112,6 +110,13 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
                     linearComment.performClick();
                 }
             });
+            txt5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    linearComment.performClick();
+                }
+            });
+
 
             //
             linearComment.setOnClickListener(new View.OnClickListener() {

@@ -64,8 +64,8 @@
 
                 <com.sackcentury.shinebuttonlib.ShineButton
                     android:id="@+id/btnLike"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                    android:layout_width="@dimen/heart_size"
+                    android:layout_height="@dimen/heart_size"
                     android:layout_marginEnd="@dimen/margin_5dp"
                     android:src="@color/grey_400"
                     app:allow_random_color="false"

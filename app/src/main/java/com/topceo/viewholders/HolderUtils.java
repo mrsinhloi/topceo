@@ -17,6 +17,9 @@ import com.topceo.txtexpand.MentionClickableSpan;
 import com.topceo.txtexpand.UrlClickableSpan;
 import com.topceo.utils.MyUtils;
 import com.topceo.views.ExpandableTextView;
+import com.topceo.views.ShowMoreTextView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,8 +29,8 @@ import io.realm.Realm;
 public class HolderUtils {
     public static final int MAX_LINES = 5;
 
-    public static void setReadMore(ExpandableTextView txt, TextView txtMoreTop) {
-        txt.post(new Runnable() {
+    public static void setReadMore(ShowMoreTextView txt, TextView txtMoreTop) {
+        /*txt.post(new Runnable() {
             @Override
             public void run() {
                 int lines = txt.getLineCount();
@@ -49,23 +52,39 @@ public class HolderUtils {
                     txt.setMaxLines(Integer.MAX_VALUE);
                 }
             }
-        });
+        });*/
     }
 
-    public static void setDescription(String description, AppCompatTextView txtDescription, Context context) {
-        if (!TextUtils.isEmpty(description)) {
-            txtDescription.setVisibility(View.VISIBLE);
-            txtDescription.setText(MyUtils.fromHtml(description));
-            showMentionHashtagUrl(txtDescription, context);
+    public static void setDescription(String description, ShowMoreTextView txtDescription, Context context) {
+//        txtDescription.setShowingLine(ShowMoreTextView.Companion.getSHOWING_LINE());
 
+        if (!TextUtils.isEmpty(description)) {
+            txtDescription.post(new Runnable() {
+                @Override
+                public void run() {
+                    txtDescription.setText(MyUtils.fromHtml(description));
+                    showMentionHashtagUrl(txtDescription, context);
+                    txtDescription.setVisibility(View.VISIBLE);
+                    txtDescription.resetRowLine();
+                }
+            });
         } else {
             txtDescription.setVisibility(View.GONE);
         }
+
     }
 
     public static void showMentionHashtagUrl(AppCompatTextView txtDescription, Context context) {
         String description = txtDescription.getText().toString();
 
+        SpannableString builder = getSpannableString(context, description);
+        txtDescription.setText(builder);
+        txtDescription.setMovementMethod(LinkMovementMethod.getInstance());
+
+    }
+
+    @NotNull
+    public static SpannableString getSpannableString(Context context, String description) {
         SpannableString builder = new SpannableString(description);
 
         //MENTION
@@ -102,10 +121,7 @@ public class HolderUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        txtDescription.setText(builder);
-        txtDescription.setMovementMethod(LinkMovementMethod.getInstance());
-
+        return builder;
     }
     /*public static void setDescription(String description, SocialTextViewExpand txtDescription, Context context) {
         if (!TextUtils.isEmpty(description)) {

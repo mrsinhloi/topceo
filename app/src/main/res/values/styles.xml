@@ -18,7 +18,7 @@
         <item name="android:textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall
         </item>
         <!--popup menu text size-->
-        <item name="android:fontFamily">@font/muli</item>
+        <!--<item name="android:fontFamily">@font/avenytregular</item>-->
 
     </style>
 

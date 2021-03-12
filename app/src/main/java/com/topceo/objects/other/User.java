@@ -584,6 +584,7 @@ public class User implements Parcelable {
         user.setVip(isVip());
         user.setAvatarSmall(getAvatarSmall());
         user.setUserName(getUserName());
+        user.setFullName(getFullName());
         user.setUserId(getUserId());
         user.setGroupCount(getGroupCount());
         user.setChatUserId(getChatUserId());

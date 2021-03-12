@@ -13,6 +13,27 @@ public class LinkPreview extends RealmObject implements Parcelable {
     private String Image;
     private String SiteName;
 
+    public LinkPreview(){}
+    protected LinkPreview(Parcel in) {
+        Link = in.readString();
+        Title = in.readString();
+        Caption = in.readString();
+        Image = in.readString();
+        SiteName = in.readString();
+    }
+
+    public static final Creator<LinkPreview> CREATOR = new Creator<LinkPreview>() {
+        @Override
+        public LinkPreview createFromParcel(Parcel in) {
+            return new LinkPreview(in);
+        }
+
+        @Override
+        public LinkPreview[] newArray(int size) {
+            return new LinkPreview[size];
+        }
+    };
+
     public String getLink() {
         return Link;
     }
@@ -60,33 +81,10 @@ public class LinkPreview extends RealmObject implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.Link);
-        dest.writeString(this.Title);
-        dest.writeString(this.Caption);
-        dest.writeString(this.Image);
-        dest.writeString(this.SiteName);
+        dest.writeString(Link);
+        dest.writeString(Title);
+        dest.writeString(Caption);
+        dest.writeString(Image);
+        dest.writeString(SiteName);
     }
-
-    public LinkPreview() {
-    }
-
-    protected LinkPreview(Parcel in) {
-        this.Link = in.readString();
-        this.Title = in.readString();
-        this.Caption = in.readString();
-        this.Image = in.readString();
-        this.SiteName = in.readString();
-    }
-
-    public static final Parcelable.Creator<LinkPreview> CREATOR = new Parcelable.Creator<LinkPreview>() {
-        @Override
-        public LinkPreview createFromParcel(Parcel source) {
-            return new LinkPreview(source);
-        }
-
-        @Override
-        public LinkPreview[] newArray(int size) {
-            return new LinkPreview[size];
-        }
-    };
 }

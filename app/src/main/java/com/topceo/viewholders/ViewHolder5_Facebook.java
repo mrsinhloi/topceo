@@ -23,6 +23,7 @@ import com.topceo.views.ExpandableTextView;
 import com.smartapp.collage.CollageAdapterUrls;
 import com.smartapp.collage.MediaLocal;
 import com.smartapp.collage.OnItemClickListener;
+import com.topceo.views.ShowMoreTextView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -37,9 +38,8 @@ public class ViewHolder5_Facebook extends ViewHolderBasic {
     //multi image like facebook
     FrameLayout frameLayoutFacebook;
     LinearLayout linearDescription;
-    ExpandableTextView txtDescription;
+    ShowMoreTextView txtDescription;
     //text more
-    TextView txtMoreTop;
     RecyclerView rvCollage;
 
     //link preview
@@ -54,7 +54,7 @@ public class ViewHolder5_Facebook extends ViewHolderBasic {
             View v = LayoutInflater.from(view.getContext()).inflate(R.layout.fragment_1_row_post_facebook, null);
             frameLayoutFacebook = (FrameLayout) v.findViewById(R.id.frameLayoutFacebook);
             linearDescription = (LinearLayout) v.findViewById(R.id.linearDescription);
-            txtDescription = (ExpandableTextView) v.findViewById(R.id.txtDescription);
+            txtDescription = (ShowMoreTextView) v.findViewById(R.id.txtDescription);
             rvCollage = (RecyclerView) v.findViewById(R.id.rvCollage);
 
             //link preview
@@ -64,25 +64,23 @@ public class ViewHolder5_Facebook extends ViewHolderBasic {
             imgClosePreview.setVisibility(View.GONE);
             txt1Preview = (TextView) v.findViewById(R.id.txt1Preview);
             txt2Preview = (TextView) v.findViewById(R.id.txt2Preview);
-            txtMoreTop = (TextView) v.findViewById(R.id.txtMoreTop);
 
             //add to parent container
             linearContainer.addView(v);
+
+
         }
     }
 
     public void bindData(ImageItem item, int position, FeedAdapter adapter) {
         if (item != null) {
 
+            //reset row line
+            txtDescription.reset();
+            txt5.reset();
+
             //init basic view
             initViewBasic(item, position, adapter);
-            txtMoreTop.setVisibility(View.GONE);
-            /*txt5.setText("");
-            txt5.setLines(0);
-            txtDescription.setText("");
-            txt5.setLines(0);*/
-
-
 
             //show facebook post
             String description = item.getDescription();
@@ -113,18 +111,16 @@ public class ViewHolder5_Facebook extends ViewHolderBasic {
                 txt5.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (txt5.getSelectionStart() == -1 && txt5.getSelectionEnd() == -1) {
+//                        if (txt5.getSelectionStart() == -1 && txt5.getSelectionEnd() == -1) {
+                        if (!txt5.isClickMoreLess()) {
                             // do your code here this will only call if its not a hyperlink
                             MyUtils.gotoDetailImage(context, item);
+                        }else {
+                            //reset
+                            txt5.setClickMoreLess(false);
                         }
                     }
                 });
-
-                if (!TextUtils.isEmpty(description)) {
-                    HolderUtils.setReadMore(txt5, txtMoreBottom);
-                }else{
-                    txtMoreBottom.setVisibility(View.GONE);
-                }
 
 
             } else {
@@ -136,19 +132,19 @@ public class ViewHolder5_Facebook extends ViewHolderBasic {
                 txtDescription.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (txtDescription.getSelectionStart() == -1 && txtDescription.getSelectionEnd() == -1) {
+
+//                        if (txtDescription.getSelectionStart() == -1 && txtDescription.getSelectionEnd() == -1) {
+                        if (!txtDescription.isClickMoreLess()) {
                             // do your code here this will only call if its not a hyperlink
                             MyUtils.gotoDetailImage(context, item);
+                        }else{
+                            //reset
+                            txtDescription.setClickMoreLess(false);
                         }
+
+
                     }
                 });
-
-
-                if (!TextUtils.isEmpty(description)) {
-                    HolderUtils.setReadMore(txtDescription, txtMoreTop);
-                }else{
-                    txtMoreTop.setVisibility(View.GONE);
-                }
 
 
                 rvCollage.setVisibility(View.GONE);

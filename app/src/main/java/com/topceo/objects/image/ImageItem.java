@@ -55,7 +55,7 @@ public class ImageItem implements Parcelable {
     public static final String ITEM_TYPE_INSTAGRAM = "INSTA";
     public static final String ITEM_TYPE_FACEBOOK = "FB";
     private String ItemType = ITEM_TYPE_INSTAGRAM;//INSTA / FB
-    private Object ItemData = null;
+    private ItemData ItemData = null;
 
     //bo sung cho pending post
     private long ItemId;
@@ -606,10 +606,10 @@ public class ImageItem implements Parcelable {
 
 
     public com.topceo.objects.image.ItemData getItemData() {
-        if(ItemData !=null && ItemData instanceof ItemData){
+        /*if(ItemData !=null && ItemData instanceof ItemData){
             return (ItemData)ItemData;
-        }
-        return null;
+        }*/
+        return ItemData;
     }
 
     public void setItemData(com.topceo.objects.image.ItemData itemData) {

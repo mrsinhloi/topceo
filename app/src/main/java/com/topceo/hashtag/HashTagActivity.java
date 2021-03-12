@@ -40,10 +40,14 @@ import butterknife.ButterKnife;
  */
 public class HashTagActivity extends AppCompatActivity {
 
-    private Context context=this;
-    @Nullable @BindView(R.id.toolbar)Toolbar toolbar;
-    @BindView(R.id.rv)RecyclerView rv;
-    @BindView(R.id.title)TextView title;
+    private Context context = this;
+    @Nullable
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.rv)
+    RecyclerView rv;
+    @BindView(R.id.title)
+    TextView title;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void updateStatusBarColor() {
@@ -52,7 +56,8 @@ public class HashTagActivity extends AppCompatActivity {
         }
     }
 
-    private String hashTag="";
+    private String hashTag = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,12 +75,12 @@ public class HashTagActivity extends AppCompatActivity {
         });
 
         //lay hashtag
-        Bundle b=getIntent().getExtras();
-        if(b!=null){
-            hashTag=b.getString(HashTag.HASH_TAG, "");
+        Bundle b = getIntent().getExtras();
+        if (b != null) {
+            hashTag = b.getString(HashTag.HASH_TAG, "");
         }
 
-        title.setText("#"+hashTag);
+        title.setText(hashTag);
         initAdapter();//lay luon data
 
 
@@ -88,8 +93,8 @@ public class HashTagActivity extends AppCompatActivity {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
-    public static final String ACTION_AFTER_DELETE_POST="ACTION_AFTER_DELETE_POST_" + HashTagActivity.class.getSimpleName();
-    public static final String ACTION_UPDATE_ITEM="ACTION_UPDATE_ITEM" + HashTagActivity.class.getSimpleName();
+    public static final String ACTION_AFTER_DELETE_POST = "ACTION_AFTER_DELETE_POST_" + HashTagActivity.class.getSimpleName();
+    public static final String ACTION_UPDATE_ITEM = "ACTION_UPDATE_ITEM" + HashTagActivity.class.getSimpleName();
 
     private BroadcastReceiver receiver;
 
@@ -103,7 +108,7 @@ public class HashTagActivity extends AppCompatActivity {
                     if (b != null) {
                         //item nay chi chua id, va description
                         long imageItemId = b.getLong(ImageItem.IMAGE_ITEM_ID);
-                        if (imageItemId>0) {
+                        if (imageItemId > 0) {
                             //find position and delete it
                             mAdapter.removeItem(imageItemId);
                         }
@@ -113,8 +118,8 @@ public class HashTagActivity extends AppCompatActivity {
                 if (intent.getAction().equalsIgnoreCase(ACTION_UPDATE_ITEM)) {
                     Bundle b = intent.getExtras();
                     if (b != null) {
-                        ImageItem image=b.getParcelable(ImageItem.IMAGE_ITEM);
-                        if(image!=null){
+                        ImageItem image = b.getParcelable(ImageItem.IMAGE_ITEM);
+                        if (image != null) {
                             mAdapter.replaceItem(image);
                         }
                     }
@@ -128,11 +133,13 @@ public class HashTagActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(receiver!=null)unregisterReceiver(receiver);
+        if (receiver != null) unregisterReceiver(receiver);
     }
+
     ////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
     private UserProfile_Grid_Adapter mAdapter;
+
     private void initAdapter() {
 
        /* ArrayList<String> mDataset = new ArrayList<>();
@@ -154,9 +161,9 @@ public class HashTagActivity extends AppCompatActivity {
                 // Triggered only when new data needs to be appended to the list
                 // Add whatever code is needed to append new items to the bottom of the list
 //                customLoadMoreDataFromApi(page);
-                if(mAdapter!=null && mAdapter.getItemCount()>0){
-                    ImageItem item=mAdapter.getItem(mAdapter.getItemCount()-1);
-                    if(item!=null){
+                if (mAdapter != null && mAdapter.getItemCount() > 0) {
+                    ImageItem item = mAdapter.getItem(mAdapter.getItemCount() - 1);
+                    if (item != null) {
                         getListImage(item.getImageItemId(), item.getCreateDate());
                     }
                 }
@@ -168,41 +175,41 @@ public class HashTagActivity extends AppCompatActivity {
         rv.setAdapter(mAdapter);
 
         //lay page 0
-        getListImage(0,0);
+        getListImage(0, 0);
     }
 
 
     private void getListImage(final long lastImageItemId, final long lastDate) {
 
-        if(!TextUtils.isEmpty(hashTag)){
+        if (!TextUtils.isEmpty(hashTag)) {
             Webservices.getListImageItemByHashTag(hashTag, lastImageItemId, lastDate)
                     .continueWith(new Continuation<Object, Void>() {
                         @Override
                         public Void then(Task<Object> task) throws Exception {
 
-                            if(task.getError()==null){//ko co exception
-                                ArrayList<ImageItem> list=(ArrayList<ImageItem>)task.getResult();
+                            if (task.getError() == null) {//ko co exception
+                                ArrayList<ImageItem> list = (ArrayList<ImageItem>) task.getResult();
                                 if (list.size() > 0) {
-                                    if(lastImageItemId==0){//dau tien
+                                    if (lastImageItemId == 0) {//dau tien
                                         mAdapter.clear();
                                         mAdapter.setItems(list);
-                                    }else{//load tiep
+                                    } else {//load tiep
                                         mAdapter.addAll(list);
                                     }
                                 }
-                                MyUtils.log("Fragment_1_Home_User - getNewFeed() - List size = "+list.size());
+                                MyUtils.log("Fragment_1_Home_User - getNewFeed() - List size = " + list.size());
 //                            if (swipeContainer!=null && swipeContainer.isRefreshing()) swipeContainer.setRefreshing(false);
-                            }else{//co exception
-                                boolean isLostCookie= MyApplication.controlException((ANError) task.getError());
-                                MyUtils.log("Fragment_1_Home_User - getNewFeed() - Exception = "+((ANError) task.getError()).getErrorCode());
+                            } else {//co exception
+                                boolean isLostCookie = MyApplication.controlException((ANError) task.getError());
+                                MyUtils.log("Fragment_1_Home_User - getNewFeed() - Exception = " + ((ANError) task.getError()).getErrorCode());
 
-                                if(isLostCookie) {
+                                if (isLostCookie) {
                                     MyApplication.initCookie(context).continueWith(new Continuation<Object, Void>() {
                                         @Override
                                         public Void then(Task<Object> task) throws Exception {
                                             if (task.getResult() != null) {
                                                 User kq = (User) task.getResult();
-                                                if (kq!=null) {
+                                                if (kq != null) {
                                                     getListImage(lastImageItemId, lastDate);
                                                 }
                                             }
@@ -210,8 +217,8 @@ public class HashTagActivity extends AppCompatActivity {
                                             return null;
                                         }
                                     });
-                                }else{
-                                    if(!TextUtils.isEmpty(task.getError().getMessage())) {
+                                } else {
+                                    if (!TextUtils.isEmpty(task.getError().getMessage())) {
                                         MyUtils.showToast(context, task.getError().getMessage());
                                     }
                                 }
@@ -220,7 +227,7 @@ public class HashTagActivity extends AppCompatActivity {
                             return null;
                         }
                     });
-        }else {
+        } else {
             MyUtils.showToast(context, R.string.hashtag_empty);
         }
 

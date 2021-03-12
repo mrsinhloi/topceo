@@ -36,7 +36,7 @@
                 app:socialFlags="hashtag|mention|hyperlink"
                 android:textIsSelectable="true" />-->
 
-            <com.topceo.views.ExpandableTextView
+            <com.topceo.views.ShowMoreTextView
                 android:id="@+id/txtDescription"
                 android:layout_marginLeft="@dimen/dp_12"
                 android:layout_marginRight="@dimen/dp_12"
@@ -47,7 +47,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textSize="@dimen/font_size_default"
                 android:textColor="@color/md_black_1000"
-                android:lineSpacingMultiplier="1.4"
+                android:lineSpacingMultiplier="1.2"
                 />
             <TextView
                 android:id="@+id/txtMoreTop"

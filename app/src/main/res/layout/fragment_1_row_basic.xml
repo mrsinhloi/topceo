@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/separate_horizontal" />
+<!--    <include layout="@layout/separate_horizontal" />-->
 
     <include layout="@layout/layout_header" />
 

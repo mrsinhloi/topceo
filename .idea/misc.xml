@@ -48,6 +48,10 @@
         <entry key="app/src/main/res/drawable/ic_svg_logo_512.xml" value="0.5" />
         <entry key="app/src/main/res/drawable/ic_svg_logo_toolbar_214.xml" value="0.171875" />
         <entry key="app/src/main/res/drawable/ic_tab_1.xml" value="0.171875" />
+        <entry key="app/src/main/res/font/font_selection.xml" value="0.182421875" />
+        <entry key="app/src/main/res/font/roboto_medium.xml" value="0.182421875" />
+        <entry key="app/src/main/res/layout/activity_comment_row_1.xml" value="0.159765625" />
+        <entry key="app/src/main/res/layout/activity_comment_row_1_child.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/activity_comment_row_1_preview.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/activity_forget_password.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/activity_group_detail.xml" value="0.5" />
@@ -73,12 +77,13 @@
         <entry key="app/src/main/res/layout/fragment_1_row_basic.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/fragment_1_row_old.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_1_row_post_facebook.xml" value="0.159765625" />
+        <entry key="app/src/main/res/layout/fragment_1_row_video.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/fragment_3.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_setting_old.xml" value="0.1" />
         <entry key="app/src/main/res/layout/header_icons_chat_cart.xml" value="0.14722222222222223" />
         <entry key="app/src/main/res/layout/layout_description.xml" value="0.159765625" />
-        <entry key="app/src/main/res/layout/layout_footer.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/layout_footer.xml" value="0.375" />
         <entry key="app/src/main/res/layout/layout_header.xml" value="0.165" />
         <entry key="app/src/main/res/layout/media_fragment_playlist_row.xml" value="0.159765625" />
         <entry key="app/src/main/res/layout/mh01_input_phone_number.xml" value="0.159765625" />
@@ -88,6 +93,7 @@
         <entry key="app/src/main/res/layout/wc_mh01_input_phone_number.xml" value="0.159765625" />
         <entry key="app/src/main/res/menu/menu_item_newsfeed.xml" value="0.159765625" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.171875" />
+        <entry key="post-like-facebook/src/main/res/layout/collage_one_horizontal.xml" value="0.159765625" />
         <entry key="post-like-facebook/src/main/res/layout/link_preview.xml" value="0.159765625" />
       </map>
     </option>

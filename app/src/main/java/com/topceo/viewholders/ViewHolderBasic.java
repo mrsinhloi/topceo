@@ -54,6 +54,7 @@ import com.topceo.views.ExpandableTextView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.JsonObject;
 import com.sackcentury.shinebuttonlib.ShineButton;
+import com.topceo.views.ShowMoreTextView;
 
 import org.json.JSONObject;
 
@@ -88,9 +89,7 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
     public @BindView(R.id.textView3)
     TextView txt3;
     public @BindView(R.id.textView5)
-    ExpandableTextView txt5;
-    public @BindView(R.id.txtMoreBottom)
-    TextView txtMoreBottom;
+    ShowMoreTextView txt5;
     public @BindView(R.id.textView6)
     TextView txt6;
 
@@ -178,10 +177,8 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
         super(v);
         ButterKnife.bind(this, v);
         context = v.getContext();
-//        img1.setLayoutParams(new LinearLayout.LayoutParams(avatarSize, avatarSize));
         view = v;
         this.avatarSize = avatarSize;
-        txtMoreBottom.setVisibility(View.GONE);
 
     }
 
@@ -309,7 +306,6 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
             if (adapter != null) {
                 this.mDataset = adapter.mDataset;
             }
-            txtMoreBottom.setVisibility(View.GONE);
 
             //avatar
             String avatar = "";

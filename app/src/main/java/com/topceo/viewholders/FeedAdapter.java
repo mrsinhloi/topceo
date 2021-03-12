@@ -52,7 +52,15 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         //KHI STOP THI MOI NOTIFY LAI ADAPTER, KHI RESUME THI CHI SET LAI BIEN VE FALSE KO UPDATE ADAPTER
         if (isActivityStop) {
             //stop all
-            notifyDataSetChanged();
+//            notifyDataSetChanged();
+            if(mDataset!=null && mDataset.size()>0){
+                for (int i = 0; i < mDataset.size(); i++) {
+                    ImageItem item = mDataset.get(i);
+                    if(item.isVideo()){
+                        notifyItemChanged(i);
+                    }
+                }
+            }
         }
 
     }

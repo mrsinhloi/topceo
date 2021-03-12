@@ -9,17 +9,17 @@
     android:layout_marginBottom="@dimen/margin_10dp"
     android:orientation="vertical">
 
-    <com.topceo.views.ExpandableTextView
+    <com.topceo.views.ShowMoreTextView
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lineSpacingMultiplier="1.4"
+        android:lineSpacingMultiplier="1.2"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/md_black_1000"
         android:textSize="@dimen/font_size_default" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/txtMoreBottom"
         tools:visibility="visible"
         android:layout_width="wrap_content"
@@ -28,5 +28,5 @@
         android:padding="@dimen/margin_5dp"
         android:text="@string/_more"
         android:textSize="@dimen/font_size_default"
-        android:visibility="gone" />
+        android:visibility="gone" />-->
 </LinearLayout>

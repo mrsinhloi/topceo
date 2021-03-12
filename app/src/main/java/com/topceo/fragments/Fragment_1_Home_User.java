@@ -838,6 +838,7 @@ public class Fragment_1_Home_User extends Fragment {
                             }
                             MyUtils.log("Fragment_1_Home_User - getNewFeedFirst() - List size = " + list.size());
                         } else {//co exception
+                            MyUtils.showAlertDialog(context, task.getError().getMessage());
                             boolean isLostCookie = MyApplication.controlException((ANError) task.getError());
                             MyUtils.log("Fragment_1_Home_User - getNewFeedFirst() - Exception = " + ((ANError) task.getError()).getErrorCode());
 
