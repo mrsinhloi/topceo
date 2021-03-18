@@ -20,6 +20,38 @@ public class MediaObject implements Parcelable {
     private int SizeInKb = 0;
 
 
+    protected MediaObject(Parcel in) {
+        Link = in.readString();
+        Width = in.readInt();
+        Height = in.readInt();
+        SizeInKb = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(Link);
+        dest.writeInt(Width);
+        dest.writeInt(Height);
+        dest.writeInt(SizeInKb);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<MediaObject> CREATOR = new Creator<MediaObject>() {
+        @Override
+        public MediaObject createFromParcel(Parcel in) {
+            return new MediaObject(in);
+        }
+
+        @Override
+        public MediaObject[] newArray(int size) {
+            return new MediaObject[size];
+        }
+    };
+
     public MediaObjectDB copy(){
         MediaObjectDB item = new MediaObjectDB();
         item.setLink(Link);
@@ -69,37 +101,7 @@ public class MediaObject implements Parcelable {
     }
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.Link);
-        dest.writeInt(this.Width);
-        dest.writeInt(this.Height);
-        dest.writeInt(this.SizeInKb);
-    }
-
-    protected MediaObject(Parcel in) {
-        this.Link = in.readString();
-        this.Width = in.readInt();
-        this.Height = in.readInt();
-        this.SizeInKb = in.readInt();
-    }
-
-    public static final Creator<MediaObject> CREATOR = new Creator<MediaObject>() {
-        @Override
-        public MediaObject createFromParcel(Parcel source) {
-            return new MediaObject(source);
-        }
-
-        @Override
-        public MediaObject[] newArray(int size) {
-            return new MediaObject[size];
-        }
-    };
 
     //local
     private File fileTemp;

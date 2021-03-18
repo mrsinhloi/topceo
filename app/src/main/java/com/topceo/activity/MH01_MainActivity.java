@@ -176,6 +176,7 @@ public class MH01_MainActivity extends AppCompatActivity {
     }
 
     private int cutoutHeight = 0;
+
     private void showSystemUI() {
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {  // For full screen with cutout
             // Allow the activity to layout under notches if the fill-screen option
@@ -190,7 +191,7 @@ public class MH01_MainActivity extends AppCompatActivity {
 
         }*/
 
-        if(isCallShowCase) {
+        if (isCallShowCase) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 if (getWindow().getDecorView().getRootWindowInsets() != null) {
                     DisplayCutout displayCutout = getWindow().getDecorView().getRootWindowInsets().getDisplayCutout();
@@ -200,7 +201,7 @@ public class MH01_MainActivity extends AppCompatActivity {
 //                    MyUtils.log(cutoutHeight + "");
                     }
                 }
-            }else{
+            } else {
                 initShowcaseView();
             }
         }
@@ -412,6 +413,7 @@ public class MH01_MainActivity extends AppCompatActivity {
     }
 
     private boolean isCallShowCase = false;
+
     private void initData() {
 
         Bundle b = getIntent().getExtras();
@@ -520,31 +522,7 @@ public class MH01_MainActivity extends AppCompatActivity {
             }
 
             //set icon
-            int height = getResources().getDimensionPixelSize(R.dimen.tool_bar_height);
-            int avatarSize = getResources().getDimensionPixelSize(R.dimen.avatar_size_medium_smaller);
-            RequestOptions options = RequestOptions
-                    .centerCropTransform()
-                    .override(avatarSize, avatarSize)
-                    .circleCropTransform()
-                    .placeholder(R.drawable.ic_no_avatar);
-            Glide.with(this).asBitmap()
-                    .load(user.getAvatarSmall())
-                    .apply(options)
-                    .into(new CustomTarget<Bitmap>(avatarSize, avatarSize) {
-                              @Override
-                              public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                  int padding = height/2;
-                                  resource = pad(resource, padding, padding);
-                                  Drawable drawable = new BitmapDrawable(getResources(), resource);
-                                  item.setIcon(drawable);
-                              }
-
-                              @Override
-                              public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                              }
-                          }
-                    );
+            setIconUser(item);
         }
 
         //Tab sontung
@@ -575,6 +553,37 @@ public class MH01_MainActivity extends AppCompatActivity {
 
 
     }
+
+    private void setIconUser(MenuItem item) {
+        if (user != null) {
+            int height = getResources().getDimensionPixelSize(R.dimen.tool_bar_height);
+            int avatarSize = getResources().getDimensionPixelSize(R.dimen.avatar_size_medium_smaller);
+            RequestOptions options = RequestOptions
+                    .centerCropTransform()
+                    .override(avatarSize, avatarSize)
+                    .circleCropTransform()
+                    .placeholder(R.drawable.ic_no_avatar);
+            Glide.with(this).asBitmap()
+                    .load(user.getAvatarSmall())
+                    .apply(options)
+                    .into(new CustomTarget<Bitmap>(avatarSize, avatarSize) {
+                              @Override
+                              public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                  int padding = height / 2;
+                                  resource = pad(resource, padding, padding);
+                                  Drawable drawable = new BitmapDrawable(getResources(), resource);
+                                  item.setIcon(drawable);
+                              }
+
+                              @Override
+                              public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                              }
+                          }
+                    );
+        }
+    }
+
     public Bitmap pad(Bitmap Src, int padding_x, int padding_y) {
         Bitmap outputimage = Bitmap.createBitmap(Src.getWidth() + padding_x, Src.getHeight() + padding_y, Bitmap.Config.ARGB_8888);
         Canvas can = new Canvas(outputimage);
@@ -728,14 +737,14 @@ public class MH01_MainActivity extends AppCompatActivity {
                 case NotifyType.TYPE_12_NEW_MEDIA:
                     break;
 
-                    //VAO GROUP
+                //VAO GROUP
                 case NotifyType.TYPE_13_GROUP_INVITE:
-                    if(obj.getGroupId()>0){
+                    if (obj.getGroupId() > 0) {
                         GroupDetailActivity.Companion.openActivity(context, obj.getGroupId(), false);
                     }
                     break;
                 case NotifyType.TYPE_14_GROUP_MEMBER_REQUEST:
-                    if(obj.getGroupId()>0) {
+                    if (obj.getGroupId() > 0) {
                         ApproveMemberActivity.Companion.openActivity(context, obj.getGroupId());
                     }
                     break;
@@ -802,6 +811,7 @@ public class MH01_MainActivity extends AppCompatActivity {
 
     public static final String ACTION_GET_NUMBER_NOTIFY = "ACTION_GET_NUMBER_NOTIFY";
     public static final String ACTION_SET_NUMBER_CHAT_UNREAD = "ACTION_SET_NUMBER_CHAT_UNREAD";
+    public static final String ACTION_CHANGE_ICON = "ACTION_CHANGE_ICON_topceo";
 
 
     private BroadcastReceiver receiver;
@@ -846,6 +856,13 @@ public class MH01_MainActivity extends AppCompatActivity {
                     getNotifyNumber();
                 } else if (intent.getAction().equalsIgnoreCase(ACTION_SET_NUMBER_CHAT_UNREAD)) {
                     ChatUtils.setChatUnreadNumber(txtNumber);
+                } else if (intent.getAction().equalsIgnoreCase(ACTION_CHANGE_ICON)) {
+                    user = (User) db.getObject(User.USER, User.class);
+                    if (user != null) {
+                        Menu menu = navigation.getMenu();
+                        MenuItem item = menu.findItem(R.id.navigation_5);
+                        setIconUser(item);
+                    }
                 }
 
             }
@@ -861,6 +878,7 @@ public class MH01_MainActivity extends AppCompatActivity {
         intent.addAction(ACTION_CHANGE_FRAGMENT);
         intent.addAction(ACTION_OPEN_PROFILE);
         intent.addAction(ACTION_SET_NUMBER_CHAT_UNREAD);
+        intent.addAction(ACTION_CHANGE_ICON);
 
 
         registerReceiver(receiver, intent);

@@ -19,6 +19,44 @@ public class UserShort implements Parcelable {
     private String ChatUserId;
 
 
+    protected UserShort(Parcel in) {
+        UserId = in.readLong();
+        UserName = in.readString();
+        AvatarSmall = in.readString();
+        IsVip = in.readByte() != 0;
+        FullName = in.readString();
+        GroupCount = in.readInt();
+        ChatUserId = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(UserId);
+        dest.writeString(UserName);
+        dest.writeString(AvatarSmall);
+        dest.writeByte((byte) (IsVip ? 1 : 0));
+        dest.writeString(FullName);
+        dest.writeInt(GroupCount);
+        dest.writeString(ChatUserId);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<UserShort> CREATOR = new Creator<UserShort>() {
+        @Override
+        public UserShort createFromParcel(Parcel in) {
+            return new UserShort(in);
+        }
+
+        @Override
+        public UserShort[] newArray(int size) {
+            return new UserShort[size];
+        }
+    };
+
     public UserShortDB copy(){
         UserShortDB item = new UserShortDB();
         item.setUserId(UserId);
@@ -85,43 +123,6 @@ public class UserShort implements Parcelable {
         GroupCount = groupCount;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.UserId);
-        dest.writeString(this.UserName);
-        dest.writeString(this.AvatarSmall);
-        dest.writeByte(this.IsVip ? (byte) 1 : (byte) 0);
-        dest.writeString(this.FullName);
-        dest.writeInt(this.GroupCount);
-        dest.writeString(this.ChatUserId);
-    }
-
-    protected UserShort(Parcel in) {
-        this.UserId = in.readLong();
-        this.UserName = in.readString();
-        this.AvatarSmall = in.readString();
-        this.IsVip = in.readByte() != 0;
-        this.FullName = in.readString();
-        this.GroupCount = in.readInt();
-        this.ChatUserId = in.readString();
-    }
-
-    public static final Creator<UserShort> CREATOR = new Creator<UserShort>() {
-        @Override
-        public UserShort createFromParcel(Parcel source) {
-            return new UserShort(source);
-        }
-
-        @Override
-        public UserShort[] newArray(int size) {
-            return new UserShort[size];
-        }
-    };
 
     public String getChatUserId() {
         return ChatUserId;

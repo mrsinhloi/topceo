@@ -58,6 +58,9 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
             vvInfo.setLayoutParams(params);
             ivInfo.setLayoutParams(params);
 
+            //reset row line
+            txt5.reset();
+
             //init basic view
             initViewBasic(item, position, adapter);
 
@@ -113,7 +116,13 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
             txt5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    linearComment.performClick();
+                    if (!txt5.isClickMoreLess()) {
+                        linearComment.performClick();
+                    }else {
+                        //reset
+                        txt5.setClickMoreLess(false);
+                    }
+
                 }
             });
 

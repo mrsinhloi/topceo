@@ -17,6 +17,42 @@ public class UserShortDB extends RealmObject implements Parcelable {
     private String FullName;
     private String ChatUserId;
 
+    protected UserShortDB(Parcel in) {
+        UserId = in.readLong();
+        UserName = in.readString();
+        AvatarSmall = in.readString();
+        IsVip = in.readByte() != 0;
+        FullName = in.readString();
+        ChatUserId = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(UserId);
+        dest.writeString(UserName);
+        dest.writeString(AvatarSmall);
+        dest.writeByte((byte) (IsVip ? 1 : 0));
+        dest.writeString(FullName);
+        dest.writeString(ChatUserId);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<UserShortDB> CREATOR = new Creator<UserShortDB>() {
+        @Override
+        public UserShortDB createFromParcel(Parcel in) {
+            return new UserShortDB(in);
+        }
+
+        @Override
+        public UserShortDB[] newArray(int size) {
+            return new UserShortDB[size];
+        }
+    };
+
     public UserShort copy() {
         UserShort item = new UserShort();
         item.setUserId(UserId);
@@ -75,41 +111,7 @@ public class UserShortDB extends RealmObject implements Parcelable {
         FullName = fullName;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.UserId);
-        dest.writeString(this.UserName);
-        dest.writeString(this.AvatarSmall);
-        dest.writeByte(this.IsVip ? (byte) 1 : (byte) 0);
-        dest.writeString(this.FullName);
-        dest.writeString(this.ChatUserId);
-    }
-
-    protected UserShortDB(Parcel in) {
-        this.UserId = in.readLong();
-        this.UserName = in.readString();
-        this.AvatarSmall = in.readString();
-        this.IsVip = in.readByte() != 0;
-        this.FullName = in.readString();
-        this.ChatUserId = in.readString();
-    }
-
-    public static final Creator<UserShortDB> CREATOR = new Creator<UserShortDB>() {
-        @Override
-        public UserShortDB createFromParcel(Parcel source) {
-            return new UserShortDB(source);
-        }
-
-        @Override
-        public UserShortDB[] newArray(int size) {
-            return new UserShortDB[size];
-        }
-    };
 
     public String getChatUserId() {
         return ChatUserId;

@@ -72,11 +72,7 @@ public class Fragment_1_Home_User extends Fragment {
 
         db = new TinyDB(getActivity());
         try {
-            Object obj = db.getObject(User.USER, User.class);
-            if (obj != null) {
-                user = (User) obj;
-                owner = (User) obj;
-            }
+            getUser();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,6 +81,14 @@ public class Fragment_1_Home_User extends Fragment {
             db.putBoolean(TinyDB.IS_LOGINED, false);
             getActivity().startActivity(new Intent(getActivity(), MH15_SigninActivity.class));
             getActivity().finish();
+        }
+    }
+
+    private void getUser() {
+        Object obj = db.getObject(User.USER, User.class);
+        if (obj != null) {
+            user = (User) obj;
+            owner = (User) obj;
         }
     }
 
@@ -498,19 +502,24 @@ public class Fragment_1_Home_User extends Fragment {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (intent.getAction().equalsIgnoreCase(ACTION_REFRESH)) {
+                    getUser();
+                    initAdapter();
                     refresh();
                     imgGotoTop.performClick();
 
                 }
                 if (intent.getAction().equalsIgnoreCase(ACTION_UPDATE_ITEM)) {
-                    Bundle b = intent.getExtras();
+                    /*Bundle b = intent.getExtras();
                     if (b != null) {
-
                         ImageItem item = b.getParcelable(ImageItem.IMAGE_ITEM);
                         if (item != null) {
 //                            mAdapter.updateItemDescription(item);
                             mAdapter.replaceItem(item);
                         }
+                    }*/
+                    ImageItem item = MyApplication.itemReturn;
+                    if (item != null) {
+                        mAdapter.replaceItem(item);
                     }
                 }
 

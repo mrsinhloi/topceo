@@ -28,6 +28,7 @@ import com.bumptech.glide.request.FutureTarget;
 import com.danikula.videocache.HttpProxyCacheServer;
 import com.downloader.PRDownloader;
 import com.downloader.PRDownloaderConfig;
+import com.gu.toolargetool.TooLargeTool;
 import com.topceo.BuildConfig;
 import com.topceo.R;
 import com.topceo.activity.MH01_MainActivity;
@@ -35,6 +36,7 @@ import com.topceo.analytics.Engagement;
 import com.topceo.db.TinyDB;
 import com.topceo.group.GroupDetailActivity;
 import com.topceo.language.LocalizationUtil;
+import com.topceo.objects.image.ImageItem;
 import com.topceo.objects.other.User;
 import com.topceo.objects.other.UserShort;
 import com.topceo.objects.promotion.Promotion;
@@ -100,6 +102,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  * Created by mikepenz on 27.03.15.
  */
 public class MyApplication extends ChatApplication implements EventControlListener {
+
+
 
     @Override
     protected void attachBaseContext(Context context) {
@@ -943,6 +947,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
 
     @Override
     public void onCreate() {
+        TooLargeTool.startLogging(this);
         context = this;
         db = new TinyDB(this);
         phoneUtil = PhoneNumberUtil.createInstance(this);
@@ -1005,7 +1010,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
                 if (DrawerImageLoader.Tags.PROFILE.name().equals(tag)) {
                     return DrawerUIUtils.getPlaceHolder(ctx);
                 } else if (DrawerImageLoader.Tags.ACCOUNT_HEADER.name().equals(tag)) {
-                    return new IconicsDrawable(ctx).iconText(" ").backgroundColorRes(com.mikepenz.materialdrawer.R.color.primary).sizeDp(56);
+                    return new IconicsDrawable(ctx).iconText(" ").backgroundColorRes(R.color.colorPrimary).sizeDp(56);
                 } else if ("customUrlItem".equals(tag)) {
                     return new IconicsDrawable(ctx).iconText(" ").backgroundColorRes(R.color.md_red_500).sizeDp(56);
                 }
@@ -1314,5 +1319,11 @@ public class MyApplication extends ChatApplication implements EventControlListen
         facebookApi = new FacebookApi();
 
     }
+
+    //chuyen qua lai data
+    public static ImageItem imgItem;//tu danh sach sang detail
+    public static ImageItem itemReturn;
+    public static ImageItem imgEdit;
+
 
 }

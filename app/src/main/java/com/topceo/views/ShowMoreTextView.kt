@@ -55,9 +55,14 @@ class ShowMoreTextView @kotlin.jvm.JvmOverloads constructor(
     }
 
     public fun reset() {
+        mainText = ""
+        isClickMoreLess = false
+
         showingLine = SHOWING_LINE
         isCollapse = true
         isAlreadySet = false
+        text = ""
+        invalidate()
         if (showingLine >= lineCount) return
         showMoreButton()
     }
@@ -97,7 +102,7 @@ class ShowMoreTextView @kotlin.jvm.JvmOverloads constructor(
     }
 
     private fun setShowMoreColoringAndClickable() {
-        val spannableString = SpannableString(text)
+        val spannableString = HolderUtils.getSpannableString(context, text.toString()) //SpannableString(text)
         spannableString.setSpan(
             object : ClickableSpan() {
                 override fun updateDrawState(paint: TextPaint) {
@@ -129,7 +134,7 @@ class ShowMoreTextView @kotlin.jvm.JvmOverloads constructor(
         setText(spannableString, BufferType.SPANNABLE)*/
 
         val text = "${text.trim()} $showLess"
-        val spannableString = SpannableString(text)
+        val spannableString = HolderUtils.getSpannableString(context, text) //SpannableString(text)
         /*spannableString.setSpan(
             object : ClickableSpan() {
                 override fun updateDrawState(pain: TextPaint) {

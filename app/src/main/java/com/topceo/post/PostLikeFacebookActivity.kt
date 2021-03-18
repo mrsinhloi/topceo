@@ -82,7 +82,7 @@ class PostLikeFacebookActivity : AppCompatActivity() {
         initUI()
 
         groupId = intent.getLongExtra(GroupInfo.GROUP_ID, 0)
-        if(groupId<0){
+        if (groupId < 0) {
             groupId = 0
         }
         txtDes.requestFocus()
@@ -112,7 +112,8 @@ class PostLikeFacebookActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 EDIT_LIST_IMAGE_CODE -> {
-                    selectedUriList = data?.extras?.getParcelableArrayList(EditImageActivity.LIST_ITEM)
+                    selectedUriList =
+                        data?.extras?.getParcelableArrayList(EditImageActivity.LIST_ITEM)
                     loadImages()
                 }
                 ACTION_SELECT_LOCATION -> {
@@ -194,8 +195,8 @@ class PostLikeFacebookActivity : AppCompatActivity() {
                         if (parsedLink.isEmpty() || !parsedLink.contains(url)) {
                             //thu vien loi neu ko co http:// https://github.com/ponnamkarthik/RichLinkPreview
                             if (
-                                    !url.contains(refix1, true) &&
-                                    !url.contains(refix2, true)
+                                !url.contains(refix1, true) &&
+                                !url.contains(refix2, true)
                             ) {
                                 url = refix1 + url
                             }
@@ -240,13 +241,19 @@ class PostLikeFacebookActivity : AppCompatActivity() {
     fun uploadImages() {
         if (isHaveImages()) {
             if (MyUtils.checkInternetConnection(context)) {
-                postUtils.uploadImageToServer(groupId, selectedUriList, object : UploadImageListener {
-                    override fun onUploadImageSuccess(GUID: String?, itemContent: java.util.ArrayList<Item>?) {
-                        //co image thi ko truyen phan parse link
-                        postToServer(itemContent, GUID, null, groupId)
-                    }
+                postUtils.uploadImageToServer(
+                    groupId,
+                    selectedUriList,
+                    object : UploadImageListener {
+                        override fun onUploadImageSuccess(
+                            GUID: String?,
+                            itemContent: java.util.ArrayList<Item>?
+                        ) {
+                            //co image thi ko truyen phan parse link
+                            postToServer(itemContent, GUID, null, groupId)
+                        }
 
-                })
+                    })
             } else {
                 MyUtils.showThongBao(context)
             }
@@ -292,7 +299,7 @@ class PostLikeFacebookActivity : AppCompatActivity() {
                     MyUtils.showToast(context, R.string.toast_upload_success)
                     val item = result.data as ImageItem
                     uploadSuccess(true, item)
-                }else{
+                } else {
                     MyUtils.showAlertDialog(context, result.message)
                 }
             }
@@ -306,7 +313,7 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             sendBroadcast(Intent(Fragment_5_User_Profile_Grid.ACTION_REFRESH_LIST))
 
             //Neu post moi thi tang so luong post trong profile
-            if(!isEdit){
+            if (!isEdit) {
                 sendBroadcast(Intent(Fragment_Profile_Owner.ACTION_WHEN_HAVE_POST))
             }
 
@@ -375,7 +382,7 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             link = url
             ProgressUtils.show(context)*/
 
-            textCrawler.makePreview(object: LinkPreviewCallback {
+            textCrawler.makePreview(object : LinkPreviewCallback {
                 override fun onPre() {
                     ProgressUtils.show(context)
                 }
@@ -397,7 +404,7 @@ class PostLikeFacebookActivity : AppCompatActivity() {
                             linkData!!.title = content.title
                             linkData!!.description = content.description
                             linkData!!.url = content.url
-                            if(content.images!=null && content.images.size>0) {
+                            if (content.images != null && content.images.size > 0) {
                                 linkData!!.imageurl = content.images[0]
                             }
                             showUIPreview(linkData!!)
@@ -437,11 +444,11 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             val width = MyUtils.getScreenWidth(context)
             val height = resources.getDimensionPixelOffset(R.dimen.imgPreviewHeight)
             Glide.with(context)
-                    .load(imgUrl)
-                    .override(width, height)
-                    .centerCrop()
-                    .placeholder(R.drawable.no_media)
-                    .into(image)
+                .load(imgUrl)
+                .override(width, height)
+                .centerCrop()
+                .placeholder(R.drawable.no_media)
+                .into(image)
         } else {
             image.visibility = View.GONE
         }
@@ -466,11 +473,11 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             val width = context.resources.getDimensionPixelOffset(R.dimen.avatar_size_small)
             //set avatar
             Glide.with(context)
-                    .load(user.getAvatarSmall())
-                    .placeholder(R.drawable.ic_no_avatar)
-                    .override(width, width)
-                    .transform(GlideCircleTransform(context))
-                    .into(imageView1)
+                .load(user.getAvatarSmall())
+                .placeholder(R.drawable.ic_no_avatar)
+                .override(width, width)
+                .transform(GlideCircleTransform(context))
+                .into(imageView1)
 
             textView1.text = user.userName
             textView2.visibility = View.GONE
@@ -482,69 +489,69 @@ class PostLikeFacebookActivity : AppCompatActivity() {
     var isEdit: Boolean = false
     var parsedLink: String = ""
     fun restorePost() {
-        val b = intent.extras
-        if (b != null) {
-            item = b.getParcelable<Parcelable>(ImageItem.IMAGE_ITEM) as ImageItem?
-            if (item != null) {
-                isEdit = true
+//        val b = intent.extras
+//        if (b != null) {
+        item = MyApplication.imgEdit //b.getParcelable<Parcelable>(ImageItem.IMAGE_ITEM) as ImageItem?
+        if (item != null) {
+            isEdit = true
 
-                //text
-                txtTitle.text = getText(R.string.edit)
-                txtDes.setText(MyUtils.fromHtml(item?.description))
-                if (!TextUtils.isEmpty(item!!.location)) {
-                    textView2.setText(item!!.location)
-                    textView2.setVisibility(View.VISIBLE)
-                } else {
-                    textView2.setVisibility(View.GONE)
-                }
-
-                //link neu co
-                if (item?.itemData != null) {
-                    val link = item?.itemData?.linkPreview
-                    if (link != null) {
-                        linkData = MetaData()
-                        linkData?.apply {
-                            title = link.title
-                            url = link.link
-                            sitename = link.siteName
-                            imageurl = link.image
-
-                            //link da parse
-                            parsedLink = link.link
-                        }
-                        showUIPreview(linkData!!)
-                    }
-                }
-
-
-                //view lai image, nhung khong cho click va thay doi
-                rvCollage.isEnabled = false
-                txtDes.setHint(getString(R.string.write_description_images))
-                val list = item?.getListMediaLocal()
-                if (list != null && list.size > 0) {
-                    isParsedLink = true
-                    collageAdapter = CollageAdapterUrls(context, list)
-                    rvCollage.adapter = collageAdapter
-                    collageAdapter!!.onItemClickListener = null
-                }
-
-
-                //restore location
-                if (!item?.location.isNullOrEmpty()) {
-                    selectLocation = MyLocation()
-                    selectLocation?.apply {
-                        address = item!!.location
-                        lat = item!!.lat
-                        lon = item!!.long
-                        setLocation()
-                    }
-
-                } else {
-                    textView2.visibility = View.GONE
-                }
-
+            //text
+            txtTitle.text = getText(R.string.edit)
+            txtDes.setText(MyUtils.fromHtml(item?.description))
+            if (!TextUtils.isEmpty(item!!.location)) {
+                textView2.setText(item!!.location)
+                textView2.setVisibility(View.VISIBLE)
+            } else {
+                textView2.setVisibility(View.GONE)
             }
+
+            //link neu co
+            if (item?.itemData != null) {
+                val link = item?.itemData?.linkPreview
+                if (link != null) {
+                    linkData = MetaData()
+                    linkData?.apply {
+                        title = link.title
+                        url = link.link
+                        sitename = link.siteName
+                        imageurl = link.image
+
+                        //link da parse
+                        parsedLink = link.link
+                    }
+                    showUIPreview(linkData!!)
+                }
+            }
+
+
+            //view lai image, nhung khong cho click va thay doi
+            rvCollage.isEnabled = false
+            txtDes.setHint(getString(R.string.write_description_images))
+            val list = item?.getListMediaLocal()
+            if (list != null && list.size > 0) {
+                isParsedLink = true
+                collageAdapter = CollageAdapterUrls(context, list)
+                rvCollage.adapter = collageAdapter
+                collageAdapter!!.onItemClickListener = null
+            }
+
+
+            //restore location
+            if (!item?.location.isNullOrEmpty()) {
+                selectLocation = MyLocation()
+                selectLocation?.apply {
+                    address = item!!.location
+                    lat = item!!.lat
+                    lon = item!!.long
+                    setLocation()
+                }
+
+            } else {
+                textView2.visibility = View.GONE
+            }
+
         }
+//        }
     }
 
 
@@ -581,7 +588,12 @@ class PostLikeFacebookActivity : AppCompatActivity() {
     }
 
 
-    private fun postToServer(itemContent: ArrayList<Item>?, GUID: String?, itemData: ItemData?, groupId: Long) {
+    private fun postToServer(
+        itemContent: ArrayList<Item>?,
+        GUID: String?,
+        itemData: ItemData?,
+        groupId: Long
+    ) {
         if (itemContent != null) {
             ProgressUtils.show(context)
             val itemType: String = ImageItem.ITEM_TYPE_FACEBOOK
@@ -589,17 +601,18 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             var text = txtDes.text.toString()
             text = MyUtils.replaceDescriptionForServer(text)
             val post = PostImageParam(
-                    GUID,
-                    false,
-                    text,
-                    if (selectLocation != null) selectLocation!!.address else "",
-                    if (selectLocation != null) selectLocation!!.lat else 0.0,
-                    if (selectLocation != null) selectLocation!!.lon else 0.0,
-                    itemContent,
-                    txtDes.getHashtags(),
-                    txtDes.getMentions(),
-                    itemType,
-                    itemData)
+                GUID,
+                false,
+                text,
+                if (selectLocation != null) selectLocation!!.address else "",
+                if (selectLocation != null) selectLocation!!.lat else 0.0,
+                if (selectLocation != null) selectLocation!!.lon else 0.0,
+                itemContent,
+                txtDes.getHashtags(),
+                txtDes.getMentions(),
+                itemType,
+                itemData
+            )
             if (groupId > 0) {
                 post.groupId = groupId
             }
@@ -619,7 +632,8 @@ class PostLikeFacebookActivity : AppCompatActivity() {
 
     private fun updateDescription() {
         if (item != null) {
-            val isLocationChange = selectLocation != null && !item?.location.equals(selectLocation?.address)
+            val isLocationChange =
+                selectLocation != null && !item?.location.equals(selectLocation?.address)
             //neu mota khac nhau thi moi update
             val txt: String = txtDes.text.toString()
             item?.description = txt
@@ -629,13 +643,14 @@ class PostLikeFacebookActivity : AppCompatActivity() {
                 item?.long = selectLocation!!.lon
             }
             postUtils.updateDescriptionAndLocation(
-                    item,
-                    txt,
-                    if (selectLocation != null) selectLocation!!.address else "",
-                    if (selectLocation != null) selectLocation!!.lat else 0.0,
-                    if (selectLocation != null) selectLocation!!.lon else 0.0,
-                    txtDes.getHashtags(),
-                    txtDes.getMentions()) {
+                item,
+                txt,
+                if (selectLocation != null) selectLocation!!.address else "",
+                if (selectLocation != null) selectLocation!!.lat else 0.0,
+                if (selectLocation != null) selectLocation!!.lon else 0.0,
+                txtDes.getHashtags(),
+                txtDes.getMentions()
+            ) {
                 MyUtils.hideKeyboard(this)
                 //finish
                 finish()
@@ -649,24 +664,38 @@ class PostLikeFacebookActivity : AppCompatActivity() {
     private val perms = arrayOf(Manifest.permission.CAMERA)
     private fun permissionCamera() {
         PermissionX.init(this)
-                .permissions(*perms)
-                .onExplainRequestReason { scope, deniedList -> scope.showRequestReasonDialog(deniedList, getString(R.string.deny_permission_notify), "OK", "Cancel") }
-                .onForwardToSettings { scope, deniedList -> scope.showForwardToSettingsDialog(deniedList, getString(R.string.deny_permission_notify), "OK", "Cancel") }
-                .request { allGranted, grantedList, deniedList ->
-                    if (allGranted) {
-                        TedImagePicker.with(this)
-                                .mediaType(MediaType.IMAGE)
-                                .dropDownAlbum()
-                                .errorListener { message -> Log.d("ted", "message: $message") }
-                                .selectedUri(selectedUriList)
-                                .startMultiImage { list: List<Uri> ->
-                                    selectedUriList = ArrayList(list)
-                                    loadImages()
-                                }
-                    } else {
-                        MyUtils.showAlertDialog(this, R.string.deny_permission_notify, true)
-                    }
+            .permissions(*perms)
+            .onExplainRequestReason { scope, deniedList ->
+                scope.showRequestReasonDialog(
+                    deniedList,
+                    getString(R.string.deny_permission_notify),
+                    "OK",
+                    "Cancel"
+                )
+            }
+            .onForwardToSettings { scope, deniedList ->
+                scope.showForwardToSettingsDialog(
+                    deniedList,
+                    getString(R.string.deny_permission_notify),
+                    "OK",
+                    "Cancel"
+                )
+            }
+            .request { allGranted, grantedList, deniedList ->
+                if (allGranted) {
+                    TedImagePicker.with(this)
+                        .mediaType(MediaType.IMAGE)
+                        .dropDownAlbum()
+                        .errorListener { message -> Log.d("ted", "message: $message") }
+                        .selectedUri(selectedUriList)
+                        .startMultiImage { list: List<Uri> ->
+                            selectedUriList = ArrayList(list)
+                            loadImages()
+                        }
+                } else {
+                    MyUtils.showAlertDialog(this, R.string.deny_permission_notify, true)
                 }
+            }
     }
 
 
@@ -709,29 +738,31 @@ class PostLikeFacebookActivity : AppCompatActivity() {
         val isLoggedIn = accessToken != null && !accessToken.isExpired
         if (!isLoggedIn) {
             LoginManager.getInstance().registerCallback(callbackManager,
-                    object : FacebookCallback<LoginResult> {
-                        override fun onSuccess(loginResult: LoginResult) {
-                            // App code
+                object : FacebookCallback<LoginResult> {
+                    override fun onSuccess(loginResult: LoginResult) {
+                        // App code
 //                            val token = loginResult.accessToken
-                            getProfile()
-                        }
+                        getProfile()
+                    }
 
-                        override fun onCancel() {
-                            // App code
-                            switchFacebook.setChecked(false)
-                        }
+                    override fun onCancel() {
+                        // App code
+                        switchFacebook.setChecked(false)
+                    }
 
-                        override fun onError(exception: FacebookException) {
-                            // App code
-                            switchFacebook.setChecked(false)
-                        }
-                    })
-            LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList(*PermissionRequest.PERMISSION_PAGE_AND_USER_PROFILE))
+                    override fun onError(exception: FacebookException) {
+                        // App code
+                        switchFacebook.setChecked(false)
+                    }
+                })
+            LoginManager.getInstance().logInWithReadPermissions(
+                this,
+                Arrays.asList(*PermissionRequest.PERMISSION_PAGE_AND_USER_PROFILE)
+            )
         } else {
             getProfile()
         }
     }
-
 
 
     private fun getProfile() {
@@ -744,7 +775,10 @@ class PostLikeFacebookActivity : AppCompatActivity() {
         } else {
             //Do lay asyn nen chua tra ve thong tin profile, track de don thong tin tra ve
             val profileTracker: ProfileTracker = object : ProfileTracker() {
-                override fun onCurrentProfileChanged(oldProfile: Profile?, currentProfile: Profile?) {
+                override fun onCurrentProfileChanged(
+                    oldProfile: Profile?,
+                    currentProfile: Profile?
+                ) {
                     stopTracking()
                     Profile.setCurrentProfile(currentProfile)
                     getProfile()
@@ -763,7 +797,13 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             selectedPages.removeAt(0)
         }
         if (currentPage != null) {
-            MyApplication.facebookApi.postPhotoUrl(message, url, currentPage.id, currentPage.access_token, true) { response ->
+            MyApplication.facebookApi.postPhotoUrl(
+                message,
+                url,
+                currentPage.id,
+                currentPage.access_token,
+                true
+            ) { response ->
                 if (response.error == null) {
                     postPhotoUrl(message, url)
                 } else {
@@ -790,7 +830,13 @@ class PostLikeFacebookActivity : AppCompatActivity() {
                 var ids = java.util.ArrayList<String>()
                 for (item in post.itemContent) {
                     val url = item.large.link
-                    MyApplication.facebookApi.postPhotoUrl(post.description, url, currentPage.id, currentPage.access_token, false) { response ->
+                    MyApplication.facebookApi.postPhotoUrl(
+                        post.description,
+                        url,
+                        currentPage.id,
+                        currentPage.access_token,
+                        false
+                    ) { response ->
                         if (response.error == null) {
                             val obj = response.jsonObject
                             val id = obj.getString("id")
@@ -799,7 +845,12 @@ class PostLikeFacebookActivity : AppCompatActivity() {
                             //neu la vi tri cuoi cung thi tiep tuc buoc 2
                             if (ids.size == post.itemContent.size) {
                                 //tao feed album
-                                MyApplication.facebookApi.postAlbumToPage(post.description, ids, currentPage.id, currentPage.access_token) { res ->
+                                MyApplication.facebookApi.postAlbumToPage(
+                                    post.description,
+                                    ids,
+                                    currentPage.id,
+                                    currentPage.access_token
+                                ) { res ->
                                     if (res.error == null) {
                                         //tiep tuc post page khac
                                         postMultiPhotosUrl(post)
@@ -832,7 +883,12 @@ class PostLikeFacebookActivity : AppCompatActivity() {
         }
         if (currentPage != null) {
             ProgressUtils.show(context, getString(R.string.facebook_posting))
-            MyApplication.facebookApi.postVideoUrl(message, url, currentPage.id, currentPage.access_token) { response ->
+            MyApplication.facebookApi.postVideoUrl(
+                message,
+                url,
+                currentPage.id,
+                currentPage.access_token
+            ) { response ->
                 if (response.error == null) {
                     ProgressUtils.hide()
                     postPhotoUrl(message, url)
@@ -873,16 +929,20 @@ class PostLikeFacebookActivity : AppCompatActivity() {
     private fun confirmLogoutFacebook() {
         val alertDialogBuilder = AlertDialog.Builder(context)
         alertDialogBuilder.setMessage(R.string.confirm_logout)
-        alertDialogBuilder.setPositiveButton(R.string.ok, DialogInterface.OnClickListener { arg0, arg1 ->
-            arg0.dismiss()
-            //revoke toan bo quyen roi logout
-            ProgressUtils.show(context, getString(R.string.logout))
-            PermissionRequest.makeRevokePermissionPage {
-                logoutFacebook()
-                ProgressUtils.hide()
-            }
-        })
-        alertDialogBuilder.setNeutralButton(R.string.cancel, DialogInterface.OnClickListener { dialogInterface, i -> dialogInterface.dismiss() })
+        alertDialogBuilder.setPositiveButton(
+            R.string.ok,
+            DialogInterface.OnClickListener { arg0, arg1 ->
+                arg0.dismiss()
+                //revoke toan bo quyen roi logout
+                ProgressUtils.show(context, getString(R.string.logout))
+                PermissionRequest.makeRevokePermissionPage {
+                    logoutFacebook()
+                    ProgressUtils.hide()
+                }
+            })
+        alertDialogBuilder.setNeutralButton(
+            R.string.cancel,
+            DialogInterface.OnClickListener { dialogInterface, i -> dialogInterface.dismiss() })
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
     }
@@ -900,24 +960,26 @@ class PostLikeFacebookActivity : AppCompatActivity() {
     private fun showPageConfig(list: java.util.ArrayList<Page>) {
         val arrayName = Page.getArrayName(list)
         val checkedItems = Page.getCheckedItems(list, context)
-        DialogUtils.selectMultipleItemDialogWithLogoutFacebook(context, R.string.facebook_select_page_title,
-                arrayName, checkedItems,
-                object : DialogUtils.SelectMultipleCallbackFacebook {
-                    override fun onOK(checkedItems: BooleanArray) {
-                        Page.saveNameSelected(list, checkedItems, context)
-                        //lay lai danh sach da chon
-                        selectedPages = Page.getPageSelected(list, context)
-                        setTextPages()
-                        //khong chon cong dong nao thi off
-                        switchFacebook.setChecked(selectedPages.size > 0)
-                    }
+        DialogUtils.selectMultipleItemDialogWithLogoutFacebook(context,
+            R.string.facebook_select_page_title,
+            arrayName,
+            checkedItems,
+            object : DialogUtils.SelectMultipleCallbackFacebook {
+                override fun onOK(checkedItems: BooleanArray) {
+                    Page.saveNameSelected(list, checkedItems, context)
+                    //lay lai danh sach da chon
+                    selectedPages = Page.getPageSelected(list, context)
+                    setTextPages()
+                    //khong chon cong dong nao thi off
+                    switchFacebook.setChecked(selectedPages.size > 0)
+                }
 
-                    override fun onLogout() {
-                        confirmLogoutFacebook()
-                    }
+                override fun onLogout() {
+                    confirmLogoutFacebook()
+                }
 
-                    override fun onCancel() {}
-                })
+                override fun onCancel() {}
+            })
     }
 
     //POST PAGE FACEBOOK//////////////////////////////////////////////////////////////////////////
@@ -927,11 +989,11 @@ class PostLikeFacebookActivity : AppCompatActivity() {
         if (!TextUtils.isEmpty(message)) {
             val size = context.resources.getDimensionPixelSize(R.dimen.dialog_text_size)
             dialog = ACProgressFlower.Builder(context)
-                    .direction(ACProgressConstant.DIRECT_CLOCKWISE)
-                    .themeColor(Color.WHITE)
-                    .text(message)
-                    .textSize(size)
-                    .fadeColor(Color.TRANSPARENT).build() //DKGRAY
+                .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+                .themeColor(Color.WHITE)
+                .text(message)
+                .textSize(size)
+                .fadeColor(Color.TRANSPARENT).build() //DKGRAY
             dialog?.setCanceledOnTouchOutside(true)
             dialog?.show()
         }

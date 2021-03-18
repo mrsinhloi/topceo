@@ -11,14 +11,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Animatable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,7 +39,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
-import androidx.appcompat.view.menu.MenuItemImpl;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.PopupMenu;
@@ -60,7 +57,23 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
-import com.topceo.BuildConfig;
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdChoicesView;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdIconView;
+import com.facebook.ads.MediaView;
+import com.facebook.ads.NativeAd;
+import com.facebook.ads.NativeAdListener;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import com.smartapp.collage.CollageAdapterUrls;
+import com.smartapp.collage.MediaLocal;
+import com.smartapp.collage.OnItemClickListener;
 import com.topceo.R;
 import com.topceo.ads.AdConfigModel;
 import com.topceo.ads.AdUtils;
@@ -75,9 +88,7 @@ import com.topceo.config.MyApplication;
 import com.topceo.db.TinyDB;
 import com.topceo.eventbus.EventImageComment;
 import com.topceo.fragments.Fragment_1_Home_User;
-import com.topceo.fragments.Fragment_2_Explorer;
 import com.topceo.fragments.GlideCircleTransform;
-import com.topceo.hashtag.HashTagActivity;
 import com.topceo.objects.db.ImageItemDB;
 import com.topceo.objects.image.ImageComment;
 import com.topceo.objects.image.ImageItem;
@@ -104,23 +115,6 @@ import com.topceo.utils.EndlessRecyclerOnScrollListener;
 import com.topceo.utils.MyUtils;
 import com.topceo.viewholders.HolderUtils;
 import com.topceo.views.ShowMoreTextView;
-import com.facebook.ads.Ad;
-import com.facebook.ads.AdChoicesView;
-import com.facebook.ads.AdError;
-import com.facebook.ads.AdIconView;
-import com.facebook.ads.MediaView;
-import com.facebook.ads.NativeAd;
-import com.facebook.ads.NativeAdListener;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-import com.smartapp.collage.CollageAdapterUrls;
-import com.smartapp.collage.MediaLocal;
-import com.smartapp.collage.OnItemClickListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -306,9 +300,10 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
         txtViewAllComment.setVisibility(View.GONE);
         linearCommentPreview.setVisibility(View.GONE);
 
-        Bundle b = getIntent().getExtras();
-        if (b != null) {
-            item = (ImageItem) getIntent().getParcelableExtra(ImageItem.IMAGE_ITEM);
+//        Bundle b = getIntent().getExtras();
+//        if (b != null) {
+//            item = getIntent().getParcelableExtra(ImageItem.IMAGE_ITEM);
+            item = MyApplication.imgItem;
             if (item != null) {
 
                 if (user != null && item.getOwner() != null) {
@@ -326,7 +321,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
                     btnFollow.setVisibility(View.VISIBLE);
                 }
             }
-        }
+//        }
 
 
         setTitleBar();
@@ -376,7 +371,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
     private boolean isAdmob = true;//admob or facebook
     private String native_admob_id = "";
     private String native_facebook_id = "";
-
+    boolean isDebug = true;
     private void setUpQuangCao(Context c) {
 
         isHaveAds = false;
@@ -399,7 +394,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
                             isHaveAds = true;
                             isAdmob = true;
                             native_admob_id = native_ad_unit_id;
-                            if (BuildConfig.DEBUG) {
+                            if (isDebug) {
                                 native_admob_id = "ca-app-pub-3940256099942544/6300978111";
                             }
                             if (!TextUtils.isEmpty(native_admob_id)) {
@@ -413,7 +408,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
                                 // Create an ad request.
                                 AdRequest.Builder adRequestBuilder = new AdRequest.Builder();
 
-                                if (BuildConfig.DEBUG) {
+                                if (isDebug) {
                                     // Optionally populate the ad request builder.
                                     adRequestBuilder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
                                 }
@@ -846,7 +841,11 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
         //update db
         updateLiked(item.getImageItemId(), item.isLiked(), item.getLikeCount());
 
-        MyUtils.updateImageItem(context, item);
+        //set lai UI
+        setUI();
+
+        //bao cac man hinh khac update
+        MyUtils.updateImageItem(context, item, false);
     }
 
     private void setMute() {
@@ -1051,27 +1050,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
     }
 
     private void refreshItem() {
-        //update grid user
-        Intent intent = new Intent(Fragment_5_User_Profile_Grid.ACTION_UPDATE_ITEM);
-        intent.putExtra(ImageItem.IMAGE_ITEM, item);
-        sendBroadcast(intent);
-
-        //update grid image by hashtag
-        intent = new Intent(HashTagActivity.ACTION_UPDATE_ITEM);
-        intent.putExtra(ImageItem.IMAGE_ITEM, item);
-        sendBroadcast(intent);
-
-        //update grid explorer
-        intent = new Intent(Fragment_2_Explorer.ACTION_UPDATE_ITEM);
-        intent.putExtra(ImageItem.IMAGE_ITEM, item);
-        sendBroadcast(intent);
-
-        //update home list
-        intent = new Intent(Fragment_1_Home_User.ACTION_UPDATE_ITEM);
-        intent.putExtra(ImageItem.IMAGE_ITEM, item);
-        sendBroadcast(intent);
-
-
+        MyUtils.updateImageItem(context, item, false);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////
@@ -1170,13 +1149,18 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
 
                 if (intent.getAction().equalsIgnoreCase(ACTION_UPDATE_ITEM)) {
-                    Bundle b = intent.getExtras();
+                    /*Bundle b = intent.getExtras();
                     if (b != null) {
                         ImageItem image = b.getParcelable(ImageItem.IMAGE_ITEM);
                         if (image != null) {
                             item = image;
                             setUI();
                         }
+                    }*/
+                    ImageItem image = MyApplication.itemReturn;
+                    if (image != null) {
+                        item = image;
+                        setUI();
                     }
                 } else if (intent.getAction().equalsIgnoreCase(ACTION_UPDATE_STATE_FOLLOW)) {
                     setButtonUI();
@@ -1447,7 +1431,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
                                 }
 
                                 txtInput.setText("");
-
+                                item.getComments().add(0,img);
                                 updateCommentCount();
 
                             }
@@ -1487,7 +1471,9 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
         if (mAdapter != null && item != null && context != null) {
             //set lai so imageItem, sau do goi nguoc ve cac man hinh
             item.setCommentCount(mAdapter.getParentAndChildCount());
-            MyUtils.updateImageItem(context, item);
+
+            setUI();
+            MyUtils.updateImageItem(context, item, false);
         }
     }
     ////////////////////////////////////////////////////////////////////////////////////////////

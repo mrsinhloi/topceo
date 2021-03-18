@@ -85,11 +85,7 @@ public class Fragment_1_Home_SonTung extends Fragment {
 
         db = new TinyDB(getActivity());
         try {
-            Object obj = db.getObject(User.USER, User.class);
-            if (obj != null) {
-                user = (User) obj;
-                owner = (User) obj;
-            }
+            getUser();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,6 +94,14 @@ public class Fragment_1_Home_SonTung extends Fragment {
             db.putBoolean(TinyDB.IS_LOGINED, false);
             getActivity().startActivity(new Intent(getActivity(), MH15_SigninActivity.class));
             getActivity().finish();
+        }
+    }
+
+    private void getUser() {
+        Object obj = db.getObject(User.USER, User.class);
+        if (obj != null) {
+            user = (User) obj;
+            owner = (User) obj;
         }
     }
 
@@ -408,8 +412,6 @@ public class Fragment_1_Home_SonTung extends Fragment {
 
     private void initAdapter() {
 
-
-
        /* ArrayList<String> mDataset = new ArrayList<>();
 
         for (int i = 0; i < 20; i++) {
@@ -550,9 +552,9 @@ public class Fragment_1_Home_SonTung extends Fragment {
     /////////////////////////////////////////////////////////
 //    public static final String ACTION_FINISH ="ACTION_FINISH_"+Fragment_1_Home_User.class.getSimpleName();
     public static final String ACTION_REFRESH_GROUP = "ACTION_REFRESH_GROUP";
-    public static final String ACTION_REFRESH = "ACTION_REFRESH_" + Fragment_1_Home_User.class.getSimpleName();
-    public static final String ACTION_UPDATE_ITEM = "ACTION_UPDATE_ITEM_" + Fragment_1_Home_User.class.getSimpleName();
-    public static final String ACTION_AFTER_DELETE_POST = "ACTION_AFTER_DELETE_POST_" + Fragment_1_Home_User.class.getSimpleName();
+    public static final String ACTION_REFRESH = Fragment_1_Home_User.ACTION_REFRESH;//"ACTION_REFRESH_" + Fragment_1_Home_User.class.getSimpleName();
+    public static final String ACTION_UPDATE_ITEM = Fragment_1_Home_User.ACTION_UPDATE_ITEM;//"ACTION_UPDATE_ITEM_" + Fragment_1_Home_User.class.getSimpleName();
+    public static final String ACTION_AFTER_DELETE_POST = Fragment_1_Home_User.ACTION_AFTER_DELETE_POST;//"ACTION_AFTER_DELETE_POST_" + Fragment_1_Home_User.class.getSimpleName();
     public static final String ACTION_SCROLL_TO_TOP = "ACTION_SCROLL_TO_TOP";
 
     public static final String ACTION_SET_FRAGMENT_IN_PROFILE_MUTE = "ACTION_SET_FRAGMENT_IN_PROFILE_MUTE";
@@ -572,8 +574,11 @@ public class Fragment_1_Home_SonTung extends Fragment {
                 if (intent.getAction().equalsIgnoreCase(ACTION_REFRESH_GROUP)) {
                     refreshGroup();
 
-                }
-                if (intent.getAction().equalsIgnoreCase(ACTION_REFRESH)) {
+                } else if (intent.getAction().equalsIgnoreCase(ACTION_REFRESH)) {
+                    getUser();
+                    initAdapter();
+                    initData();
+
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -581,9 +586,8 @@ public class Fragment_1_Home_SonTung extends Fragment {
                         }
                     }, 2000);
 
-                }
-                if (intent.getAction().equalsIgnoreCase(ACTION_UPDATE_ITEM)) {
-                    Bundle b = intent.getExtras();
+                } else if (intent.getAction().equalsIgnoreCase(ACTION_UPDATE_ITEM)) {
+                    /*Bundle b = intent.getExtras();
                     if (b != null) {
 
                         ImageItem item = b.getParcelable(ImageItem.IMAGE_ITEM);
@@ -591,6 +595,10 @@ public class Fragment_1_Home_SonTung extends Fragment {
 //                            mAdapter.updateItemDescription(item);
                             mAdapter.replaceItem(item);
                         }
+                    }*/
+                    ImageItem image = MyApplication.itemReturn;
+                    if (image != null) {
+                        mAdapter.replaceItem(image);
                     }
                 }
 
@@ -605,7 +613,7 @@ public class Fragment_1_Home_SonTung extends Fragment {
                     }
                 }*/
 
-                if (intent.getAction().equalsIgnoreCase(ACTION_AFTER_DELETE_POST)) {
+                else if (intent.getAction().equalsIgnoreCase(ACTION_AFTER_DELETE_POST)) {
                     Bundle b = intent.getExtras();
                     if (b != null) {
                         //item nay chi chua id, va description
@@ -615,9 +623,7 @@ public class Fragment_1_Home_SonTung extends Fragment {
                             mAdapter.remove(imageItemId);
                         }
                     }
-                }
-
-                if (intent.getAction().equalsIgnoreCase(ACTION_SCROLL_TO_TOP)) {
+                } else if (intent.getAction().equalsIgnoreCase(ACTION_SCROLL_TO_TOP)) {
                     Bundle b = intent.getExtras();
                     if (b != null) {
                         boolean isHome = b.getBoolean(IS_HOME, false);
@@ -641,15 +647,11 @@ public class Fragment_1_Home_SonTung extends Fragment {
 
 
                     }
-                }
-
-                if (intent.getAction().equalsIgnoreCase(ACTION_SET_FRAGMENT_IN_PROFILE_MUTE)) {
+                } else if (intent.getAction().equalsIgnoreCase(ACTION_SET_FRAGMENT_IN_PROFILE_MUTE)) {
                     if (isFromProfile) {
                         requestStopVideo(true);
                     }
-                }
-
-                if (intent.getAction().equalsIgnoreCase(ACTION_SET_MUTE_ALL)) {
+                } else if (intent.getAction().equalsIgnoreCase(ACTION_SET_MUTE_ALL)) {
                     requestStopVideo(true);
                 }
 

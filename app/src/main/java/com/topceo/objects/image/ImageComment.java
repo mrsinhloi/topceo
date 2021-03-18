@@ -39,6 +39,63 @@ public class ImageComment implements Parcelable {
 
     //bo sung khi load phan tu con
     private RealmList<ImageComment> listChild=new RealmList<>();
+
+    protected ImageComment(Parcel in) {
+        ItemId = in.readLong();
+        ImageItemId = in.readLong();
+        ReplyToId = in.readLong();
+        Comment = in.readString();
+        CreateDate = in.readLong();
+        CreateOS = in.readString();
+        LastModifyDate = in.readLong();
+        LastModifyOS = in.readString();
+        Edited = in.readByte() != 0;
+        LikeCount = in.readInt();
+        ReplyCount = in.readInt();
+        User = in.readParcelable(UserShort.class.getClassLoader());
+        ImageItem = in.readParcelable(com.topceo.objects.image.ImageItem.class.getClassLoader());
+        ReplyTo = in.readParcelable(ImageComment.class.getClassLoader());
+        IsLiked = in.readByte() != 0;
+        isShowCommentChild = in.readByte() != 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(ItemId);
+        dest.writeLong(ImageItemId);
+        dest.writeLong(ReplyToId);
+        dest.writeString(Comment);
+        dest.writeLong(CreateDate);
+        dest.writeString(CreateOS);
+        dest.writeLong(LastModifyDate);
+        dest.writeString(LastModifyOS);
+        dest.writeByte((byte) (Edited ? 1 : 0));
+        dest.writeInt(LikeCount);
+        dest.writeInt(ReplyCount);
+        dest.writeParcelable(User, flags);
+        dest.writeParcelable(ImageItem, flags);
+        dest.writeParcelable(ReplyTo, flags);
+        dest.writeByte((byte) (IsLiked ? 1 : 0));
+        dest.writeByte((byte) (isShowCommentChild ? 1 : 0));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<ImageComment> CREATOR = new Creator<ImageComment>() {
+        @Override
+        public ImageComment createFromParcel(Parcel in) {
+            return new ImageComment(in);
+        }
+
+        @Override
+        public ImageComment[] newArray(int size) {
+            return new ImageComment[size];
+        }
+    };
+
     public RealmList<ImageComment> getListChild() {
         return listChild;
     }
@@ -171,65 +228,6 @@ public class ImageComment implements Parcelable {
         IsLiked = liked;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.ItemId);
-        dest.writeLong(this.ImageItemId);
-        dest.writeString(this.Comment);
-        dest.writeLong(this.CreateDate);
-        dest.writeString(this.CreateOS);
-        dest.writeLong(this.LastModifyDate);
-        dest.writeString(this.LastModifyOS);
-        dest.writeLong(this.ReplyToId);
-        dest.writeByte(this.Edited ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.LikeCount);
-        dest.writeInt(this.ReplyCount);
-        dest.writeParcelable(this.User, flags);
-        dest.writeParcelable(this.ImageItem, flags);
-        dest.writeParcelable(this.ReplyTo, flags);
-        dest.writeByte(this.IsLiked ? (byte) 1 : (byte) 0);
-        dest.writeList(this.listChild);
-    }
-
-    protected ImageComment(Parcel in) {
-        this.ItemId = in.readLong();
-        this.ImageItemId = in.readLong();
-        this.Comment = in.readString();
-        this.CreateDate = in.readLong();
-        this.CreateOS = in.readString();
-        this.LastModifyDate = in.readLong();
-        this.LastModifyOS = in.readString();
-        this.ReplyToId = in.readLong();
-        this.Edited = in.readByte() != 0;
-        this.LikeCount = in.readInt();
-        this.ReplyCount = in.readInt();
-        this.User = in.readParcelable(UserShort.class.getClassLoader());
-        this.ImageItem = in.readParcelable(com.topceo.objects.image.ImageItem.class.getClassLoader());
-        this.ReplyTo = in.readParcelable(ImageComment.class.getClassLoader());
-        this.IsLiked = in.readByte() != 0;
-
-
-        this.listChild = new RealmList<>();
-        in.readList(this.listChild, ImageComment.class.getClassLoader());
-//        this.listChild = in.createTypedArrayList(ImageComment.CREATOR);
-    }
-
-    public static final Creator<ImageComment> CREATOR = new Creator<ImageComment>() {
-        @Override
-        public ImageComment createFromParcel(Parcel source) {
-            return new ImageComment(source);
-        }
-
-        @Override
-        public ImageComment[] newArray(int size) {
-            return new ImageComment[size];
-        }
-    };
 
     public boolean isShowCommentChild() {
         return isShowCommentChild;

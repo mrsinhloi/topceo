@@ -22,6 +22,40 @@ public class ImageLike extends RealmObject implements Parcelable {
     private UserShortDB User;//user da like
 
 
+    protected ImageLike(Parcel in) {
+        ItemId = in.readLong();
+        ImageItemId = in.readLong();
+        LikeEmotionId = in.readInt();
+        CreateDate = in.readLong();
+        User = in.readParcelable(UserShortDB.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(ItemId);
+        dest.writeLong(ImageItemId);
+        dest.writeInt(LikeEmotionId);
+        dest.writeLong(CreateDate);
+        dest.writeParcelable(User, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<ImageLike> CREATOR = new Creator<ImageLike>() {
+        @Override
+        public ImageLike createFromParcel(Parcel in) {
+            return new ImageLike(in);
+        }
+
+        @Override
+        public ImageLike[] newArray(int size) {
+            return new ImageLike[size];
+        }
+    };
+
     public long getItemId() {
         return ItemId;
     }
@@ -63,40 +97,10 @@ public class ImageLike extends RealmObject implements Parcelable {
     }
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.ItemId);
-        dest.writeLong(this.ImageItemId);
-        dest.writeInt(this.LikeEmotionId);
-        dest.writeLong(this.CreateDate);
-        dest.writeParcelable(this.User, flags);
-    }
 
     public ImageLike() {
     }
 
-    protected ImageLike(Parcel in) {
-        this.ItemId = in.readLong();
-        this.ImageItemId = in.readLong();
-        this.LikeEmotionId = in.readInt();
-        this.CreateDate = in.readLong();
-        this.User = in.readParcelable(com.topceo.objects.other.User.class.getClassLoader());
-    }
 
-    public static final Creator<ImageLike> CREATOR = new Creator<ImageLike>() {
-        @Override
-        public ImageLike createFromParcel(Parcel source) {
-            return new ImageLike(source);
-        }
-
-        @Override
-        public ImageLike[] newArray(int size) {
-            return new ImageLike[size];
-        }
-    };
 }

@@ -234,8 +234,7 @@ public class ImageItem implements Parcelable {
         }
     }
 
-    public ImageItem() {
-    }
+    public ImageItem() {}
 
     //bo sung comment preview
     private ArrayList<ImageComment> Comments = new ArrayList<>();//danh sach comment

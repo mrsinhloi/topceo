@@ -342,46 +342,7 @@ public class GroupCoverUtils {
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////
-    void onUpdateImageItem(ImageItem item, JSONObject response) {
-        try {
-            JSONObject objP = response.getJSONObject("data");
-            JSONObject obj = objP.getJSONObject("UpdateImageItem");
 
-            double imageItemId = obj.getDouble("ImageItemId");
-            if (imageItemId > 0) {
-                MyUtils.showToast(context, R.string.update_success);
-
-                //update home list
-                Intent intent = new Intent(Fragment_1_Home_User.ACTION_UPDATE_ITEM);
-                intent.putExtra(ImageItem.IMAGE_ITEM, item);
-                context.sendBroadcast(intent);
-
-
-                //update man hinh chi tiet MH02_PhotoDetailActivity
-                intent = new Intent(MH02_PhotoDetailActivity.ACTION_UPDATE_ITEM);
-                intent.putExtra(ImageItem.IMAGE_ITEM, item);
-                context.sendBroadcast(intent);
-
-                //update grid user
-                intent = new Intent(Fragment_5_User_Profile_Grid.ACTION_UPDATE_ITEM);
-                intent.putExtra(ImageItem.IMAGE_ITEM, item);
-                context.sendBroadcast(intent);
-
-                //update grid image by hashtag
-                intent = new Intent(HashTagActivity.ACTION_UPDATE_ITEM);
-                intent.putExtra(ImageItem.IMAGE_ITEM, item);
-                context.sendBroadcast(intent);
-
-                //update grid explorer
-                intent = new Intent(Fragment_2_Explorer.ACTION_UPDATE_ITEM);
-                intent.putExtra(ImageItem.IMAGE_ITEM, item);
-                context.sendBroadcast(intent);
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -374,12 +374,16 @@ public class Fragment_5_User_Profile_Grid extends Fragment {
                         }
                     }
                 } else if (intent.getAction().equalsIgnoreCase(ACTION_UPDATE_ITEM)) {
-                    Bundle b = intent.getExtras();
+                    /*Bundle b = intent.getExtras();
                     if (b != null) {
                         ImageItem image = b.getParcelable(ImageItem.IMAGE_ITEM);
                         if (image != null) {
                             mAdapter.replaceItem(image);
                         }
+                    }*/
+                    ImageItem image = MyApplication.itemReturn;
+                    if (image != null) {
+                        mAdapter.replaceItem(image);
                     }
                 } else if (intent.getAction().equalsIgnoreCase(ACTION_REFRESH_LIST_SAVED)) {
                     if (isLoadFavorite) {

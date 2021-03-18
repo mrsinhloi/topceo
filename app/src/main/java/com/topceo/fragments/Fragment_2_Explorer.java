@@ -260,12 +260,16 @@ public class Fragment_2_Explorer extends Fragment {
                 }
 
                 if (intent.getAction().equalsIgnoreCase(ACTION_UPDATE_ITEM)) {
-                    Bundle b = intent.getExtras();
+                    /*Bundle b = intent.getExtras();
                     if (b != null) {
                         ImageItem image=b.getParcelable(ImageItem.IMAGE_ITEM);
                         if(image!=null){
                             mAdapter.replaceItem(image);
                         }
+                    }*/
+                    ImageItem image = MyApplication.itemReturn;
+                    if (image != null) {
+                        mAdapter.replaceItem(image);
                     }
                 }
 

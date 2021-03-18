@@ -14,12 +14,27 @@ public class LinkPreview extends RealmObject implements Parcelable {
     private String SiteName;
 
     public LinkPreview(){}
+
     protected LinkPreview(Parcel in) {
         Link = in.readString();
         Title = in.readString();
         Caption = in.readString();
         Image = in.readString();
         SiteName = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(Link);
+        dest.writeString(Title);
+        dest.writeString(Caption);
+        dest.writeString(Image);
+        dest.writeString(SiteName);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<LinkPreview> CREATOR = new Creator<LinkPreview>() {
@@ -74,17 +89,5 @@ public class LinkPreview extends RealmObject implements Parcelable {
         SiteName = siteName;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(Link);
-        dest.writeString(Title);
-        dest.writeString(Caption);
-        dest.writeString(Image);
-        dest.writeString(SiteName);
-    }
 }

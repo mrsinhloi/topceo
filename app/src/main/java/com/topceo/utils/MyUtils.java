@@ -510,32 +510,6 @@ public class MyUtils {
         }
     }
 
-    public static void gotoDetailImage(Context context, ImageItem item) {
-        if (context != null && item != null) {
-            Intent intent = new Intent(context, MH02_PhotoDetailActivity.class);
-            intent.putExtra(ImageItem.IMAGE_ITEM, item);
-            context.startActivity(intent);
-        }
-    }
-
-    public static void gotoDetailImage(Context context, long imageItemId) {
-        if (context != null && imageItemId > 0) {
-            Webservices.getImageItem(imageItemId).continueWith(new Continuation<Object, Void>() {
-                @Override
-                public Void then(Task<Object> task) throws Exception {
-                    if (task.getError() == null) {
-                        if (task.getResult() != null) {
-                            ImageItem image = (ImageItem) task.getResult();
-                            if (image != null) {
-                                MyUtils.gotoDetailImage(context, image);
-                            }
-                        }
-                    }
-                    return null;
-                }
-            });
-        }
-    }
 
     public static void transparentStatusBar(Window window) {
         if (window != null) {
@@ -657,35 +631,6 @@ public class MyUtils {
         context.sendBroadcast(intent);
     }
 
-    public static void updateImageItem(Context context, ImageItem imageItem) {
-        if (context != null && imageItem != null) {
-            //update home list
-            Intent intent = new Intent(Fragment_1_Home_User.ACTION_UPDATE_ITEM);
-            intent.putExtra(ImageItem.IMAGE_ITEM, imageItem);
-            context.sendBroadcast(intent);
-
-
-            //update man hinh chi tiet MH02_PhotoDetailActivity
-            intent = new Intent(MH02_PhotoDetailActivity.ACTION_UPDATE_ITEM);
-            intent.putExtra(ImageItem.IMAGE_ITEM, imageItem);
-            context.sendBroadcast(intent);
-
-            //update grid user
-            intent = new Intent(Fragment_5_User_Profile_Grid.ACTION_UPDATE_ITEM);
-            intent.putExtra(ImageItem.IMAGE_ITEM, imageItem);
-            context.sendBroadcast(intent);
-
-            //update grid image by hashtag
-            intent = new Intent(HashTagActivity.ACTION_UPDATE_ITEM);
-            intent.putExtra(ImageItem.IMAGE_ITEM, imageItem);
-            context.sendBroadcast(intent);
-
-            //update grid explorer
-            intent = new Intent(Fragment_2_Explorer.ACTION_UPDATE_ITEM);
-            intent.putExtra(ImageItem.IMAGE_ITEM, imageItem);
-            context.sendBroadcast(intent);
-        }
-    }
 
     public static void whenClickComment(Context context, SocialTextView txt2) {
 
@@ -713,29 +658,13 @@ public class MyUtils {
         }
     }
 
-    public static void editPost(ImageItem item, Context context) {
-        if (context != null) {
-            if (item != null) {
-                if (ImageItem.ITEM_TYPE_FACEBOOK.equals(item.getItemType())) {
-                    Intent intent = new Intent(context, PostLikeFacebookActivity.class);
-                    intent.putExtra(ImageItem.IMAGE_ITEM, item);
-                    context.startActivity(intent);
-                } else {//instagram
-                    Intent intent = new Intent(context, MH04_FeedEditActivity.class);
-                    intent.putExtra(ImageItem.IMAGE_ITEM, item);
-                    context.startActivity(intent);
-                }
-
-            }
-        }
-    }
 
     public static String createNickname(String fullname) {
         String nickname = "";
-        if(!TextUtils.isEmpty(fullname)){
+        if (!TextUtils.isEmpty(fullname)) {
             nickname = getUnsignedString(fullname.toLowerCase(Locale.ROOT));
-            if(!TextUtils.isEmpty(nickname) && nickname.contains(" ")){
-                nickname = nickname.replaceAll("\\s+","");
+            if (!TextUtils.isEmpty(nickname) && nickname.contains(" ")) {
+                nickname = nickname.replaceAll("\\s+", "");
             }
         }
 
@@ -3349,5 +3278,90 @@ public class MyUtils {
         }
     }
 
+    public static void updateImageItem(Context context, ImageItem imageItem, boolean isUpdateDetail) {
+        if (context != null && imageItem != null) {
+            MyApplication.itemReturn = imageItem;
+
+            //update home list
+            Intent intent = new Intent(Fragment_1_Home_User.ACTION_UPDATE_ITEM);
+//            intent.putExtra(ImageItem.IMAGE_ITEM, imageItem);
+            context.sendBroadcast(intent);
+
+            if (isUpdateDetail) {
+                //update man hinh chi tiet MH02_PhotoDetailActivity => da update truc tiep
+                intent = new Intent(MH02_PhotoDetailActivity.ACTION_UPDATE_ITEM);
+//            intent.putExtra(ImageItem.IMAGE_ITEM, imageItem);
+                context.sendBroadcast(intent);
+            }
+
+            //update grid user
+            intent = new Intent(Fragment_5_User_Profile_Grid.ACTION_UPDATE_ITEM);
+//            intent.putExtra(ImageItem.IMAGE_ITEM, imageItem);
+            context.sendBroadcast(intent);
+
+            //update grid image by hashtag
+            intent = new Intent(HashTagActivity.ACTION_UPDATE_ITEM);
+//            intent.putExtra(ImageItem.IMAGE_ITEM, imageItem);
+            context.sendBroadcast(intent);
+
+            //update grid explorer
+            intent = new Intent(Fragment_2_Explorer.ACTION_UPDATE_ITEM);
+//            intent.putExtra(ImageItem.IMAGE_ITEM, imageItem);
+            context.sendBroadcast(intent);
+        }
+    }
+
+    public static void gotoDetailImage(Context context, ImageItem item) {
+        if (context != null && item != null) {
+
+            //luu tam vao cache va doc len lai tu cache
+            MyApplication.imgItem = item;
+            Intent intent = new Intent(context, MH02_PhotoDetailActivity.class);
+//            intent.putExtra(ImageItem.IMAGE_ITEM, item);
+            context.startActivity(intent);
+
+        }
+    }
+
+    public static void gotoDetailImage(Context context, long imageItemId) {
+        if (context != null && imageItemId > 0) {
+            Webservices.getImageItem(imageItemId).continueWith(new Continuation<Object, Void>() {
+                @Override
+                public Void then(Task<Object> task) throws Exception {
+                    if (task.getError() == null) {
+                        if (task.getResult() != null) {
+                            ImageItem image = (ImageItem) task.getResult();
+                            if (image != null) {
+                                MyUtils.gotoDetailImage(context, image);
+                            }
+                        }
+                    }
+                    return null;
+                }
+            });
+        }
+    }
+
+    public static void editPost(ImageItem item, Context context) {
+        if (context != null) {
+            if (item != null) {
+
+
+                if (ImageItem.ITEM_TYPE_FACEBOOK.equals(item.getItemType())) {
+                    //luu tam vao cache va doc len lai tu cache
+                    MyApplication.imgEdit = item;
+
+                    Intent intent = new Intent(context, PostLikeFacebookActivity.class);
+//                    intent.putExtra(ImageItem.IMAGE_ITEM, item);
+                    context.startActivity(intent);
+                } else {//instagram
+                    Intent intent = new Intent(context, MH04_FeedEditActivity.class);
+                    intent.putExtra(ImageItem.IMAGE_ITEM, item);
+                    context.startActivity(intent);
+                }
+
+            }
+        }
+    }
 
 }

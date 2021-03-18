@@ -32,25 +32,25 @@ public class PermissionRequest {
 
     private static final String PERMISSIONS_ENDPOINT = "/me/permissions";
     public static final String APP = "app";//THU HOI QUYEN APP THI PHAI DANG NHAP LAI
+    /**
+     * Để được phê duyệt quyền pages_manage_posts, bạn phải gửi đi xét duyệt các quyền pages_read_engagement và pages_show_list hoặc ứng dụng phải được phê duyệt quyền pages_read_engagement và pages_show_list trong lần gửi đi xét duyệt trước đó.
+     */
+//    https://developers.facebook.com/docs/pages/overview/permissions-features
     public static final String[] PERMISSIONS_PAGE = {
-            //post feed in page
-            "pages_read_engagement",
-            "pages_manage_posts"
+            //post feed in page https://developers.facebook.com/docs/pages/getting-started/?translation
+            /*"pages_manage_metadata",*/ "pages_manage_posts", "pages_read_engagement", "pages_show_list"
 
-            //post photo in page //https://developers.facebook.com/docs/graph-api/photo-uploads/ (xem quyen)
-            /*"pages_manage_ads",
-            "pages_manage_metadata",
-            "pages_read_user_content",
-            "pages_manage_engagement"*/
+            //quyen post video lam sau https://developers.facebook.com/docs/video-api/getting-started
     };
 
     public static final String[] PERMISSION_PAGE_AND_USER_PROFILE = {
             //user
             "public_profile",
 
-            //post feed in page
-            "pages_read_engagement",
-            "pages_manage_posts"
+            //post feed in page https://developers.facebook.com/docs/pages/getting-started/?translation
+            /*"pages_manage_metadata",*/ "pages_manage_posts", "pages_read_engagement", "pages_show_list"
+
+            ////quyen post video lam sau https://developers.facebook.com/docs/video-api/getting-started
     };
 
 

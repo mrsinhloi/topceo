@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -71,6 +72,7 @@ import com.microsoft.azure.storage.blob.CloudBlockBlob;
 import com.nguyenhoanglam.imagepicker.activity.ImagePicker;
 import com.nguyenhoanglam.imagepicker.activity.ImagePickerActivity;
 import com.nguyenhoanglam.imagepicker.model.Image;
+import com.yalantis.ucrop.UCrop;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -79,6 +81,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
 import java.util.ArrayList;
@@ -292,7 +295,6 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
 
                             }
                         });
-
 
 
                 txt1.setText(user.getFullName());
@@ -884,9 +886,12 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
             SasChild original = parent.getOriginal();
             if (original != null) {
 
-                Bitmap b = MyUtils.resizeAndRotateImage(imgPath, ImageSize.MEDIUM_WIDTH, ImageSize.MEDIUM_WIDTH);
+                /*Bitmap b = MyUtils.resizeAndRotateImage(imgPath, ImageSize.MEDIUM_WIDTH, ImageSize.MEDIUM_WIDTH);
                 MyUtils.log("image_size " + b.getWidth() + " - " + b.getHeight());
-                imgPath = MyUtils.saveBitmap(b, temp.getAbsolutePath());
+                imgPath = MyUtils.saveBitmap(b, temp.getAbsolutePath());*/
+
+                //crop anh da resize ve kich thuoc medium, nen chi can upload len
+                imgPath = mCurrentPhotoPath;
 
                 boolean isSuccessed = uploadImageToAzure(original, imgPath);
                 if (isSuccessed) {
@@ -898,9 +903,12 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
             SasChild medium = parent.getMedium();
             if (medium != null) {
 
-                Bitmap b = MyUtils.resizeAndRotateImage(imgPath, ImageSize.MEDIUM_WIDTH, ImageSize.MEDIUM_WIDTH);
+                /*Bitmap b = MyUtils.resizeAndRotateImage(imgPath, ImageSize.MEDIUM_WIDTH, ImageSize.MEDIUM_WIDTH);
                 MyUtils.log("image_size " + b.getWidth() + " - " + b.getHeight());
-                imgPath = MyUtils.saveBitmap(b, imgPath);
+                imgPath = MyUtils.saveBitmap(b, imgPath);*/
+
+                //crop anh da resize ve kich thuoc medium, nen chi can upload len
+                imgPath = mCurrentPhotoPath;
 
                 boolean isSuccessed = uploadImageToAzure(medium, imgPath);
                 if (isSuccessed) {
@@ -1072,8 +1080,13 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
                         intent = new Intent(MH22_Fragment_Setting.ACTION_REFRESH_USER_INFO);
                         sendBroadcast(intent);
 
+                        //2 tab Fragment_1_Home_SonTung va Fragment_1_Home_User
                         intent = new Intent(Fragment_1_Home_User.ACTION_REFRESH);
                         sendBroadcast(intent);
+
+                        intent = new Intent(MH01_MainActivity.ACTION_CHANGE_ICON);
+                        sendBroadcast(intent);
+
 
                         initUser();
 
@@ -1101,13 +1114,18 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_CODE_PICKER && data != null) {
                 ArrayList<Image> images = data.getParcelableArrayListExtra(ImagePickerActivity.INTENT_EXTRA_SELECTED_IMAGES);
                 // do your logic ....
-                MyUtils.showToastDebug(context, images.get(0).getPath());
-                String path = images.get(0).getPath();
-                uploadImageToServer(path);
+                if (images != null && images.size() > 0) {
+                    MyUtils.showToastDebug(context, images.get(0).getPath());
+                    mCurrentPhotoPath = images.get(0).getPath();
+                    cropImage();
+                }
+
             }
 
             /*if (requestCode == ACTION_PHONE_VALIDATE) {
@@ -1126,6 +1144,17 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
                     MyUtils.showAlertDialog(context, R.string.phone_input_and_phone_validate_not_match);
                 }
             }*/
+        }
+
+        //ucrop
+        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+            final Uri resultUri = UCrop.getOutput(data);
+            mCurrentPhotoPath = resultUri.getPath();
+            //update server mCurrentPhotoPath
+            uploadImageToServer(mCurrentPhotoPath);
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            final Throwable cropError = UCrop.getError(data);
+            MyUtils.showAlertDialog(context, cropError.getMessage());
         }
 
         //phone
@@ -1264,4 +1293,25 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
     }
 
     //#endregion///////////////////////////////////////////////////////////////////////////////////
+
+    //CROP IMAGE////
+    private int sizeCrop = 100;
+    String mCurrentPhotoPath = "";
+
+    private void cropImage() {
+        if (!TextUtils.isEmpty(mCurrentPhotoPath)) {
+            File f = new File(mCurrentPhotoPath);
+            if (f.exists()) {
+                Uri uri = Uri.fromFile(f);
+                File target = MyUtils.createImageFile(context);
+                sizeCrop = ImageSize.MEDIUM_WIDTH;//getResources().getDimensionPixelSize(R.dimen.photo_profile_larger) * 2;
+                UCrop.of(uri, Uri.fromFile(target))
+                        .withAspectRatio(1, 1)
+                        .withMaxResultSize(sizeCrop, sizeCrop)
+                        .start(MH20_UserEditProfileActivity.this);
+            }
+        }
+
+
+    }
 }

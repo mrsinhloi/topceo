@@ -128,5 +128,6 @@
     <dimen name="avatar_header">30dp</dimen>
     <dimen name="share_size">80dp</dimen>
     <dimen name="heart_size">14dp</dimen>
+    <dimen name="photo_profile_larger">120dp</dimen>
 
 </resources>

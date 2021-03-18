@@ -8,12 +8,13 @@ import io.realm.RealmObject;
 public class ItemData extends RealmObject implements Parcelable {
     private LinkPreview LinkPreview;
 
-    public com.topceo.objects.image.LinkPreview getLinkPreview() {
-        return LinkPreview;
+    protected ItemData(Parcel in) {
+        LinkPreview = in.readParcelable(com.topceo.objects.image.LinkPreview.class.getClassLoader());
     }
 
-    public void setLinkPreview(com.topceo.objects.image.LinkPreview linkPreview) {
-        LinkPreview = linkPreview;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(LinkPreview, flags);
     }
 
     @Override
@@ -21,22 +22,10 @@ public class ItemData extends RealmObject implements Parcelable {
         return 0;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(this.LinkPreview, flags);
-    }
-
-    public ItemData() {
-    }
-
-    protected ItemData(Parcel in) {
-        this.LinkPreview = in.readParcelable(com.topceo.objects.image.LinkPreview.class.getClassLoader());
-    }
-
-    public static final Parcelable.Creator<ItemData> CREATOR = new Parcelable.Creator<ItemData>() {
+    public static final Creator<ItemData> CREATOR = new Creator<ItemData>() {
         @Override
-        public ItemData createFromParcel(Parcel source) {
-            return new ItemData(source);
+        public ItemData createFromParcel(Parcel in) {
+            return new ItemData(in);
         }
 
         @Override
@@ -44,4 +33,15 @@ public class ItemData extends RealmObject implements Parcelable {
             return new ItemData[size];
         }
     };
+
+    public com.topceo.objects.image.LinkPreview getLinkPreview() {
+        return LinkPreview;
+    }
+
+    public void setLinkPreview(com.topceo.objects.image.LinkPreview linkPreview) {
+        LinkPreview = linkPreview;
+    }
+    public ItemData() {
+    }
+
 }

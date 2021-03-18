@@ -21,6 +21,40 @@ public class ImageShare extends RealmObject implements Parcelable {
     private long CreateDate;
     private UserShortDB User;//nguoi da share
 
+    protected ImageShare(Parcel in) {
+        ItemId = in.readLong();
+        ImageItemId = in.readLong();
+        ShareTo = in.readInt();
+        CreateDate = in.readLong();
+        User = in.readParcelable(UserShortDB.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(ItemId);
+        dest.writeLong(ImageItemId);
+        dest.writeInt(ShareTo);
+        dest.writeLong(CreateDate);
+        dest.writeParcelable(User, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<ImageShare> CREATOR = new Creator<ImageShare>() {
+        @Override
+        public ImageShare createFromParcel(Parcel in) {
+            return new ImageShare(in);
+        }
+
+        @Override
+        public ImageShare[] newArray(int size) {
+            return new ImageShare[size];
+        }
+    };
+
     public long getItemId() {
         return ItemId;
     }
@@ -62,40 +96,9 @@ public class ImageShare extends RealmObject implements Parcelable {
     }
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.ItemId);
-        dest.writeLong(this.ImageItemId);
-        dest.writeInt(this.ShareTo);
-        dest.writeLong(this.CreateDate);
-        dest.writeParcelable(this.User, flags);
-    }
 
     public ImageShare() {
     }
 
-    protected ImageShare(Parcel in) {
-        this.ItemId = in.readLong();
-        this.ImageItemId = in.readLong();
-        this.ShareTo = in.readInt();
-        this.CreateDate = in.readLong();
-        this.User = in.readParcelable(UserShortDB.class.getClassLoader());
-    }
 
-    public static final Parcelable.Creator<ImageShare> CREATOR = new Parcelable.Creator<ImageShare>() {
-        @Override
-        public ImageShare createFromParcel(Parcel source) {
-            return new ImageShare(source);
-        }
-
-        @Override
-        public ImageShare[] newArray(int size) {
-            return new ImageShare[size];
-        }
-    };
 }

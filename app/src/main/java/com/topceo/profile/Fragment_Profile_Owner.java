@@ -157,37 +157,10 @@ public class Fragment_Profile_Owner extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_owner_profile, container, false);
         ButterKnife.bind(this, view);
-
+        avatarSize = getResources().getDimensionPixelSize(R.dimen.user_profile_avatar_size);
         registerReceiver();
         /////////////////////////////////
         db = new TinyDB(getContext());
-        Object obj = db.getObject(User.USER, User.class);
-        if (obj != null) {
-            user = (User) obj;
-            owner = (User) obj;
-        }
-        avatarSize = getResources().getDimensionPixelSize(R.dimen.user_profile_avatar_size);
-
-        //////////////////////////////////////////////////////////////
-        //neu @chinh minh thi xem nhu la owner
-        if (user.getUserId() == guestUser.getUserId()) {
-            isOwner = true;
-        } else {//@ mot nguoi khac
-            user = guestUser.getUser();
-            isOwner = false;
-        }
-
-        //set user//////////////////////////////////////////////////////
-        if (isOwner) {
-            initOwner();
-            //lay thong tin so luong follower moi nhat
-            getInfoFollowOfMe();
-            PromotionScreen.navigationScreen(context, PromotionScreen.PROFILE);
-        } else {
-            //ko xai
-            initUser();
-        }
-
         ////////////////////////////////////////////////////////////////
         setupTabs();
         initButtons();
@@ -279,6 +252,31 @@ public class Fragment_Profile_Owner extends Fragment {
     ViewPager viewPager;
 
     private void setupTabs() {
+        Object obj = db.getObject(User.USER, User.class);
+        if (obj != null) {
+            user = (User) obj;
+            owner = (User) obj;
+        }
+        //////////////////////////////////////////////////////////////
+        //neu @chinh minh thi xem nhu la owner
+        if (user.getUserId() == guestUser.getUserId()) {
+            isOwner = true;
+        } else {//@ mot nguoi khac
+            user = guestUser.getUser();
+            isOwner = false;
+        }
+
+        //set user//////////////////////////////////////////////////////
+        if (isOwner) {
+            initOwner();
+            //lay thong tin so luong follower moi nhat
+            getInfoFollowOfMe();
+            PromotionScreen.navigationScreen(context, PromotionScreen.PROFILE);
+        } else {
+            //ko xai
+            initUser();
+        }
+
         viewPager.setOffscreenPageLimit(tabIcons.length);
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);

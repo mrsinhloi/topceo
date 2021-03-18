@@ -27,6 +27,40 @@ public class Item implements Parcelable {
     private Info Info;
 
 
+    protected Item(Parcel in) {
+        ItemType = in.readString();
+        Large = in.readParcelable(MediaObject.class.getClassLoader());
+        Medium = in.readParcelable(MediaObject.class.getClassLoader());
+        Small = in.readParcelable(MediaObject.class.getClassLoader());
+        Info = in.readParcelable(com.topceo.objects.image.Info.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(ItemType);
+        dest.writeParcelable(Large, flags);
+        dest.writeParcelable(Medium, flags);
+        dest.writeParcelable(Small, flags);
+        dest.writeParcelable(Info, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Item> CREATOR = new Creator<Item>() {
+        @Override
+        public Item createFromParcel(Parcel in) {
+            return new Item(in);
+        }
+
+        @Override
+        public Item[] newArray(int size) {
+            return new Item[size];
+        }
+    };
+
     public static ArrayList<MediaLocal> getMediaLocal(ArrayList<Item> itemContent, boolean isVideo) {
         ArrayList<MediaLocal> list = new ArrayList<>();
         if (itemContent != null && itemContent.size() > 0) {
@@ -104,37 +138,5 @@ public class Item implements Parcelable {
     }
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.ItemType);
-        dest.writeParcelable(this.Large, flags);
-        dest.writeParcelable(this.Medium, flags);
-        dest.writeParcelable(this.Small, flags);
-        dest.writeParcelable(this.Info, flags);
-    }
-
-    protected Item(Parcel in) {
-        this.ItemType = in.readString();
-        this.Large = (MediaObject) in.readParcelable(MediaObject.class.getClassLoader());
-        this.Medium = (MediaObject) in.readParcelable(MediaObject.class.getClassLoader());
-        this.Small = (MediaObject) in.readParcelable(MediaObject.class.getClassLoader());
-        this.Info = (Info) in.readParcelable(com.topceo.objects.image.Info.class.getClassLoader());
-    }
-
-    public static final Creator<Item> CREATOR = new Creator<Item>() {
-        @Override
-        public Item createFromParcel(Parcel source) {
-            return new Item(source);
-        }
-
-        @Override
-        public Item[] newArray(int size) {
-            return new Item[size];
-        }
-    };
 }

@@ -379,7 +379,7 @@ public class Fragment_1_Home_Admin extends Fragment {
 
                 }
                 if (intent.getAction().equalsIgnoreCase(ACTION_UPDATE_ITEM)) {
-                    Bundle b = intent.getExtras();
+                    /*Bundle b = intent.getExtras();
                     if (b != null) {
 
                         ImageItem item = b.getParcelable(ImageItem.IMAGE_ITEM);
@@ -387,6 +387,10 @@ public class Fragment_1_Home_Admin extends Fragment {
 //                            mAdapter.updateItemDescription(item);
                             mAdapter.replaceItem(item);
                         }
+                    }*/
+                    ImageItem item = MyApplication.itemReturn;
+                    if (item != null) {
+                        mAdapter.replaceItem(item);
                     }
                 }
 
