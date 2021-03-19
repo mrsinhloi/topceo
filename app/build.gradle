@@ -30,8 +30,8 @@ android {
         applicationId "com.ehubly.topceo" //==> ehubstar.sontung.mtp
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.compileSdkVersion
-        versionCode 11
-        versionName "2.0.11"
+        versionCode 12
+        versionName "2.0.12"
 
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true

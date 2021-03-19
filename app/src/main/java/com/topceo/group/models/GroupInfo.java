@@ -64,6 +64,80 @@ public class GroupInfo implements Parcelable {
     //bo sung local
     private boolean isHeader;
 
+    protected GroupInfo(Parcel in) {
+        GroupId = in.readLong();
+        GroupGUID = in.readString();
+        IsPrivate = in.readByte() != 0;
+        IsHide = in.readByte() != 0;
+        GroupName = in.readString();
+        Description = in.readString();
+        CoverUrl = in.readString();
+        CoverSmallUrl = in.readString();
+        GroupType = in.readString();
+        Color = in.readString();
+        Location = in.readString();
+        TotalMember = in.readInt();
+        LastPostDate = in.readLong();
+        MemberApprove = in.readInt();
+        MemberCanPost = in.readByte() != 0;
+        PostNeedApprove = in.readByte() != 0;
+        CreateDate = in.readLong();
+        CreateUserId = in.readLong();
+        StorageProvider = in.readString();
+        IsJoin = in.readInt();
+        JoinDate = in.readLong();
+        ICanPost = in.readByte() != 0;
+        isHeader = in.readByte() != 0;
+        isAdmin = in.readByte() != 0;
+        isMod = in.readByte() != 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(GroupId);
+        dest.writeString(GroupGUID);
+        dest.writeByte((byte) (IsPrivate ? 1 : 0));
+        dest.writeByte((byte) (IsHide ? 1 : 0));
+        dest.writeString(GroupName);
+        dest.writeString(Description);
+        dest.writeString(CoverUrl);
+        dest.writeString(CoverSmallUrl);
+        dest.writeString(GroupType);
+        dest.writeString(Color);
+        dest.writeString(Location);
+        dest.writeInt(TotalMember);
+        dest.writeLong(LastPostDate);
+        dest.writeInt(MemberApprove);
+        dest.writeByte((byte) (MemberCanPost ? 1 : 0));
+        dest.writeByte((byte) (PostNeedApprove ? 1 : 0));
+        dest.writeLong(CreateDate);
+        dest.writeLong(CreateUserId);
+        dest.writeString(StorageProvider);
+        dest.writeInt(IsJoin);
+        dest.writeLong(JoinDate);
+        dest.writeByte((byte) (ICanPost ? 1 : 0));
+        dest.writeByte((byte) (isHeader ? 1 : 0));
+        dest.writeByte((byte) (isAdmin ? 1 : 0));
+        dest.writeByte((byte) (isMod ? 1 : 0));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<GroupInfo> CREATOR = new Creator<GroupInfo>() {
+        @Override
+        public GroupInfo createFromParcel(Parcel in) {
+            return new GroupInfo(in);
+        }
+
+        @Override
+        public GroupInfo[] newArray(int size) {
+            return new GroupInfo[size];
+        }
+    };
+
     public boolean isAdmin() {
         return isAdmin;
     }
@@ -274,75 +348,4 @@ public class GroupInfo implements Parcelable {
         isHeader = header;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.GroupId);
-        dest.writeString(this.GroupGUID);
-        dest.writeByte(this.IsPrivate ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.IsHide ? (byte) 1 : (byte) 0);
-        dest.writeString(this.GroupName);
-        dest.writeString(this.Description);
-        dest.writeString(this.CoverUrl);
-        dest.writeString(this.CoverSmallUrl);
-        dest.writeString(this.GroupType);
-        dest.writeString(this.Color);
-        dest.writeString(this.Location);
-        dest.writeInt(this.TotalMember);
-        dest.writeLong(this.LastPostDate);
-        dest.writeInt(this.MemberApprove);
-        dest.writeByte(this.MemberCanPost ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.PostNeedApprove ? (byte) 1 : (byte) 0);
-        dest.writeLong(this.CreateDate);
-        dest.writeLong(this.CreateUserId);
-        dest.writeString(this.StorageProvider);
-        dest.writeInt(this.IsJoin);
-        dest.writeLong(this.JoinDate);
-        dest.writeByte(this.ICanPost ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isHeader ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isAdmin ? (byte) 1 : (byte) 0);
-    }
-
-    protected GroupInfo(Parcel in) {
-        this.GroupId = in.readLong();
-        this.GroupGUID = in.readString();
-        this.IsPrivate = in.readByte() != 0;
-        this.IsHide = in.readByte() != 0;
-        this.GroupName = in.readString();
-        this.Description = in.readString();
-        this.CoverUrl = in.readString();
-        this.CoverSmallUrl = in.readString();
-        this.GroupType = in.readString();
-        this.Color = in.readString();
-        this.Location = in.readString();
-        this.TotalMember = in.readInt();
-        this.LastPostDate = in.readLong();
-        this.MemberApprove = in.readInt();
-        this.MemberCanPost = in.readByte() != 0;
-        this.PostNeedApprove = in.readByte() != 0;
-        this.CreateDate = in.readLong();
-        this.CreateUserId = in.readLong();
-        this.StorageProvider = in.readString();
-        this.IsJoin = in.readInt();
-        this.JoinDate = in.readLong();
-        this.ICanPost = in.readByte() != 0;
-        this.isHeader = in.readByte() != 0;
-        this.isAdmin = in.readByte() != 0;
-    }
-
-    public static final Creator<GroupInfo> CREATOR = new Creator<GroupInfo>() {
-        @Override
-        public GroupInfo createFromParcel(Parcel source) {
-            return new GroupInfo(source);
-        }
-
-        @Override
-        public GroupInfo[] newArray(int size) {
-            return new GroupInfo[size];
-        }
-    };
 }
