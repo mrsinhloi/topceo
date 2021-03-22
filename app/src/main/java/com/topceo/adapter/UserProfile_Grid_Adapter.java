@@ -20,7 +20,7 @@ import com.balysv.materialripple.MaterialRippleLayout;
 import com.bumptech.glide.Glide;
 import com.topceo.R;
 import com.topceo.objects.image.ImageItem;
-import com.topceo.objects.image.ItemData;
+import com.topceo.objects.image.MyItemData;
 import com.topceo.utils.MyUtils;
 
 import java.util.ArrayList;
@@ -119,7 +119,7 @@ public class UserProfile_Grid_Adapter extends RecyclerView.Adapter<UserProfile_G
             } else {
                 try {
                     String text = "";
-                    ItemData data = item.getItemData();
+                    MyItemData data = item.getItemData();
                     if (data != null && data.getLinkPreview() != null) {
                         text = "link";
                     } else {

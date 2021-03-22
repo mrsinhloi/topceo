@@ -1,7 +1,7 @@
 package com.topceo.retrofit;
 
 import com.topceo.objects.image.Item;
-import com.topceo.objects.image.ItemData;
+import com.topceo.objects.image.MyItemData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class PostImageParam {
     private List<String> Hashtags;
     private List<String> UserTags;
     private String ItemType;
-    private ItemData ItemData;
+    private MyItemData ItemData;
     private long GroupId;
 
 
@@ -35,7 +35,7 @@ public class PostImageParam {
             List<String> Hashtags,
             List<String> UserTags,
             String ItemType,
-            ItemData ItemData
+            MyItemData ItemData
     ) {
         this.ItemGUID = ItemGUID;
         this.IsPrivate = IsPrivate;
@@ -134,12 +134,12 @@ public class PostImageParam {
         ItemType = itemType;
     }
 
-    public com.topceo.objects.image.ItemData getItemData() {
+    public MyItemData getItemData() {
         return ItemData;
     }
 
-    public void setItemData(com.topceo.objects.image.ItemData itemData) {
-        ItemData = itemData;
+    public void setItemData(MyItemData myItemData) {
+        ItemData = myItemData;
     }
 
     public long getGroupId() {

@@ -598,7 +598,7 @@ public class PostUtils {
 
         description = MyUtils.replaceDescriptionForServer(description);
         AndroidNetworking.post(Webservices.URL_GRAPHQL)
-                .addQueryParameter("query", Webservices.UPDATE_IMAGE_ITEM_DESCRIPTION(item.getImageItemId(), /*description,*/ hashtags, mentions, item.getItemData(), null, 0.0, 0.0))
+                .addQueryParameter("query", Webservices.UPDATE_IMAGE_ITEM_DESCRIPTION(item.getImageItemId(), description, hashtags, mentions, item.getItemData(), null, 0.0, 0.0))
                 .addBodyParameter("Description", description)
                 .setOkHttpClient(MyApplication.getClient())
                 .build()
@@ -656,7 +656,7 @@ public class PostUtils {
 
         ProgressUtils.show(context);
         description = MyUtils.replaceDescriptionForServer(description);
-        String query = Webservices.UPDATE_IMAGE_ITEM_DESCRIPTION(item.getImageItemId(), /*description,*/ hashtags, mentions, item.getItemData(), Location, Lat, Long);
+        String query = Webservices.UPDATE_IMAGE_ITEM_DESCRIPTION(item.getImageItemId(), description, hashtags, mentions, item.getItemData(), Location, Lat, Long);
         AndroidNetworking.post(Webservices.URL_GRAPHQL)
                 .addQueryParameter("query", query)
                 .addBodyParameter("Description", description)

@@ -93,7 +93,7 @@ import com.topceo.objects.db.ImageItemDB;
 import com.topceo.objects.image.ImageComment;
 import com.topceo.objects.image.ImageItem;
 import com.topceo.objects.image.Item;
-import com.topceo.objects.image.ItemData;
+import com.topceo.objects.image.MyItemData;
 import com.topceo.objects.image.LinkPreview;
 import com.topceo.objects.other.User;
 import com.topceo.objects.other.UserShort;
@@ -1209,6 +1209,8 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
         if (realm != null) {
             realm.close();
         }
+
+        MyApplication.imgItem = null;
     }
 
 
@@ -2003,7 +2005,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
 
             rvCollage.setVisibility(View.GONE);
             //neu co link preview
-            ItemData data = item.getItemData();
+            MyItemData data = item.getItemData();
             if (data != null) {
                 LinkPreview link = data.getLinkPreview();
                 if (link != null) {
@@ -2051,6 +2053,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
             initImagePost();
         }
     }
+
 
 
 }

@@ -2,14 +2,21 @@ package com.topceo.objects.image;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
+import com.topceo.hashtag.Link;
 import com.topceo.objects.db.ImageItemDB;
 import com.topceo.objects.db.ItemDB;
 import com.topceo.objects.db.UserShortDB;
 import com.topceo.objects.other.UserShort;
 import com.smartapp.collage.MediaLocal;
+import com.topceo.utils.MyUtils;
 
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +62,7 @@ public class ImageItem implements Parcelable {
     public static final String ITEM_TYPE_INSTAGRAM = "INSTA";
     public static final String ITEM_TYPE_FACEBOOK = "FB";
     private String ItemType = ITEM_TYPE_INSTAGRAM;//INSTA / FB
-    private ItemData ItemData = null;
+    private Object ItemData = null;
 
     //bo sung cho pending post
     private long ItemId;
@@ -92,6 +99,7 @@ public class ImageItem implements Parcelable {
         Likes = in.createTypedArrayList(ImageLike.CREATOR);
         Shares = in.createTypedArrayList(ImageShare.CREATOR);
         typeView = in.readInt();
+        ItemData = in.readValue(Object.class.getClassLoader());
     }
 
     @Override
@@ -125,6 +133,7 @@ public class ImageItem implements Parcelable {
         dest.writeTypedList(Likes);
         dest.writeTypedList(Shares);
         dest.writeInt(typeView);
+        dest.writeValue(ItemData);
     }
 
     @Override
@@ -196,7 +205,7 @@ public class ImageItem implements Parcelable {
                      RealmList<ItemDB> ItemContent,
                      UserShortDB Owner,
                      String ItemType,
-                     ItemData ItemData
+                     MyItemData itemData
     ) {
 
         this.ImageItemId = ImageItemId;
@@ -224,7 +233,7 @@ public class ImageItem implements Parcelable {
             this.Owner = Owner.copy();
         }
         this.ItemType = ItemType;
-        this.ItemData = ItemData;
+        this.ItemData = itemData;
 
         if (ItemContent != null && ItemContent.size() > 0) {
             for (int i = 0; i < ItemContent.size(); i++) {
@@ -234,7 +243,8 @@ public class ImageItem implements Parcelable {
         }
     }
 
-    public ImageItem() {}
+    public ImageItem() {
+    }
 
     //bo sung comment preview
     private ArrayList<ImageComment> Comments = new ArrayList<>();//danh sach comment
@@ -603,18 +613,19 @@ public class ImageItem implements Parcelable {
         return ItemType;
     }
 
-
-    public com.topceo.objects.image.ItemData getItemData() {
-        /*if(ItemData !=null && ItemData instanceof ItemData){
-            return (ItemData)ItemData;
-        }*/
-        return ItemData;
+    public MyItemData getItemData() {
+        MyItemData data = LinkPreview.getMyItemData(ItemData);
+        if(data!=null){
+            ItemData = data;
+        }
+        return data;
     }
 
-    public void setItemData(com.topceo.objects.image.ItemData itemData) {
-        ItemData = itemData;
-    }
 
+
+    public void setItemData(MyItemData myItemData) {
+        ItemData = myItemData;
+    }
 
 
     @Nullable

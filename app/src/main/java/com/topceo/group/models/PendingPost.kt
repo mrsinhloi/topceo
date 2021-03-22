@@ -3,7 +3,7 @@ package com.topceo.group.models
 import android.os.Parcelable
 import com.topceo.objects.image.ImageItem
 import com.topceo.objects.image.Item
-import com.topceo.objects.image.ItemData
+import com.topceo.objects.image.MyItemData
 import com.topceo.objects.other.UserShort
 import com.google.gson.Gson
 import com.sonhvp.utilities.standard.isNotBlankAndNotEmpty
@@ -40,7 +40,8 @@ class PendingPost(
         //itemdata co the la string
         try {
             if(ItemData.isNotBlankAndNotEmpty()){
-                val data = Gson().fromJson(ItemData,com.topceo.objects.image.ItemData::class.java) as ItemData
+                val data = Gson().fromJson(ItemData,
+                    MyItemData::class.java) as MyItemData
                 item.itemData = data
             }
         } catch (e: Exception) {

@@ -1,6 +1,5 @@
 package com.topceo.viewholders;
 
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -16,10 +15,9 @@ import com.topceo.R;
 import com.topceo.config.MyApplication;
 import com.topceo.objects.image.ImageItem;
 import com.topceo.objects.image.Item;
-import com.topceo.objects.image.ItemData;
+import com.topceo.objects.image.MyItemData;
 import com.topceo.objects.image.LinkPreview;
 import com.topceo.utils.MyUtils;
-import com.topceo.views.ExpandableTextView;
 import com.smartapp.collage.CollageAdapterUrls;
 import com.smartapp.collage.MediaLocal;
 import com.smartapp.collage.OnItemClickListener;
@@ -149,7 +147,7 @@ public class ViewHolder5_Facebook extends ViewHolderBasic {
 
                 rvCollage.setVisibility(View.GONE);
                 //neu co link preview
-                ItemData data = item.getItemData();
+                MyItemData data = item.getItemData();
                 if (data != null) {
                     LinkPreview link = data.getLinkPreview();
                     if (link != null) {

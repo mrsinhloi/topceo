@@ -2,7 +2,7 @@ package com.topceo.objects.db;
 
 import com.topceo.objects.image.ImageItem;
 import com.topceo.objects.image.Item;
-import com.topceo.objects.image.ItemData;
+import com.topceo.objects.image.MyItemData;
 import com.topceo.objects.other.UserShort;
 
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class ImageItemDB extends RealmObject {
     private RealmList<ItemDB> ItemContent;
     private UserShortDB Owner;
     private String ItemType = ImageItem.ITEM_TYPE_INSTAGRAM;//INSTA / FB
-    private ItemData ItemData;
+    private MyItemData ItemData;
 
     //bo sung comment preview
 
@@ -106,7 +106,7 @@ public class ImageItemDB extends RealmObject {
                        ArrayList<Item> ItemContent,
                        UserShort Owner,
                        String ItemType,
-                       ItemData ItemData
+                       MyItemData ItemData
     ) {
 
         this.ImageItemId = ImageItemId;
@@ -391,11 +391,11 @@ public class ImageItemDB extends RealmObject {
         ItemType = itemType;
     }
 
-    public com.topceo.objects.image.ItemData getItemData() {
+    public MyItemData getItemData() {
         return ItemData;
     }
 
-    public void setItemData(com.topceo.objects.image.ItemData itemData) {
-        ItemData = itemData;
+    public void setItemData(MyItemData myItemData) {
+        ItemData = myItemData;
     }
 }

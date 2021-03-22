@@ -1,7 +1,13 @@
 package com.topceo.objects.image;
 
+import android.graphics.Paint;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
+
+import com.google.gson.internal.LinkedTreeMap;
+
+import org.jetbrains.annotations.Nullable;
 
 import io.realm.RealmObject;
 
@@ -14,6 +20,19 @@ public class LinkPreview extends RealmObject implements Parcelable {
     private String SiteName;
 
     public LinkPreview(){}
+    public LinkPreview(
+            String Link,
+            String Title,
+            String Caption,
+            String Image,
+            String SiteName){
+        this.Link = Link;
+        this.Title = Title;
+        this.Caption = Caption;
+        this.Image = Image;
+        this.SiteName = SiteName;
+    }
+
 
     protected LinkPreview(Parcel in) {
         Link = in.readString();
@@ -89,5 +108,29 @@ public class LinkPreview extends RealmObject implements Parcelable {
         SiteName = siteName;
     }
 
+    public static MyItemData getMyItemData(Object ItemData) {
+        if (ItemData != null && !TextUtils.isEmpty(ItemData.toString())) {
+            if (ItemData instanceof LinkedTreeMap) {
+                LinkedTreeMap<Object, Object> t = (LinkedTreeMap) ItemData;
+                Object preview = t.get("LinkPreview");
+                if (preview instanceof LinkedTreeMap) {
+                    LinkedTreeMap<Object, Object> p = (LinkedTreeMap) preview;
+                    String link = p.get("Link").toString();
+                    String caption = p.get("Caption").toString();
+                    String title = p.get("Title").toString();
+                    String image = p.get("Image").toString();
+                    String sitename = p.get("SiteName").toString();
+                    LinkPreview pre = new LinkPreview(link, title, caption, image, sitename);
+
+                    MyItemData data = new MyItemData();
+                    data.setLinkPreview(pre);
+                    return data;
+                }
+            }else if (ItemData instanceof MyItemData) {
+                return (MyItemData) ItemData;
+            }
+        }
+        return null;
+    }
 
 }

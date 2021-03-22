@@ -9,7 +9,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.os.Parcelable
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -34,7 +33,7 @@ import com.topceo.link_preview_2.SourceContent
 import com.topceo.link_preview_2.TextCrawler
 import com.topceo.objects.image.ImageItem
 import com.topceo.objects.image.Item
-import com.topceo.objects.image.ItemData
+import com.topceo.objects.image.MyItemData
 import com.topceo.objects.image.LinkPreview
 import com.topceo.objects.other.User
 import com.topceo.profile.Fragment_5_User_Profile_Grid
@@ -49,6 +48,7 @@ import com.topceo.utils.ProgressUtils
 import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.permissionx.guolindev.PermissionX
 import com.smartapp.collage.CollageAdapterUrls
@@ -261,17 +261,17 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             //post 1 text hoac 1 link
             val textOrLink = txtDes.text.toString()
             if (textOrLink.isNotBlankAndNotEmpty()) {
-                var itemData: ItemData? = getItemData()
+                var myItemData: MyItemData? = getItemData()
 
                 //chuan bi lay duong dan sas truoc khi upload anh len azure
                 val GUID = UUID.randomUUID().toString().toLowerCase()
-                postToServer(ArrayList<Item>(), GUID, itemData, groupId)
+                postToServer(ArrayList<Item>(), GUID, myItemData, groupId)
             }
         }
     }
 
-    private fun getItemData(): ItemData? {
-        var itemData: ItemData? = null
+    private fun getItemData(): MyItemData? {
+        var myItemData: MyItemData? = null
         if (linkData != null) {
             //link
             val preview = LinkPreview()
@@ -282,11 +282,11 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             preview.siteName = linkData?.sitename
 
             //data
-            itemData = ItemData()
-            itemData.linkPreview = preview
+            myItemData = MyItemData()
+            myItemData.linkPreview = preview
 
         }
-        return itemData
+        return myItemData
     }
 
     //{"ErrorCode":0,"Message":"","Data":{}}
@@ -411,9 +411,9 @@ class PostLikeFacebookActivity : AppCompatActivity() {
 
                             //edit post
                             if (item != null) {
-                                var itemData: ItemData? = getItemData()
-                                if (itemData != null) {
-                                    item?.itemData = itemData
+                                var myItemData: MyItemData? = getItemData()
+                                if (myItemData != null) {
+                                    item?.itemData = myItemData
                                 }
                             }
                         }
@@ -550,6 +550,7 @@ class PostLikeFacebookActivity : AppCompatActivity() {
                 textView2.visibility = View.GONE
             }
 
+            MyApplication.imgEdit = null
         }
 //        }
     }
@@ -591,7 +592,7 @@ class PostLikeFacebookActivity : AppCompatActivity() {
     private fun postToServer(
         itemContent: ArrayList<Item>?,
         GUID: String?,
-        itemData: ItemData?,
+        myItemData: MyItemData?,
         groupId: Long
     ) {
         if (itemContent != null) {
@@ -611,7 +612,7 @@ class PostLikeFacebookActivity : AppCompatActivity() {
                 txtDes.getHashtags(),
                 txtDes.getMentions(),
                 itemType,
-                itemData
+                myItemData
             )
             if (groupId > 0) {
                 post.groupId = groupId
@@ -1008,6 +1009,7 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             dialog?.dismiss()
         }
     }
+
 
 
 }

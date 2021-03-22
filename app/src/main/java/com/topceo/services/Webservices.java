@@ -11,7 +11,7 @@ import com.topceo.R;
 import com.topceo.config.MyApplication;
 import com.topceo.objects.image.ImageComment;
 import com.topceo.objects.image.ImageItem;
-import com.topceo.objects.image.ItemData;
+import com.topceo.objects.image.MyItemData;
 import com.topceo.objects.other.MyNotify;
 import com.topceo.objects.other.SearchObject;
 import com.topceo.objects.other.User;
@@ -162,7 +162,7 @@ public class Webservices {
         return "mutation{UpdateImageItemLiked(ImageItemId:" + imageItemId + ", IsLiked:" + isLiked + "){ImageItemId}}";//LikeCount
     }
 
-    public static String UPDATE_IMAGE_ITEM_DESCRIPTION(float imageItemId, /*String description,*/ List<String> tags, List<String> mentions, ItemData itemData,
+    public static String UPDATE_IMAGE_ITEM_DESCRIPTION(float imageItemId, String description, List<String> tags, List<String> mentions, MyItemData myItemData,
                                                        String address,
                                                        double lat,
                                                        double lon) {
@@ -196,9 +196,9 @@ public class Webservices {
 
         //link parse neu co
         String linkParse = "";
-        if (itemData != null && itemData.getLinkPreview() != null) {
+        if (myItemData != null && myItemData.getLinkPreview() != null) {
             try {
-                String json = new Gson().toJson(itemData);
+                String json = new Gson().toJson(myItemData);
                 json = JSONObject.quote(json);
                 linkParse = ",ItemData:" + json;
             } catch (Exception e) {
@@ -215,9 +215,9 @@ public class Webservices {
         }
 
         if (!TextUtils.isEmpty(linkParse)) {
-            return "mutation{UpdateImageItem(ImageItemId:" + imageItemId + /*", Description:\"" + description + "\"" +*/ hashtag + mention + linkParse + location + "){ImageItemId}}";
+            return "mutation{UpdateImageItem(ImageItemId:" + imageItemId + ", Description:\"" + description + "\"" + hashtag + mention + linkParse + location + "){ImageItemId}}";
         } else {
-            return "mutation{UpdateImageItem(ImageItemId:" + imageItemId + /*", Description:\"" + description + "\"" +*/ hashtag + mention + location + "){ImageItemId}}";
+            return "mutation{UpdateImageItem(ImageItemId:" + imageItemId + ", Description:\"" + description + "\"" + hashtag + mention + location + "){ImageItemId}}";
         }
     }
 

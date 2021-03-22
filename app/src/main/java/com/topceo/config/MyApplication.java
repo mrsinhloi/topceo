@@ -83,6 +83,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import bolts.Task;
@@ -301,6 +302,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
         //trust https
         OkHttpClient.Builder builder = UnsafeOkHttpClient.getBuilder(getToken());
         builder.cookieJar(cookie);
+        builder.connectTimeout(60, TimeUnit.SECONDS);
         builder.protocols(Util.immutableList(Protocol.HTTP_1_1));
         client = builder.build();
         AndroidNetworking.initialize(context, client);
@@ -1028,7 +1030,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
         RealmConfiguration configuration =
                 new RealmConfiguration.Builder()
                         .name("topceo.realm")
-                        .schemaVersion(3)
+                        .schemaVersion(4)
                         .deleteRealmIfMigrationNeeded()
                         .build();
         Realm.setDefaultConfiguration(configuration);
