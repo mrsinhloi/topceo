@@ -1305,9 +1305,13 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
                 Uri uri = Uri.fromFile(f);
                 File target = MyUtils.createImageFile(context);
                 sizeCrop = ImageSize.MEDIUM_WIDTH;//getResources().getDimensionPixelSize(R.dimen.photo_profile_larger) * 2;
+                UCrop.Options opt = new UCrop.Options();
+                opt.setCircleDimmedLayer(true);
+
                 UCrop.of(uri, Uri.fromFile(target))
                         .withAspectRatio(1, 1)
                         .withMaxResultSize(sizeCrop, sizeCrop)
+                        .withOptions(opt)
                         .start(MH20_UserEditProfileActivity.this);
             }
         }

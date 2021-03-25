@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">TopCeo</string>
+    <string name="app_name" translatable="false">TopCEO</string>
     <string name="like_title">Like</string>
     <string name="commentnum">Comment</string>
     <string name="welcome">Share the moment the world around you</string>
@@ -75,13 +75,13 @@
     <string name="phoneProfile">Phone</string>
     <string name="website">Website</string>
     <string name="setting_facebookfriend">Find friends on Facebook</string>
-    <string name="setting_search">Find friends on TopCeo</string>
+    <string name="setting_search">Find friends on TopCEO</string>
     <string name="setting_twitterfriend">Find friends on Twitter</string>
     <string name="setting_contactlist">Find friends from contacts</string>
     <string name="setting_invite">Invite</string>
     <string name="invite_success">Send invitation success</string>
     <string name="invite_fail">Send invitation failed, please try again</string>
-    <string name="setting_web">The website TopCeo</string>
+    <string name="setting_web">The website TopCEO</string>
     <string name="setting_editprofile">Edit personal information</string>
     <string name="setting_invite_viber">Invite on Viber</string>
     <string name="setting_invite_zalo">Invite on Zalo</string>
@@ -193,13 +193,13 @@
     <string name="submit">Submit</string>
     <string name="findfriend">Search for friends</string>
     <string name="camera_not_support">Error starting the camera</string>
-    <string name="camera_not_support_mess">Phone you do not support your camera or camera hardware failure, go to the "Settings" and uncheck the camera TopCeo</string>
+    <string name="camera_not_support_mess">Phone you do not support your camera or camera hardware failure, go to the "Settings" and uncheck the camera TopCEO</string>
     <string name="exit_app">Do you want to exit the application?</string>
     <string name="turnongps">Network positioning is disabled, you want to enable it (Check Use wireless network / wireless use)?</string>
     <string name="reshareconfirm">Photos will be shared on your homepage?</string>
     <string name="resharefacebookconfirm">Photos will be shared on your facebook?</string>
     <string name="nofriend">Unable to find a friend, you try to find another way?</string>
-    <string name="downloadwinkjoy">Downloads TopCeo on Android, Capture and share your moments with the beautiful effects</string>
+    <string name="downloadwinkjoy">Downloads TopCEO on Android, Capture and share your moments with the beautiful effects</string>
     <string name="uploadfail">Upload image failed</string>
     <string name="uploadfailforduplicate">Upload image failure due to identical content</string>
     <string name="helpfindnewfriend">Find more, to have more beautiful pictures</string>
@@ -210,12 +210,12 @@
     <string name="findfriendbutton">Find friends</string>
     <string name="postnewtitle">You do not have any photos?</string>
     <string name="postnewcontent">Please post a picture of your moments to share to everyone?</string>
-    <string name="invitefriendtitle">Invite friends TopCeo used.</string>
-    <string name="invitefriendcontent">Invite friends to get more people using TopCeo relatives and friends to share moments with you. \ N \ nYou will increase after inviting successful class.</string>
+    <string name="invitefriendtitle">Invite friends TopCEO used.</string>
+    <string name="invitefriendcontent">Invite friends to get more people using TopCEO relatives and friends to share moments with you. \ N \ nYou will increase after inviting successful class.</string>
     <string name="postconfirm">Post photos</string>
     <string name="suggestfriend">Suggest friends</string>
-    <string name="maintenancesystem">TopCeo are in the process of maintenance, please come back later.</string>
-    <string name="Update">TopCeo have a new version, you may want to update?</string>
+    <string name="maintenancesystem">TopCEO are in the process of maintenance, please come back later.</string>
+    <string name="Update">TopCEO have a new version, you may want to update?</string>
     <string name="imagesizelarge">Error, Can image size is too large, please try again with a different image.</string>
     <string name="contentimage">Write photo description:</string>
     <string name="contenthint">Up to 1,000 characters</string>
@@ -255,8 +255,8 @@
     <string name="textforimage">Enter the text (max 40 characters)</string>
     <string name="titleforimage">Enter</string>
     <string name="youhavenewmessage">You have %1$s new notifications from friends</string>
-    <string name="rate_title">Review TopCeo</string>
-    <string name="rate_explanation">If you prefer TopCeo, you want to win a little time to evaluate it? There will be no longer than one minute. Thanks for your support!</string>
+    <string name="rate_title">Review TopCEO</string>
+    <string name="rate_explanation">If you prefer TopCEO, you want to win a little time to evaluate it? There will be no longer than one minute. Thanks for your support!</string>
     <string name="rate_now">Reviews right</string>
     <string name="rate_later">Remind me</string>
     <string name="rate_never">No, thanks</string>
@@ -389,7 +389,7 @@
     <string name="updating">Updating ...</string>
     <string name="updating_not_dot">Updating</string>
     <string name="seemore">See more</string>
-    <string name="doodle_alert">TopCeo miss you, invite you to view new images!</string>
+    <string name="doodle_alert">TopCEO miss you, invite you to view new images!</string>
     <string name="txt_doi_mat_khau">Change password</string>
     <string name="password">Password</string>
     <string name="use_phone_number_login_to_system">Use your phone number to log into the system</string>
@@ -437,7 +437,7 @@
     <string name="username_or_phone">Username</string>
     <string name="password_new">New password</string>
     <string name="add_comment">Add comment</string>
-    <string name="copyright">\u00a9TopCeo - Version %1$s</string>
+    <string name="copyright">\u00a9TopCEO - Version %1$s</string>
     <string name="me">Me</string>
     <string name="notification">Notifications</string>
     <string name="post_image">Post photos</string>
@@ -504,11 +504,11 @@
     <string name="restart_app">Restart applications</string>
     <string name="restart_app_desc_for_language">Need to restart the application to change the language for you</string>
     <string name="restart_app_desc_for_admin_screen">The application needs to be restarted to change the Home screen</string>
-    <string name="welcome_to_skysocial">Welcome to TopCeo</string>
+    <string name="welcome_to_skysocial">Welcome to TopCEO</string>
     <string name="existed">%1$s already exist</string>
     <string name="invalid">%1$s is invalid</string>
-    <string name="join_to_skysocial">Join to TopCeo</string>
-    <string name="login_to_skysocial">Login to TopCeo</string>
+    <string name="join_to_skysocial">Join to TopCEO</string>
+    <string name="login_to_skysocial">Login to TopCEO</string>
     <string name="developing">Developing…</string>
     <string name="server_data_error">Data processing server error</string>
     <string name="email_verify">Email authentication</string>
@@ -532,9 +532,9 @@
     //////////////////////////////////////////////////////////////
     <string name="new_update">New update</string>
     <!--<string name="confirm_update_notify">App has a new version. Please update version!</string>-->
-    <string name="confirm_update_notify">A new version of TopCeo is available.\nPlease update to version\n%1$s</string>
-    <string name="confirm_update_notify_debug">TopCeo has new upgrade!\nThis is a DEBUG version. Uninstall and Install from Play Store, please.</string>
-    <string name="confirm_update_force_notify">TopCeo has new upgrade. You need to update to continue using. Thank you!</string>
+    <string name="confirm_update_notify">A new version of TopCEO is available.\nPlease update to version\n%1$s</string>
+    <string name="confirm_update_notify_debug">TopCEO has new upgrade!\nThis is a DEBUG version. Uninstall and Install from Play Store, please.</string>
+    <string name="confirm_update_force_notify">TopCEO has new upgrade. You need to update to continue using. Thank you!</string>
     <string name="uninstall">Uninstall</string>
     <string name="view_showcase">See instructions for use</string>
     <string name="restart_app_for_showcase">The application will restart to show you the instructions.</string>
@@ -741,7 +741,7 @@
     <string name="share_with_friends_link">Share link</string>
     <string name="share_with_friends_methods">Share the referral link through:</string>
     <string name="more">More</string>
-    <string name="intro_link" translatable="false">Xin chào! Tôi đang dùng ứng dụng TopCeo - Cộng đồng Sách Việt Nam, mời Bạn tham gia cùng tôi để chia sẻ kiến thức, kết nối, và phát triển kinh doanh.</string>
+    <string name="intro_link" translatable="false">Xin chào! Tôi đang dùng ứng dụng TopCEO - Cộng đồng Sách Việt Nam, mời Bạn tham gia cùng tôi để chia sẻ kiến thức, kết nối, và phát triển kinh doanh.</string>
     <string name="facebook_share_to_page">Facebook share to pages</string>
     <string name="to_pages">To: %1$s</string>
     <string name="save_post">Save post</string>

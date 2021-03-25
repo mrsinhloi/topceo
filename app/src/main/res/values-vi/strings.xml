@@ -74,13 +74,13 @@
     <string name="phoneProfile">Điện thoại</string>
     <string name="website">Trang web</string>
     <string name="setting_facebookfriend">Tìm bạn trên Facebook</string>
-    <string name="setting_search">Tìm bạn trên TopCeo</string>
+    <string name="setting_search">Tìm bạn trên TopCEO</string>
     <string name="setting_twitterfriend">Tìm bạn trên Twitter</string>
     <string name="setting_contactlist">Tìm bạn từ danh bạ</string>
     <string name="setting_invite">Mời bạn</string>
     <string name="invite_success">Gửi lời mời thành công</string>
     <string name="invite_fail">Gửi lời mời thất bại, vui lòng thử lại </string>
-    <string name="setting_web">Trang website TopCeo</string>
+    <string name="setting_web">Trang website TopCEO</string>
     <string name="setting_editprofile">Chỉnh sửa thông tin cá nhân</string>
     <string name="setting_invite_viber">Mời bạn trên Viber</string>
     <string name="setting_invite_zalo">Mời bạn trên Zalo</string>
@@ -191,13 +191,13 @@
     <string name="submit">Gửi</string>
     <string name="findfriend">Tìm kiếm bạn bè</string>
     <string name="camera_not_support">Lỗi khi khởi động camera</string>
-    <string name="camera_not_support_mess">Điện thoại bạn không hỗ trợ camera hay lỗi phần cứng camera, chuyển đến thẻ "Setting" và bỏ chọn camera TopCeo</string>
+    <string name="camera_not_support_mess">Điện thoại bạn không hỗ trợ camera hay lỗi phần cứng camera, chuyển đến thẻ "Setting" và bỏ chọn camera TopCEO</string>
     <string name="exit_app">Bạn có muốn thoát ứng dụng ?</string>
     <string name="turnongps">Network định vị đang bị tắt, Bạn có muốn bật nó (Đánh dấu vào Use wireless network/ Sử dụng mạng không dây) ?</string>
     <string name="reshareconfirm">Hình ảnh này sẽ được chia sẻ lại trên trang chủ của bạn ?</string>
     <string name="resharefacebookconfirm">Hình ảnh này sẽ được chia sẻ lại trên facebook của bạn ?</string>
     <string name="nofriend">Không tìm thấy bạn bè, bạn hãy thử cách tìm khác ?</string>
-    <string name="downloadwinkjoy">Tải ứng dụng TopCeo trên Android, Chụp và chia sẻ khoảnh khắc của bạn với những hiệu ứng đẹp</string>
+    <string name="downloadwinkjoy">Tải ứng dụng TopCEO trên Android, Chụp và chia sẻ khoảnh khắc của bạn với những hiệu ứng đẹp</string>
     <string name="uploadfail">Đăng hình ảnh thất bại</string>
     <string name="uploadfailforduplicate">Đăng hình ảnh thất bại do trùng nội dung</string>
     <string name="helpfindnewfriend">Tìm thêm bạn, để có nhiều hình ảnh đẹp</string>
@@ -208,12 +208,12 @@
     <string name="findfriendbutton">Tìm bạn</string>
     <string name="postnewtitle">Bạn chưa có bức ảnh nào?</string>
     <string name="postnewcontent">Hãy đăng một tấm ảnh khoảnh khắc của bạn để chia sẻ đến mọi người?</string>
-    <string name="invitefriendtitle">Mời bạn bè dùng TopCeo.</string>
-    <string name="invitefriendcontent">Mời bạn bè dùng TopCeo để có thêm người thân, bạn bè cùng chia sẻ khoảnh khắc với bạn.\n\nBạn sẽ tăng hạng sau khi mời thành công.</string>
+    <string name="invitefriendtitle">Mời bạn bè dùng TopCEO.</string>
+    <string name="invitefriendcontent">Mời bạn bè dùng TopCEO để có thêm người thân, bạn bè cùng chia sẻ khoảnh khắc với bạn.\n\nBạn sẽ tăng hạng sau khi mời thành công.</string>
     <string name="postconfirm">Đăng ảnh</string>
     <string name="suggestfriend">Gợi ý bạn bè</string>
-    <string name="maintenancesystem">TopCeo đang trong quá trình bảo trì, bạn vui lòng quay lại sau.</string>
-    <string name="Update">TopCeo có một phiên bản mới, bạn có muốn cập nhật?</string>
+    <string name="maintenancesystem">TopCEO đang trong quá trình bảo trì, bạn vui lòng quay lại sau.</string>
+    <string name="Update">TopCEO có một phiên bản mới, bạn có muốn cập nhật?</string>
     <string name="imagesizelarge">Lỗi, Có thể kích thước hình quá lớn, bạn vui lòng thử lại với hình khác.</string>
     <string name="contentimage">Viết mô tả về ảnh:</string>
     <string name="contenthint">Tối đa 1000 kí tự</string>
@@ -253,8 +253,8 @@
     <string name="textforimage">"Nhập nội dung (tối đa 40 kí tự)"</string>
     <string name="titleforimage">"Nhập nội dung"</string>
     <string name="youhavenewmessage">Bạn có %1$s thông báo mới từ bạn bè</string>
-    <string name="rate_title">Đánh giá TopCeo</string>
-    <string name="rate_explanation">Nếu thích TopCeo, bạn có muốn giành một chút thời gian để đánh giá nó? Sẽ không lâu hơn một phút. Cảm ơn sự hỗ trợ của bạn!</string>
+    <string name="rate_title">Đánh giá TopCEO</string>
+    <string name="rate_explanation">Nếu thích TopCEO, bạn có muốn giành một chút thời gian để đánh giá nó? Sẽ không lâu hơn một phút. Cảm ơn sự hỗ trợ của bạn!</string>
     <string name="rate_now">Đánh Giá Ngay</string>
     <string name="rate_later">Nhắc Tôi Sau</string>
     <string name="rate_never">Không, Cảm ơn</string>
@@ -395,7 +395,7 @@
     <string name="updating_not_dot">Đang cập nhật</string>
 
     <string name="seemore">Xem thêm</string>
-    <string name="doodle_alert">TopCeo nhớ bạn lắm, mời bạn xem ảnh mới!</string>
+    <string name="doodle_alert">TopCEO nhớ bạn lắm, mời bạn xem ảnh mới!</string>
 
 
     <!--AccountKit-->
@@ -449,7 +449,7 @@
     <string name="username_or_phone">Tên người dùng</string>
     <string name="password_new">Mật khẩu mới</string>
     <string name="add_comment">Thêm bình luận</string>
-    <string name="copyright">\u00a9TopCeo - Phiên bản %1$s</string>
+    <string name="copyright">\u00a9TopCEO - Phiên bản %1$s</string>
     <string name="me">Me</string>
     <string name="notification">Thông báo</string>
     <string name="post_image">Đăng ảnh</string>
@@ -519,11 +519,11 @@
     <string name="restart_app_desc_for_language">Cần khởi động lại ứng dụng để thay đổi ngôn ngữ cho bạn</string>
     <string name="restart_app_desc_for_admin_screen">Cần khởi động lại ứng dụng để thay đổi màn hình Home</string>
 
-    <string name="login_to_skysocial">Đăng nhập vào TopCeo</string>
-    <string name="welcome_to_skysocial">Chào mừng bạn đến với TopCeo</string>
+    <string name="login_to_skysocial">Đăng nhập vào TopCEO</string>
+    <string name="welcome_to_skysocial">Chào mừng bạn đến với TopCEO</string>
     <string name="existed">%1$s đã tồn tại</string>
     <string name="invalid">%1$s không hợp lệ</string>
-    <string name="join_to_skysocial">Tham gia vào TopCeo</string>
+    <string name="join_to_skysocial">Tham gia vào TopCEO</string>
     <string name="developing">Developing...</string>
     <string name="server_data_error">Data processing server error</string>
     <string name="email_verify">Xác thực email</string>
@@ -547,10 +547,10 @@
 
     //////////////////////////////////////////////////////////////
     <string name="new_update">Cập nhật mới</string>
-    <!--<string name="confirm_update_notify">TopCeo có cập nhật mới.\nMời bạn cập nhật để sử dụng!</string>-->
-    <string name="confirm_update_notify">Đã có phiên bản mới của TopCeo.\nXin vui lòng cập nhật lên phiên bản\n%1$s</string>
-    <string name="confirm_update_notify_debug">TopCeo đã có cập nhật mới!\nĐây là phiên bản DEBUG. Vui lòng gỡ APP và cài lại từ Play Store.</string>
-    <string name="confirm_update_force_notify">TopCeo đã có bản nâng cấp mới. Bạn cần cập nhật để tiếp tục sử dụng. Cảm ơn bạn!</string>
+    <!--<string name="confirm_update_notify">TopCEO có cập nhật mới.\nMời bạn cập nhật để sử dụng!</string>-->
+    <string name="confirm_update_notify">Đã có phiên bản mới của TopCEO.\nXin vui lòng cập nhật lên phiên bản\n%1$s</string>
+    <string name="confirm_update_notify_debug">TopCEO đã có cập nhật mới!\nĐây là phiên bản DEBUG. Vui lòng gỡ APP và cài lại từ Play Store.</string>
+    <string name="confirm_update_force_notify">TopCEO đã có bản nâng cấp mới. Bạn cần cập nhật để tiếp tục sử dụng. Cảm ơn bạn!</string>
     <string name="uninstall">Gỡ App</string>
     <string name="view_showcase">Xem hướng dẫn sử dụng</string>
     <string name="restart_app_for_showcase">Ứng dụng sẻ khởi động lại để hiển thị hướng dẫn cho bạn.</string>
