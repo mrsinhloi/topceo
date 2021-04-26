@@ -17,6 +17,44 @@ public class ImageCommentLike implements Parcelable {
     private String AvatarSmall;
     private String FullName;
 
+    protected ImageCommentLike(Parcel in) {
+        ItemId = in.readLong();
+        CommentId = in.readLong();
+        CreateDate = in.readLong();
+        UserId = in.readLong();
+        UserName = in.readString();
+        AvatarSmall = in.readString();
+        FullName = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(ItemId);
+        dest.writeLong(CommentId);
+        dest.writeLong(CreateDate);
+        dest.writeLong(UserId);
+        dest.writeString(UserName);
+        dest.writeString(AvatarSmall);
+        dest.writeString(FullName);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<ImageCommentLike> CREATOR = new Creator<ImageCommentLike>() {
+        @Override
+        public ImageCommentLike createFromParcel(Parcel in) {
+            return new ImageCommentLike(in);
+        }
+
+        @Override
+        public ImageCommentLike[] newArray(int size) {
+            return new ImageCommentLike[size];
+        }
+    };
+
     public long getItemId() {
         return ItemId;
     }
@@ -73,45 +111,8 @@ public class ImageCommentLike implements Parcelable {
         FullName = fullName;
     }
 
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.ItemId);
-        dest.writeLong(this.CommentId);
-        dest.writeLong(this.CreateDate);
-        dest.writeLong(this.UserId);
-        dest.writeString(this.UserName);
-        dest.writeString(this.AvatarSmall);
-        dest.writeString(this.FullName);
-    }
-
     public ImageCommentLike() {
     }
 
-    protected ImageCommentLike(Parcel in) {
-        this.ItemId = in.readLong();
-        this.CommentId = in.readLong();
-        this.CreateDate = in.readLong();
-        this.UserId = in.readLong();
-        this.UserName = in.readString();
-        this.AvatarSmall = in.readString();
-        this.FullName = in.readString();
-    }
 
-    public static final Parcelable.Creator<ImageCommentLike> CREATOR = new Parcelable.Creator<ImageCommentLike>() {
-        @Override
-        public ImageCommentLike createFromParcel(Parcel source) {
-            return new ImageCommentLike(source);
-        }
-
-        @Override
-        public ImageCommentLike[] newArray(int size) {
-            return new ImageCommentLike[size];
-        }
-    };
 }

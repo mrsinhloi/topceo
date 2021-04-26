@@ -9,7 +9,7 @@
 9    <uses-sdk
 10        android:minSdkVersion="21"
 10-->/Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/devsmartAndroid/src/main/AndroidManifest.xml
-11        android:targetSdkVersion="30" />
+11        android:targetSdkVersion="29" />
 11-->/Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/devsmartAndroid/src/main/AndroidManifest.xml
 12
 13</manifest>

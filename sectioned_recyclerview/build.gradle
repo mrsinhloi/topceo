@@ -16,7 +16,7 @@ android {
     }
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.compileSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 5
         versionName PUBLISH_VERSION
     }
@@ -29,7 +29,7 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation "androidx.recyclerview:recyclerview:${rootProject.ext.recyclerView}"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 }
 

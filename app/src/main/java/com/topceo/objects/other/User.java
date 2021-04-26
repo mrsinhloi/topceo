@@ -47,9 +47,9 @@ public class User implements Parcelable {
     private String AvatarOriginal;
     private String AvatarSmall;
     private String AvatarMedium;
-    private int ImageCount=0;
-    private int FollowingCount=0;
-    private int FollowerCount=0;
+    private int ImageCount = 0;
+    private int FollowingCount = 0;
+    private int FollowerCount = 0;
     private boolean IsVip;
     private long VipStartDate;
     private long VipEndDate;
@@ -266,6 +266,7 @@ public class User implements Parcelable {
     }
 
     public String getEmail() {
+        if (Email == null) Email = "";
         return Email;
     }
 
@@ -274,6 +275,7 @@ public class User implements Parcelable {
     }
 
     public String getUserName() {
+        if (UserName == null) UserName = "";
         return UserName;
     }
 
@@ -282,6 +284,7 @@ public class User implements Parcelable {
     }
 
     public String getPhone() {
+        if (Phone == null) Phone = "";
         return Phone;
     }
 
@@ -290,6 +293,7 @@ public class User implements Parcelable {
     }
 
     public String getFullName() {
+        if (FullName == null) FullName = "";
         return FullName;
     }
 
@@ -354,7 +358,7 @@ public class User implements Parcelable {
     }
 
     public String getFavorite() {
-        if(TextUtils.isEmpty(Favorite)){
+        if (TextUtils.isEmpty(Favorite)) {
             Favorite = "";
         }
         return Favorite;
@@ -592,7 +596,7 @@ public class User implements Parcelable {
         return user;
     }
 
-    public UserMedium getUserMedium(){
+    public UserMedium getUserMedium() {
         UserMedium user = new UserMedium();
         user.setUserId(getUserId());
         user.setUserName(getUserName());
@@ -616,7 +620,7 @@ public class User implements Parcelable {
         return user;
     }
 
-    public UserChatCore getUserChatCore(){
+    public UserChatCore getUserChatCore() {
         UserChatCore user = new UserChatCore();
         user.set_id(getChatUserId());
         user.setName(getUserName());

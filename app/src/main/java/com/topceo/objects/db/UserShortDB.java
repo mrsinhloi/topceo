@@ -75,6 +75,7 @@ public class UserShortDB extends RealmObject implements Parcelable {
     }
 
     public String getUserName() {
+        if (UserName == null) UserName = "";
         return UserName;
     }
 
@@ -83,6 +84,7 @@ public class UserShortDB extends RealmObject implements Parcelable {
     }
 
     public String getAvatarSmall() {
+        if (AvatarSmall == null) AvatarSmall = "";
         return AvatarSmall;
     }
 
@@ -104,13 +106,13 @@ public class UserShortDB extends RealmObject implements Parcelable {
 
 
     public String getFullName() {
+        if (FullName == null) FullName = "";
         return FullName;
     }
 
     public void setFullName(String fullName) {
         FullName = fullName;
     }
-
 
 
     public String getChatUserId() {

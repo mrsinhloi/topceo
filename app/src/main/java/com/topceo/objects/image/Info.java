@@ -23,6 +23,38 @@ public class Info implements Parcelable {
     private String Link;
     private String Target;
 
+    protected Info(Parcel in) {
+        Icon = in.readString();
+        Text = in.readString();
+        Link = in.readString();
+        Target = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(Icon);
+        dest.writeString(Text);
+        dest.writeString(Link);
+        dest.writeString(Target);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Info> CREATOR = new Creator<Info>() {
+        @Override
+        public Info createFromParcel(Parcel in) {
+            return new Info(in);
+        }
+
+        @Override
+        public Info[] newArray(int size) {
+            return new Info[size];
+        }
+    };
+
     public InfoDB copy() {
         InfoDB item = new InfoDB();
         item.setIcon(Icon);
@@ -66,38 +98,9 @@ public class Info implements Parcelable {
     }
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.Icon);
-        dest.writeString(this.Text);
-        dest.writeString(this.Link);
-        dest.writeString(this.Target);
-    }
 
     public Info() {
     }
 
-    protected Info(Parcel in) {
-        this.Icon = in.readString();
-        this.Text = in.readString();
-        this.Link = in.readString();
-        this.Target = in.readString();
-    }
 
-    public static final Parcelable.Creator<Info> CREATOR = new Parcelable.Creator<Info>() {
-        @Override
-        public Info createFromParcel(Parcel source) {
-            return new Info(source);
-        }
-
-        @Override
-        public Info[] newArray(int size) {
-            return new Info[size];
-        }
-    };
 }

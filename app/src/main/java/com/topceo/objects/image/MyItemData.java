@@ -44,4 +44,5 @@ public class MyItemData extends RealmObject implements Parcelable {
     public MyItemData() {
     }
 
+
 }

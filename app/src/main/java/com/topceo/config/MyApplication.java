@@ -1030,7 +1030,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
         RealmConfiguration configuration =
                 new RealmConfiguration.Builder()
                         .name("topceo.realm")
-                        .schemaVersion(4)
+                        .schemaVersion(5)
                         .deleteRealmIfMigrationNeeded()
                         .build();
         Realm.setDefaultConfiguration(configuration);

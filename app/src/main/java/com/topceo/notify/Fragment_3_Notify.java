@@ -122,7 +122,9 @@ public class Fragment_3_Notify extends Fragment {
             if (list != null && list.size() > 0) {
                 mDataset.clear();
                 mDataset.addAll(list);
-                mAdapter.notifyDataSetChanged();
+                if (isLive()) {
+                    mAdapter.notifyDataSetChanged();
+                }
             }
 
 
@@ -177,11 +179,16 @@ public class Fragment_3_Notify extends Fragment {
 
         // specify an adapter (see also next example)
         mAdapter = new MyAdapter();
-        rv.setAdapter(mAdapter);
+        if (isLive()) {
+            rv.setAdapter(mAdapter);
+        }
 
 
     }
 
+    private boolean isLive() {
+        return getActivity() != null && !getActivity().isFinishing();
+    }
 
     private ArrayList<MyNotify> mDataset = new ArrayList<>();
     private MyAdapter mAdapter;
@@ -556,50 +563,52 @@ public class Fragment_3_Notify extends Fragment {
         Webservices.getUserNotify(MyNotify.IS_VIEWED_TAT_CA, lastId).continueWith(new Continuation<Object, Void>() {
             @Override
             public Void then(Task<Object> task) throws Exception {
-                setRefresh(false);
-                if (task.getError() == null) {
-                    if (task.getResult() != null) {
-                        ReturnResult result = (ReturnResult) task.getResult();
-                        if (result.getErrorCode() == ReturnResult.SUCCESS) {
-                            ArrayList<MyNotify> list = (ArrayList<MyNotify>) result.getData();
-                            if (list != null && list.size() > 0) {
-                                if (lastId == 0) {
+                if (isLive()) {
+                    setRefresh(false);
+                    if (task.getError() == null) {
+                        if (task.getResult() != null) {
+                            ReturnResult result = (ReturnResult) task.getResult();
+                            if (result.getErrorCode() == ReturnResult.SUCCESS) {
+                                ArrayList<MyNotify> list = (ArrayList<MyNotify>) result.getData();
+                                if (list != null && list.size() > 0) {
+                                    if (lastId == 0) {
 //                                    mDataset.clear();//da clear roi o fun groupPending (moi user vao nhom)
-                                    mDataset.addAll(list);
-                                    mAdapter.notifyDataSetChanged();
+                                        mDataset.addAll(list);
+                                        mAdapter.notifyDataSetChanged();
+                                    } else {
+                                        mDataset.addAll(list);
+                                        mAdapter.notifyDataSetChanged();
+                                    }
+
+                                    //load lai so thong bao
+                                    if (getContext() != null) {
+                                        getContext().sendBroadcast(new Intent(MH01_MainActivity.ACTION_GET_NUMBER_NOTIFY));
+                                    }
+
                                 } else {
-                                    mDataset.addAll(list);
-                                    mAdapter.notifyDataSetChanged();
-                                }
-
-                                //load lai so thong bao
-                                if (getContext() != null) {
-                                    getContext().sendBroadcast(new Intent(MH01_MainActivity.ACTION_GET_NUMBER_NOTIFY));
-                                }
-
-                            } else {
 //                            MyUtils.showToast(context, R.string.not_found);
+                                }
+                            } else {
+                                getUserNotify(lastId);
                             }
-                        } else {
-                            getUserNotify(lastId);
-                        }
 
+                        } else {
+                            recallService((ANError) task.getError(), lastId);
+                        }
                     } else {
                         recallService((ANError) task.getError(), lastId);
                     }
-                } else {
-                    recallService((ANError) task.getError(), lastId);
-                }
 
 
-                if (mAdapter != null) {
-                    if (mAdapter.getItemCount() == 0) {
-                        txtEmpty.setVisibility(View.VISIBLE);
-                    } else {
-                        txtEmpty.setVisibility(View.GONE);
+                    if (mAdapter != null) {
+                        if (mAdapter.getItemCount() == 0) {
+                            txtEmpty.setVisibility(View.VISIBLE);
+                        } else {
+                            txtEmpty.setVisibility(View.GONE);
+                        }
                     }
-                }
 //                progressDialog.dismiss();
+                }
 
                 return null;
             }
@@ -738,7 +747,7 @@ public class Fragment_3_Notify extends Fragment {
 
                                 if (result != null) {
                                     if (result.getErrorCode() == ReturnResult.SUCCESS) {
-                                        if (mAdapter != null) {
+                                        if (isLive() && mAdapter != null) {
                                             mAdapter.updateStateView(notifyId, true);
                                             //lay lai thong tin so luong notify
                                             if (getContext() != null) {
@@ -778,7 +787,7 @@ public class Fragment_3_Notify extends Fragment {
 
                             if (result != null) {
                                 if (result.getErrorCode() == ReturnResult.SUCCESS) {
-                                    if (mAdapter != null) {
+                                    if (isLive() && mAdapter != null) {
                                         mAdapter.updateAllViewed();
                                         //lay lai thong tin so luong notify
                                         if (getContext() != null) {
@@ -827,7 +836,9 @@ public class Fragment_3_Notify extends Fragment {
                                         @Override
                                         public void run() {
                                             mDataset.addAll(list);
-                                            mAdapter.notifyDataSetChanged();
+                                            if(isLive()){
+                                                mAdapter.notifyDataSetChanged();
+                                            }
                                         }
                                     });
                                 }
