@@ -1,5 +1,6 @@
 package com.topceo.mediaplayer.preview;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
@@ -35,7 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class VideoPreviewActivity extends AppCompatActivity {
-
+    Context context = this;
     @BindView(R.id.video)
     VideoView videoView;
     @BindView(R.id.imgPreview)
@@ -47,6 +48,7 @@ public class VideoPreviewActivity extends AppCompatActivity {
 
 
     private String videoPath = "";
+    ThumbnailAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,20 +106,10 @@ public class VideoPreviewActivity extends AppCompatActivity {
 
         }
 
-        /*actualResolution.setTitleAndMessage("Size", result.getSize() + "");
-        isSnapshot.setTitleAndMessage("Snapshot", result.isSnapshot() + "");
-        rotation.setTitleAndMessage("Rotation", result.getRotation() + "");
-        audio.setTitleAndMessage("Audio", result.getAudio().name());
-        audioBitRate.setTitleAndMessage("Audio bit rate", result.getAudioBitRate() + " bits per sec.");
-        videoCodec.setTitleAndMessage("VideoCodec", result.getVideoCodec().name());
-        videoBitRate.setTitleAndMessage("Video bit rate", result.getVideoBitRate() + " bits per sec.");
-        videoFrameRate.setTitleAndMessage("Video frame rate", result.getVideoFrameRate() + " fps");*/
 
-
+        ////
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
         rv.setLayoutManager(layoutManager);
-        ThumbnailAdapter adapter = new ThumbnailAdapter(this, videoPath);
-        rv.setAdapter(adapter);
         rv.addOnItemTouchListener(new RecyclerItemClickListener(this, rv, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -131,11 +123,24 @@ public class VideoPreviewActivity extends AppCompatActivity {
 
             }
         }));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<Bitmap> data = MyUtils.extractThumbnail(context, videoPath);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter = new ThumbnailAdapter(context, data);
+                        rv.setAdapter(adapter);
+                    }
+                });
+            }
+        }).start();
 
 
     }
 
-    private void loadImage(Bitmap b){
+    private void loadImage(Bitmap b) {
         bitmapSelected = b;
         int size = getResources().getDimensionPixelSize(R.dimen.dimen_120dp);
         Glide.with(getApplicationContext())
@@ -215,6 +220,7 @@ public class VideoPreviewActivity extends AppCompatActivity {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private Bitmap bitmapSelected;
+
     private void uploadVideo() {
 
         //luu tam hinh thumbnail

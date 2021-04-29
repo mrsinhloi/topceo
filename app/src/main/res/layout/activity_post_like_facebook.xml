@@ -67,12 +67,21 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/layout_header" />
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/linearProgress"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:max="100"/>
+
+
 
             <LinearLayout
+                android:id="@+id/linearContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+                <include layout="@layout/layout_header" />
 
                 <com.topceo.socialview.commons.widget.SocialAutoCompleteTextView
                     android:id="@+id/txtDes"
@@ -148,17 +157,16 @@
 
                 <ImageView
                     android:id="@+id/imgFacebookConfig"
-                    tools:visibility="visible"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:paddingLeft="@dimen/margin_10dp"
                     android:src="@drawable/ic_round_more_vert_24"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    tools:visibility="visible" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/txtPages"
-                tools:text="@string/to_pages"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_30dp"
@@ -168,7 +176,8 @@
                 android:paddingStart="@dimen/margin_16dp"
                 android:paddingEnd="@dimen/dimen_5dp"
                 android:textColor="@color/black"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                tools:text="@string/to_pages" />
 
         </LinearLayout>
 
@@ -192,16 +201,27 @@
 
             <ImageView
                 android:id="@+id/imgPhoto"
-                android:layout_width="24dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/margin_10dp"
-                android:src="@drawable/ic_round_photo_album_24" />
+                android:padding="@dimen/margin_5dp"
+                android:src="@drawable/ic_baseline_photo_library_24" />
+
+            <ImageView
+                android:id="@+id/imgVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/margin_10dp"
+                android:padding="@dimen/margin_5dp"
+                android:src="@drawable/ic_round_video_library_24" />
+
 
             <ImageView
                 android:id="@+id/imgLocation"
-                android:layout_width="26dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/margin_10dp"
+                android:padding="@dimen/margin_5dp"
                 android:src="@drawable/ic_round_location_on_24" />
         </LinearLayout>
     </LinearLayout>

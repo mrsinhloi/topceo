@@ -9,6 +9,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.os.SystemClock
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -18,10 +19,26 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import cc.cloudist.acplibrary.ACProgressConstant
 import cc.cloudist.acplibrary.ACProgressFlower
 import com.bumptech.glide.Glide
+import com.desmond.squarecamera.myproject.APIConstants
+import com.facebook.*
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
+import com.google.gson.JsonObject
+import com.otaliastudios.transcoder.Transcoder
+import com.otaliastudios.transcoder.TranscoderListener
+import com.otaliastudios.transcoder.strategy.DefaultVideoStrategy
+import com.permissionx.guolindev.PermissionX
+import com.smartapp.collage.CollageAdapterUrls
+import com.smartapp.collage.MediaLocal
+import com.smartapp.collage.OnItemClickListener
+import com.smartapp.collage.RegexUtils
+import com.smartapp.post_like_facebook.EditImageActivity
+import com.sonhvp.utilities.standard.isNotBlankAndNotEmpty
 import com.topceo.R
 import com.topceo.config.MyApplication
 import com.topceo.db.TinyDB
@@ -31,12 +48,14 @@ import com.topceo.group.models.GroupInfo
 import com.topceo.link_preview_2.LinkPreviewCallback
 import com.topceo.link_preview_2.SourceContent
 import com.topceo.link_preview_2.TextCrawler
+import com.topceo.mediaplayer.preview.VideoSelectThumbnailActivity
 import com.topceo.objects.image.ImageItem
 import com.topceo.objects.image.Item
-import com.topceo.objects.image.MyItemData
 import com.topceo.objects.image.LinkPreview
+import com.topceo.objects.image.MyItemData
 import com.topceo.objects.other.User
 import com.topceo.profile.Fragment_5_User_Profile_Grid
+import com.topceo.profile.Fragment_Profile_Owner
 import com.topceo.retrofit.ParserWc
 import com.topceo.retrofit.PostImageParam
 import com.topceo.services.ReturnResult
@@ -45,19 +64,6 @@ import com.topceo.socialspost.facebook.Page
 import com.topceo.socialspost.facebook.PermissionRequest
 import com.topceo.utils.MyUtils
 import com.topceo.utils.ProgressUtils
-import com.facebook.*
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
-import com.google.gson.Gson
-import com.google.gson.JsonObject
-import com.permissionx.guolindev.PermissionX
-import com.smartapp.collage.CollageAdapterUrls
-import com.smartapp.collage.MediaLocal
-import com.smartapp.collage.OnItemClickListener
-import com.smartapp.collage.RegexUtils
-import com.smartapp.post_like_facebook.EditImageActivity
-import com.sonhvp.utilities.standard.isNotBlankAndNotEmpty
-import com.topceo.profile.Fragment_Profile_Owner
 import com.workchat.core.chat.locations.MyLocation
 import com.workchat.core.chat.locations.SearchLocationActivity
 import gun0912.tedimagepicker.builder.TedImagePicker
@@ -68,11 +74,16 @@ import kotlinx.android.synthetic.main.layout_header.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
 
 class PostLikeFacebookActivity : AppCompatActivity() {
+    companion object {
+        const val THUMB_PATH = "THUMB_PATH"
+    }
+
     val context: Context = this
     var groupId: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,13 +102,17 @@ class PostLikeFacebookActivity : AppCompatActivity() {
     }
 
 
-    private var selectedUriList: ArrayList<Uri>? = null
+    private var selectedUriList: ArrayList<Uri>? = ArrayList<Uri>()
     fun isHaveImages(): Boolean {
         return !selectedUriList.isNullOrEmpty()
     }
 
     fun initSelectImage() {
-        permissionCamera()
+        permissionCamera(false)
+    }
+
+    fun initSelectVideo() {
+        permissionCamera(true)
     }
 
 
@@ -180,7 +195,11 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             if (isEdit) {
                 updateDescription()
             } else {//post moi
-                uploadImages()
+                if (isVideo) {
+                    video2CompressVideo(videoPath, photoPath)
+                } else {
+                    uploadImages()
+                }
             }
         }
         txtDes.addTextChangedListener(object : TextWatcher {
@@ -228,6 +247,7 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             txtAddPhoto.setOnClickListener { imgLocation.performClick() }
         } else {
             imgPhoto.setOnClickListener { initSelectImage() }
+            imgVideo.setOnClickListener { initSelectVideo() }
             txtAddPhoto.setOnClickListener { imgPhoto.performClick() }
             imgLocation.setOnClickListener { selectLocation() }
         }
@@ -491,7 +511,8 @@ class PostLikeFacebookActivity : AppCompatActivity() {
     fun restorePost() {
 //        val b = intent.extras
 //        if (b != null) {
-        item = MyApplication.imgEdit //b.getParcelable<Parcelable>(ImageItem.IMAGE_ITEM) as ImageItem?
+        item =
+            MyApplication.imgEdit //b.getParcelable<Parcelable>(ImageItem.IMAGE_ITEM) as ImageItem?
         if (item != null) {
             isEdit = true
 
@@ -663,7 +684,8 @@ class PostLikeFacebookActivity : AppCompatActivity() {
 
 
     private val perms = arrayOf(Manifest.permission.CAMERA)
-    private fun permissionCamera() {
+    private fun permissionCamera(isVideo: Boolean) {
+        this.isVideo = isVideo
         PermissionX.init(this)
             .permissions(*perms)
             .onExplainRequestReason { scope, deniedList ->
@@ -684,15 +706,29 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             }
             .request { allGranted, grantedList, deniedList ->
                 if (allGranted) {
-                    TedImagePicker.with(this)
-                        .mediaType(MediaType.IMAGE)
-                        .dropDownAlbum()
-                        .errorListener { message -> Log.d("ted", "message: $message") }
-                        .selectedUri(selectedUriList)
-                        .startMultiImage { list: List<Uri> ->
-                            selectedUriList = ArrayList(list)
-                            loadImages()
-                        }
+
+                    if (isVideo) {
+                        TedImagePicker.with(this)
+                            .mediaType(MediaType.VIDEO)
+                            .dropDownAlbum()
+                            .errorListener { message -> Log.d("ted", "message: $message") }
+                            .start {
+//                                selectedUriList?.add(it)
+                                video1SelectThumb(it)
+                            }
+
+                    } else {
+                        TedImagePicker.with(this)
+                            .mediaType(MediaType.IMAGE)
+                            .dropDownAlbum()
+                            .errorListener { message -> Log.d("ted", "message: $message") }
+                            .selectedUri(selectedUriList)
+                            .startMultiImage { list: List<Uri> ->
+                                selectedUriList = ArrayList(list)
+                                loadImages()
+                            }
+
+                    }
                 } else {
                     MyUtils.showAlertDialog(this, R.string.deny_permission_notify, true)
                 }
@@ -1010,7 +1046,137 @@ class PostLikeFacebookActivity : AppCompatActivity() {
         }
     }
 
+    //video
+    var isVideo = false
+    var videoPath = ""
+    var photoPath = ""
+    fun video1SelectThumb(videoUri: Uri) {
+        videoPath = MyUtils.getPath(context, videoUri)
 
+        //lay duration
+//        val duration = MyUtils.getDurationOfVideo(this, localPathSelected)
+
+        //neu >1 phut thi vao man hinh trim video
+//        val second = duration / 1000
+        /*if (second > APIConstants.TIME_VIDEO_RECORD_SECOND) {
+            val intent = Intent(this, TrimmerActivity::class.java)
+            intent.putExtra(TrimmerActivity.EXTRA_VIDEO_PATH, localPathSelected)
+            startActivity(intent)
+        } else { //else vao man hinh chon cover
+            val intent = Intent(this, VideoSelectThumbnailActivity::class.java)
+            intent.putExtra(APIConstants.VIDEO_URL, localPathSelected)
+            startActivity(intent)
+        }*/
+
+        val intent = Intent(this, VideoSelectThumbnailActivity::class.java)
+        intent.putExtra(APIConstants.VIDEO_URL, videoPath)
+        resultLauncher.launch(intent)
+    }
+
+    var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data
+                photoPath = data?.getStringExtra(THUMB_PATH) ?: ""
+
+
+                //hien thi anh thumb
+                printFileSize(videoPath, 0)
+                val file = Uri.fromFile(File(photoPath))
+                selectedUriList = ArrayList()
+                selectedUriList!!.add(file)
+                loadImages()
+
+            }
+        }
+
+    fun video2CompressVideo(videoPath: String, thumbPath: String) {
+        enableView(false)
+        ProgressUtils.show(context)
+
+
+        var framerate = 24
+        try {
+            var text = txtDes.text.toString().toLowerCase()
+            if(text.isNotEmpty() && text.contains("framerate", ignoreCase = true)){
+                framerate = text.replace("framerate","").toInt()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        //nen video
+        val start = SystemClock.elapsedRealtime()
+        linearProgress.progress = 0
+        linearProgress.max = 100
+        linearProgress.visibility = View.VISIBLE
+        var strategy = DefaultVideoStrategy.exact(960, 540)
+            .frameRate(framerate)
+            .build()
+        var compressed = MyUtils.createVideoFile(context)
+        Transcoder.into(compressed.absolutePath)
+            .addDataSource(videoPath)
+            .setVideoTrackStrategy(strategy)
+            .setListener(object : TranscoderListener {
+                override fun onTranscodeProgress(progress: Double) {
+                    val number = (progress * 100).toInt()
+//                    MyUtils.log("progress = $number")
+                    linearProgress.progress = number
+                }
+
+                override fun onTranscodeCompleted(successCode: Int) {
+                    val howlong = (SystemClock.elapsedRealtime() - start)/1000
+                    printFileSize(compressed.absolutePath, howlong)
+//                    ProgressUtils.hide()
+                    video3UploadServer(compressed.absolutePath, thumbPath)
+                }
+
+                override fun onTranscodeCanceled() {
+                    linearProgress.setProgress(0)
+                    linearProgress.visibility = View.INVISIBLE
+                    enableView(true)
+                }
+
+                override fun onTranscodeFailed(exception: Throwable) {
+                    linearProgress.setProgress(0)
+                    linearProgress.visibility = View.INVISIBLE
+                    enableView(true)
+                }
+
+            }).transcode()
+
+
+    }
+
+    fun video3UploadServer(videoPath: String, thumbPath: String) {
+        postUtils.uploadVideoToServer(videoPath, thumbPath, videoListener)
+    }
+
+    private val videoListener =
+        UploadVideoListener { GUID, itemContent -> //up file video xong thi upload ket qua cuoi cung len server
+            //co image thi ko truyen phan parse link
+            postToServer(itemContent, GUID, null, groupId)
+        }
+
+    fun printFileSize(path: String, howlong: Long) {
+        val file = File(path)
+        val kb = file.length() / 1024
+        val mb = kb / 1024
+        val msg = if (mb > 0) {
+            "$mb MB"
+        } else {
+            "$kb KB"
+        }
+
+        if(howlong>0) {
+            MyUtils.log("File size = $msg in $howlong seconds")
+        }else{
+            MyUtils.log("File size = $msg")
+        }
+    }
+
+    fun enableView(enable:Boolean){
+        scrollView.isEnabled = enable
+    }
 
 }
 

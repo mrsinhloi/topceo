@@ -34,6 +34,7 @@ import android.provider.Settings.Secure;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.format.Formatter;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Size;
@@ -138,6 +139,30 @@ import io.realm.Realm;
 
 
 public class MyUtils {
+
+    public static ArrayList<Bitmap> extractThumbnail(Context context, String videoPath) {
+        ArrayList<Bitmap> list = new ArrayList<>();
+
+        if (!TextUtils.isEmpty(videoPath)) {
+            long durationSecond = MyUtils.getDurationOfVideo(context, videoPath) / 1000;
+            MediaMetadataRetriever mRetriever = new MediaMetadataRetriever();
+            mRetriever.setDataSource(videoPath);
+
+
+            //don vi tinh bang nano second, 2s lay 1 tam
+            long second = 1000 * 1000;
+            long duration = durationSecond * second;//nano second
+            for (long i = second; i <= duration; i += second * 2) // for incrementing 1s use 1000
+            {
+                if (list.size() > 30) {
+                    break;
+                }
+                list.add(mRetriever.getFrameAtTime(i, MediaMetadataRetriever.OPTION_CLOSEST_SYNC));
+            }
+        }
+
+        return list;
+    }
 
     public static void setForceShowIcon(PopupMenu popupMenu) {
         try {
@@ -567,14 +592,31 @@ public class MyUtils {
                 .show();
     }
 
+    public static void setTextFileInfo(Context context, TextView txt, String videoPath) {
+        if (context != null && txt != null) {
+            File f = new File(videoPath);
+            long bytes = f.length();
+            long durationSecond = MyUtils.getDurationOfVideo(context, videoPath) / 1000;
+            String durationString = MyUtils.formatDuration(durationSecond);
+            String sizeString = Formatter.formatFileSize(context, bytes);
+            String info = "Size: " + sizeString + " - Duration: " + durationString + "s ";
+            txt.setText(info);
+        }
+    }
+
     public static String formatDuration(long second) {
         String duration = "00:00";
         if (second > 0) {
             long minute = second / 60;
             long hour = minute / 60;
             if (hour > 0) {
+                minute = minute % 60;
+                second = second % 60;
                 duration = String.format("%d:%02d:%02d", hour, minute, second);
             } else {
+                if(minute>0){
+                    second = second % 60;
+                }
                 duration = String.format("%02d:%02d", minute, second);
             }
 

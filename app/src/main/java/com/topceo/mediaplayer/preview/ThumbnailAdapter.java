@@ -43,22 +43,13 @@ public class ThumbnailAdapter extends
     private int size = 100;
     private int screenWidth;
 
-    private String videoPath;
-    private MediaMetadataRetriever mRetriever;
-    private long durationSecond;
-
     // Pass in the contact array into the constructor
-    public ThumbnailAdapter(Context context, String path) {
+    public ThumbnailAdapter(Context context, ArrayList<Bitmap> data) {
         mContext = context;
         screenWidth = MyUtils.getScreenWidth(mContext);
 //        size = mContext.getResources().getDimensionPixelSize(R.dimen.dimen_120dp);
         size = screenWidth / VideoSelectThumbnailActivity.NUMBER_COLUMNS;
-
-        videoPath = path;
-        mRetriever = new MediaMetadataRetriever();
-        mRetriever.setDataSource(videoPath);
-        durationSecond = MyUtils.getDurationOfVideo(mContext, videoPath) / 1000;
-        data = extractThumbnail(videoPath);
+        this.data = data;
 
     }
 
@@ -134,62 +125,7 @@ public class ThumbnailAdapter extends
             imgCheck = (ImageView) itemView.findViewById(R.id.imgCheck);
 
         }
-
-
     }
 
-    private ArrayList<Bitmap> extractThumbnail(String videoPath) {
-        ArrayList<Bitmap> list = new ArrayList<>();
 
-        if (!TextUtils.isEmpty(videoPath)) {
-            MediaMetadataRetriever mRetriever = new MediaMetadataRetriever();
-            mRetriever.setDataSource(videoPath);
-
-
-            //don vi tinh bang nano second, 2s lay 1 tam
-            long second = 1000 * 1000;
-            long duration = durationSecond * second;//nano second
-            for (long i = second; i <= duration; i += second * 2) // for incrementing 1s use 1000
-            {
-                if(list.size()>30){
-                    break;
-                }
-                list.add(mRetriever.getFrameAtTime(i, MediaMetadataRetriever.OPTION_CLOSEST_SYNC));
-            }
-        }
-
-        /*if (!TextUtils.isEmpty(videoPath)) {
-            FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
-
-            try {
-                //path of the video of which you want frames
-                mmr.setDataSource(videoPath);
-
-                long duration = mmr.getMetadata().getLong("duration");
-                double frameRate = mmr.getMetadata().getDouble("framerate");
-                int numberOfFrame = (int) (duration/frameRate);
-
-
-                //don vi tinh bang nano second, 2s lay 1 tam
-                long second = 1000 * 1000;
-                for (long i = second; i <= duration; i += second * 2) // for incrementing 1s use 1000
-                {
-                    if(list.size()>30){
-                        break;
-                    }
-                    list.add(mmr.getFrameAtTime(i, FFmpegMediaMetadataRetriever.OPTION_CLOSEST));
-                    MyUtils.log("get image....");
-                }
-
-                mmr.release();
-
-            } catch (Exception e) {
-                System.out.println("Exception= "+e);
-            }
-
-        }*/
-
-
-        return list;
-    }
 }

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -54,10 +55,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/no_media_small" />
-
+    <TextView
+        android:id="@+id/txtInfo"
+        tools:text="Size: 120 MB - Duration: 00:30s"
+        android:textSize="@dimen/font_size_default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_5dp"
+        android:layout_gravity="end"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_marginTop="@dimen/margin_5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

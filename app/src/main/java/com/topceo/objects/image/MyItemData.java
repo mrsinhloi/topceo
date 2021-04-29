@@ -6,8 +6,6 @@ import android.os.Parcelable;
 import io.realm.RealmObject;
 
 public class MyItemData extends RealmObject implements Parcelable {
-    private LinkPreview LinkPreview;
-
     protected MyItemData(Parcel in) {
         LinkPreview = in.readParcelable(com.topceo.objects.image.LinkPreview.class.getClassLoader());
     }
@@ -41,8 +39,11 @@ public class MyItemData extends RealmObject implements Parcelable {
     public void setLinkPreview(com.topceo.objects.image.LinkPreview linkPreview) {
         LinkPreview = linkPreview;
     }
+
+    private LinkPreview LinkPreview;
     public MyItemData() {
     }
+
 
 
 }
