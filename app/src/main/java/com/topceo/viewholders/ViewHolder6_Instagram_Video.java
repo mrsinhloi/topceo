@@ -10,12 +10,18 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.google.android.exoplayer2.ExoPlaybackException;
+import com.master.exoplayer.ExoPlayerHelper;
+import com.master.exoplayer.MasterExoPlayer;
 import com.topceo.R;
+import com.topceo.adapter.FeedAdapter;
 import com.topceo.autoplayvideo.CameraAnimation;
 import com.topceo.autoplayvideo.Video;
 import com.topceo.autoplayvideo.VideoView;
 import com.topceo.objects.image.ImageItem;
 import com.topceo.utils.MyUtils;
+
+import org.jetbrains.annotations.Nullable;
 
 public class ViewHolder6_Instagram_Video extends MyVideoHolder {
     int widthImage;
@@ -28,7 +34,7 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
 
     //IMAGE
     FrameLayout frameLayoutVideo;
-    VideoView vvInfo;
+    public MasterExoPlayer vvInfo;
     ImageView ivInfo;
     ImageView imgSound;
     CameraAnimation ivCameraAnimation;
@@ -37,7 +43,7 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
         if (view != null) {
             View v = LayoutInflater.from(view.getContext()).inflate(R.layout.fragment_1_row_video, null);
             frameLayoutVideo = (FrameLayout) v.findViewById(R.id.frameLayoutVideo);
-            vvInfo = (VideoView) v.findViewById(R.id.vvInfo);
+            vvInfo = (MasterExoPlayer) v.findViewById(R.id.vvInfo);
             ivInfo = (ImageView) v.findViewById(R.id.ivInfo);
             imgSound = (ImageView) v.findViewById(R.id.imgSound);
             ivCameraAnimation = (CameraAnimation) v.findViewById(R.id.ivCameraAnimation);
@@ -74,7 +80,45 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
 
             //neu la video thi: large chua link video, (medium+small) chua cover
             isNeedPlay = true;
-            vvInfo.setVideo(new Video(item.getImageLarge(), 0));
+//            vvInfo.setVideo(new Video(item.getImageLarge(), 0));
+            vvInfo.setUrl(item.getImageLarge());
+            vvInfo.setListener(new ExoPlayerHelper.Listener() {
+                @Override
+                public void onPlayerReady() {
+                    ivCameraAnimation.stop();
+                    ivInfo.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onStart() {
+                    ivCameraAnimation.start();
+                }
+
+                @Override
+                public void onStop() {
+
+                }
+
+                @Override
+                public void onProgress(long l) {
+                    MyUtils.log("progress " + l);
+                }
+
+                @Override
+                public void onError(@Nullable ExoPlaybackException e) {
+//                    MyUtils.log("progress " + e.getMessage());
+                }
+
+                @Override
+                public void onBuffering(boolean b) {
+
+                }
+
+                @Override
+                public void onToggleControllerVisible(boolean b) {
+
+                }
+            });
 
 
             imgSound.setOnClickListener(new View.OnClickListener() {
@@ -118,7 +162,7 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
                 public void onClick(View v) {
                     if (!txt5.isClickMoreLess()) {
                         linearComment.performClick();
-                    }else {
+                    } else {
                         //reset
                         txt5.setClickMoreLess(false);
                     }
@@ -144,9 +188,11 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
 
     public boolean isNeedPlay = false;
     public boolean isMuted = true;
+
+    //todo mute
     public void setMute(boolean isMuted) {
         this.isMuted = isMuted;
-        if (vvInfo != null && vvInfo.getMediaPlayer() != null) {
+        /*if (vvInfo != null && vvInfo.getMediaPlayer() != null) {
             if (isMuted) {
                 vvInfo.getMediaPlayer().setVolume(0, 0);
                 imgSound.setImageResource(R.drawable.ic_volume_off_white_24dp);
@@ -155,20 +201,22 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
                 imgSound.setImageResource(R.drawable.ic_volume_up_white_24dp);
             }
 
-        }
+        }*/
     }
 
     @Override
     public View getVideoLayout() {
         return vvInfo;
     }
+
     @Override
     public void playVideo() {
 
         ivInfo.setVisibility(View.VISIBLE);
         ivCameraAnimation.start();
 
-        vvInfo.play(new VideoView.OnPreparedListener() {
+        //todo mute
+        /*vvInfo.play(new VideoView.OnPreparedListener() {
             @Override
             public void onPrepared() {
                 ivInfo.setVisibility(View.GONE);
@@ -187,12 +235,12 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
                     stopVideo();
                 }
             }
-        });
+        });*/
     }
 
     @Override
     public void stopVideo() {
-        vvInfo.stop();
+//        vvInfo.stop();
         ivInfo.setVisibility(View.VISIBLE);
         ivCameraAnimation.stop();
     }

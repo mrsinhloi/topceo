@@ -25,6 +25,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.master.exoplayer.MasterExoPlayerHelper;
+import com.master.exoplayer.MuteStrategy;
+import com.master.exoplayer.PlayStrategy;
 import com.topceo.BuildConfig;
 import com.topceo.R;
 import com.topceo.activity.MH08_SuggestActivity;
@@ -43,7 +46,7 @@ import com.topceo.services.ReturnResult;
 import com.topceo.services.Webservices;
 import com.topceo.utils.EndlessRecyclerOnScrollListener;
 import com.topceo.utils.MyUtils;
-import com.topceo.viewholders.FeedAdapter;
+import com.topceo.adapter.FeedAdapter;
 import com.topceo.views.AutoPlayVideoRecyclerView;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdSettings;
@@ -459,6 +462,8 @@ public class Fragment_1_Home_SonTung extends Fragment {
             }
         });
 
+
+
         // specify an adapter (see also next example)
         mAdapter = new FeedAdapter(context, isOwnerProfile, owner);
         mAdapter.setShowSuggest(false);
@@ -470,6 +475,10 @@ public class Fragment_1_Home_SonTung extends Fragment {
             }
         }
         rv.setAdapter(mAdapter);
+
+        MasterExoPlayerHelper helper = new MasterExoPlayerHelper(context,R.id.vvInfo,true, PlayStrategy.DEFAULT, MuteStrategy.ALL,true,true,0,2);
+        helper.makeLifeCycleAware(this);
+        helper.attachToRecyclerView(rv);
 
     }
 

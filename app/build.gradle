@@ -30,8 +30,8 @@ android {
         applicationId "com.ehubly.topceo" //==> ehubstar.sontung.mtp
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 18
-        versionName "2.0.18"
+        versionCode 19
+        versionName "2.0.19"
 
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -187,7 +187,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:19.8.0' //ko update
     //core chat da co
     implementation 'com.google.android.gms:play-services-location:18.0.0'
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
 
     //mikepenz
     implementation 'com.mikepenz:google-material-typeface:2.2.0.2.original@aar'
@@ -395,6 +395,9 @@ dependencies {
     implementation 'com.gu.android:toolargetool:0.3.0@aar'
 
     implementation 'com.otaliastudios:transcoder:0.10.3'
+
+    //player
+    implementation 'com.github.pankaj89:MasterExoPlayer:1.4.5'
 }
 androidExtensions {
     experimental = true

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.topceo.R;
+import com.topceo.adapter.FeedAdapter;
 import com.topceo.objects.image.ImageItem;
 import com.topceo.utils.MyUtils;
 

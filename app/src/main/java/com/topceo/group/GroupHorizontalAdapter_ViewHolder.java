@@ -15,7 +15,7 @@ import com.topceo.services.ReturnResult;
 import com.topceo.services.Webservices;
 import com.topceo.utils.MyUtils;
 import com.topceo.utils.SimpleItemDecorator;
-import com.topceo.viewholders.FeedAdapter;
+import com.topceo.adapter.FeedAdapter;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 

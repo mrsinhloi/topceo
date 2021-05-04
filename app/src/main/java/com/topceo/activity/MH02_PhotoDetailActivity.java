@@ -64,6 +64,7 @@ import com.facebook.ads.AdIconView;
 import com.facebook.ads.MediaView;
 import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdListener;
+import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -71,6 +72,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.master.exoplayer.ExoPlayerHelper;
+import com.master.exoplayer.MasterExoPlayer;
 import com.smartapp.collage.CollageAdapterUrls;
 import com.smartapp.collage.MediaLocal;
 import com.smartapp.collage.OnItemClickListener;
@@ -120,6 +123,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
@@ -528,7 +532,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
     @BindView(R.id.frameLayoutVideo)
     FrameLayout frameLayoutVideo;
     @BindView(R.id.vvInfo)
-    VideoView vvInfo;
+    MasterExoPlayer vvInfo;
     @BindView(R.id.ivInfo)
     ImageView ivInfo;
     @BindView(R.id.imgSound)
@@ -762,7 +766,48 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
         vvInfo.setLayoutParams(params);
 
         //neu la video thi: large chua link video, (medium+small) chua cover
-        vvInfo.setVideo(new Video(item.getImageLarge(), 0));
+//        vvInfo.setVideo(new Video(item.getImageLarge(), 0));
+        vvInfo.setUrl(item.getImageLarge());
+        //play
+        ivInfo.setVisibility(View.VISIBLE);
+        vvInfo.setListener(new ExoPlayerHelper.Listener() {
+            @Override
+            public void onPlayerReady() {
+                ivInfo.setVisibility(View.GONE);
+                ivCameraAnimation.stop();
+                setMute();
+            }
+
+            @Override
+            public void onStart() {
+                ivCameraAnimation.start();
+            }
+
+            @Override
+            public void onStop() {
+                ivCameraAnimation.stop();
+            }
+
+            @Override
+            public void onProgress(long l) {
+
+            }
+
+            @Override
+            public void onError(@Nullable ExoPlaybackException e) {
+                ivCameraAnimation.stop();
+            }
+
+            @Override
+            public void onBuffering(boolean b) {
+
+            }
+
+            @Override
+            public void onToggleControllerVisible(boolean b) {
+
+            }
+        });
 
         setMute();
         imgSound.setOnClickListener(new View.OnClickListener() {
@@ -802,23 +847,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
         }
 
 
-        //play
-        ivInfo.setVisibility(View.VISIBLE);
-        ivCameraAnimation.start();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                vvInfo.play(new VideoView.OnPreparedListener() {
-                    @Override
-                    public void onPrepared() {
-                        ivInfo.setVisibility(View.GONE);
-                        ivCameraAnimation.stop();
-                        setMute();
 
-                    }
-                });
-            }
-        }, 3000);
     }
 
     private void whenLike() {
@@ -848,8 +877,9 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
         MyUtils.updateImageItem(context, item, false);
     }
 
+    //todo mute
     private void setMute() {
-        if (vvInfo.getMediaPlayer() != null) {
+        /*if (vvInfo.getMediaPlayer() != null) {
             //refresh giao dien
             if (isMuted) {
                 imgSound.setImageResource(R.drawable.ic_volume_off_white_24dp);
@@ -858,7 +888,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
                 imgSound.setImageResource(R.drawable.ic_volume_up_white_24dp);
                 vvInfo.getMediaPlayer().setVolume(1, 1);
             }
-        }
+        }*/
     }
 
 
@@ -1203,7 +1233,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
 
         if (isVideo) {
             ivCameraAnimation.stop();
-            vvInfo.stop();
+//            vvInfo.stop();
         }
 
         if (realm != null) {

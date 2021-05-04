@@ -1,4 +1,4 @@
-package com.topceo.viewholders;
+package com.topceo.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +35,13 @@ import com.facebook.ads.NativeAdsManager;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.topceo.viewholders.ViewHolder2;
+import com.topceo.viewholders.ViewHolder3;
+import com.topceo.viewholders.ViewHolder4;
+import com.topceo.viewholders.ViewHolder5_Facebook;
+import com.topceo.viewholders.ViewHolder6_Instagram_Image;
+import com.topceo.viewholders.ViewHolder6_Instagram_Video;
+import com.topceo.viewholders.ViewHolder7;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -229,7 +236,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (holder instanceof ViewHolder6_Instagram_Video) {
             ViewHolder6_Instagram_Video h1 = (ViewHolder6_Instagram_Video) holder;
             h1.stopVideo();
-            h1.vvInfo.stop();
+            //todo mute
+//            h1.vvInfo.stop();
         }
     }
 

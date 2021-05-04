@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
-    <com.topceo.autoplayvideo.VideoView
+    <com.master.exoplayer.MasterExoPlayer
         android:id="@+id/vvInfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

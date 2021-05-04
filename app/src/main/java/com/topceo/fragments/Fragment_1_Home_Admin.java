@@ -30,7 +30,7 @@ import com.topceo.objects.other.User;
 import com.topceo.services.Webservices;
 import com.topceo.utils.EndlessRecyclerOnScrollListener;
 import com.topceo.utils.MyUtils;
-import com.topceo.viewholders.FeedAdapter;
+import com.topceo.adapter.FeedAdapter;
 import com.topceo.views.AutoPlayVideoRecyclerView;
 import com.google.android.gms.ads.MobileAds;
 
