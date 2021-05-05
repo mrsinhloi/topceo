@@ -85,38 +85,41 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
             vvInfo.setListener(new ExoPlayerHelper.Listener() {
                 @Override
                 public void onPlayerReady() {
+                    MyUtils.log("masterplayer onPlayerReady");
+                }
+
+                @Override
+                public void onStart() {
+                    MyUtils.log("masterplayer onStart ");
                     ivCameraAnimation.stop();
                     ivInfo.setVisibility(View.GONE);
                 }
 
                 @Override
-                public void onStart() {
-                    ivCameraAnimation.start();
-                }
-
-                @Override
                 public void onStop() {
-
+                    MyUtils.log("masterplayer onStop ");
+                    ivInfo.setVisibility(View.VISIBLE);
                 }
 
                 @Override
                 public void onProgress(long l) {
-                    MyUtils.log("progress " + l);
+                    MyUtils.log("masterplayer progress " + l);
                 }
 
                 @Override
                 public void onError(@Nullable ExoPlaybackException e) {
-//                    MyUtils.log("progress " + e.getMessage());
+                    MyUtils.log("masterplayer onError ");
                 }
 
                 @Override
                 public void onBuffering(boolean b) {
-
+                    ivCameraAnimation.start();
+                    MyUtils.log("masterplayer onBuffering ");
                 }
 
                 @Override
                 public void onToggleControllerVisible(boolean b) {
-
+                    MyUtils.log("masterplayer onToggleControllerVisible ");
                 }
             });
 

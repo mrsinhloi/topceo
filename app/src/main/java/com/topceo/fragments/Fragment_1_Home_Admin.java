@@ -23,6 +23,7 @@ import com.topceo.R;
 import com.topceo.activity.MH08_SuggestActivity;
 import com.topceo.config.MyApplication;
 import com.topceo.analytics.Engagement;
+import com.topceo.config.VideoListConfig;
 import com.topceo.db.TinyDB;
 import com.topceo.login.MH15_SigninActivity;
 import com.topceo.objects.image.ImageItem;
@@ -278,6 +279,7 @@ public class Fragment_1_Home_Admin extends Fragment {
         // specify an adapter (see also next example)
         mAdapter = new FeedAdapter(context, isOwnerProfile, owner);
         rv.setAdapter(mAdapter);
+        VideoListConfig.Companion.configVideoAutoPlaying(context, this, rv);
 
     }
 

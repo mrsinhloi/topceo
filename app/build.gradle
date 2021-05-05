@@ -258,12 +258,6 @@ dependencies {
     //button
     implementation 'com.sackcentury:shinebutton:1.0.0'
 
-    //player ko update
-    def exo_version = '2.11.1'
-    implementation "com.google.android.exoplayer:exoplayer:$exo_version"
-    implementation "com.google.android.exoplayer:exoplayer-dash:$exo_version"
-    implementation "com.google.android.exoplayer:exoplayer-ui:$exo_version"
-
     //indicator
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:3.0.3'
     implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
@@ -396,6 +390,11 @@ dependencies {
 
     implementation 'com.otaliastudios:transcoder:0.10.3'
 
+    //player ko update
+    def exo_version = '2.11.1'
+    implementation "com.google.android.exoplayer:exoplayer:$exo_version"
+    implementation "com.google.android.exoplayer:exoplayer-dash:$exo_version"
+    implementation "com.google.android.exoplayer:exoplayer-ui:$exo_version"
     //player
     implementation 'com.github.pankaj89:MasterExoPlayer:1.4.5'
 }

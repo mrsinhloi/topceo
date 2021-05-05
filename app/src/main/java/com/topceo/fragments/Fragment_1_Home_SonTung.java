@@ -36,6 +36,7 @@ import com.topceo.ads.AdUtils;
 import com.topceo.ads.AdsAppModel;
 import com.topceo.analytics.Engagement;
 import com.topceo.config.MyApplication;
+import com.topceo.config.VideoListConfig;
 import com.topceo.db.TinyDB;
 import com.topceo.group.models.GroupInfo;
 import com.topceo.login.MH15_SigninActivity;
@@ -463,7 +464,6 @@ public class Fragment_1_Home_SonTung extends Fragment {
         });
 
 
-
         // specify an adapter (see also next example)
         mAdapter = new FeedAdapter(context, isOwnerProfile, owner);
         mAdapter.setShowSuggest(false);
@@ -475,12 +475,15 @@ public class Fragment_1_Home_SonTung extends Fragment {
             }
         }
         rv.setAdapter(mAdapter);
-
-        MasterExoPlayerHelper helper = new MasterExoPlayerHelper(context,R.id.vvInfo,true, PlayStrategy.DEFAULT, MuteStrategy.ALL,true,true,0,2);
-        helper.makeLifeCycleAware(this);
-        helper.attachToRecyclerView(rv);
+        VideoListConfig.Companion.configVideoAutoPlaying(context, this, rv);
 
     }
+
+    /*private static void configVideoAutoPlaying(Context context, Fragment fragment, AutoPlayVideoRecyclerView rv) {
+        MasterExoPlayerHelper helper = new MasterExoPlayerHelper(context, R.id.vvInfo, true, 0.65f, MuteStrategy.ALL, true, false, 0, Integer.MAX_VALUE);
+        helper.makeLifeCycleAware(fragment);
+        helper.attachToRecyclerView(rv);
+    }*/
 
 
     //List position de kiem tra xem item nay da xem thi ko ghi nhan nua

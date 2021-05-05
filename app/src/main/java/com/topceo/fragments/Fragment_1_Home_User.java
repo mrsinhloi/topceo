@@ -30,6 +30,7 @@ import com.topceo.ads.AdUtils;
 import com.topceo.ads.AdsAppModel;
 import com.topceo.analytics.Engagement;
 import com.topceo.config.MyApplication;
+import com.topceo.config.VideoListConfig;
 import com.topceo.db.TinyDB;
 import com.topceo.group.models.GroupInfo;
 import com.topceo.login.MH15_SigninActivity;
@@ -404,6 +405,7 @@ public class Fragment_1_Home_User extends Fragment {
             mAdapter.setCanPost(isCanPost, GroupInfo.GROUP_PERSONAL);
         }
         rv.setAdapter(mAdapter);
+        VideoListConfig.Companion.configVideoAutoPlaying(context, this, rv);
 
     }
 
