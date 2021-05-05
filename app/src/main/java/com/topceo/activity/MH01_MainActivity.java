@@ -42,6 +42,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
@@ -676,10 +677,10 @@ public class MH01_MainActivity extends AppCompatActivity {
     private MyFragmentAdapter adapter;
 
 
-    private class MyFragmentAdapter extends FragmentPagerAdapter {
+    private class MyFragmentAdapter extends FragmentStatePagerAdapter {
 
         public MyFragmentAdapter(FragmentManager fm) {
-            super(fm);
+            super(fm, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         }
 
         @Override

@@ -19,10 +19,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.androidnetworking.error.ANError;
+import com.master.exoplayer.MasterExoPlayerHelper;
 import com.topceo.R;
 import com.topceo.activity.MH08_SuggestActivity;
 import com.topceo.config.MyApplication;
 import com.topceo.analytics.Engagement;
+import com.topceo.config.MyExtentionsKt;
 import com.topceo.config.VideoListConfig;
 import com.topceo.db.TinyDB;
 import com.topceo.login.MH15_SigninActivity;
@@ -60,7 +62,7 @@ public class Fragment_1_Home_Admin extends Fragment {
 
     private Context context;
     @BindView(R.id.rv)
-    AutoPlayVideoRecyclerView rv;
+    RecyclerView rv;
     @BindView(R.id.list_empty)
     TextView empty;
     @BindView(R.id.imgEmptyView)
@@ -279,9 +281,10 @@ public class Fragment_1_Home_Admin extends Fragment {
         // specify an adapter (see also next example)
         mAdapter = new FeedAdapter(context, isOwnerProfile, owner);
         rv.setAdapter(mAdapter);
-        VideoListConfig.Companion.configVideoAutoPlaying(context, this, rv);
+        helper = VideoListConfig.Companion.configVideoAutoPlaying(context, this, rv);
 
     }
+    MasterExoPlayerHelper helper;
 
     //List position de kiem tra xem item nay da xem thi ko ghi nhan nua
     private ArrayList<Integer> listPosition = new ArrayList<>();
@@ -447,12 +450,12 @@ public class Fragment_1_Home_Admin extends Fragment {
 
                 if (intent.getAction().equalsIgnoreCase(ACTION_SET_FRAGMENT_IN_PROFILE_MUTE)) {
                     if (isFromProfile) {
-                        requestStopVideo(true);
+//                        requestStopVideo(true);
                     }
                 }
 
                 if (intent.getAction().equalsIgnoreCase(ACTION_SET_MUTE_ALL)) {
-                    requestStopVideo(true);
+//                    requestStopVideo(true);
                 }
 
             }
@@ -660,31 +663,12 @@ public class Fragment_1_Home_Admin extends Fragment {
 
 
     @Override
-    public void onStop() {
-        super.onStop();
-        requestStopVideo(true);
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
-        requestStopVideo(true);
-
         //goi thong tin ve server
         MyApplication.getInstance().sendAnalyticToServer();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        requestStopVideo(false);
-    }
-
-    private void requestStopVideo(boolean isStop) {
-        if (mAdapter != null) {
-            mAdapter.stopPlayVideo(isStop);
-        }
-    }
 
 
     //https://stackoverflow.com/questions/10024739/how-to-determine-when-fragment-becomes-visible-in-viewpager
@@ -700,11 +684,15 @@ public class Fragment_1_Home_Admin extends Fragment {
             fragmentResume = true;
             fragmentVisible = false;
             fragmentOnCreated = true;
-            requestStopVideo(false);
+//            requestStopVideo(false);
 
-            if (rv != null && rv.getHandingVideoHolder() != null) {
+            /*if (rv != null && rv.getHandingVideoHolder() != null) {
                 rv.getHandingVideoHolder().playVideo();
+            }*/
+            if(helper!=null) {
+                helper.getExoPlayerHelper().play();
             }
+
 //            MyUtils.showToastDebug(getContext(), "resume " + isVisibleToUser);
         } else if (isVisibleToUser) {        // only at fragment onCreated
             fragmentResume = false;
@@ -715,9 +703,14 @@ public class Fragment_1_Home_Admin extends Fragment {
             fragmentVisible = false;
             fragmentResume = false;
 //            MyUtils.showToastDebug(getContext(), "go out " + isVisibleToUser);
-            requestStopVideo(true);
-            if (rv != null && rv.getHandingVideoHolder() != null) {
+//            requestStopVideo(true);
+
+            //todo stop video
+            /*if (rv != null && rv.getHandingVideoHolder() != null) {
                 rv.getHandingVideoHolder().stopVideo();
+            }*/
+            if(helper!=null) {
+                helper.getExoPlayerHelper().pause();
             }
         }
 

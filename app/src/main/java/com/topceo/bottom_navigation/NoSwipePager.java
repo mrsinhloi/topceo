@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 public class NoSwipePager extends ViewPager {
     public NoSwipePager(@NonNull Context context) {

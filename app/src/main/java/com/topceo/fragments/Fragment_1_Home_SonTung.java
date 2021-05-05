@@ -36,6 +36,7 @@ import com.topceo.ads.AdUtils;
 import com.topceo.ads.AdsAppModel;
 import com.topceo.analytics.Engagement;
 import com.topceo.config.MyApplication;
+import com.topceo.config.MyExtentionsKt;
 import com.topceo.config.VideoListConfig;
 import com.topceo.db.TinyDB;
 import com.topceo.group.models.GroupInfo;
@@ -112,7 +113,7 @@ public class Fragment_1_Home_SonTung extends Fragment {
 
     private Context context;
     @BindView(R.id.rv)
-    AutoPlayVideoRecyclerView rv;
+    RecyclerView rv; //AutoPlayVideoRecyclerView
     @BindView(R.id.list_empty)
     TextView empty;
     @BindView(R.id.imgEmptyView)
@@ -475,9 +476,10 @@ public class Fragment_1_Home_SonTung extends Fragment {
             }
         }
         rv.setAdapter(mAdapter);
-        VideoListConfig.Companion.configVideoAutoPlaying(context, this, rv);
+        helper = VideoListConfig.Companion.configVideoAutoPlaying(context, this, rv);
 
     }
+    MasterExoPlayerHelper helper;
 
     /*private static void configVideoAutoPlaying(Context context, Fragment fragment, AutoPlayVideoRecyclerView rv) {
         MasterExoPlayerHelper helper = new MasterExoPlayerHelper(context, R.id.vvInfo, true, 0.65f, MuteStrategy.ALL, true, false, 0, Integer.MAX_VALUE);
@@ -661,10 +663,10 @@ public class Fragment_1_Home_SonTung extends Fragment {
                     }
                 } else if (intent.getAction().equalsIgnoreCase(ACTION_SET_FRAGMENT_IN_PROFILE_MUTE)) {
                     if (isFromProfile) {
-                        requestStopVideo(true);
+//                        requestStopVideo(true);
                     }
                 } else if (intent.getAction().equalsIgnoreCase(ACTION_SET_MUTE_ALL)) {
-                    requestStopVideo(true);
+//                    requestStopVideo(true);
                 }
 
             }
@@ -988,31 +990,12 @@ public class Fragment_1_Home_SonTung extends Fragment {
 
 
     @Override
-    public void onStop() {
-        super.onStop();
-        requestStopVideo(true);
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
-        requestStopVideo(true);
-
         //goi thong tin ve server
         MyApplication.getInstance().sendAnalyticToServer();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        requestStopVideo(false);
-    }
-
-    private void requestStopVideo(boolean isStop) {
-        if (mAdapter != null) {
-            mAdapter.stopPlayVideo(isStop);
-        }
-    }
 
 
     //https://stackoverflow.com/questions/10024739/how-to-determine-when-fragment-becomes-visible-in-viewpager
@@ -1028,11 +1011,13 @@ public class Fragment_1_Home_SonTung extends Fragment {
             fragmentResume = true;
             fragmentVisible = false;
             fragmentOnCreated = true;
-            requestStopVideo(false);
 
-            if (rv != null && rv.getHandingVideoHolder() != null) {
+            VideoListConfig.Companion.play(helper);
+//            requestStopVideo(false);
+            /*if (rv != null && rv.getHandingVideoHolder() != null) {
                 rv.getHandingVideoHolder().playVideo();
-            }
+            }*/
+
 //            MyUtils.showToastDebug(getContext(), "resume " + isVisibleToUser);
             //vao lai thi dong bo lai, neu dang hien thi thoi
             if (txtHaveNewPost.getVisibility() == View.GONE) {
@@ -1047,10 +1032,14 @@ public class Fragment_1_Home_SonTung extends Fragment {
             fragmentVisible = false;
             fragmentResume = false;
 //            MyUtils.showToastDebug(getContext(), "go out " + isVisibleToUser);
-            requestStopVideo(true);
-            if (rv != null && rv.getHandingVideoHolder() != null) {
+//            requestStopVideo(true);
+
+            //todo stop video
+            /*if (rv != null && rv.getHandingVideoHolder() != null) {
                 rv.getHandingVideoHolder().stopVideo();
-            }
+            }*/
+            VideoListConfig.Companion.pause(helper);
+
         }
 
     }

@@ -43,7 +43,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.topceo.views.AutoPlayVideoRecyclerView
+            <!--com.topceo.views.AutoPlayVideoRecyclerView-->
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

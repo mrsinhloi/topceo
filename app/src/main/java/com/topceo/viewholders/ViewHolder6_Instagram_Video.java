@@ -74,23 +74,21 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
             linear3.setVisibility(View.VISIBLE);
             HolderUtils.setDescription(item.getDescription(), txt5, context);
 
-            if (adapter != null && adapter.isActivityStop) {
-                stopVideo();
-            }
-
             //neu la video thi: large chua link video, (medium+small) chua cover
-            isNeedPlay = true;
 //            vvInfo.setVideo(new Video(item.getImageLarge(), 0));
             vvInfo.setUrl(item.getImageLarge());
             vvInfo.setListener(new ExoPlayerHelper.Listener() {
                 @Override
                 public void onPlayerReady() {
                     MyUtils.log("masterplayer onPlayerReady");
+                    imgSound.setVisibility(View.VISIBLE);
+                    setMute();
                 }
 
                 @Override
                 public void onStart() {
                     MyUtils.log("masterplayer onStart ");
+                    ivCameraAnimation.setVisibility(View.GONE);
                     ivCameraAnimation.stop();
                     ivInfo.setVisibility(View.GONE);
                 }
@@ -99,6 +97,7 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
                 public void onStop() {
                     MyUtils.log("masterplayer onStop ");
                     ivInfo.setVisibility(View.VISIBLE);
+                    imgSound.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -113,6 +112,7 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
 
                 @Override
                 public void onBuffering(boolean b) {
+                    ivCameraAnimation.setVisibility(View.VISIBLE);
                     ivCameraAnimation.start();
                     MyUtils.log("masterplayer onBuffering ");
                 }
@@ -127,8 +127,8 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
             imgSound.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    isMuted = !isMuted;
-                    setMute(isMuted);
+                    vvInfo.setMute(!vvInfo.isMute());
+                    setMute();
                 }
             });
 
@@ -153,7 +153,6 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
             }
 
             //icon mute
-            setMute(isMuted);
             frameLayoutVideo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -189,12 +188,7 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
     }
 
 
-    public boolean isNeedPlay = false;
-    public boolean isMuted = true;
-
-    //todo mute
-    public void setMute(boolean isMuted) {
-        this.isMuted = isMuted;
+    public void setMute() {
         /*if (vvInfo != null && vvInfo.getMediaPlayer() != null) {
             if (isMuted) {
                 vvInfo.getMediaPlayer().setVolume(0, 0);
@@ -205,6 +199,13 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
             }
 
         }*/
+        if (vvInfo != null) {
+            if (vvInfo.isMute()) {
+                imgSound.setImageResource(R.drawable.ic_volume_off_white_24dp);
+            } else {
+                imgSound.setImageResource(R.drawable.ic_volume_up_white_24dp);
+            }
+        }
     }
 
     @Override
@@ -243,7 +244,7 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
 
     @Override
     public void stopVideo() {
-//        vvInfo.stop();
+//        vvInfo.getPlayerView().getPlayer().stop();
         ivInfo.setVisibility(View.VISIBLE);
         ivCameraAnimation.stop();
     }

@@ -202,7 +202,8 @@
 
         <include layout="@layout/layout_add_post" />
 
-        <com.topceo.views.AutoPlayVideoRecyclerView
+        <!--com.topceo.views.AutoPlayVideoRecyclerView-->
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvFeed"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

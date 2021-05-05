@@ -19,6 +19,7 @@ import com.topceo.ads.AdConfigModel;
 import com.topceo.ads.AdUtils;
 import com.topceo.ads.AdsAppModel;
 import com.topceo.config.MyApplication;
+import com.topceo.config.MyExtentionsKt;
 import com.topceo.fragments.Fragment_1_Home_Admin;
 import com.topceo.fragments.Fragment_1_Home_SonTung;
 import com.topceo.fragments.Fragment_1_Home_User;
@@ -43,6 +44,8 @@ import com.topceo.viewholders.ViewHolder6_Instagram_Image;
 import com.topceo.viewholders.ViewHolder6_Instagram_Video;
 import com.topceo.viewholders.ViewHolder7;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -52,26 +55,6 @@ import bolts.Task;
 
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public ArrayList<ImageItem> mDataset = new ArrayList<>();
-    public boolean isActivityStop = false;
-
-    public void stopPlayVideo(boolean isActivityStop) {
-        this.isActivityStop = isActivityStop;
-        //KHI STOP THI MOI NOTIFY LAI ADAPTER, KHI RESUME THI CHI SET LAI BIEN VE FALSE KO UPDATE ADAPTER
-        if (isActivityStop) {
-            //stop all
-//            notifyDataSetChanged();
-            if(mDataset!=null && mDataset.size()>0){
-                for (int i = 0; i < mDataset.size(); i++) {
-                    ImageItem item = mDataset.get(i);
-                    if(item.isVideo()){
-                        notifyItemChanged(i);
-                    }
-                }
-            }
-        }
-
-    }
-
     @Override
     public int getItemViewType(int position) {
         ImageItem item = mDataset.get(position);
@@ -912,8 +895,22 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     }
 
-
     ////////////////////////////////////////////////////////////////////////////////////////////
+    /*public void playVideo(RecyclerView rv) {
+        *//*if(rv!=null){
+            int currentPosition = MyExtentionsKt.getCurrentPostion(rv);
+            notifyItemChanged(currentPosition);
+        }*//*
+    }
+    public void stopVideo(RecyclerView rv) {
+        *//*if(rv!=null){
+            int currentPosition = MyExtentionsKt.getCurrentPostion(rv);
+            ImageItem item = mDataset.get(currentPosition);
+            if(item.isVideo()){
+
+            }
+        }*//*
+    }*/
 
 
 }

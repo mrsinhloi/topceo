@@ -22,6 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.master.exoplayer.MasterExoPlayerHelper;
 import com.topceo.BuildConfig;
 import com.topceo.R;
 import com.topceo.activity.MH08_SuggestActivity;
@@ -96,7 +97,7 @@ public class Fragment_1_Home_User extends Fragment {
 
     private Context context;
     @BindView(R.id.rv)
-    AutoPlayVideoRecyclerView rv;
+    RecyclerView rv;
     @BindView(R.id.list_empty)
     TextView empty;
     @BindView(R.id.imgEmptyView)
@@ -405,9 +406,10 @@ public class Fragment_1_Home_User extends Fragment {
             mAdapter.setCanPost(isCanPost, GroupInfo.GROUP_PERSONAL);
         }
         rv.setAdapter(mAdapter);
-        VideoListConfig.Companion.configVideoAutoPlaying(context, this, rv);
+        helper = VideoListConfig.Companion.configVideoAutoPlaying(context, this, rv);
 
     }
+    MasterExoPlayerHelper helper;
 
     //List position de kiem tra xem item nay da xem thi ko ghi nhan nua
     private ArrayList<Integer> listPosition = new ArrayList<>();
@@ -576,12 +578,12 @@ public class Fragment_1_Home_User extends Fragment {
 
                 if (intent.getAction().equalsIgnoreCase(ACTION_SET_FRAGMENT_IN_PROFILE_MUTE)) {
                     if (isFromProfile) {
-                        requestStopVideo(true);
+//                        requestStopVideo(true);
                     }
                 }
 
                 if (intent.getAction().equalsIgnoreCase(ACTION_SET_MUTE_ALL)) {
-                    requestStopVideo(true);
+//                    requestStopVideo(true);
                 }
 
             }
@@ -883,30 +885,10 @@ public class Fragment_1_Home_User extends Fragment {
 
 
     @Override
-    public void onStop() {
-        super.onStop();
-        requestStopVideo(true);
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
-        requestStopVideo(true);
-
         //goi thong tin ve server
         MyApplication.getInstance().sendAnalyticToServer();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        requestStopVideo(false);
-    }
-
-    private void requestStopVideo(boolean isStop) {
-        if (mAdapter != null) {
-            mAdapter.stopPlayVideo(isStop);
-        }
     }
 
 
@@ -923,11 +905,12 @@ public class Fragment_1_Home_User extends Fragment {
             fragmentResume = true;
             fragmentVisible = false;
             fragmentOnCreated = true;
-            requestStopVideo(false);
+//            requestStopVideo(false);
 
-            if (rv != null && rv.getHandingVideoHolder() != null) {
+            /*if (rv != null && rv.getHandingVideoHolder() != null) {
                 rv.getHandingVideoHolder().playVideo();
-            }
+            }*/
+            VideoListConfig.Companion.play(helper);
 
             //kiem tra co promotion cho man hinh MTP thi hien len
             PromotionScreen.navigationScreen(context, PromotionScreen.HOME);
@@ -942,13 +925,15 @@ public class Fragment_1_Home_User extends Fragment {
             fragmentVisible = false;
             fragmentResume = false;
 //            MyUtils.showToastDebug(getContext(), "go out " + isVisibleToUser);
-            requestStopVideo(true);
-            if (rv != null && rv.getHandingVideoHolder() != null) {
+//            requestStopVideo(true);
+            /*if (rv != null && rv.getHandingVideoHolder() != null) {
                 rv.getHandingVideoHolder().stopVideo();
-            }
+            }*/
+            VideoListConfig.Companion.pause(helper);
         }
 
     }
+
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
