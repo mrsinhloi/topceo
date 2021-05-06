@@ -64,7 +64,6 @@ import com.facebook.ads.AdIconView;
 import com.facebook.ads.MediaView;
 import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdListener;
-import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -72,9 +71,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.master.exoplayer.ExoPlayerHelper;
 import com.master.exoplayer.MasterExoPlayer;
-import com.master.exoplayer.MuteStrategy;
+import com.master.exoplayer.MasterExoPlayerHelper;
 import com.smartapp.collage.CollageAdapterUrls;
 import com.smartapp.collage.MediaLocal;
 import com.smartapp.collage.OnItemClickListener;
@@ -83,12 +81,9 @@ import com.topceo.ads.AdConfigModel;
 import com.topceo.ads.AdUtils;
 import com.topceo.ads.AdsAppModel;
 import com.topceo.autoplayvideo.CameraAnimation;
-import com.topceo.autoplayvideo.Video;
-import com.topceo.autoplayvideo.VideoView;
 import com.topceo.chat.ChatUtils;
 import com.topceo.chat.MainChatActivity;
 import com.topceo.comments.CommentAdapterSectionParent_ImageComment;
-import com.topceo.config.MasterExoPlayerHelper;
 import com.topceo.config.MyApplication;
 import com.topceo.config.VideoListConfig;
 import com.topceo.db.TinyDB;
@@ -99,8 +94,8 @@ import com.topceo.objects.db.ImageItemDB;
 import com.topceo.objects.image.ImageComment;
 import com.topceo.objects.image.ImageItem;
 import com.topceo.objects.image.Item;
-import com.topceo.objects.image.MyItemData;
 import com.topceo.objects.image.LinkPreview;
+import com.topceo.objects.image.MyItemData;
 import com.topceo.objects.other.User;
 import com.topceo.objects.other.UserShort;
 import com.topceo.profile.Fragment_5_User_Profile_Grid;
@@ -126,7 +121,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
@@ -134,7 +128,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import bolts.Continuation;
 import bolts.Task;
@@ -1980,7 +1973,6 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
     }
 
 
-    MasterExoPlayerHelper helper;
     private void initVideoPost() {
         isVideo = true;
 
@@ -1996,8 +1988,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
         //neu la video thi: large chua link video, (medium+small) chua cover
 //        vvInfo.setVideo(new Video(item.getImageLarge(), 0));
         vvInfo.setUrl(item.getImageLarge());
-        helper = VideoListConfig.Companion.configVideoAutoPlaying(context, this, null);
-        helper.play(frameLayoutVideo);
+
 
 
 
