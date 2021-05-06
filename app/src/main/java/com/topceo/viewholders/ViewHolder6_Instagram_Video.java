@@ -18,6 +18,7 @@ import com.topceo.adapter.FeedAdapter;
 import com.topceo.autoplayvideo.CameraAnimation;
 import com.topceo.autoplayvideo.Video;
 import com.topceo.autoplayvideo.VideoView;
+import com.topceo.config.VideoListConfig;
 import com.topceo.objects.image.ImageItem;
 import com.topceo.utils.MyUtils;
 
@@ -77,58 +78,14 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
             //neu la video thi: large chua link video, (medium+small) chua cover
 //            vvInfo.setVideo(new Video(item.getImageLarge(), 0));
             vvInfo.setUrl(item.getImageLarge());
-            vvInfo.setListener(new ExoPlayerHelper.Listener() {
-                @Override
-                public void onPlayerReady() {
-                    MyUtils.log("masterplayer onPlayerReady");
-                    imgSound.setVisibility(View.VISIBLE);
-                    setMute();
-                }
-
-                @Override
-                public void onStart() {
-                    MyUtils.log("masterplayer onStart ");
-                    ivCameraAnimation.setVisibility(View.GONE);
-                    ivCameraAnimation.stop();
-                    ivInfo.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onStop() {
-                    MyUtils.log("masterplayer onStop ");
-                    ivInfo.setVisibility(View.VISIBLE);
-                    imgSound.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onProgress(long l) {
-                    MyUtils.log("masterplayer progress " + l);
-                }
-
-                @Override
-                public void onError(@Nullable ExoPlaybackException e) {
-                    MyUtils.log("masterplayer onError ");
-                }
-
-                @Override
-                public void onBuffering(boolean b) {
-                    ivCameraAnimation.setVisibility(View.VISIBLE);
-                    ivCameraAnimation.start();
-                    MyUtils.log("masterplayer onBuffering ");
-                }
-
-                @Override
-                public void onToggleControllerVisible(boolean b) {
-                    MyUtils.log("masterplayer onToggleControllerVisible ");
-                }
-            });
+            VideoListConfig.Companion.configListener(vvInfo, imgSound, ivCameraAnimation, ivInfo);
 
 
             imgSound.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     vvInfo.setMute(!vvInfo.isMute());
-                    setMute();
+                    VideoListConfig.Companion.setMute(vvInfo, imgSound);
                 }
             });
 
@@ -187,18 +144,56 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
         }
     }
 
-
-    public void setMute() {
-        /*if (vvInfo != null && vvInfo.getMediaPlayer() != null) {
-            if (isMuted) {
-                vvInfo.getMediaPlayer().setVolume(0, 0);
-                imgSound.setImageResource(R.drawable.ic_volume_off_white_24dp);
-            } else {
-                vvInfo.getMediaPlayer().setVolume(1, 1);
-                imgSound.setImageResource(R.drawable.ic_volume_up_white_24dp);
+    /*private void configListener(MasterExoPlayer vvInfo, ImageView imgSound, CameraAnimation ivCameraAnimation, ImageView ivInfo) {
+        vvInfo.setListener(new ExoPlayerHelper.Listener() {
+            @Override
+            public void onPlayerReady() {
+                MyUtils.log("masterplayer onPlayerReady");
+                imgSound.setVisibility(View.VISIBLE);
+                VideoListConfig.Companion.setMute(vvInfo, imgSound);
             }
 
-        }*/
+            @Override
+            public void onStart() {
+                MyUtils.log("masterplayer onStart ");
+                ivCameraAnimation.setVisibility(View.GONE);
+                ivCameraAnimation.stop();
+                ivInfo.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onStop() {
+                MyUtils.log("masterplayer onStop ");
+                ivInfo.setVisibility(View.VISIBLE);
+                imgSound.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onProgress(long l) {
+                MyUtils.log("masterplayer progress " + l);
+            }
+
+            @Override
+            public void onError(@Nullable ExoPlaybackException e) {
+                MyUtils.log("masterplayer onError ");
+            }
+
+            @Override
+            public void onBuffering(boolean b) {
+                ivCameraAnimation.setVisibility(View.VISIBLE);
+                ivCameraAnimation.start();
+                MyUtils.log("masterplayer onBuffering ");
+            }
+
+            @Override
+            public void onToggleControllerVisible(boolean b) {
+                MyUtils.log("masterplayer onToggleControllerVisible ");
+            }
+        });
+    }*/
+
+
+    /*public void setMute(MasterExoPlayer vvInfo, ImageView imgSound) {
         if (vvInfo != null) {
             if (vvInfo.isMute()) {
                 imgSound.setImageResource(R.drawable.ic_volume_off_white_24dp);
@@ -206,7 +201,7 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
                 imgSound.setImageResource(R.drawable.ic_volume_up_white_24dp);
             }
         }
-    }
+    }*/
 
     @Override
     public View getVideoLayout() {

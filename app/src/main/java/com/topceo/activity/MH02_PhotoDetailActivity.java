@@ -74,6 +74,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.master.exoplayer.ExoPlayerHelper;
 import com.master.exoplayer.MasterExoPlayer;
+import com.master.exoplayer.MuteStrategy;
 import com.smartapp.collage.CollageAdapterUrls;
 import com.smartapp.collage.MediaLocal;
 import com.smartapp.collage.OnItemClickListener;
@@ -87,7 +88,9 @@ import com.topceo.autoplayvideo.VideoView;
 import com.topceo.chat.ChatUtils;
 import com.topceo.chat.MainChatActivity;
 import com.topceo.comments.CommentAdapterSectionParent_ImageComment;
+import com.topceo.config.MasterExoPlayerHelper;
 import com.topceo.config.MyApplication;
+import com.topceo.config.VideoListConfig;
 import com.topceo.db.TinyDB;
 import com.topceo.eventbus.EventImageComment;
 import com.topceo.fragments.Fragment_1_Home_User;
@@ -131,6 +134,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import bolts.Continuation;
 import bolts.Task;
@@ -540,7 +544,6 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
     @BindView(R.id.ivCameraAnimation)
     CameraAnimation ivCameraAnimation;
 
-    private boolean isMuted = true;
     private boolean isVideo = false;
 
     private void setUI() {
@@ -753,102 +756,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void initVideoPost() {
-        isVideo = true;
 
-        frameLayoutImage.setVisibility(View.GONE);
-        frameLayoutVideo.setVisibility(View.VISIBLE);
-        frameLayoutFacebook.setVisibility(View.GONE);
-
-        int heightImage = item.getNeedHeightImage(widthImage);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(widthImage, heightImage);
-//                    params.setMargins(roundCorner, 0, roundCorner, roundCorner);
-        vvInfo.setLayoutParams(params);
-
-        //neu la video thi: large chua link video, (medium+small) chua cover
-//        vvInfo.setVideo(new Video(item.getImageLarge(), 0));
-        vvInfo.setUrl(item.getImageLarge());
-        //play
-        ivInfo.setVisibility(View.VISIBLE);
-        vvInfo.setListener(new ExoPlayerHelper.Listener() {
-            @Override
-            public void onPlayerReady() {
-                ivInfo.setVisibility(View.GONE);
-                ivCameraAnimation.stop();
-                setMute();
-            }
-
-            @Override
-            public void onStart() {
-                ivCameraAnimation.start();
-            }
-
-            @Override
-            public void onStop() {
-                ivCameraAnimation.stop();
-            }
-
-            @Override
-            public void onProgress(long l) {
-
-            }
-
-            @Override
-            public void onError(@Nullable ExoPlaybackException e) {
-                ivCameraAnimation.stop();
-            }
-
-            @Override
-            public void onBuffering(boolean b) {
-
-            }
-
-            @Override
-            public void onToggleControllerVisible(boolean b) {
-
-            }
-        });
-
-        setMute();
-        imgSound.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isMuted = !isMuted;
-
-                setMute();
-            }
-        });
-
-
-        //set hinh
-        heightImage = item.getNeedHeightImage(widthImage);
-        params = new FrameLayout.LayoutParams(widthImage, heightImage);
-//                    params.setMargins(roundCorner, 0, roundCorner, roundCorner);
-        ivInfo.setLayoutParams(params);
-
-
-        String img = item.getImageMedium();
-        if (!TextUtils.isEmpty(img)) {
-//                        loading.setVisibility(View.GONE);
-            Glide.with(context)
-                    .load(img)//images[position%images.length]
-//                                .apply(RequestOptions.bitmapTransform(new RoundedCorners(roundCorner)))
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                    .priority(Priority.HIGH)
-                    .override(widthImage, heightImage)
-                    .into(ivInfo);
-        } else {
-            Glide.with(context)
-                    .load(R.drawable.no_media)//images[position%images.length]
-                    .override(widthImage, widthImage)
-                    .into(ivInfo)
-            ;
-        }
-
-
-
-    }
 
     private void whenLike() {
 
@@ -877,19 +785,6 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
         MyUtils.updateImageItem(context, item, false);
     }
 
-    //todo mute
-    private void setMute() {
-        /*if (vvInfo.getMediaPlayer() != null) {
-            //refresh giao dien
-            if (isMuted) {
-                imgSound.setImageResource(R.drawable.ic_volume_off_white_24dp);
-                vvInfo.getMediaPlayer().setVolume(0, 0);
-            } else {
-                imgSound.setImageResource(R.drawable.ic_volume_up_white_24dp);
-                vvInfo.getMediaPlayer().setVolume(1, 1);
-            }
-        }*/
-    }
 
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -2084,6 +1979,70 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
         }
     }
 
+
+    MasterExoPlayerHelper helper;
+    private void initVideoPost() {
+        isVideo = true;
+
+        frameLayoutImage.setVisibility(View.GONE);
+        frameLayoutVideo.setVisibility(View.VISIBLE);
+        frameLayoutFacebook.setVisibility(View.GONE);
+
+        int heightImage = item.getNeedHeightImage(widthImage);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(widthImage, heightImage);
+//                    params.setMargins(roundCorner, 0, roundCorner, roundCorner);
+        vvInfo.setLayoutParams(params);
+
+        //neu la video thi: large chua link video, (medium+small) chua cover
+//        vvInfo.setVideo(new Video(item.getImageLarge(), 0));
+        vvInfo.setUrl(item.getImageLarge());
+        helper = VideoListConfig.Companion.configVideoAutoPlaying(context, this, null);
+        helper.play(frameLayoutVideo);
+
+
+
+        //play
+        ivInfo.setVisibility(View.VISIBLE);
+        VideoListConfig.Companion.configListener(vvInfo, imgSound, ivCameraAnimation, ivInfo);
+
+        imgSound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vvInfo.setMute(!vvInfo.isMute());
+                VideoListConfig.Companion.setMute(vvInfo, imgSound);
+            }
+        });
+
+
+        //set hinh
+        heightImage = item.getNeedHeightImage(widthImage);
+        params = new FrameLayout.LayoutParams(widthImage, heightImage);
+//                    params.setMargins(roundCorner, 0, roundCorner, roundCorner);
+        ivInfo.setLayoutParams(params);
+
+
+        String img = item.getImageMedium();
+        if (!TextUtils.isEmpty(img)) {
+//                        loading.setVisibility(View.GONE);
+            Glide.with(context)
+                    .load(img)//images[position%images.length]
+//                                .apply(RequestOptions.bitmapTransform(new RoundedCorners(roundCorner)))
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                    .priority(Priority.HIGH)
+                    .override(widthImage, heightImage)
+                    .into(ivInfo);
+        } else {
+            Glide.with(context)
+                    .load(R.drawable.no_media)//images[position%images.length]
+                    .override(widthImage, widthImage)
+                    .into(ivInfo)
+            ;
+        }
+
+
+
+    }
 
 
 }

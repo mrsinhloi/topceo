@@ -19,9 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.androidnetworking.error.ANError;
-import com.master.exoplayer.MasterExoPlayerHelper;
 import com.topceo.R;
 import com.topceo.activity.MH08_SuggestActivity;
+import com.topceo.config.MasterExoPlayerHelper;
 import com.topceo.config.MyApplication;
 import com.topceo.analytics.Engagement;
 import com.topceo.config.MyExtentionsKt;
