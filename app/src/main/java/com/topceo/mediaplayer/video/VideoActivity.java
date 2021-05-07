@@ -37,6 +37,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.liuzhenlin.texturevideoview.TextureVideoView;
 import com.topceo.R;
 import com.topceo.comments.CommentAdapterSectionParent_MediaComment;
 import com.topceo.config.MyApplication;
@@ -861,8 +862,8 @@ public class VideoActivity extends AppCompatActivity {
 
 
     //HASHTAG MENTION//////////////////////////////////////////////////////////////////////////////////////////////
-
-    View videoPlayer;
+    @BindView(R.id.videoPlayer)
+    TextureVideoView videoPlayer;
     private void initPlayer() {
         if (videoSelected != null) {
             String url = videoSelected.getFileUrl();
@@ -889,6 +890,10 @@ public class VideoActivity extends AppCompatActivity {
                             .into(videoPlayer.thumbImageView);
                 }
                 videoPlayer.startButton.performClick();*/
+
+                videoPlayer.setCanSkipToPrevious(false);
+                videoPlayer.setCanSkipToNext(false);
+
 
             }
 

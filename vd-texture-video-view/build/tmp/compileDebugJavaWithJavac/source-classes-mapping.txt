@@ -68,6 +68,8 @@ com/liuzhenlin/texturevideoview/ViewHostEventCallback.java
  com.liuzhenlin.texturevideoview.ViewHostEventCallback
 com/liuzhenlin/texturevideoview/InternalConsts.java
  com.liuzhenlin.texturevideoview.InternalConsts
+com/liuzhenlin/texturevideoview/utils/DensityUtils.java
+ com.liuzhenlin.texturevideoview.utils.DensityUtils
 com/liuzhenlin/texturevideoview/SubtitlePainter.java
  com.liuzhenlin.texturevideoview.SubtitlePainter
 com/liuzhenlin/texturevideoview/sample/DemoActivity.java

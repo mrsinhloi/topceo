@@ -42,7 +42,8 @@ dependencies {
     implementation "com.google.android.exoplayer:exoplayer-smoothstreaming:$rootProject.ext.exoplayer2Version"
     implementation "com.google.android.exoplayer:extension-rtmp:$rootProject.ext.exoplayer2Version"
 
-    implementation project(':vd-common')
+    api project(':vd-swipeback')
+    api project(':vd-common')
     implementation project(':vd-exoplayer2-ext-av1')
     implementation project(':vd-exoplayer2-ext-vp9')
     implementation project(':vd-exoplayer2-ext-ffmpeg')

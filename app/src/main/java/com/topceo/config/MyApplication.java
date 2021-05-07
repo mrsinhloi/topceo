@@ -5,16 +5,19 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Environment;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.multidex.MultiDex;
@@ -29,6 +32,9 @@ import com.danikula.videocache.HttpProxyCacheServer;
 import com.downloader.PRDownloader;
 import com.downloader.PRDownloaderConfig;
 import com.gu.toolargetool.TooLargeTool;
+import com.liuzhenlin.common.utils.SystemBarUtils;
+import com.liuzhenlin.common.utils.Utils;
+import com.liuzhenlin.texturevideoview.utils.DensityUtils;
 import com.topceo.BuildConfig;
 import com.topceo.R;
 import com.topceo.activity.MH01_MainActivity;
@@ -36,6 +42,7 @@ import com.topceo.analytics.Engagement;
 import com.topceo.db.TinyDB;
 import com.topceo.group.GroupDetailActivity;
 import com.topceo.language.LocalizationUtil;
+import com.topceo.mediaplayer.pip.Files;
 import com.topceo.objects.image.ImageItem;
 import com.topceo.objects.other.User;
 import com.topceo.objects.other.UserShort;
@@ -66,6 +73,7 @@ import com.onesignal.OSNotification;
 import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OSPermissionSubscriptionState;
 import com.onesignal.OneSignal;
+import com.workchat.core.config.App;
 import com.workchat.core.config.ChatApplication;
 import com.workchat.core.config.EventControlListener;
 import com.workchat.core.mbn.models.UserChatCore;
@@ -78,6 +86,7 @@ import com.yariksoffice.lingver.Lingver;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -105,6 +114,143 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 public class MyApplication extends ChatApplication implements EventControlListener {
 
 
+    private int mStatusHeight;
+
+    private volatile int mScreenWidth = -1;
+    private volatile int mScreenHeight = -1;
+
+    private volatile int mRealScreenWidth = -1;
+    private volatile int mRealScreenHeight = -1;
+
+    private volatile int mVideoThumbWidth = -1;
+
+    private void init1(){
+        mStatusHeight = SystemBarUtils.getStatusHeight(this);
+        registerComponentCallbacks(Glide.get(this));
+    }
+    @NonNull
+    public static File getAppExternalFilesDir() {
+        File dir = new File(Environment.getExternalStorageDirectory(), Files.EXTERNAL_FILES_FOLDER);
+        if (!dir.exists()) {
+            //noinspection ResultOfMethodCallIgnored
+            dir.mkdirs();
+        }
+        return dir;
+    }
+
+    public int getStatusHeightInPortrait() {
+        return mStatusHeight;
+    }
+
+    @SuppressWarnings("SuspiciousNameCombination")
+    public int getScreenWidthIgnoreOrientation() {
+        if (mScreenWidth == -1) {
+            synchronized (this) {
+                if (mScreenWidth == -1) {
+                    int screenWidth = DensityUtils.getScreenWidth(this);
+                    if (getResources().getConfiguration().orientation
+                            != Configuration.ORIENTATION_PORTRAIT) {
+                        //@formatter:off
+                        int screenHeight  = DensityUtils.getScreenHeight(this);
+                        if (screenWidth   > screenHeight) {
+                            screenWidth  ^= screenHeight;
+                            screenHeight ^= screenWidth;
+                            screenWidth  ^= screenHeight;
+                        }
+                        //@formatter:on
+                        mScreenHeight = screenHeight;
+                    }
+                    mScreenWidth = screenWidth;
+                }
+            }
+        }
+        return mScreenWidth;
+    }
+
+    @SuppressWarnings("SuspiciousNameCombination")
+    public int getScreenHeightIgnoreOrientation() {
+        if (mScreenHeight == -1) {
+            synchronized (this) {
+                if (mScreenHeight == -1) {
+                    int screenHeight = DensityUtils.getScreenHeight(this);
+                    if (getResources().getConfiguration().orientation
+                            != Configuration.ORIENTATION_PORTRAIT) {
+                        //@formatter:off
+                        int screenWidth   = DensityUtils.getScreenWidth(this);
+                        if (screenWidth   > screenHeight) {
+                            screenWidth  ^= screenHeight;
+                            screenHeight ^= screenWidth;
+                        }
+                        //@formatter:on
+                        mScreenWidth = screenWidth;
+                    }
+                    mScreenHeight = screenHeight;
+                }
+            }
+        }
+        return mScreenHeight;
+    }
+
+    @SuppressWarnings("SuspiciousNameCombination")
+    public int getRealScreenWidthIgnoreOrientation() {
+        if (mRealScreenWidth == -1) {
+            synchronized (this) {
+                if (mRealScreenWidth == -1) {
+                    int screenWidth = DensityUtils.getRealScreenWidth(this);
+                    if (getResources().getConfiguration().orientation
+                            != Configuration.ORIENTATION_PORTRAIT) {
+                        //@formatter:off
+                        int screenHeight  = DensityUtils.getRealScreenHeight(this);
+                        if (screenWidth   > screenHeight) {
+                            screenWidth  ^= screenHeight;
+                            screenHeight ^= screenWidth;
+                            screenWidth  ^= screenHeight;
+                        }
+                        //@formatter:on
+                        mRealScreenHeight = screenHeight;
+                    }
+                    mRealScreenWidth = screenWidth;
+                }
+            }
+        }
+        return mRealScreenWidth;
+    }
+
+    @SuppressWarnings("SuspiciousNameCombination")
+    public int getRealScreenHeightIgnoreOrientation() {
+        if (mRealScreenHeight == -1) {
+            synchronized (this) {
+                if (mRealScreenHeight == -1) {
+                    int screenHeight = DensityUtils.getRealScreenHeight(this);
+                    if (getResources().getConfiguration().orientation
+                            != Configuration.ORIENTATION_PORTRAIT) {
+                        //@formatter:off
+                        int screenWidth   = DensityUtils.getRealScreenWidth(this);
+                        if (screenWidth   > screenHeight) {
+                            screenWidth  ^= screenHeight;
+                            screenHeight ^= screenWidth;
+                        }
+                        //@formatter:on
+                        mRealScreenWidth = screenWidth;
+                    }
+                    mRealScreenHeight = screenHeight;
+                }
+            }
+        }
+        return mRealScreenHeight;
+    }
+
+    public int getVideoThumbWidth() {
+        if (mVideoThumbWidth == -1) {
+            synchronized (this) {
+                if (mVideoThumbWidth == -1) {
+                    mVideoThumbWidth = Utils.roundFloat(getScreenWidthIgnoreOrientation() * 0.2778f);
+                }
+            }
+        }
+        return mVideoThumbWidth;
+    }
+
 
     @Override
     protected void attachBaseContext(Context context) {
@@ -131,6 +277,10 @@ public class MyApplication extends ChatApplication implements EventControlListen
             application = new MyApplication();
         }
         return application;
+    }
+    @NonNull
+    public static MyApplication getInstance(@NonNull Context context) {
+        return application == null ? (MyApplication) context.getApplicationContext() : application;
     }
 
 
@@ -1046,6 +1196,8 @@ public class MyApplication extends ChatApplication implements EventControlListen
 
         //socials
         initSocials();
+
+
 
     }
 

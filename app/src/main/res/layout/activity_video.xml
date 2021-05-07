@@ -18,6 +18,11 @@
             android:layout_width="match_parent"
             android:layout_height="200dp" />-->
 
+        <com.liuzhenlin.texturevideoview.TextureVideoView
+            android:id="@+id/videoPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/youtubePlayer"
             android:layout_width="match_parent"
