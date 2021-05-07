@@ -1,0 +1,69 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        vectorDrawables.useSupportLibrary = true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    // Please add below compile options to the build.gradle file of your project module that
+    // depends on this library, too.
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "androidx.appcompat:appcompat:$rootProject.ext.appCompat"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.ext.constraintLayout"
+    implementation "androidx.recyclerview:recyclerview:$rootProject.ext.recyclerView"
+    implementation 'androidx.media:media:1.3.1'
+
+    implementation "com.google.android.exoplayer:exoplayer-core:$rootProject.ext.exoplayer2Version"
+    implementation "com.google.android.exoplayer:exoplayer-dash:$rootProject.ext.exoplayer2Version"
+    implementation "com.google.android.exoplayer:exoplayer-hls:$rootProject.ext.exoplayer2Version"
+    implementation "com.google.android.exoplayer:exoplayer-smoothstreaming:$rootProject.ext.exoplayer2Version"
+    implementation "com.google.android.exoplayer:extension-rtmp:$rootProject.ext.exoplayer2Version"
+
+    implementation project(':vd-common')
+    implementation project(':vd-exoplayer2-ext-av1')
+    implementation project(':vd-exoplayer2-ext-vp9')
+    implementation project(':vd-exoplayer2-ext-ffmpeg')
+
+    //implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+    implementation 'com.github.tcking:ijkplayer-java:0.8.8'
+
+//    api 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+//    api 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
+//    api 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.8'
+//    api 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.8.8'
+
+//    api 'org.videolan.android:libvlc-all:3.2.5'
+
+//    api 'com.danikula:videocache:2.7.1'
+
+//    api 'org.mp4parser:muxer:1.9.41'
+    implementation 'com.googlecode.mp4parser:isoparser:1.1.22'
+    implementation "com.github.bumptech.glide:glide:${rootProject.ext.glideVersion}"
+    annotationProcessor "com.github.bumptech.glide:compiler:${rootProject.ext.glideVersion}"
+
+    testImplementation "junit:junit:$rootProject.ext.testJunitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$rootProject.ext.androidTestJunitVersion"
+}

@@ -12,10 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <com.topceo.mediaplayer.video.customJzvd.MyJzvdStd
+
+        <!--<com.topceo.mediaplayer.video.customJzvd.MyJzvdStd
             android:id="@+id/videoPlayer"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="200dp" />-->
 
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/youtubePlayer"

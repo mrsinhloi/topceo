@@ -14,6 +14,12 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/showcaseviewlib/topceo.showcaseviewlib.iml" filepath="$PROJECT_DIR$/.idea/modules/showcaseviewlib/topceo.showcaseviewlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/socialspost/topceo.socialspost.iml" filepath="$PROJECT_DIR$/.idea/modules/socialspost/topceo.socialspost.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/squarecamera/topceo.squarecamera.iml" filepath="$PROJECT_DIR$/.idea/modules/squarecamera/topceo.squarecamera.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vd-common/topceo.vd-common.iml" filepath="$PROJECT_DIR$/.idea/modules/vd-common/topceo.vd-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vd-exoplayer2-ext-av1/topceo.vd-exoplayer2-ext-av1.iml" filepath="$PROJECT_DIR$/.idea/modules/vd-exoplayer2-ext-av1/topceo.vd-exoplayer2-ext-av1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vd-exoplayer2-ext-ffmpeg/topceo.vd-exoplayer2-ext-ffmpeg.iml" filepath="$PROJECT_DIR$/.idea/modules/vd-exoplayer2-ext-ffmpeg/topceo.vd-exoplayer2-ext-ffmpeg.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vd-exoplayer2-ext-vp9/topceo.vd-exoplayer2-ext-vp9.iml" filepath="$PROJECT_DIR$/.idea/modules/vd-exoplayer2-ext-vp9/topceo.vd-exoplayer2-ext-vp9.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vd-swipeback/topceo.vd-swipeback.iml" filepath="$PROJECT_DIR$/.idea/modules/vd-swipeback/topceo.vd-swipeback.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vd-texture-video-view/topceo.vd-texture-video-view.iml" filepath="$PROJECT_DIR$/.idea/modules/vd-texture-video-view/topceo.vd-texture-video-view.iml" />
     </modules>
   </component>
 </project>

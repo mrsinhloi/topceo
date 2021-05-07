@@ -43,8 +43,6 @@ import com.topceo.config.MyApplication;
 import com.topceo.db.TinyDB;
 import com.topceo.eventbus.EventMediaComment;
 import com.topceo.fragments.GlideCircleTransform;
-import com.topceo.mediaplayer.video.customJzvd.JZMediaExo;
-import com.topceo.mediaplayer.video.customJzvd.MyJzvdStd;
 import com.topceo.objects.other.User;
 import com.topceo.services.ReturnResult;
 import com.topceo.services.Webservices;
@@ -81,7 +79,6 @@ import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.jzvd.Jzvd;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -176,10 +173,6 @@ public class VideoActivity extends AppCompatActivity {
         initRecyclerView();
         registerReceiver();
         initInputComment();
-
-
-        initAutoFullscreen();
-
     }
 
     private boolean isHideKeyboard = false;
@@ -869,10 +862,7 @@ public class VideoActivity extends AppCompatActivity {
 
     //HASHTAG MENTION//////////////////////////////////////////////////////////////////////////////////////////////
 
-
-    @BindView(R.id.videoPlayer)
-    MyJzvdStd videoPlayer;
-
+    View videoPlayer;
     private void initPlayer() {
         if (videoSelected != null) {
             String url = videoSelected.getFileUrl();
@@ -886,8 +876,10 @@ public class VideoActivity extends AppCompatActivity {
                     youTubePlayer.pause();
                 }
                 imgBack.setVisibility(View.VISIBLE);
-                videoPlayer.setVisibility(View.VISIBLE);
                 youtubePlayerView.setVisibility(View.GONE);
+
+                //todo play video
+                /*videoPlayer.setVisibility(View.VISIBLE);
                 videoPlayer.setUp(videoSelected.getFileUrl(), "", Jzvd.SCREEN_NORMAL, JZMediaExo.class);
                 if (!TextUtils.isEmpty(videoSelected.getThumbnailUrl())) {
                     Glide.with(this)
@@ -896,41 +888,11 @@ public class VideoActivity extends AppCompatActivity {
                             .centerCrop()
                             .into(videoPlayer.thumbImageView);
                 }
-                videoPlayer.startButton.performClick();
+                videoPlayer.startButton.performClick();*/
 
             }
 
         }
-    }
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mSensorManager.unregisterListener(mSensorEventListener);
-        Jzvd.clearSavedProgress(this, null);
-        //home back
-        Jzvd.goOnPlayOnPause();
-
-
-    }
-
-
-    Jzvd.JZAutoFullscreenListener mSensorEventListener;
-    SensorManager mSensorManager;
-
-    private void initAutoFullscreen() {
-        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        mSensorEventListener = new Jzvd.JZAutoFullscreenListener();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Sensor accelerometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mSensorManager.registerListener(mSensorEventListener, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        //home back
-        Jzvd.goOnPlayOnResume();
     }
 
 
@@ -1005,17 +967,12 @@ public class VideoActivity extends AppCompatActivity {
             youtubePlayerView.exitFullScreen();
             return;
         }
-        if (Jzvd.backPress()) {
-            return;
-        }
         super.onBackPressed();
 
     }
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        /*pausePlayer();
-        releasePlayer();*/
         if (receiver != null) {
             unregisterReceiver(receiver);
         }
@@ -1033,7 +990,8 @@ public class VideoActivity extends AppCompatActivity {
             if (youTubePlayer != null) {
                 String id = getYoutubeId(url);
                 if (!TextUtils.isEmpty(id)) {
-                    Jzvd.goOnPlayOnPause();
+                    //todo player
+//                    Jzvd.goOnPlayOnPause();
                     youTubePlayer.loadVideo(id, 0);
                 }
             } else {

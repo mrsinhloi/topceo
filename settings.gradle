@@ -3,3 +3,9 @@ include ':socialspost'
 include ':app', ':devsmartAndroid', ':squarecamera', ':mianacropview',
         ':library', ':sectioned_recyclerview',
         ':camerarecorder', ':showcaseviewlib', ':corechat'
+include ':vd-common'
+include ':vd-exoplayer2-ext-av1'
+include ':vd-exoplayer2-ext-ffmpeg'
+include ':vd-exoplayer2-ext-vp9'
+include ':vd-texture-video-view'
+include ':vd-swipeback'
