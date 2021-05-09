@@ -237,43 +237,43 @@ public class DetailBinding {
             }
         });
 
-        if(img2!=null)
-        img2.setOnTouchListener(new View.OnTouchListener() {
-            long t1 = 0, t2 = 0;
-            int count = 0;
+        if (img2 != null)
+            img2.setOnTouchListener(new View.OnTouchListener() {
+                long t1 = 0, t2 = 0;
+                int count = 0;
 
-            @Override
-            public boolean onTouch(View view, MotionEvent e) {
+                @Override
+                public boolean onTouch(View view, MotionEvent e) {
 
-                int action = e.getAction();
-                switch (action) {
-                    case MotionEvent.ACTION_DOWN:
+                    int action = e.getAction();
+                    switch (action) {
+                        case MotionEvent.ACTION_DOWN:
 
-                        if (count == 0) t1 = System.currentTimeMillis();
-                        if (count == 1) t2 = System.currentTimeMillis();
-                        count++;
-                        if (count > 1) count = 0;
-                        if (Math.abs(t2 - t1) < 300) {
-                            t1 = 0;
-                            t2 = 0;
-                            count = 0;
-                            //On double tap here. Do stuff
+                            if (count == 0) t1 = System.currentTimeMillis();
+                            if (count == 1) t2 = System.currentTimeMillis();
+                            count++;
+                            if (count > 1) count = 0;
+                            if (Math.abs(t2 - t1) < 300) {
+                                t1 = 0;
+                                t2 = 0;
+                                count = 0;
+                                //On double tap here. Do stuff
 //                                MyUtils.showToast(context, "double tap");
-                            if (!item.isLiked()) {
-                                linearLike.performClick();
+                                if (!item.isLiked()) {
+                                    linearLike.performClick();
+                                }
+
+                                animateHeart(ivLike);
                             }
 
-                            animateHeart(ivLike);
-                        }
+                            break;
 
-                        break;
+                    }
 
+                    return true;
                 }
 
-                return true;
-            }
-
-        });
+            });
         ////
         linearComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -876,7 +876,7 @@ public class DetailBinding {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    private ImageComment replyToComment;
+    public ImageComment replyToComment;
 
     public void sendComment(final String comment) {
         if (MyUtils.checkInternetConnection(context)) {
@@ -897,6 +897,7 @@ public class DetailBinding {
                         if (task.getResult() != null) {
 
 //                            initReplyLayout(null);
+                            replyToComment = null;
                             linearReply.setVisibility(View.GONE);
 
                             ImageComment img = (ImageComment) task.getResult();

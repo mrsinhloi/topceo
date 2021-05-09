@@ -1716,15 +1716,23 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
     }
 
 
-    @BindView(R.id.relative1)LinearLayout relative1;//header of row
-    @BindView(R.id.linearTop)LinearLayout linearTop;//toolbar
-    @BindView(R.id.linearInputComment)LinearLayout linearInputComment;//toolbar
-    @BindView(R.id.linearFooterRow)LinearLayout linearFooterRow;//toolbar
+    @BindView(R.id.relative1)
+    LinearLayout relative1;//header of row
+    @BindView(R.id.linearTop)
+    LinearLayout linearTop;//toolbar
+    @BindView(R.id.linearInputComment)
+    LinearLayout linearInputComment;//toolbar
+    @BindView(R.id.linearFooterRow)
+    LinearLayout linearFooterRow;//toolbar
 
     private void showHideLayout(boolean isShow) {
-        if(isShow){
-            show(linearTop, linearComment, linear3, rv, linearReply, linearInputComment, relative1, linearFooterRow);
-        }else{
+        if (isShow) {
+            if (binding.replyToComment != null) {
+                show(linearTop, linearComment, linear3, rv, linearReply, linearInputComment, relative1, linearFooterRow);
+            }else{
+                show(linearTop, linearComment, linear3, rv/*, linearReply*/, linearInputComment, relative1, linearFooterRow);
+            }
+        } else {
             hide(linearTop, linearComment, linear3, rv, linearReply, linearInputComment, relative1, linearFooterRow);
         }
     }
