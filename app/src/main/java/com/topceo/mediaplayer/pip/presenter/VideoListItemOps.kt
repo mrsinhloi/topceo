@@ -22,7 +22,6 @@ import com.topceo.mediaplayer.pip.bean.Video
 import com.topceo.mediaplayer.pip.bean.VideoDirectory
 import com.topceo.mediaplayer.pip.bean.VideoListItem
 import com.topceo.mediaplayer.pip.dao.VideoListItemDao
-import com.topceo.mediaplayer.video.VideoActivity
 import java.io.File
 
 /**
@@ -179,7 +178,7 @@ fun Context?.shareVideo(video: Video) {
 @JvmOverloads
 fun Context.playVideo(uriString: String, videoTitle: String? = null) {
     startActivity(
-            Intent(this, VideoActivity::class.java)
+            Intent(this, VideoActivityPipDetail::class.java)
                     .setData(Uri.parse(uriString))
                     .putExtra(KEY_VIDEO_TITLE, videoTitle))
 }
@@ -187,7 +186,7 @@ fun Context.playVideo(uriString: String, videoTitle: String? = null) {
 @JvmOverloads
 fun Context.playVideo(uri: Uri, videoTitle: String? = null) {
     startActivity(
-            Intent(this, VideoActivity::class.java)
+            Intent(this, VideoActivityPip::class.java)
                     .setData(uri)
                     .putExtra(KEY_VIDEO_TITLE, videoTitle))
 }
@@ -200,7 +199,7 @@ fun Context.playVideos(uriStrings: Array<String>, videoTitles: Array<String?>? =
     if (uriStrings.isEmpty()) return
 
     startActivity(
-            Intent(this, VideoActivity::class.java)
+            Intent(this, VideoActivityPip::class.java)
                     .putExtra(KEY_VIDEO_URIS, uriStrings.map { Uri.parse(it) }.toTypedArray())
                     .putExtra(KEY_VIDEO_TITLES, videoTitles)
                     .putExtra(KEY_SELECTION, selection))
@@ -214,7 +213,7 @@ fun Context.playVideos(uris: Array<Uri>, videoTitles: Array<String?>? = null, se
     if (uris.isEmpty()) return
 
     startActivity(
-            Intent(this, VideoActivity::class.java)
+            Intent(this, VideoActivityPip::class.java)
                     .putExtra(KEY_VIDEO_URIS, uris)
                     .putExtra(KEY_VIDEO_TITLES, videoTitles)
                     .putExtra(KEY_SELECTION, selection))
@@ -222,14 +221,14 @@ fun Context.playVideos(uris: Array<Uri>, videoTitles: Array<String?>? = null, se
 
 fun Fragment.playVideo(video: Video) {
     startActivityForResult(
-            Intent(requireContext(), VideoActivity::class.java)
+            Intent(requireContext(), VideoActivityPip::class.java)
                     .putExtra(KEY_VIDEO, video),
             REQUEST_CODE_PLAY_VIDEO)
 }
 
 fun Activity.playVideo(video: Video) {
     startActivityForResult(
-            Intent(this, VideoActivity::class.java)
+            Intent(this, VideoActivityPip::class.java)
                     .putExtra(KEY_VIDEO, video),
             REQUEST_CODE_PLAY_VIDEO)
 }
@@ -238,7 +237,7 @@ fun Fragment.playVideos(vararg videos: Video, selection: Int) {
     if (videos.isEmpty()) return
 
     startActivityForResult(
-            Intent(requireContext(), VideoActivity::class.java)
+            Intent(requireContext(), VideoActivityPip::class.java)
                     .putExtra(KEY_VIDEOS, videos).putExtra(KEY_SELECTION, selection),
             REQUEST_CODE_PLAY_VIDEOS)
 }
@@ -247,7 +246,7 @@ fun Activity.playVideos(vararg videos: Video, selection: Int) {
     if (videos.isEmpty()) return
 
     startActivityForResult(
-            Intent(this, VideoActivity::class.java)
+            Intent(this, VideoActivityPip::class.java)
                     .putExtra(KEY_VIDEOS, videos).putExtra(KEY_SELECTION, selection),
             REQUEST_CODE_PLAY_VIDEOS)
 }

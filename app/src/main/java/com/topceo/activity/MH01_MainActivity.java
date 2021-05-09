@@ -214,9 +214,12 @@ public class MH01_MainActivity extends AppCompatActivity {
         showSystemUI();
     }
 
+    public static MH01_MainActivity mh01_mainActivity;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
+        mh01_mainActivity = this;
         isExist = true;
         db = new TinyDB(context);
 

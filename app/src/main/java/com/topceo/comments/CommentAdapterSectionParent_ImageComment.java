@@ -266,6 +266,7 @@ public class CommentAdapterSectionParent_ImageComment extends SectionedRecyclerV
 
     @Override
     public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder1, int section) {
+        holder1.setIsRecyclable(false);
         ImageComment item = listItems.get(section);
 
         MyViewHolderSection holder = (MyViewHolderSection) holder1;
@@ -408,6 +409,7 @@ public class CommentAdapterSectionParent_ImageComment extends SectionedRecyclerV
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder1, int section, int relativePosition, int absolutePosition) {
+        holder1.setIsRecyclable(false);
         if (listItems.get(section).getListChild().size() > 0) {
             ImageComment item = listItems.get(section).getListChild().get(relativePosition);
 

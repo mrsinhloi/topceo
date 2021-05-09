@@ -471,6 +471,24 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
+        <activity
+            android:name=".mediaplayer.pip.VideoActivityPip"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
+            android:supportsPictureInPicture="true"
+            android:launchMode="singleTask"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".mediaplayer.pip.VideoActivityPipDetail"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
+            android:supportsPictureInPicture="true"
+            android:launchMode="singleTask"
+            tools:ignore="LockedOrientationActivity" />
+
+
+
     </application>
 
 </manifest>

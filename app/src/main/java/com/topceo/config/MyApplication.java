@@ -191,12 +191,11 @@ public class MyApplication extends ChatApplication implements EventControlListen
         return mScreenHeight;
     }
 
-    @SuppressWarnings("SuspiciousNameCombination")
     public int getRealScreenWidthIgnoreOrientation() {
         if (mRealScreenWidth == -1) {
             synchronized (this) {
                 if (mRealScreenWidth == -1) {
-                    int screenWidth = DensityUtils.getRealScreenWidth(this);
+                    int screenWidth = DensityUtils.getRealScreenWidth(getInstance());
                     if (getResources().getConfiguration().orientation
                             != Configuration.ORIENTATION_PORTRAIT) {
                         //@formatter:off
@@ -216,7 +215,6 @@ public class MyApplication extends ChatApplication implements EventControlListen
         return mRealScreenWidth;
     }
 
-    @SuppressWarnings("SuspiciousNameCombination")
     public int getRealScreenHeightIgnoreOrientation() {
         if (mRealScreenHeight == -1) {
             synchronized (this) {
@@ -225,7 +223,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
                     if (getResources().getConfiguration().orientation
                             != Configuration.ORIENTATION_PORTRAIT) {
                         //@formatter:off
-                        int screenWidth   = DensityUtils.getRealScreenWidth(this);
+                        int screenWidth   = DensityUtils.getRealScreenWidth(getInstance());
                         if (screenWidth   > screenHeight) {
                             screenWidth  ^= screenHeight;
                             screenHeight ^= screenWidth;
@@ -1101,6 +1099,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
     public void onCreate() {
         TooLargeTool.startLogging(this);
         context = this;
+        application = this;
         db = new TinyDB(this);
         phoneUtil = PhoneNumberUtil.createInstance(this);
         screenWidth = MyUtils.getScreenWidth(context);

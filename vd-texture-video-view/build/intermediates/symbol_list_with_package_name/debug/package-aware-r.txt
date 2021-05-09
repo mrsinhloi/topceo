@@ -1742,6 +1742,9 @@ drawable ic_clip_forward_dark
 drawable ic_clock_black_24dp
 drawable ic_close_white_20dp
 drawable ic_default_thumb
+drawable ic_fast_forward_lightgray_24dp
+drawable ic_fast_forward_white_24dp
+drawable ic_fast_rewind_white_24dp
 drawable ic_fullscreen_white_33dp
 drawable ic_gifcamera_white_21point5dp
 drawable ic_keyboard_black_24dp
@@ -1994,6 +1997,7 @@ id ignore
 id ignoreRequest
 id image
 id image_loading
+id image_video
 id image_videoPhoto
 id image_videoThumb
 id info
@@ -2197,7 +2201,9 @@ id text_seekingVideoThumb
 id text_seeking_progress_duration
 id text_title
 id text_videoDuration
+id text_videoName
 id text_videoProgress
+id text_videoProgressAndDuration
 id text_videoProgressDuration
 id text_videoclipDescription
 id text_vlcplayer
@@ -2321,6 +2327,7 @@ layout dropdown_item_speed_spinner
 layout item_rv_track_list
 layout item_rv_videoclip_thumbs
 layout item_speed_spinner
+layout item_video_play_list
 layout item_viewpager_track_lists
 layout layout_captured_video_photo
 layout layout_captured_video_photo_portrait

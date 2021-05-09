@@ -76,6 +76,8 @@ import com.topceo.fragments.Fragment_2_Explorer;
 import com.topceo.group.GroupDetailActivity;
 import com.topceo.hashtag.HashTagActivity;
 import com.topceo.login.MH15_SigninActivity;
+import com.topceo.mediaplayer.pip.VideoActivityPipDetail;
+import com.topceo.mediaplayer.pip.presenter.VideoListItemOpsKt;
 import com.topceo.objects.db.UserFollowing;
 import com.topceo.objects.image.ImageItem;
 import com.topceo.objects.image.ImageSize;
@@ -2302,6 +2304,7 @@ public class MyUtils {
         }
     }
 
+
     public static void showKeyboard(Activity context, EditText txt) {
         if (context != null) {
             InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -3358,9 +3361,16 @@ public class MyUtils {
 
             //luu tam vao cache va doc len lai tu cache
             MyApplication.imgItem = item;
-            Intent intent = new Intent(context, MH02_PhotoDetailActivity.class);
+
+            if(item.isVideo()){
+//                Intent intent = new Intent(context, VideoActivityPipDetail.class);
+//                context.startActivity(intent);
+                VideoListItemOpsKt.playVideo(context, item.getImageLarge());
+            }else {
+                Intent intent = new Intent(context, MH02_PhotoDetailActivity.class);
 //            intent.putExtra(ImageItem.IMAGE_ITEM, item);
-            context.startActivity(intent);
+                context.startActivity(intent);
+            }
 
         }
     }

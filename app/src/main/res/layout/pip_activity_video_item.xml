@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relativeLayoutVideo">
+
+    <View
+        android:id="@+id/view_statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@drawable/bg_actionbar"
+        android:visibility="gone"
+        tools:ignore="InconsistentLayout" />
+
+    <com.liuzhenlin.texturevideoview.TextureVideoView
+        android:id="@+id/videoview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_statusBar" />
+
+    <ProgressBar
+        android:id="@+id/pbInPiP_videoProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="0dp"
+        android:layout_below="@id/videoview"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:visibility="gone"
+        tools:ignore="InconsistentLayout" />
+
+    <ImageView
+        android:id="@+id/btn_lockUnlockOrientation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ic_round_sync_24"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        tools:ignore="ContentDescription"
+        app:tint="@color/black_translucent" />
+
+</RelativeLayout>

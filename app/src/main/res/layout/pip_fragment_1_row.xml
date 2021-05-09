@@ -12,23 +12,15 @@
     <include layout="@layout/layout_header"/>
     <include layout="@layout/layout_description" />
 
-    <!--SquaredFrameLayout-->
     <FrameLayout
         android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout_height="100dp">
 
-        <include layout="@layout/fragment_1_row_image" />
-
         <include
-            layout="@layout/fragment_1_row_video"
-            android:visibility="gone" />
-
-        <include
-            layout="@layout/fragment_1_row_post_facebook"
-            android:visibility="gone" />
-
+            layout="@layout/pip_activity_video_item"
+            android:visibility="visible" />
 
         <View
             android:id="@+id/vBgLike"
@@ -44,14 +36,9 @@
             android:layout_margin="10dp"
             android:layout_gravity="center"
             app:srcCompat="@drawable/avd_instagram_like"
-            android:visibility="invisible" />
+            android:visibility="gone" />
 
     </FrameLayout>
-
-    <include
-        layout="@layout/layout_ads"
-        android:visibility="gone" />
-
     <include layout="@layout/layout_footer"/>
 
 </LinearLayout>

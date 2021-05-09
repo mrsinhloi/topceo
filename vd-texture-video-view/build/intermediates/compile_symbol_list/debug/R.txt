@@ -1741,6 +1741,9 @@ int drawable ic_clip_forward_dark 0x0
 int drawable ic_clock_black_24dp 0x0
 int drawable ic_close_white_20dp 0x0
 int drawable ic_default_thumb 0x0
+int drawable ic_fast_forward_lightgray_24dp 0x0
+int drawable ic_fast_forward_white_24dp 0x0
+int drawable ic_fast_rewind_white_24dp 0x0
 int drawable ic_fullscreen_white_33dp 0x0
 int drawable ic_gifcamera_white_21point5dp 0x0
 int drawable ic_keyboard_black_24dp 0x0
@@ -1993,6 +1996,7 @@ int id ignore 0x0
 int id ignoreRequest 0x0
 int id image 0x0
 int id image_loading 0x0
+int id image_video 0x0
 int id image_videoPhoto 0x0
 int id image_videoThumb 0x0
 int id info 0x0
@@ -2196,7 +2200,9 @@ int id text_seekingVideoThumb 0x0
 int id text_seeking_progress_duration 0x0
 int id text_title 0x0
 int id text_videoDuration 0x0
+int id text_videoName 0x0
 int id text_videoProgress 0x0
+int id text_videoProgressAndDuration 0x0
 int id text_videoProgressDuration 0x0
 int id text_videoclipDescription 0x0
 int id text_vlcplayer 0x0
@@ -2320,6 +2326,7 @@ int layout dropdown_item_speed_spinner 0x0
 int layout item_rv_track_list 0x0
 int layout item_rv_videoclip_thumbs 0x0
 int layout item_speed_spinner 0x0
+int layout item_video_play_list 0x0
 int layout item_viewpager_track_lists 0x0
 int layout layout_captured_video_photo 0x0
 int layout layout_captured_video_photo_portrait 0x0
