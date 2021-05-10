@@ -715,6 +715,17 @@ public class MyUtils {
         return nickname;
     }
 
+    public static String getYoutubeId(String url) {
+        String pattern = "https?:\\/\\/(?:[0-9A-Z-]+\\.)?(?:youtu\\.be\\/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)(?![?=&+%\\w]*(?:['\"][^<>]*>|<\\/a>))[?=&+%\\w]*";
+
+        Pattern compiledPattern = Pattern.compile(pattern,
+                Pattern.CASE_INSENSITIVE);
+        Matcher matcher = compiledPattern.matcher(url);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }/*from w  w  w.  j a  va  2 s .c om*/
+        return null;
+    }
 
     /////DATE/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public String getNameOfDay() {
@@ -3365,7 +3376,7 @@ public class MyUtils {
             if(item.isVideo()){
 //                Intent intent = new Intent(context, VideoActivityPipDetail.class);
 //                context.startActivity(intent);
-                VideoListItemOpsKt.playVideo(context, item.getImageLarge());
+                VideoListItemOpsKt.playVideoImageItem(context, item.getImageLarge());
             }else {
                 Intent intent = new Intent(context, MH02_PhotoDetailActivity.class);
 //            intent.putExtra(ImageItem.IMAGE_ITEM, item);

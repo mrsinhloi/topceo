@@ -49,9 +49,9 @@
         android:largeHeap="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
-        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/ThemeFullscreenDefault"
+        android:usesCleartextTraffic="true"
         tools:replace="android:theme,android:allowBackup"
         tools:targetApi="q">
 
@@ -99,6 +99,7 @@
 
                 <!--dynamiclink-->
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -435,11 +436,11 @@
         <activity
             android:name=".group.members.InviteMemberActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".group.AllGroupActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".group.SettingGroupActivity"
             android:screenOrientation="portrait" />
@@ -449,11 +450,11 @@
         <activity
             android:name=".group.members.ApproveMemberActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".group.members.ApprovePostActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
             android:name=".login.workchat.ui.InputPhoneActivityWc"
@@ -469,24 +470,30 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
             android:name=".mediaplayer.pip.VideoActivityPip"
-            android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
-            android:supportsPictureInPicture="true"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name=".mediaplayer.pip.VideoActivityPipDetail"
-            android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
-            android:supportsPictureInPicture="true"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
             tools:ignore="LockedOrientationActivity" />
-
+        <activity
+            android:name=".mediaplayer.pip.VideoListActivityPip"
+            android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
+            tools:ignore="LockedOrientationActivity" />
 
 
     </application>

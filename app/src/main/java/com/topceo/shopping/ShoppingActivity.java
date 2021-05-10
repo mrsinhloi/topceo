@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +40,13 @@ import com.downloader.OnProgressListener;
 import com.downloader.OnStartOrResumeListener;
 import com.downloader.PRDownloader;
 import com.downloader.Progress;
+import com.folioreader.Config;
+import com.folioreader.Constants;
+import com.folioreader.FolioReader;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.topceo.R;
 import com.topceo.activity.MH01_MainActivity;
 import com.topceo.chat.ChatUtils;
@@ -51,7 +59,12 @@ import com.topceo.mediaplayer.audio.MusicNotificationManager;
 import com.topceo.mediaplayer.audio.PlaybackInfoListener;
 import com.topceo.mediaplayer.audio.PlayerAdapter;
 import com.topceo.mediaplayer.audio.PlayerService;
-import com.topceo.mediaplayer.video.VideoActivity;
+import com.topceo.mediaplayer.extractor.ExtractorException;
+import com.topceo.mediaplayer.extractor.YoutubeStreamExtractor;
+import com.topceo.mediaplayer.extractor.model.YTMedia;
+import com.topceo.mediaplayer.extractor.model.YTSubtitles;
+import com.topceo.mediaplayer.extractor.model.YoutubeMeta;
+import com.topceo.mediaplayer.pip.presenter.VideoListItemOpsKt;
 import com.topceo.objects.menu.MenuShop;
 import com.topceo.objects.menu.MenuType;
 import com.topceo.objects.other.User;
@@ -59,13 +72,6 @@ import com.topceo.services.ReturnResult;
 import com.topceo.services.Webservices;
 import com.topceo.utils.DownloadUtils;
 import com.topceo.utils.MyUtils;
-import com.folioreader.Config;
-import com.folioreader.Constants;
-import com.folioreader.FolioReader;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.lang.reflect.Type;
@@ -773,10 +779,48 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
                         }
 
                         //mo video
-                        Intent intent = new Intent(context, VideoActivity.class);
+                        /*Intent intent = new Intent(context, VideoActivity.class);
                         intent.putExtra(Media.MEDIA, media);
                         intent.putParcelableArrayListExtra(MediaItem.LIST, list);
-                        startActivity(intent);
+                        startActivity(intent);*/
+
+                        String[] arr = new String[list.size()];
+                        for (int i = 0; i < list.size(); i++) {
+                            arr[i] = list.get(i).getFileUrl();
+                        }
+
+                        String url = arr[0];
+                        if (MyUtils.isYoutubeUrl(url)) {
+                            String videoId = MyUtils.getYoutubeId(url);
+                            new YoutubeStreamExtractor(new YoutubeStreamExtractor.ExtractorListner() {
+                                @Override
+                                public void onExtractionDone(List<YTMedia> adativeStream, final List<YTMedia> muxedStream, List<YTSubtitles> subtitles, YoutubeMeta meta) {
+                                    //url to get subtitle
+//                                    String subUrl = subtitles.get(0).getBaseUrl();
+                                    if(muxedStream!=null && muxedStream.size()>0){
+                                        String subUrl = muxedStream.get(muxedStream.size()-1).getUrl();
+                                        VideoListItemOpsKt.playVideo(context, subUrl);
+                                    }
+
+                                    /*for (YTMedia media:adativeStream) {
+                                        if(media.isVideo()){
+                                            //is video
+
+                                        }else{
+                                            //is audio
+                                        }
+                                    }*/
+                                }
+
+                                @Override
+                                public void onExtractionGoesWrong(final ExtractorException e) {
+                                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }).useDefaultLogin().Extract(url);
+                        } else {
+                            VideoListItemOpsKt.playVideoList(context, arr, 0);
+                        }
+
                     } else {
                         MyUtils.showToast(context, R.string.no_video);
                     }

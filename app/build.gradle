@@ -395,12 +395,13 @@ dependencies {
     implementation project(':socialspost')
     implementation project(':post-like-facebook')
 
+
     //video detail
     //    implementation 'cn.jzvd:jiaozivideoplayer:7.0.3'
     //video pip
     implementation project(':vd-texture-video-view')
-
-
+    //extract you.tu
+    implementation 'org.mozilla:rhino:1.7.13'
 }
 androidExtensions {
     experimental = true

@@ -178,10 +178,18 @@ fun Context?.shareVideo(video: Video) {
 @JvmOverloads
 fun Context.playVideo(uriString: String, videoTitle: String? = null) {
     startActivity(
+            Intent(this, VideoActivityPip::class.java)
+                    .setData(Uri.parse(uriString))
+                    .putExtra(KEY_VIDEO_TITLE, videoTitle))
+}
+@JvmOverloads
+fun Context.playVideoImageItem(uriString: String, videoTitle: String? = null) {
+    startActivity(
             Intent(this, VideoActivityPipDetail::class.java)
                     .setData(Uri.parse(uriString))
                     .putExtra(KEY_VIDEO_TITLE, videoTitle))
 }
+
 
 @JvmOverloads
 fun Context.playVideo(uri: Uri, videoTitle: String? = null) {
@@ -204,6 +212,8 @@ fun Context.playVideos(uriStrings: Array<String>, videoTitles: Array<String?>? =
                     .putExtra(KEY_VIDEO_TITLES, videoTitles)
                     .putExtra(KEY_SELECTION, selection))
 }
+
+
 
 @JvmOverloads
 fun Context.playVideos(uris: Array<Uri>, videoTitles: Array<String?>? = null, selection: Int) {
@@ -250,3 +260,15 @@ fun Activity.playVideos(vararg videos: Video, selection: Int) {
                     .putExtra(KEY_VIDEOS, videos).putExtra(KEY_SELECTION, selection),
             REQUEST_CODE_PLAY_VIDEOS)
 }
+
+
+@JvmOverloads
+fun Context.playVideoList(uriStrings: Array<String>, selection: Int) {
+    if (uriStrings.isEmpty()) return
+    startActivity(
+        Intent(this, VideoActivityPip::class.java)
+            .putExtra(KEY_VIDEO_URIS, uriStrings.map { Uri.parse(it) }.toTypedArray())
+//            .putExtra(KEY_VIDEO_TITLES, videoTitles)
+            .putExtra(KEY_SELECTION, selection))
+}
+

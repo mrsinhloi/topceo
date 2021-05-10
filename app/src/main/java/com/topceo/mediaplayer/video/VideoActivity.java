@@ -993,7 +993,7 @@ public class VideoActivity extends AppCompatActivity {
         if (videoSelected != null) {
             String url = videoSelected.getFileUrl();
             if (youTubePlayer != null) {
-                String id = getYoutubeId(url);
+                String id = MyUtils.getYoutubeId(url);
                 if (!TextUtils.isEmpty(id)) {
                     //todo player
 //                    Jzvd.goOnPlayOnPause();
@@ -1005,15 +1005,5 @@ public class VideoActivity extends AppCompatActivity {
         }
     }
 
-    public static String getYoutubeId(String url) {
-        String pattern = "https?:\\/\\/(?:[0-9A-Z-]+\\.)?(?:youtu\\.be\\/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)(?![?=&+%\\w]*(?:['\"][^<>]*>|<\\/a>))[?=&+%\\w]*";
 
-        Pattern compiledPattern = Pattern.compile(pattern,
-                Pattern.CASE_INSENSITIVE);
-        Matcher matcher = compiledPattern.matcher(url);
-        if (matcher.find()) {
-            return matcher.group(1);
-        }/*from w  w  w.  j a  va  2 s .c om*/
-        return null;
-    }
 }

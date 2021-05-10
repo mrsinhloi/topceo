@@ -28,6 +28,7 @@
             <option value="$PROJECT_DIR$/vd-exoplayer2-ext-vp9" />
             <option value="$PROJECT_DIR$/vd-swipeback" />
             <option value="$PROJECT_DIR$/vd-texture-video-view" />
+            <option value="$PROJECT_DIR$/youtubejextractor" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -1,0 +1,178 @@
+package com.github.kotvertolet.youtubejextractor;
+
+import android.os.Bundle;
+import android.support.test.runner.AndroidJUnit4;
+
+import com.github.kotvertolet.youtubejextractor.exception.ExtractionException;
+import com.github.kotvertolet.youtubejextractor.exception.VideoIsUnavailable;
+import com.github.kotvertolet.youtubejextractor.exception.YoutubeRequestException;
+import com.github.kotvertolet.youtubejextractor.models.AdaptiveAudioStream;
+import com.github.kotvertolet.youtubejextractor.models.AdaptiveVideoStream;
+import com.github.kotvertolet.youtubejextractor.models.newModels.VideoPlayerConfig;
+import com.github.kotvertolet.youtubejextractor.models.subtitles.Subtitle;
+import com.github.kotvertolet.youtubejextractor.models.youtube.playerResponse.MuxedStream;
+import com.github.kotvertolet.youtubejextractor.models.youtube.videoData.YoutubeVideoData;
+import com.github.kotvertolet.youtubejextractor.network.YoutubeNetwork;
+import com.google.gson.GsonBuilder;
+
+import junit.framework.TestCase;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.ResponseBody;
+import retrofit2.Response;
+
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
+
+@RunWith(AndroidJUnit4.class)
+public class ExtractionTests extends TestCase {
+    private YoutubeJExtractor youtubeJExtractor = new YoutubeJExtractor();
+    private YoutubeNetwork youtubeNetwork = new YoutubeNetwork(new GsonBuilder().create());
+    private VideoPlayerConfig videoData;
+
+    @Test(expected = VideoIsUnavailable.class)
+    public void checkInvalidVideoId() throws YoutubeRequestException, ExtractionException, VideoIsUnavailable {
+        youtubeJExtractor.extract("invalid_id");
+    }
+
+    @Test
+    public void checkVideoDataParcel() throws YoutubeRequestException, ExtractionException, VideoIsUnavailable {
+        String parcelKey = "parcel_key1";
+        videoData = youtubeJExtractor.extract("rkas-NHQnsI");
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(parcelKey, videoData);
+        assertEquals(videoData, bundle.getParcelable(parcelKey));
+    }
+
+    @Test
+    public void checkVideoWithEncryptedSignature() throws ExtractionException, YoutubeRequestException, VideoIsUnavailable {
+        //videoData = youtubeJExtractor.extract("07FYdnEawAQ"); // age restricted
+        videoData = youtubeJExtractor.extract("kcoisguyvEA");
+        checkIfStreamsWork(videoData);
+    }
+
+    @Test
+    public void checkVideoWithoutEncryptedSignature() throws ExtractionException, YoutubeRequestException, VideoIsUnavailable {
+        videoData = youtubeJExtractor.extract("jNQXAC9IVRw");
+        checkIfStreamsWork(videoData);
+    }
+
+    @Test
+    public void checkVideoWithAgeCheck() throws ExtractionException, YoutubeRequestException, VideoIsUnavailable {
+        videoData = youtubeJExtractor.extract("upvickWORPM");
+        checkIfStreamsWork(videoData);
+    }
+
+    @Test
+    public void checkVeryLongVideo() throws ExtractionException, YoutubeRequestException, VideoIsUnavailable {
+        videoData = youtubeJExtractor.extract("85bkCmaOh4o");
+        checkIfStreamsWork(videoData);
+    }
+
+    @Test
+    public void checkVideoWithRestrictedEmbedding() throws ExtractionException, YoutubeRequestException, VideoIsUnavailable {
+        videoData = youtubeJExtractor.extract("XcicOBS9mBU");
+        checkIfStreamsWork(videoData);
+    }
+
+    @Test
+    public void checkLiveStream() throws YoutubeRequestException, ExtractionException, VideoIsUnavailable {
+        videoData = youtubeJExtractor.extract("5qap5aO4i9A");
+        assertTrue(videoData.getVideoDetails().isLiveContent());
+        assertNotNull(videoData.getStreamingData().getDashManifestUrl());
+        assertNotNull(videoData.getStreamingData().getHlsManifestUrl());
+        checkIfStreamsWork(videoData);
+    }
+
+//    @Test
+//    public void checkLiveStreamWithoutAdaptiveStreams() throws YoutubeRequestException, ExtractionException, VideoIsUnavailable {
+//        videoData = youtubeJExtractor.extract("up0fWFqgC6g");
+//        assertTrue(videoData.getVideoDetails().isLiveContent());
+//        assertNotNull(videoData.getStreamingData().getDashManifestUrl());
+//        assertNotNull(videoData.getStreamingData().getHlsManifestUrl());
+//        assertEquals(0, videoData.getStreamingData().getAdaptiveAudioStreams().size());
+//        assertEquals(0, videoData.getStreamingData().getAdaptiveVideoStreams().size());
+//    }
+
+    @Test
+    public void checkMuxedStreamNonEncrypted() throws YoutubeRequestException, ExtractionException, VideoIsUnavailable {
+        videoData = youtubeJExtractor.extract("8QyDmvuts9s");
+        checkIfStreamsWork(videoData);
+    }
+
+    @Test
+    public void checkCallbackBasedExtractionSuccessful() {
+        youtubeJExtractor.extract("iIKxyDRjecU", new JExtractorCallback() {
+            @Override
+            public void onSuccess(VideoPlayerConfig videoData) {
+                checkIfStreamsWork(videoData);
+            }
+
+            @Override
+            public void onNetworkException(YoutubeRequestException e) {
+                fail("Network exception occurred");
+            }
+
+            @Override
+            public void onError(Exception exception) {
+                fail("Extraction exception occurred");
+            }
+        });
+    }
+
+    @Test
+    public void testSubtitlesExtraction() {
+        Map<String, ArrayList<Subtitle>> subs = youtubeJExtractor.extractSubtitles("lT3vGaOLWqE");
+        assertEquals(8, subs.size());
+        assertTrue(subs.containsKey("en"));
+        List<Subtitle> englishSubs = subs.get("en");
+        assertEquals(208, englishSubs.size());
+        Subtitle actualFirstLine = englishSubs.get(0);
+        Subtitle expectedFirstLine = new Subtitle("0.78", "0.56", "Hi. Shh.");
+        Subtitle actualLasLine = englishSubs.get(207);
+        Subtitle expectedLastLine = new Subtitle("620.22", "1.28", "#{{beatboxing}}#");
+        assertEquals(expectedFirstLine, actualFirstLine);
+        assertEquals(expectedLastLine, actualLasLine);
+    }
+
+    private void checkIfStreamsWork(VideoPlayerConfig videoData) {
+        String streamErrorMask = "Stream wasn't processed correctly, stream details:\\n %s";
+        Response<ResponseBody> responseBody;
+        try {
+            if (videoData.getVideoDetails().isLiveContent()) {
+                responseBody = youtubeNetwork.getStream(videoData.getStreamingData().getDashManifestUrl());
+                assertNotNull(responseBody);
+                assertTrue(responseBody.isSuccessful());
+                responseBody = youtubeNetwork.getStream(videoData.getStreamingData().getHlsManifestUrl());
+                assertNotNull(responseBody);
+                assertTrue(responseBody.isSuccessful());
+            } else {
+                for (AdaptiveVideoStream adaptiveVideoStream : videoData.getStreamingData().getAdaptiveVideoStreams()) {
+                    responseBody = youtubeNetwork.getStream(adaptiveVideoStream.getUrl());
+                    assertThat(String.format(streamErrorMask, adaptiveVideoStream.toString()), responseBody, is(not(nullValue())));
+                    assertThat(String.format(streamErrorMask, adaptiveVideoStream.toString()), responseBody.isSuccessful(), is(true));
+                }
+                for (AdaptiveAudioStream adaptiveAudioStream : videoData.getStreamingData().getAdaptiveAudioStreams()) {
+                    responseBody = youtubeNetwork.getStream(adaptiveAudioStream.getUrl());
+                    assertThat(String.format(streamErrorMask, adaptiveAudioStream.toString()), responseBody, is(not(nullValue())));
+                    assertThat(String.format(streamErrorMask, adaptiveAudioStream.toString()), responseBody.isSuccessful(), is(true));
+                }
+                for (MuxedStream muxedStream : videoData.getStreamingData().getMuxedStreams()) {
+                    responseBody = youtubeNetwork.getStream(muxedStream.getUrl());
+                    assertThat(String.format(streamErrorMask, muxedStream.toString()), responseBody, is(not(nullValue())));
+                    assertThat(String.format(streamErrorMask, muxedStream.toString()), responseBody.isSuccessful(), is(true));
+                }
+            }
+        } catch (YoutubeRequestException e) {
+            fail(e.getMessage());
+        }
+    }
+}

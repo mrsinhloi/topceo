@@ -30,13 +30,13 @@
         android:id="@+id/recyclerView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <include layout="@layout/item_reply"
-        android:visibility="gone"/>
-    <include layout="@layout/separator_horizoltal" />
-
     <View android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
+
+    <include layout="@layout/item_reply"
+        android:visibility="gone"/>
+    <include layout="@layout/separator_horizoltal" />
     <include layout="@layout/layout_input_comment"/>
 
 
