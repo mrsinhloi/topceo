@@ -327,7 +327,7 @@ fun Context.playVideoListShopping(media: Media, list: ArrayList<MediaItem>, posi
                 if (!muxedStream.isNullOrEmpty()) {
                     val subUrl = muxedStream[muxedStream.size - 1].url
                     startActivity(
-                        Intent(applicationContext, VideoListActivityPip::class.java)
+                        Intent(applicationContext, VideoActivityPipList::class.java)
                             .putExtra(Media.MEDIA, media)
                             .putParcelableArrayListExtra(MediaItem.LIST, list)
                             .setData(Uri.parse(subUrl))
@@ -342,7 +342,7 @@ fun Context.playVideoListShopping(media: Media, list: ArrayList<MediaItem>, posi
         }).useDefaultLogin().Extract(url)
     } else {
         startActivity(
-            Intent(this, VideoListActivityPip::class.java)
+            Intent(this, VideoActivityPipList::class.java)
                 .putExtra(Media.MEDIA, media)
                 .putParcelableArrayListExtra(MediaItem.LIST, list)
                 .setData(Uri.parse(url))

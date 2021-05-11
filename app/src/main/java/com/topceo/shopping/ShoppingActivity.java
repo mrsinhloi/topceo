@@ -14,7 +14,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,13 +58,6 @@ import com.topceo.mediaplayer.audio.MusicNotificationManager;
 import com.topceo.mediaplayer.audio.PlaybackInfoListener;
 import com.topceo.mediaplayer.audio.PlayerAdapter;
 import com.topceo.mediaplayer.audio.PlayerService;
-import com.topceo.mediaplayer.extractor.ExtractorException;
-import com.topceo.mediaplayer.extractor.YoutubeStreamExtractor;
-import com.topceo.mediaplayer.extractor.model.YTMedia;
-import com.topceo.mediaplayer.extractor.model.YTSubtitles;
-import com.topceo.mediaplayer.extractor.model.YoutubeMeta;
-import com.topceo.mediaplayer.pip.VideoActivityPipDetail;
-import com.topceo.mediaplayer.pip.VideoListActivityPip;
 import com.topceo.mediaplayer.pip.presenter.VideoListItemOpsKt;
 import com.topceo.objects.menu.MenuShop;
 import com.topceo.objects.menu.MenuType;
@@ -97,9 +88,11 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
 
     private boolean isOpenMyStore = false;
 
+    public  static ShoppingActivity shoppingActivity;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        shoppingActivity = this;
         isExist = true;
         setContentView(R.layout.shopping_activity);
         ButterKnife.bind(this);
@@ -1140,18 +1133,25 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
     /////////////////////////////////////////////////////////////////////////////////////
     private void readEpub(File file) {
         if (file != null) {
-            Config config = new Config()
-                    .setAllowedDirection(Config.AllowedDirection.VERTICAL_AND_HORIZONTAL)
-                    .setDirection(Config.Direction.HORIZONTAL)
-                    .setFont(Constants.FONT_LORA)
-                    .setFontSize(2)
-                    .setNightMode(false)
-                    .setThemeColorRes(R.color.colorPrimary)
-                    .setShowTts(true);
+            MyUtils.closePip(context);
 
-            FolioReader folioReader = FolioReader.get();
-            folioReader.setConfig(config, false);
-            folioReader.openBook(file.getAbsolutePath());
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Config config = new Config()
+                            .setAllowedDirection(Config.AllowedDirection.VERTICAL_AND_HORIZONTAL)
+                            .setDirection(Config.Direction.HORIZONTAL)
+                            .setFont(Constants.FONT_LORA)
+                            .setFontSize(2)
+                            .setNightMode(false)
+                            .setThemeColorRes(R.color.colorPrimary)
+                            .setShowTts(true);
+
+                    FolioReader folioReader = FolioReader.get();
+                    folioReader.setConfig(config, false);
+                    folioReader.openBook(file.getAbsolutePath());
+                }
+            }, 500);
         }
     }
 

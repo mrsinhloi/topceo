@@ -296,7 +296,7 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
 
     @Nullable
     @Override
-    public Activity getPreviousActivity() {
+    public MH01_MainActivity getPreviousActivity() {
         return MH01_MainActivity.mh01_mainActivity;
     }
 
@@ -504,8 +504,10 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
             }
 
             public void onViewModeChange(int oldMode, int newMode, boolean layoutMatches) {
+                isPipMode = false;
                 switch (newMode) {
                     case TextureVideoView.VIEW_MODE_MINIMUM:
+                        isPipMode = true;
                         showHideLayout(false);
                         if (!layoutMatches
                                 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
@@ -740,8 +742,12 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
             // finish() does not remove the activity in PIP mode from the recents stack.
             // Only finishAndRemoveTask() does this.
             finishAndRemoveTask();
+//            super.finish();
         } else {
             super.finish();
+        }
+        if (!isPipMode) {
+            reOpenPreviousActivity();
         }
     }
 
@@ -750,6 +756,14 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
         if (!mVideoView.onBackPressed()) {
             super.onBackPressed();
         }
+    }
+
+    private boolean isPipMode = false;
+
+    private void reOpenPreviousActivity() {
+//        MH01_MainActivity activity = getPreviousActivity();
+        Intent intent = new Intent(context, MH01_MainActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -1229,11 +1243,14 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
 
                     final float videoAspectRatio = (float) mVideoWidth / mVideoHeight;
                     int width = right - left;
+                    int height = Utils.roundFloat(width / videoAspectRatio);
                     MyUtils.log("width video = " + width + " and mVideoWidth = " + mVideoWidth);
                     if (width > mVideoWidth) {
-                        width = mVideoWidth / 2;
+                        width = mVideoWidth;
+                        height = Utils.roundFloat(width / videoAspectRatio);
+//                        setVideoViewSize(width, height);
                     }
-                    final int height = Utils.roundFloat(width / videoAspectRatio);
+
                     final int size = width * height;
                     final float sizeRatio = (float) size / cachedSize;
 
@@ -1368,6 +1385,7 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
         @Override
         public void loadVideoThumb(@NonNull Video video) {
             VideoUtils2.loadVideoThumbIntoImageView(videoImage, video);
+
         }
 
         @Override
@@ -1568,7 +1586,7 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
                     binding.updateCommentCount();
                 } else if (intent.getAction().equalsIgnoreCase(MH01_MainActivity.ACTION_SET_NUMBER_CHAT_UNREAD)) {
                     ChatUtils.setChatUnreadNumber(txtNumber);
-                }else if(intent.getAction().equalsIgnoreCase(ACTION_FINISH)){
+                } else if (intent.getAction().equalsIgnoreCase(ACTION_FINISH)) {
                     finish();
                 }
 
@@ -1652,7 +1670,6 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
     public void setUI() {
         if (item != null) {
             binding.setUserVip(avatarSize, img1, imgVip);
-
             if (ImageItem.ITEM_TYPE_FACEBOOK.equals(item.getItemType())) {
                 //neu chi co 1 video thi hien thi theo instagram video
                 if (item.getItemContent().size() == 1 && item.isVideo()) {

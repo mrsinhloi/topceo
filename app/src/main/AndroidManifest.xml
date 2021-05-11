@@ -489,7 +489,7 @@
             tools:ignore="LockedOrientationActivity"
             android:windowSoftInputMode="adjustResize"/>
         <activity
-            android:name=".mediaplayer.pip.VideoListActivityPip"
+            android:name=".mediaplayer.pip.VideoActivityPipList"
             android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

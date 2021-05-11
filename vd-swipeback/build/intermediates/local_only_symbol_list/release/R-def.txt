@@ -1,0 +1,11 @@
+R_DEF: Internal format may change without notice
+local
+anim anim_close_enter
+anim anim_close_exit
+anim anim_open_enter
+anim anim_open_exit
+anim no_anim
+drawable shadow_left
+drawable shadow_right
+layout swipeback
+style WindowAnimations_SwipeBackActivity

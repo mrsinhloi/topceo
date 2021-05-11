@@ -84,7 +84,7 @@ import com.topceo.mediaplayer.extractor.model.YTMedia;
 import com.topceo.mediaplayer.extractor.model.YTSubtitles;
 import com.topceo.mediaplayer.extractor.model.YoutubeMeta;
 import com.topceo.mediaplayer.pip.VideoActivityPipDetail;
-import com.topceo.mediaplayer.pip.VideoListActivityPip;
+import com.topceo.mediaplayer.pip.VideoActivityPipList;
 import com.topceo.mediaplayer.pip.presenter.VideoListItemOpsKt;
 import com.topceo.objects.db.UserFollowing;
 import com.topceo.objects.image.ImageItem;
@@ -762,7 +762,7 @@ public class MyUtils {
     public static void closePip(Context context) {
         Intent mh1 = new Intent(VideoActivityPipDetail.ACTION_FINISH);
         context.sendBroadcast(mh1);
-        Intent mh2 = new Intent(VideoListActivityPip.ACTION_FINISH);
+        Intent mh2 = new Intent(VideoActivityPipList.ACTION_FINISH);
         context.sendBroadcast(mh2);
     }
 
@@ -3092,6 +3092,15 @@ public class MyUtils {
             }
         }
     }
+    public static void stopPlayerService(Context context, Class<?> serviceClass) {
+        if (context != null && serviceClass != null) {
+            if(isMyServiceRunning(context,serviceClass)) {
+                Intent intent = new Intent(context, serviceClass);
+                context.stopService(intent);
+            }
+        }
+    }
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public static final boolean isUsername(String value) {
@@ -3416,7 +3425,7 @@ public class MyUtils {
 //                Intent intent = new Intent(context, VideoActivityPipDetail.class);
 //                context.startActivity(intent);
 //                MyUtils.closePip(context);
-                Intent mh2 = new Intent(VideoListActivityPip.ACTION_FINISH);
+                Intent mh2 = new Intent(VideoActivityPipList.ACTION_FINISH);
                 context.sendBroadcast(mh2);
 
                 new Handler().postDelayed(new Runnable() {

@@ -1358,8 +1358,8 @@ public class TextureVideoView extends AbsTextureVideoView implements ViewHostEve
                 mTitleText.setText(mTitle);
                 if (isControlsShowing()) {
                     mLockUnlockButton.setVisibility(VISIBLE);
-                    mCameraButton.setVisibility(VISIBLE);
-                    mVideoCameraButton.setVisibility(VISIBLE);
+//                    mCameraButton.setVisibility(VISIBLE);
+//                    mVideoCameraButton.setVisibility(VISIBLE);
                 }
             } else {
                 mTitleText.setText(null);
@@ -1821,8 +1821,8 @@ public class TextureVideoView extends AbsTextureVideoView implements ViewHostEve
             if (isInFullscreenMode()) {
                 mLockUnlockButton.setVisibility(VISIBLE);
                 if (unlocked) {
-                    mCameraButton.setVisibility(VISIBLE);
-                    mVideoCameraButton.setVisibility(VISIBLE);
+//                    mCameraButton.setVisibility(VISIBLE);
+//                    mVideoCameraButton.setVisibility(VISIBLE);
                 }
             }
             mBottomControlsFrame.setVisibility(VISIBLE);
@@ -1966,7 +1966,7 @@ public class TextureVideoView extends AbsTextureVideoView implements ViewHostEve
         if (!show) {
             cancelVideoPhotoCapture();
         }
-        final int visibility = show ? VISIBLE : GONE;
+        final int visibility = /*show ? VISIBLE :*/ GONE;
         mCameraButton.setVisibility(visibility);
         mVideoCameraButton.setVisibility(visibility);
 

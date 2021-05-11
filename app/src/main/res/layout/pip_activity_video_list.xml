@@ -159,10 +159,10 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_16dp"
+                android:padding="@dimen/margin_10dp"
                 android:text="@string/comments"
-                android:textSize="@dimen/title_size"
-                android:textAllCaps="true" />
+                android:textSize="@dimen/smallest_text_size"
+                android:textAllCaps="false" />
             <ImageView
                 android:visibility="gone"
                 android:id="@+id/imgExpand"

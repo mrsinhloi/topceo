@@ -1,0 +1,18 @@
+com/liuzhenlin/swipeback/ISwipeBackActivity.java
+ com.liuzhenlin.swipeback.ISwipeBackActivity
+com/liuzhenlin/swipeback/ISwipeBackFragment.java
+ com.liuzhenlin.swipeback.ISwipeBackFragment
+com/liuzhenlin/swipeback/SwipeBackLayout.java
+ com.liuzhenlin.swipeback.SwipeBackLayout
+ com.liuzhenlin.swipeback.SwipeBackLayout$Edge
+ com.liuzhenlin.swipeback.SwipeBackLayout$ScrollState
+ com.liuzhenlin.swipeback.SwipeBackLayout$SwipeListener
+ com.liuzhenlin.swipeback.SwipeBackLayout$ViewDragCallback
+com/liuzhenlin/swipeback/SwipeBackActivity.java
+ com.liuzhenlin.swipeback.SwipeBackActivity
+com/liuzhenlin/swipeback/SwipeBackFragment.java
+ com.liuzhenlin.swipeback.SwipeBackFragment
+com/liuzhenlin/swipeback/BuildConfig.java
+ com.liuzhenlin.swipeback.BuildConfig
+com/liuzhenlin/swipeback/Utils.java
+ com.liuzhenlin.swipeback.Utils

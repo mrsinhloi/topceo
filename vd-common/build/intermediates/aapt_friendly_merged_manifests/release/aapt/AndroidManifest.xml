@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created on 2021-3-25 2:59:59 PM.
+  ~ Copyright © 2021 刘振林. All rights reserved.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.liuzhenlin.common" >
+
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="29" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application>
+        <receiver android:name="com.liuzhenlin.common.receiver.MediaButtonEventReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

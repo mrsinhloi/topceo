@@ -1307,7 +1307,7 @@ public class MH01_MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         startMediaPlayer();
 
