@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <FrameLayout
@@ -12,202 +13,182 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <!--<com.topceo.mediaplayer.video.customJzvd.MyJzvdStd
-            android:id="@+id/videoPlayer"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />-->
-
-        <com.liuzhenlin.texturevideoview.TextureVideoView
-            android:id="@+id/videoPlayer"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"/>
-
-        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-            android:id="@+id/youtubePlayer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:visibility="visible"
-            tools:visibility="gone"
-            />
-        <ImageView
-            android:id="@+id/imgBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/margin_10dp"
-            android:src="@drawable/ic_arrow_back_white_24dp"
-            app:tint="@color/grey_200" />
+        <include
+            layout="@layout/pip_activity_video_item"
+            android:visibility="visible" />
     </FrameLayout>
     <androidx.core.widget.NestedScrollView
         android:layout_below="@id/frameLayout"
-        android:layout_above="@+id/linearInputComment"
         android:id="@+id/nestedScrollView"
+        android:layout_above="@id/linearCommentBottom"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:focusableInTouchMode="true"
         android:overScrollMode="never"
         android:scrollbars="none">
+    <LinearLayout
+        android:id="@+id/linearContent"
+        android:layout_below="@id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/white"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-
-                <TextView
-                    android:id="@+id/txt1"
-                    android:layout_marginStart="@dimen/margin_16dp"
-                    android:layout_marginEnd="@dimen/margin_16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:maxLines="2"
-                    android:text="Con Mua Ngang Qua"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/title_size_large"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txt2"
-                    android:layout_marginStart="@dimen/margin_16dp"
-                    android:layout_marginEnd="@dimen/margin_16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    tools:text="Sơn Tùng M-TP"
-                    android:textColor="@color/grey_500"
-                    android:textSize="11sp" />
-
-                <LinearLayout
-                    android:layout_marginStart="@dimen/margin_5dp"
-                    android:layout_marginEnd="@dimen/margin_16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <!--<com.sackcentury.shinebuttonlib.ShineButton
-                        android:id="@+id/btnLike"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@color/grey_400"
-                        app:allow_random_color="false"
-                        app:btn_color="@color/grey_400"
-                        app:btn_fill_color="@color/red_500"
-                        app:siShape="@raw/star" />-->
-                    <CheckBox
-                        android:id="@+id/btnLike"
-                        android:layout_width="23dp"
-                        android:layout_height="23dp"
-                        android:layout_marginStart="@dimen/margin_10dp"
-                        android:button="@null"
-                        android:checked="false"
-                        android:stateListAnimator="@anim/scale"
-                        android:background="@drawable/ic_like_anim" />
-                    <TextView
-                        android:id="@+id/txtLikeCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/grey_500"
-                        android:textSize="12sp" />
-
-                    <ImageView
-                        android:id="@+id/imgComment"
-                        android:layout_width="23dp"
-                        android:layout_height="23dp"
-                        android:padding="4dp"
-                        android:layout_marginLeft="@dimen/margin_10dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:src="@drawable/ic_comment"
-                        app:tint="@color/sky_end" />
-                    <TextView
-                        android:id="@+id/txtCommentCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/grey_500"
-                        android:textSize="12sp" />
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:id="@+id/txt3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1 minute ago"
-                        android:textColor="@color/grey_500"
-                        android:textSize="11sp" />
-                </LinearLayout>
-
-            </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
             <TextView
-                android:id="@+id/txtItems"
-                android:layout_marginTop="@dimen/dimen_10dp"
+                android:id="@+id/txt1"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_marginEnd="@dimen/margin_16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/margin_15dp"
-                tools:text="@string/list_x_items"
-                android:textSize="@dimen/subtitle_size"
-                android:textStyle="bold"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:maxLines="2"
+                android:text="Con Mua Ngang Qua"
+                android:textColor="@color/black"
+                android:textSize="@dimen/title_size_large"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt2"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_marginEnd="@dimen/margin_16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                tools:text="Sơn Tùng M-TP"
                 android:textColor="@color/grey_500"
-                 />
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/margin_8dp" />
+                android:textSize="11sp" />
 
             <LinearLayout
+                android:layout_marginStart="@dimen/margin_5dp"
+                android:layout_marginEnd="@dimen/margin_16dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/grey_200"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
+
+                <!--<com.sackcentury.shinebuttonlib.ShineButton
+                    android:id="@+id/btnLike"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@color/grey_400"
+                    app:allow_random_color="false"
+                    app:btn_color="@color/grey_400"
+                    app:btn_fill_color="@color/red_500"
+                    app:siShape="@raw/star" />-->
+                <CheckBox
+                    android:id="@+id/btnLike"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_marginStart="@dimen/margin_10dp"
+                    android:button="@null"
+                    android:checked="false"
+                    android:stateListAnimator="@anim/scale"
+                    android:background="@drawable/ic_like_anim" />
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_16dp"
-                    android:text="@string/comments"
-                    android:textSize="@dimen/title_size"
-                    android:textAllCaps="true" />
-                <ImageView
-                    android:visibility="gone"
-                    android:id="@+id/imgExpand"
+                    android:id="@+id/txtLikeCount"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:padding="@dimen/margin_10dp"
-                    android:src="@drawable/ic_keyboard_arrow_down_grey_500_24dp"/>
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/grey_500"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/imgComment"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:padding="4dp"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_comment"
+                    app:tint="@color/sky_end" />
+                <TextView
+                    android:id="@+id/txtCommentCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/grey_500"
+                    android:textSize="12sp" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/txt3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1 minute ago"
+                    android:textColor="@color/grey_500"
+                    android:textSize="11sp" />
             </LinearLayout>
 
-            <include layout="@layout/item_reply"
-                android:visibility="gone"/>
-            <include layout="@layout/separator_horizoltal" />
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
 
-    <include layout="@layout/layout_input_comment"/>
+        <TextView
+            android:id="@+id/txtItems"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/margin_15dp"
+            tools:text="@string/list_x_items"
+            android:textSize="@dimen/subtitle_size"
+            android:textStyle="bold"
+            android:textColor="@color/grey_500"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey_200"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_16dp"
+                android:text="@string/comments"
+                android:textSize="@dimen/title_size"
+                android:textAllCaps="true" />
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/imgExpand"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="@dimen/margin_10dp"
+                android:src="@drawable/ic_keyboard_arrow_down_grey_500_24dp"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+    <LinearLayout
+        android:id="@+id/linearCommentBottom"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+        <include layout="@layout/item_reply"
+            android:visibility="gone"/>
+        <include layout="@layout/separator_horizoltal" />
+        <include layout="@layout/layout_input_comment"/>
+    </LinearLayout>
 
 </RelativeLayout>

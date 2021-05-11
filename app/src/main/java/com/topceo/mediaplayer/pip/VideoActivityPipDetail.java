@@ -340,6 +340,7 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
 
     @Override
     protected void onNewIntent(Intent intent) {
+        initData();
         if (mPresenter.initPlaylistAndRecordCurrentVideoProgress(null, intent)) {
             super.onNewIntent(intent);
             setIntent(intent);
@@ -523,11 +524,11 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
                         break;
                     case TextureVideoView.VIEW_MODE_LOCKED_FULLSCREEN:
                     case TextureVideoView.VIEW_MODE_VIDEO_STRETCHED_LOCKED_FULLSCREEN:
-                        showHideLayout(true);
+                        showHideLayout(false);
                         showLockUnlockOrientationButton(false);
                     case TextureVideoView.VIEW_MODE_VIDEO_STRETCHED_FULLSCREEN:
                     case TextureVideoView.VIEW_MODE_FULLSCREEN:
-                        showHideLayout(true);
+                        showHideLayout(false);
                         setFullscreenModeManually(true);
                         break;
                 }
@@ -1227,7 +1228,11 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
                     if (mVideoWidth == 0 || mVideoHeight == 0) return;
 
                     final float videoAspectRatio = (float) mVideoWidth / mVideoHeight;
-                    final int width = mVideoWidth / 2;//right - left;
+                    int width = right - left;
+                    MyUtils.log("width video = " + width + " and mVideoWidth = " + mVideoWidth);
+                    if (width > mVideoWidth) {
+                        width = mVideoWidth / 2;
+                    }
                     final int height = Utils.roundFloat(width / videoAspectRatio);
                     final int size = width * height;
                     final float sizeRatio = (float) size / cachedSize;
@@ -1534,6 +1539,7 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
     public static final String ACTION_UPDATE_STATE_FOLLOW = "ACTION_UPDATE_STATE_FOLLOW_2";
     public static final String ACTION_POST_DELETED = "ACTION_POST_DELETED_";
     public static final String ACTION_COMMENT_DELETED = "ACTION_COMMENT_DELETED_";
+    public static final String ACTION_FINISH = "ACTION_FINISH_PIP_VIDEO_DETAIL";
 
     private void registerReceiver() {
         receiver = new BroadcastReceiver() {
@@ -1562,6 +1568,8 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
                     binding.updateCommentCount();
                 } else if (intent.getAction().equalsIgnoreCase(MH01_MainActivity.ACTION_SET_NUMBER_CHAT_UNREAD)) {
                     ChatUtils.setChatUnreadNumber(txtNumber);
+                }else if(intent.getAction().equalsIgnoreCase(ACTION_FINISH)){
+                    finish();
                 }
 
 
@@ -1574,6 +1582,8 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
         filter.addAction(ACTION_UPDATE_STATE_FOLLOW);
         filter.addAction(ACTION_POST_DELETED);
         filter.addAction(ACTION_COMMENT_DELETED);
+        filter.addAction(ACTION_FINISH);
+
         registerReceiver(receiver, filter);
 
     }
@@ -1728,24 +1738,12 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
     private void showHideLayout(boolean isShow) {
         if (isShow) {
             if (binding.replyToComment != null) {
-                show(linearTop, linearComment, linear3, rv, linearReply, linearInputComment, relative1, linearFooterRow);
-            }else{
-                show(linearTop, linearComment, linear3, rv/*, linearReply*/, linearInputComment, relative1, linearFooterRow);
+                MyUtils.show(linearTop, linearComment, linear3, rv, linearReply, linearInputComment, relative1, linearFooterRow);
+            } else {
+                MyUtils.show(linearTop, linearComment, linear3, rv/*, linearReply*/, linearInputComment, relative1, linearFooterRow);
             }
         } else {
-            hide(linearTop, linearComment, linear3, rv, linearReply, linearInputComment, relative1, linearFooterRow);
-        }
-    }
-
-    private void hide(View... views) {
-        for (int i = 0; i < views.length; i++) {
-            views[i].setVisibility(View.GONE);
-        }
-    }
-
-    private void show(View... views) {
-        for (int i = 0; i < views.length; i++) {
-            views[i].setVisibility(View.VISIBLE);
+            MyUtils.hide(linearTop, linearComment, linear3, rv, linearReply, linearInputComment, relative1, linearFooterRow);
         }
     }
 

@@ -100,6 +100,7 @@ public class Video_Adapter extends
                     //set player
                     Intent intent = new Intent(VideoActivity.ACTION_PLAY_VIDEO);
                     intent.putExtra(MediaItem.MEDIA_ITEM, item);
+                    intent.putExtra(MediaItem.MEDIA_POSITION, position);
                     getContext().sendBroadcast(intent);
 
                     positionSelected = position;

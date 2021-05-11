@@ -3,6 +3,8 @@ package com.topceo.shopping;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 public class MediaItem implements Parcelable {
     public static final String ITEM_ID = "ITEM_ID";
     public static final String LIST = "LIST";
@@ -10,6 +12,7 @@ public class MediaItem implements Parcelable {
     public static final String COVER = "COVER";
     public static final String POSITION = "POSITION";
     public static final String MEDIA_ITEM = "MEDIA_ITEM";
+    public static final String MEDIA_POSITION = "MEDIA_POSITION";
     private long ItemId;//
     private String ItemGUID;//(50)		GUID để lưu path file
     private long MediaId;//		Reference tới Media
@@ -359,4 +362,15 @@ public class MediaItem implements Parcelable {
             return new MediaItem[size];
         }
     };
+
+    public static String[] getUrls(ArrayList<MediaItem> list){
+        if(list!=null && list.size()>0){
+            String[] arr = new String[list.size()];
+            for (int i = 0; i < list.size(); i++) {
+                arr[i] = list.get(i).getFileUrl();
+            }
+            return arr;
+        }
+        return null;
+    }
 }

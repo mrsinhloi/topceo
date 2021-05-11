@@ -17,12 +17,22 @@ import com.google.android.material.snackbar.Snackbar
 import com.liuzhenlin.common.utils.*
 import com.topceo.R
 import com.topceo.config.MyApplication
+import com.topceo.mediaplayer.extractor.ExtractorException
+import com.topceo.mediaplayer.extractor.YoutubeStreamExtractor
+import com.topceo.mediaplayer.extractor.YoutubeStreamExtractor.ExtractorListner
+import com.topceo.mediaplayer.extractor.model.YTMedia
+import com.topceo.mediaplayer.extractor.model.YTSubtitles
+import com.topceo.mediaplayer.extractor.model.YoutubeMeta
 import com.topceo.mediaplayer.pip.*
 import com.topceo.mediaplayer.pip.bean.Video
 import com.topceo.mediaplayer.pip.bean.VideoDirectory
 import com.topceo.mediaplayer.pip.bean.VideoListItem
 import com.topceo.mediaplayer.pip.dao.VideoListItemDao
+import com.topceo.shopping.Media
+import com.topceo.shopping.MediaItem
+import com.topceo.utils.MyUtils
 import java.io.File
+import java.util.*
 
 /**
  * @author 刘振林
@@ -81,11 +91,15 @@ interface VideoListItemOpCallback<in T : VideoListItem> {
             val file = File(item.path)
             if (!file.exists()) {
                 if (view == null) {
-                    Toast.makeText(context, R.string.renameFailedForThisVideoDoesNotExist,
-                            Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context, R.string.renameFailedForThisVideoDoesNotExist,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
-                    UiUtils.showUserCancelableSnackbar(view,
-                            R.string.renameFailedForThisVideoDoesNotExist, Snackbar.LENGTH_SHORT)
+                    UiUtils.showUserCancelableSnackbar(
+                        view,
+                        R.string.renameFailedForThisVideoDoesNotExist, Snackbar.LENGTH_SHORT
+                    )
                 }
                 return false
             }
@@ -94,13 +108,17 @@ interface VideoListItemOpCallback<in T : VideoListItem> {
             // 该路径下存在相同名称的视频文件
             if (!newName.equals(item.name, ignoreCase = true) && newFile.exists()) {
                 if (view == null) {
-                    Toast.makeText(context,
-                            R.string.renameFailedForThatDirectoryHasSomeFileWithTheSameName,
-                            Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        R.string.renameFailedForThatDirectoryHasSomeFileWithTheSameName,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
-                    UiUtils.showUserCancelableSnackbar(view,
-                            R.string.renameFailedForThatDirectoryHasSomeFileWithTheSameName,
-                            Snackbar.LENGTH_SHORT)
+                    UiUtils.showUserCancelableSnackbar(
+                        view,
+                        R.string.renameFailedForThatDirectoryHasSomeFileWithTheSameName,
+                        Snackbar.LENGTH_SHORT
+                    )
                 }
                 return false
             }
@@ -110,8 +128,10 @@ interface VideoListItemOpCallback<in T : VideoListItem> {
                 if (view == null) {
                     Toast.makeText(context, R.string.renameFailed, Toast.LENGTH_SHORT).show()
                 } else {
-                    UiUtils.showUserCancelableSnackbar(view,
-                            R.string.renameFailed, Snackbar.LENGTH_SHORT)
+                    UiUtils.showUserCancelableSnackbar(
+                        view,
+                        R.string.renameFailed, Snackbar.LENGTH_SHORT
+                    )
                 }
                 return false
             }
@@ -122,16 +142,20 @@ interface VideoListItemOpCallback<in T : VideoListItem> {
                 if (view == null) {
                     Toast.makeText(context, R.string.renameSuccessful, Toast.LENGTH_SHORT).show()
                 } else {
-                    UiUtils.showUserCancelableSnackbar(view,
-                            R.string.renameSuccessful, Snackbar.LENGTH_SHORT)
+                    UiUtils.showUserCancelableSnackbar(
+                        view,
+                        R.string.renameSuccessful, Snackbar.LENGTH_SHORT
+                    )
                 }
                 true
             } else {
                 if (view == null) {
                     Toast.makeText(context, R.string.renameFailed, Toast.LENGTH_SHORT).show()
                 } else {
-                    UiUtils.showUserCancelableSnackbar(view,
-                            R.string.renameFailed, Snackbar.LENGTH_SHORT)
+                    UiUtils.showUserCancelableSnackbar(
+                        view,
+                        R.string.renameFailed, Snackbar.LENGTH_SHORT
+                    )
                 }
                 false
             }
@@ -141,16 +165,20 @@ interface VideoListItemOpCallback<in T : VideoListItem> {
                 if (view == null) {
                     Toast.makeText(context, R.string.renameSuccessful, Toast.LENGTH_SHORT).show()
                 } else {
-                    UiUtils.showUserCancelableSnackbar(view,
-                            R.string.renameSuccessful, Snackbar.LENGTH_SHORT)
+                    UiUtils.showUserCancelableSnackbar(
+                        view,
+                        R.string.renameSuccessful, Snackbar.LENGTH_SHORT
+                    )
                 }
                 true
             } else {
                 if (view == null) {
                     Toast.makeText(context, R.string.renameFailed, Toast.LENGTH_SHORT).show()
                 } else {
-                    UiUtils.showUserCancelableSnackbar(view,
-                            R.string.renameFailed, Snackbar.LENGTH_SHORT)
+                    UiUtils.showUserCancelableSnackbar(
+                        view,
+                        R.string.renameFailed, Snackbar.LENGTH_SHORT
+                    )
                 }
                 false
             }
@@ -167,9 +195,11 @@ fun Context?.shareVideo(video: Video) {
     val app = MyApplication.getInstance()
     val context = this ?: app
     if (URLUtils.isNetworkUrl(video.path)) {
-        ShareUtils.shareText(context,
-                FileUtils.getFileTitleFromFileName(video.name) + "：" + video.path,
-                "text/plain")
+        ShareUtils.shareText(
+            context,
+            FileUtils.getFileTitleFromFileName(video.name) + "：" + video.path,
+            "text/plain"
+        )
     } else {
         ShareUtils.shareFile(context, Files.PROVIDER_AUTHORITY, File(video.path), "video/*")
     }
@@ -178,97 +208,148 @@ fun Context?.shareVideo(video: Video) {
 @JvmOverloads
 fun Context.playVideo(uriString: String, videoTitle: String? = null) {
     startActivity(
-            Intent(this, VideoActivityPip::class.java)
-                    .setData(Uri.parse(uriString))
-                    .putExtra(KEY_VIDEO_TITLE, videoTitle))
+        Intent(this, VideoActivityPip::class.java)
+            .setData(Uri.parse(uriString))
+            .putExtra(KEY_VIDEO_TITLE, videoTitle)
+    )
 }
+
 @JvmOverloads
 fun Context.playVideoImageItem(uriString: String, videoTitle: String? = null) {
     startActivity(
-            Intent(this, VideoActivityPipDetail::class.java)
-                    .setData(Uri.parse(uriString))
-                    .putExtra(KEY_VIDEO_TITLE, videoTitle))
+        Intent(this, VideoActivityPipDetail::class.java)
+            .setData(Uri.parse(uriString))
+            .putExtra(KEY_VIDEO_TITLE, videoTitle)
+    )
 }
 
 
 @JvmOverloads
 fun Context.playVideo(uri: Uri, videoTitle: String? = null) {
     startActivity(
-            Intent(this, VideoActivityPip::class.java)
-                    .setData(uri)
-                    .putExtra(KEY_VIDEO_TITLE, videoTitle))
+        Intent(this, VideoActivityPip::class.java)
+            .setData(uri)
+            .putExtra(KEY_VIDEO_TITLE, videoTitle)
+    )
 }
 
 @JvmOverloads
-fun Context.playVideos(uriStrings: Array<String>, videoTitles: Array<String?>? = null, selection: Int) {
-    Preconditions.checkArgument(uriStrings.size == videoTitles?.size ?: true,
-            "Array 'videoTitles' can only be null or its size equals the size of Array 'uriStrings'")
+fun Context.playVideos(
+    uriStrings: Array<String>,
+    videoTitles: Array<String?>? = null,
+    selection: Int
+) {
+    Preconditions.checkArgument(
+        uriStrings.size == videoTitles?.size ?: true,
+        "Array 'videoTitles' can only be null or its size equals the size of Array 'uriStrings'"
+    )
 
     if (uriStrings.isEmpty()) return
 
     startActivity(
-            Intent(this, VideoActivityPip::class.java)
-                    .putExtra(KEY_VIDEO_URIS, uriStrings.map { Uri.parse(it) }.toTypedArray())
-                    .putExtra(KEY_VIDEO_TITLES, videoTitles)
-                    .putExtra(KEY_SELECTION, selection))
+        Intent(this, VideoActivityPip::class.java)
+            .putExtra(KEY_VIDEO_URIS, uriStrings.map { Uri.parse(it) }.toTypedArray())
+            .putExtra(KEY_VIDEO_TITLES, videoTitles)
+            .putExtra(KEY_SELECTION, selection)
+    )
 }
-
 
 
 @JvmOverloads
 fun Context.playVideos(uris: Array<Uri>, videoTitles: Array<String?>? = null, selection: Int) {
-    Preconditions.checkArgument(uris.size == videoTitles?.size ?: true,
-            "Array 'videoTitles' can only be null or its size equals the size of Array 'uris'")
+    Preconditions.checkArgument(
+        uris.size == videoTitles?.size ?: true,
+        "Array 'videoTitles' can only be null or its size equals the size of Array 'uris'"
+    )
 
     if (uris.isEmpty()) return
 
     startActivity(
-            Intent(this, VideoActivityPip::class.java)
-                    .putExtra(KEY_VIDEO_URIS, uris)
-                    .putExtra(KEY_VIDEO_TITLES, videoTitles)
-                    .putExtra(KEY_SELECTION, selection))
+        Intent(this, VideoActivityPip::class.java)
+            .putExtra(KEY_VIDEO_URIS, uris)
+            .putExtra(KEY_VIDEO_TITLES, videoTitles)
+            .putExtra(KEY_SELECTION, selection)
+    )
 }
 
 fun Fragment.playVideo(video: Video) {
     startActivityForResult(
-            Intent(requireContext(), VideoActivityPip::class.java)
-                    .putExtra(KEY_VIDEO, video),
-            REQUEST_CODE_PLAY_VIDEO)
+        Intent(requireContext(), VideoActivityPip::class.java)
+            .putExtra(KEY_VIDEO, video),
+        REQUEST_CODE_PLAY_VIDEO
+    )
 }
 
 fun Activity.playVideo(video: Video) {
     startActivityForResult(
-            Intent(this, VideoActivityPip::class.java)
-                    .putExtra(KEY_VIDEO, video),
-            REQUEST_CODE_PLAY_VIDEO)
+        Intent(this, VideoActivityPip::class.java)
+            .putExtra(KEY_VIDEO, video),
+        REQUEST_CODE_PLAY_VIDEO
+    )
 }
 
 fun Fragment.playVideos(vararg videos: Video, selection: Int) {
     if (videos.isEmpty()) return
 
     startActivityForResult(
-            Intent(requireContext(), VideoActivityPip::class.java)
-                    .putExtra(KEY_VIDEOS, videos).putExtra(KEY_SELECTION, selection),
-            REQUEST_CODE_PLAY_VIDEOS)
+        Intent(requireContext(), VideoActivityPip::class.java)
+            .putExtra(KEY_VIDEOS, videos).putExtra(KEY_SELECTION, selection),
+        REQUEST_CODE_PLAY_VIDEOS
+    )
 }
 
 fun Activity.playVideos(vararg videos: Video, selection: Int) {
     if (videos.isEmpty()) return
 
     startActivityForResult(
-            Intent(this, VideoActivityPip::class.java)
-                    .putExtra(KEY_VIDEOS, videos).putExtra(KEY_SELECTION, selection),
-            REQUEST_CODE_PLAY_VIDEOS)
+        Intent(this, VideoActivityPip::class.java)
+            .putExtra(KEY_VIDEOS, videos).putExtra(KEY_SELECTION, selection),
+        REQUEST_CODE_PLAY_VIDEOS
+    )
 }
 
 
-@JvmOverloads
-fun Context.playVideoList(uriStrings: Array<String>, selection: Int) {
-    if (uriStrings.isEmpty()) return
-    startActivity(
-        Intent(this, VideoActivityPip::class.java)
-            .putExtra(KEY_VIDEO_URIS, uriStrings.map { Uri.parse(it) }.toTypedArray())
-//            .putExtra(KEY_VIDEO_TITLES, videoTitles)
-            .putExtra(KEY_SELECTION, selection))
+fun Context.playVideoListShopping(media: Media, list: ArrayList<MediaItem>, position:Int) {
+    val title = media.title
+    val arr = MediaItem.getUrls(list)
+    val url = arr[position]
+
+    /////
+    if (MyUtils.isYoutubeUrl(url)) {
+        YoutubeStreamExtractor(object : ExtractorListner {
+            override fun onExtractionDone(
+                adativeStream: List<YTMedia>?,
+                muxedStream: List<YTMedia>?,
+                subtitles: List<YTSubtitles>?,
+                meta: YoutubeMeta?
+            ) {
+                //url to get subtitle
+                if (!muxedStream.isNullOrEmpty()) {
+                    val subUrl = muxedStream[muxedStream.size - 1].url
+                    startActivity(
+                        Intent(applicationContext, VideoListActivityPip::class.java)
+                            .putExtra(Media.MEDIA, media)
+                            .putParcelableArrayListExtra(MediaItem.LIST, list)
+                            .setData(Uri.parse(subUrl))
+                            .putExtra(KEY_VIDEO_TITLE, title)
+                    )
+                }
+            }
+
+            override fun onExtractionGoesWrong(e: ExtractorException) {
+                MyUtils.showToast(MyApplication.context, e.message)
+            }
+        }).useDefaultLogin().Extract(url)
+    } else {
+        startActivity(
+            Intent(this, VideoListActivityPip::class.java)
+                .putExtra(Media.MEDIA, media)
+                .putParcelableArrayListExtra(MediaItem.LIST, list)
+                .setData(Uri.parse(url))
+                .putExtra(KEY_VIDEO_TITLE, title)
+        )
+    }
+
+
 }
 

@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,8 @@ import com.topceo.mediaplayer.extractor.YoutubeStreamExtractor;
 import com.topceo.mediaplayer.extractor.model.YTMedia;
 import com.topceo.mediaplayer.extractor.model.YTSubtitles;
 import com.topceo.mediaplayer.extractor.model.YoutubeMeta;
+import com.topceo.mediaplayer.pip.VideoActivityPipDetail;
+import com.topceo.mediaplayer.pip.VideoListActivityPip;
 import com.topceo.mediaplayer.pip.presenter.VideoListItemOpsKt;
 import com.topceo.objects.menu.MenuShop;
 import com.topceo.objects.menu.MenuType;
@@ -755,81 +758,7 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void parseVideo(JsonObject body, Media media) {
-        JsonObject data = body;
-        if (data != null) {
-            Type collectionType = new TypeToken<List<MediaItem>>() {
-            }.getType();
-            ReturnResult result = Webservices.parseJson(data.toString(), collectionType, true);
 
-            if (result != null) {
-                if (result.getErrorCode() == ReturnResult.SUCCESS) {//da ton tai thi vao
-                    ArrayList<MediaItem> list = (ArrayList<MediaItem>) result.getData();
-                    MyUtils.showToastDebug(context, "List size " + list.size());
-
-                    //neu co bai hat thi moi play
-                    if (list.size() > 0) {
-
-                        //tat nhac, pause thoi
-                        if (mPlayerAdapter != null && mPlayerAdapter.isPlaying()) {
-//                            stopService(new Intent(context, PlayerService.class));
-                            if (checkIsPlayer()) {
-                                mPlayerAdapter.pause();
-                            }
-                        }
-
-                        //mo video
-                        /*Intent intent = new Intent(context, VideoActivity.class);
-                        intent.putExtra(Media.MEDIA, media);
-                        intent.putParcelableArrayListExtra(MediaItem.LIST, list);
-                        startActivity(intent);*/
-
-                        String[] arr = new String[list.size()];
-                        for (int i = 0; i < list.size(); i++) {
-                            arr[i] = list.get(i).getFileUrl();
-                        }
-
-                        String url = arr[0];
-                        if (MyUtils.isYoutubeUrl(url)) {
-                            String videoId = MyUtils.getYoutubeId(url);
-                            new YoutubeStreamExtractor(new YoutubeStreamExtractor.ExtractorListner() {
-                                @Override
-                                public void onExtractionDone(List<YTMedia> adativeStream, final List<YTMedia> muxedStream, List<YTSubtitles> subtitles, YoutubeMeta meta) {
-                                    //url to get subtitle
-//                                    String subUrl = subtitles.get(0).getBaseUrl();
-                                    if(muxedStream!=null && muxedStream.size()>0){
-                                        String subUrl = muxedStream.get(muxedStream.size()-1).getUrl();
-                                        VideoListItemOpsKt.playVideo(context, subUrl);
-                                    }
-
-                                    /*for (YTMedia media:adativeStream) {
-                                        if(media.isVideo()){
-                                            //is video
-
-                                        }else{
-                                            //is audio
-                                        }
-                                    }*/
-                                }
-
-                                @Override
-                                public void onExtractionGoesWrong(final ExtractorException e) {
-                                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            }).useDefaultLogin().Extract(url);
-                        } else {
-                            VideoListItemOpsKt.playVideoList(context, arr, 0);
-                        }
-
-                    } else {
-                        MyUtils.showToast(context, R.string.no_video);
-                    }
-                }
-            }
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1268,6 +1197,50 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
     }
     /////////////////////////////////////////////////////////////////////////////////////
 
+    private void parseVideo(JsonObject body, Media media) {
+        JsonObject data = body;
+        if (data != null) {
+            Type collectionType = new TypeToken<List<MediaItem>>() {
+            }.getType();
+            ReturnResult result = Webservices.parseJson(data.toString(), collectionType, true);
+
+            if (result != null) {
+                if (result.getErrorCode() == ReturnResult.SUCCESS) {//da ton tai thi vao
+                    ArrayList<MediaItem> list = (ArrayList<MediaItem>) result.getData();
+                    MyUtils.showToastDebug(context, "List size " + list.size());
+
+                    //neu co bai hat thi moi play
+                    if (list.size() > 0) {
+
+                        //tat nhac, pause thoi
+                        if (mPlayerAdapter != null && mPlayerAdapter.isPlaying()) {
+//                            stopService(new Intent(context, PlayerService.class));
+                            if (checkIsPlayer()) {
+                                mPlayerAdapter.pause();
+                            }
+                        }
+
+                        //mo video
+                        /*Intent intent = new Intent(context, VideoActivity.class);
+                        intent.putExtra(Media.MEDIA, media);
+                        intent.putParcelableArrayListExtra(MediaItem.LIST, list);
+                        startActivity(intent);*/
+
+//                        MyUtils.playYoutubeShopping(context, url);
+//                        String[] arr = MediaItem.getUrls(list);
+
+                        MyUtils.closePip(context);
+                        VideoListItemOpsKt.playVideoListShopping(context, media, list, 0);
+
+                    } else {
+                        MyUtils.showToast(context, R.string.no_video);
+                    }
+                }
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     /////////////////////////////////////////////////////////////////////////////////////
 

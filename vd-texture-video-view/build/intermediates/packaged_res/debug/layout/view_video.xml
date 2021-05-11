@@ -2,7 +2,8 @@
 
 <!--suppress AndroidElementNotAllowed -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <com.liuzhenlin.texturevideoview.ConstraintLayout
         android:id="@+id/content_videoview"
@@ -134,6 +135,8 @@
 
             <ImageView
                 android:id="@+id/btn_share"
+                android:visibility="gone"
+                tools:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="6.5dp"
@@ -148,6 +151,8 @@
 
             <ImageView
                 android:id="@+id/btn_track"
+                android:visibility="gone"
+                tools:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="6.5dp"

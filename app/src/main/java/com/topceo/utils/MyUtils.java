@@ -27,6 +27,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -76,7 +78,13 @@ import com.topceo.fragments.Fragment_2_Explorer;
 import com.topceo.group.GroupDetailActivity;
 import com.topceo.hashtag.HashTagActivity;
 import com.topceo.login.MH15_SigninActivity;
+import com.topceo.mediaplayer.extractor.ExtractorException;
+import com.topceo.mediaplayer.extractor.YoutubeStreamExtractor;
+import com.topceo.mediaplayer.extractor.model.YTMedia;
+import com.topceo.mediaplayer.extractor.model.YTSubtitles;
+import com.topceo.mediaplayer.extractor.model.YoutubeMeta;
 import com.topceo.mediaplayer.pip.VideoActivityPipDetail;
+import com.topceo.mediaplayer.pip.VideoListActivityPip;
 import com.topceo.mediaplayer.pip.presenter.VideoListItemOpsKt;
 import com.topceo.objects.db.UserFollowing;
 import com.topceo.objects.image.ImageItem;
@@ -616,7 +624,7 @@ public class MyUtils {
                 second = second % 60;
                 duration = String.format("%d:%02d:%02d", hour, minute, second);
             } else {
-                if(minute>0){
+                if (minute > 0) {
                     second = second % 60;
                 }
                 duration = String.format("%02d:%02d", minute, second);
@@ -725,6 +733,37 @@ public class MyUtils {
             return matcher.group(1);
         }/*from w  w  w.  j a  va  2 s .c om*/
         return null;
+    }
+
+    public static void playYoutubeShopping(Activity context, String url) {
+        if (context != null && !TextUtils.isEmpty(url)) {
+//            long start = SystemClock.elapsedRealtime();
+            new YoutubeStreamExtractor(new YoutubeStreamExtractor.ExtractorListner() {
+                @Override
+                public void onExtractionDone(List<YTMedia> adativeStream, final List<YTMedia> muxedStream, List<YTSubtitles> subtitles, YoutubeMeta meta) {
+//                    MyUtils.howLong(start, "parse success");
+                    //url to get subtitle
+                    if (muxedStream != null && muxedStream.size() > 0) {
+                        String subUrl = muxedStream.get(muxedStream.size() - 1).getUrl();
+                        VideoListItemOpsKt.playVideo(context, subUrl);
+                    }
+                }
+
+                @Override
+                public void onExtractionGoesWrong(final ExtractorException e) {
+                    if (e != null) {
+                        MyUtils.showToast(context, e.getMessage());
+                    }
+                }
+            }).useDefaultLogin().Extract(url);
+        }
+    }
+
+    public static void closePip(Context context) {
+        Intent mh1 = new Intent(VideoActivityPipDetail.ACTION_FINISH);
+        context.sendBroadcast(mh1);
+        Intent mh2 = new Intent(VideoListActivityPip.ACTION_FINISH);
+        context.sendBroadcast(mh2);
     }
 
     /////DATE/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2119,8 +2158,8 @@ public class MyUtils {
     }
 
     public static void howLong(long start, String message) {
-//        long time = SystemClock.elapsedRealtime() - start;
-//        Log.d("test", "how long = " + time + " - " + message);
+        long time = SystemClock.elapsedRealtime() - start;
+        Log.d("test", "how long = " + time + " - " + message);
     }
 
     private void getScreenSize(Activity context) {
@@ -3373,11 +3412,20 @@ public class MyUtils {
             //luu tam vao cache va doc len lai tu cache
             MyApplication.imgItem = item;
 
-            if(item.isVideo()){
+            if (item.isVideo()) {
 //                Intent intent = new Intent(context, VideoActivityPipDetail.class);
 //                context.startActivity(intent);
-                VideoListItemOpsKt.playVideoImageItem(context, item.getImageLarge());
-            }else {
+//                MyUtils.closePip(context);
+                Intent mh2 = new Intent(VideoListActivityPip.ACTION_FINISH);
+                context.sendBroadcast(mh2);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        VideoListItemOpsKt.playVideoImageItem(context, item.getImageLarge());
+                    }
+                }, 500);
+            } else {
                 Intent intent = new Intent(context, MH02_PhotoDetailActivity.class);
 //            intent.putExtra(ImageItem.IMAGE_ITEM, item);
                 context.startActivity(intent);
@@ -3427,4 +3475,17 @@ public class MyUtils {
         }
     }
 
+
+    //show hide views
+    public static void hide(View... views) {
+        for (int i = 0; i < views.length; i++) {
+            views[i].setVisibility(View.GONE);
+        }
+    }
+
+    public static void show(View... views) {
+        for (int i = 0; i < views.length; i++) {
+            views[i].setVisibility(View.VISIBLE);
+        }
+    }
 }

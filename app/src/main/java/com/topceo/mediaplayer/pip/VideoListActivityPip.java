@@ -26,8 +26,10 @@ import android.util.Log;
 import android.util.Rational;
 import android.view.DisplayCutout;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -43,6 +45,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.drawable.IconCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -73,13 +76,19 @@ import com.topceo.chat.ChatUtils;
 import com.topceo.config.MyApplication;
 import com.topceo.db.TinyDB;
 import com.topceo.eventbus.EventImageComment;
+import com.topceo.eventbus.EventMediaComment;
 import com.topceo.mediaplayer.pip.bean.Video;
 import com.topceo.mediaplayer.pip.presenter.IVideoPresenter;
 import com.topceo.mediaplayer.pip.presenter.IVideoView;
+import com.topceo.mediaplayer.pip.presenter.VideoListItemOpsKt;
 import com.topceo.mediaplayer.pip.utils.VideoUtils2;
+import com.topceo.mediaplayer.video.ShoppingBinding;
 import com.topceo.objects.image.ImageComment;
 import com.topceo.objects.image.ImageItem;
 import com.topceo.objects.other.User;
+import com.topceo.shopping.Media;
+import com.topceo.shopping.MediaComment;
+import com.topceo.shopping.MediaItem;
 import com.topceo.socialview.commons.widget.SocialAutoCompleteTextView;
 import com.topceo.utils.MyUtils;
 import com.topceo.viewholders.HolderUtils;
@@ -307,6 +316,18 @@ public class VideoListActivityPip extends SwipeBackActivity implements IVideoVie
 
     @Override
     protected void onNewIntent(Intent intent) {
+
+        //neu khac media thi load lai tu dau
+        /*Bundle b = intent.getExtras();
+        if (b != null) {
+            Media newMedia = b.getParcelable(Media.MEDIA);
+            if(media.getMediaId()!=newMedia.getMediaId()){
+                initData();
+            }else{
+
+            }
+        }*/
+
         if (mPresenter.initPlaylistAndRecordCurrentVideoProgress(null, intent)) {
             super.onNewIntent(intent);
             setIntent(intent);
@@ -490,11 +511,11 @@ public class VideoListActivityPip extends SwipeBackActivity implements IVideoVie
                         break;
                     case TextureVideoView.VIEW_MODE_LOCKED_FULLSCREEN:
                     case TextureVideoView.VIEW_MODE_VIDEO_STRETCHED_LOCKED_FULLSCREEN:
-                        showHideLayout(true);
+                        showHideLayout(false);
                         showLockUnlockOrientationButton(false);
                     case TextureVideoView.VIEW_MODE_VIDEO_STRETCHED_FULLSCREEN:
                     case TextureVideoView.VIEW_MODE_FULLSCREEN:
-                        showHideLayout(true);
+                        showHideLayout(false);
                         setFullscreenModeManually(true);
                         break;
                 }
@@ -733,10 +754,6 @@ public class VideoListActivityPip extends SwipeBackActivity implements IVideoVie
         ////
         if (receiver != null) unregisterReceiver(receiver);
         MyUtils.hideKeyboard(VideoListActivityPip.this);
-        if (realm != null) {
-            realm.close();
-        }
-        MyApplication.imgItem = null;
     }
 
     @Override
@@ -1194,7 +1211,13 @@ public class VideoListActivityPip extends SwipeBackActivity implements IVideoVie
                     if (mVideoWidth == 0 || mVideoHeight == 0) return;
 
                     final float videoAspectRatio = (float) mVideoWidth / mVideoHeight;
-                    final int width = mVideoWidth / 2;//right - left;
+                    int width = right - left;
+                    MyUtils.log("width video = " + width + " and mVideoWidth = " + mVideoWidth);
+                    if (width > mVideoWidth) {
+                        width = mVideoWidth / 2;
+                    }
+
+
                     final int height = Utils.roundFloat(width / videoAspectRatio);
                     final int size = width * height;
                     final float sizeRatio = (float) size / cachedSize;
@@ -1362,298 +1385,145 @@ public class VideoListActivityPip extends SwipeBackActivity implements IVideoVie
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mPresenter.saveData(outState);
-
-
-        outState.putParcelableArrayList(ImageComment.IMAGE_COMMENT_ARRAY_LIST, binding.getmAdapter().getAllItem());
-        outState.putParcelable(ImageItem.IMAGE_ITEM, item);
     }
 
 
     /////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    //FROM USER//////////////////////////////////////////////////////////
     private Activity context = this;
-    private int avatarSize = 0;
-    private int widthImage = 0, heightImage = 0;
-    private boolean isMyPost = false;
-    private Realm realm;
-    private ImageItem item;
-    private User user;
-    private DetailBinding binding;
-    private BroadcastReceiver receiver;
+    private ArrayList<MediaItem> list = new ArrayList<>();
+    private Media media;
+
+    @BindView(R.id.btnLike)
+    CheckBox btnLike;
+    @BindView(R.id.imgComment)
+    ImageView imgComment;
+    @BindView(R.id.txtLikeCount)
+    TextView txtLikeCount;
+    @BindView(R.id.txtCommentCount)
+    TextView txtCommentCount;
+
+    private ShoppingBinding binding;
+
+    private void initBinding() {
+        binding = new ShoppingBinding(context, media, list, videoSelected, txtInput, rippleSend, txtItems, linearInputComment, linearReply, rv1, rv2, txt1, txt2, txt3, txtLikeCount, txtCommentCount);
+    }
+
+    private void initData() {
+        Bundle b = getIntent().getExtras();
+        if (b != null) {
+            list = b.getParcelableArrayList(MediaItem.LIST);
+            media = b.getParcelable(Media.MEDIA);
+
+            if (list != null && list.size() > 0) {
+                videoSelected = list.get(0);
+                positionSelected = 0;
+                initBinding();
+                setUIVideo();
+            }
+
+        }
+
+        //recyclerview
+        initUI();
+        registerReceiver();
+        initScrollview();
+    }
+
+    private boolean isHideKeyboard = false;
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    @BindView(R.id.recyclerView1)
+    RecyclerView rv1;
+    @BindView(R.id.recyclerView2)
+    RecyclerView rv2;
 
     private void initUI() {
-        realm = Realm.getDefaultInstance();
-        widthImage = MyUtils.getScreenWidth(context);// - roundCorner * 2;
-        avatarSize = context.getResources().getDimensionPixelSize(R.dimen.avatar_size_small);
-        img1.setLayoutParams(new LinearLayout.LayoutParams(avatarSize, avatarSize));
-
-        TinyDB db = new TinyDB(this);
-        Object obj = db.getObject(User.USER, User.class);
-        if (obj != null) {
-            user = (User) obj;
-        }
-
-        txtViewAllComment.setVisibility(View.GONE);
-        linearCommentPreview.setVisibility(View.GONE);
-
-        item = MyApplication.imgItem;
-        if (item != null) {
-
-            if (user != null && item.getOwner() != null) {
-                isMyPost = user.getUserId() == item.getOwner().getUserId();
-            }
-
-            heightImage = item.getNeedHeightImage(widthImage);
-//            if (img2 != null)
-//                img2.setLayoutParams(new FrameLayout.LayoutParams(widthImage, heightImage));
-
-            if (user.getUserId() == item.getOwner().getUserId()) {
-                btnFollow.setVisibility(View.GONE);
-            } else {
-                btnFollow.setVisibility(View.VISIBLE);
-            }
-
-            binding = new DetailBinding(context,
-                    user,
-                    item,
-                    realm,
-                    isMyPost,
-                    txt3,
-                    imgLike,
-                    imgSave,
-                    txtInput,
-                    rv,
-                    linearReply);
-            setTitleBar();
-
-            setUI();
-        }
+        binding.initUI(btnLike);
     }
 
-    ///////////////////////////////////////////////////
-    @BindView(R.id.imgBack)
-    ImageView imgBack;
-    @BindView(R.id.imgShop)
-    ImageView imgShop;
-    @BindView(R.id.relativeChat)
-    RelativeLayout relativeChat;
-    @BindView(R.id.txtNumber)
-    TextView txtNumber;
-
-    private void setTitleBar() {
-        binding.setTitleBar(imgBack, imgShop, relativeChat, txtNumber, context);
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    //COMMENT
-    @BindView(R.id.recyclerView1)
-    RecyclerView rv;
-    @BindView(R.id.editText1)
-    SocialAutoCompleteTextView txtInput;
-    @BindView(R.id.ripple1)
-    LinearLayout rippleSend;
+    private MediaItem videoSelected;
+    private int positionSelected = 0;
+    @BindView(R.id.txt1)
+    TextView txt1;
+    @BindView(R.id.txt2)
+    TextView txt2;
+    @BindView(R.id.txt3)
+    TextView txt3;
 
-    private void initComment() {
-        initAdapter();
-
-        //todo scroll
-        /*if (scrollView != null) {
-            scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-                @Override
-                public void onScrollChange(NestedScrollView nestedScrollView, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    MyUtils.hideKeyboard(context);
-                }
-            });
-        }*/
-
+    private void setUIVideo() {
+        binding.setUIVideo(videoSelected);
+        //todo play item selected
+        VideoListItemOpsKt.playVideoListShopping(context, media, list, positionSelected);
     }
 
-    private void initAdapter() {
-        binding.initAdapter(rippleSend);
-        binding.initHastag();
-    }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        if (savedInstanceState == null) {
-            binding.getComments(item.getImageItemId(), 0, 0);
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+    public static final String ACTION_PLAY_VIDEO = "ACTION_PLAY_VIDEO";
+    public static final String ACTION_FINISH = "ACTION_FINISH_LIST_VIDEO";
 
-        } else {
-
-            MyUtils.initCookie(context);
-            item = savedInstanceState.getParcelable(ImageItem.IMAGE_ITEM);
-            ArrayList<ImageComment> list = savedInstanceState.getParcelableArrayList(ImageComment.IMAGE_COMMENT_ARRAY_LIST);
-            if (list != null && list.size() > 0) {
-                binding.getmAdapter().clear();
-                binding.getmAdapter().addListItems(list);
-//                list_empty.setVisibility(View.GONE);
-            } else {
-//                list_empty.setVisibility(View.VISIBLE);
-            }
-
-        }
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    public static final String ACTION_UPDATE_ITEM = "ACTION_UPDATE_ITEM_2";
-    public static final String ACTION_UPDATE_STATE_FOLLOW = "ACTION_UPDATE_STATE_FOLLOW_2";
-    public static final String ACTION_POST_DELETED = "ACTION_POST_DELETED_";
-    public static final String ACTION_COMMENT_DELETED = "ACTION_COMMENT_DELETED_";
+    private BroadcastReceiver receiver;
 
     private void registerReceiver() {
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                Bundle b = intent.getExtras();
+                switch (intent.getAction()) {
+                    case ACTION_PLAY_VIDEO:
+                        MediaItem mediaItem = b.getParcelable(MediaItem.MEDIA_ITEM);
+                        if (mediaItem != null) {
+                            videoSelected = mediaItem;
 
-                if (intent.getAction().equalsIgnoreCase(ACTION_UPDATE_ITEM)) {
-                    ImageItem image = MyApplication.itemReturn;
-                    if (image != null) {
-                        item = image;
-                        setUI();
-                    }
-                } else if (intent.getAction().equalsIgnoreCase(ACTION_UPDATE_STATE_FOLLOW)) {
-                    binding.setButtonUI(btnFollow);
-                } else if (intent.getAction().equalsIgnoreCase(ACTION_POST_DELETED)) {
-                    Bundle b = intent.getExtras();
-                    if (b != null) {
-                        long imageItemId = b.getLong(ImageItem.IMAGE_ITEM_ID);
-                        if (item != null && imageItemId > 0) {
-                            if (item.getImageItemId() == imageItemId) {
-                                finish();
-                            }
+                            positionSelected = b.getInt(MediaItem.MEDIA_POSITION, 0);
+                            setUIVideo();
+
                         }
-                    }
-                } else if (intent.getAction().equalsIgnoreCase(ACTION_COMMENT_DELETED)) {
-                    binding.updateCommentCount();
-                } else if (intent.getAction().equalsIgnoreCase(MH01_MainActivity.ACTION_SET_NUMBER_CHAT_UNREAD)) {
-                    ChatUtils.setChatUnreadNumber(txtNumber);
+
+                        scrollToTop();
+
+                        break;
+                    case ACTION_FINISH:
+                        finish();
+                        break;
+
+                    default:
+                        break;
                 }
-
-
             }
         };
+        registerReceiver(receiver, new IntentFilter(ACTION_PLAY_VIDEO));
+        registerReceiver(receiver, new IntentFilter(ACTION_FINISH));
 
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(MH01_MainActivity.ACTION_SET_NUMBER_CHAT_UNREAD);
-        filter.addAction(ACTION_UPDATE_ITEM);
-        filter.addAction(ACTION_UPDATE_STATE_FOLLOW);
-        filter.addAction(ACTION_POST_DELETED);
-        filter.addAction(ACTION_COMMENT_DELETED);
-        registerReceiver(receiver, filter);
 
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // each data imageItem is just a string in this case
-    @BindView(R.id.textView1)
-    TextView txt1;
-    @BindView(R.id.textView2)
-    TextView txt2;
-    @BindView(R.id.textView3)
-    TextView txt3;
-    @BindView(R.id.textView5)
-    ShowMoreTextView txt5;
-    @BindView(R.id.textView6)
-    TextView txt6;
 
-    @BindView(R.id.imageView1)
-    ImageView img1;
-    /*@BindView(R.id.imageView2)
-    ImageView img2;*/
-    @BindView(R.id.imgLike)
-    CheckBox imgLike;
-    @BindView(R.id.imgMenu2)
-    ImageView imgMenu;
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    @BindView(R.id.linearLayout3)
-    LinearLayout linear3;
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @BindView(R.id.vBgLike)
-    View vBgLike;
-    @BindView(R.id.ivLike)
-    ImageView ivLike;
 
-    @BindView(R.id.linearLike)
-    LinearLayout linearLike;
-    @BindView(R.id.linearComment)
-    LinearLayout linearComment;
-    @BindView(R.id.linearShare)
-    LinearLayout linearShare;
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    @BindView(R.id.editText1)
+    SocialAutoCompleteTextView txtInput;
+    @BindView(R.id.ripple1)
+    LinearLayout rippleSend;
+    @BindView(R.id.txtItems)
+    TextView txtItems;
+    @BindView(R.id.linearInputComment)
+    LinearLayout linearInputComment;
 
-    public @BindView(R.id.linearSave)
-    LinearLayout linearSave;
-    public @BindView(R.id.imgSave)
-    ImageView imgSave;
 
-    @BindView(R.id.button1)
-    AppCompatButton btnFollow;
-
-    //    @BindView(R.id.scrollViewDetail)
-//    NestedScrollView scrollView;
-    @BindView(R.id.imgOwner)
-    ImageView imgOwner;
-
-    //comment preview
-    @BindView(R.id.txtViewAllComment)
-    TextView txtViewAllComment;
-    @BindView(R.id.linearCommentPreview)
-    LinearLayout linearCommentPreview;
-
-    @BindView(R.id.imgVip)
-    ImageView imgVip;
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    public void setUI() {
-        if (item != null) {
-            binding.setUserVip(avatarSize, img1, imgVip);
-
-            if (ImageItem.ITEM_TYPE_FACEBOOK.equals(item.getItemType())) {
-                //neu chi co 1 video thi hien thi theo instagram video
-                if (item.getItemContent().size() == 1 && item.isVideo()) {
-                    item.setItemType(ImageItem.ITEM_TYPE_INSTAGRAM);
-                    initTelegramPost();
-                } else {
-//                    initFacebookPost();
-                }
-
-            } else {//instagram
-                initTelegramPost();
-            }
-
-            //neu like,comment,share deu = 0 thi an
-            binding.setLikeShareComment();
-            binding.setContent(txt1, txt2, txt3, txt6, imgMenu, linearLike, imgLike, linearSave, null, linearComment, linearShare, img1, ivLike);
-            /////////////////////////////////////////////////////////////////////////
-        }
-
-        binding.setButtonUI(btnFollow);
-    }
-
-    private void initTelegramPost() {
-        //neu description
-        linear3.setVisibility(View.VISIBLE);
-        HolderUtils.setDescription(item.getDescription(), txt5, context);
-
-        /*if (item.isVideo()) {
-            initVideoPost();
-        } else {
-            initImagePost();
-        }*/
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    //EVENT BUS/////////////////////////////////////////////////////////////////////////////////////
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(EventImageComment event) {
-        if (event != null && event.getComment() != null) {
-            initReplyLayout(event.getComment());
-        }
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     //REPLY/////////////////////////////////////////////////////////////////////////////////////////
     @BindView(R.id.linearReply)
     LinearLayout linearReply;
@@ -1664,56 +1534,109 @@ public class VideoListActivityPip extends SwipeBackActivity implements IVideoVie
     @BindView(R.id.imgReplyClose)
     ImageView imgReplyClose;
 
-    private void initReplyLayout(ImageComment comment) {
-        binding.initReplyLayout(comment, linearReply, imgReplyClose, txtReply1, txtReply2);
+    private void initReplyLayout(MediaComment comment) {
+        binding.initReplyLayout(comment, imgReplyClose, txtReply1, txtReply2);
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    //FROM USER//////////////////////////////////////////////////////////
-    private void initData() {
-        initUI();
-        initComment();
-        registerReceiver();
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //EVENT BUS/////////////////////////////////////////////////////////////////////////////////////
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventMediaComment event) {
+        if (event != null && event.getComment() != null) {
+            initReplyLayout(event.getComment());
+        }
     }
 
-
-    @BindView(R.id.relative1)
-    LinearLayout relative1;//header of row
-    @BindView(R.id.linearTop)
-    LinearLayout linearTop;//toolbar
-    @BindView(R.id.linearInputComment)
-    LinearLayout linearInputComment;//toolbar
-    @BindView(R.id.linearFooterRow)
-    LinearLayout linearFooterRow;//toolbar
+    @BindView(R.id.nestedScrollView)
+    NestedScrollView scrollView;
+    @BindView(R.id.linearCommentBottom)
+    LinearLayout linearCommentBottom;
 
     private void showHideLayout(boolean isShow) {
         if (isShow) {
-            if (binding.replyToComment != null) {
-                show(linearTop, linearComment, linear3, rv, linearReply, linearInputComment, relative1, linearFooterRow);
-            }else{
-                show(linearTop, linearComment, linear3, rv/*, linearReply*/, linearInputComment, relative1, linearFooterRow);
-            }
+            MyUtils.show(scrollView, linearCommentBottom);
         } else {
-            hide(linearTop, linearComment, linear3, rv, linearReply, linearInputComment, relative1, linearFooterRow);
+            MyUtils.hideKeyboard(context);
+            MyUtils.hide(scrollView, linearCommentBottom);
         }
     }
 
-    private void hide(View... views) {
-        for (int i = 0; i < views.length; i++) {
-            views[i].setVisibility(View.GONE);
-        }
+    private void initScrollview() {
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (!isHideKeyboard) {
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
+                        MyUtils.hideKeyboard(context);
+                        isHideKeyboard = true;
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        });
+
+        imgComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollToView();
+            }
+        });
     }
 
-    private void show(View... views) {
-        for (int i = 0; i < views.length; i++) {
-            views[i].setVisibility(View.VISIBLE);
+    private void scrollToView() {
+        runJustBeforeBeingDrawn(txtInput, new Runnable() {
+            @Override
+            public void run() {
+                //...
+                final int top = findTopRelativeToParent(scrollView, txtInput);
+                scrollView.scrollTo(0, top);
+                txtInput.requestFocus();
+                MyUtils.showKeyboard(context);
+                //...
+            }
+        });
+    }
+
+    private int findTopRelativeToParent(ViewGroup parent, View child) {
+        int top = child.getTop();
+        View childDirectParent = ((View) child.getParent());
+        boolean isDirectChild = (childDirectParent.getId() == parent.getId());
+
+        try {
+            while (!isDirectChild) {
+                top += childDirectParent.getTop();
+                childDirectParent = ((View) childDirectParent.getParent());
+                isDirectChild = (childDirectParent.getId() == parent.getId());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        return top;
+
+    }
+
+    public static void runJustBeforeBeingDrawn(final View view, final Runnable runnable) {
+        final ViewTreeObserver.OnPreDrawListener preDrawListener = new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                view.getViewTreeObserver().removeOnPreDrawListener(this);
+                runnable.run();
+                return true;
+            }
+        };
+        view.getViewTreeObserver().addOnPreDrawListener(preDrawListener);
+    }
+
+    private void scrollToTop() {
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.smoothScrollTo(0, 0);
+            }
+        });
     }
 
 

@@ -400,6 +400,7 @@ public class CommentAdapterSectionParent_MediaComment extends SectionedRecyclerV
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder1, int section, int relativePosition, int absolutePosition) {
+        holder1.setIsRecyclable(false);
         if (listItems.get(section).getListChild().size() > 0) {
             MediaComment item = listItems.get(section).getListChild().get(relativePosition);
 

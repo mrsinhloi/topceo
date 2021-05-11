@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical"
+    android:layout_below="@id/linearTop"
     xmlns:tools="http://schemas.android.com/tools">
 
     <include layout="@layout/separate_horizontal"/>
