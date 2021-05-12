@@ -31,6 +31,7 @@ import com.facebook.login.LoginResult
 import com.google.gson.JsonObject
 import com.otaliastudios.transcoder.Transcoder
 import com.otaliastudios.transcoder.TranscoderListener
+import com.otaliastudios.transcoder.common.TrackType
 import com.otaliastudios.transcoder.strategy.DefaultVideoStrategy
 import com.permissionx.guolindev.PermissionX
 import com.smartapp.collage.CollageAdapterUrls
@@ -1114,7 +1115,7 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             .build()
         var compressed = MyUtils.createVideoFile(context)
         Transcoder.into(compressed.absolutePath)
-            .addDataSource(videoPath)
+            .addDataSource(TrackType.VIDEO, videoPath)
             .setVideoTrackStrategy(strategy)
             .setListener(object : TranscoderListener {
                 override fun onTranscodeProgress(progress: Double) {

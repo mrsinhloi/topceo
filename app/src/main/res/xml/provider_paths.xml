@@ -52,6 +52,10 @@
     <external-path
         name="my_images"
         path="Android/data/com.ehubly.topceo/files/Pictures/" />
+    <external-path
+        name="movies"
+        path="/storage/emulated/0/Movies/" />
+
 
     <external-files-path
         name="images"

@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.topceo.R;
+import com.topceo.config.MyApplication;
 import com.topceo.db.TinyDB;
 import com.topceo.group.models.GroupInfo;
 import com.topceo.objects.other.User;
@@ -111,7 +112,7 @@ public class GroupHorizontalAdapter extends RecyclerView.Adapter<GroupHorizontal
         this.context = context;
         mDataset = myDataset;
         widthScreen = MyUtils.getScreenWidth(context);
-        avatarSize = widthScreen / 5;
+        avatarSize = (int)(widthScreen / 5.5);
         corners = context.getResources().getDimensionPixelOffset(R.dimen.corners_group_image);
 
         //////////////////
@@ -139,15 +140,15 @@ public class GroupHorizontalAdapter extends RecyclerView.Adapter<GroupHorizontal
         // - replace the contents of the view with that element
         final GroupInfo item = mDataset.get(position);
 
-        if (!TextUtils.isEmpty(item.getCoverUrl())) {
-            Glide.with(context)
-                    .load(item.getCoverUrl())
+        if (!TextUtils.isEmpty(item.getCoverSmallUrl())) {
+            Glide.with(MyApplication.context)
+                    .load(item.getCoverSmallUrl())
                     .placeholder(R.drawable.no_media_small)
                     .override(avatarSize, avatarSize)
                     .transform(new CenterCrop(), new RoundedCorners(corners))
                     .into(holder.img1);
         } else {
-            Glide.with(context)
+            Glide.with(MyApplication.context)
                     .load(R.drawable.no_media_small)
                     .override(avatarSize, avatarSize)
                     .transform(new CenterCrop(), new RoundedCorners(corners))
