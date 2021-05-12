@@ -799,12 +799,14 @@ public class VideoActivityPipList extends SwipeBackActivity implements IVideoVie
 
     private void setAutoRotationEnabled(boolean enabled) {
         if (enabled) {
-            mRotationObserver.startObserver();
-            mOnOrientationChangeListener.setEnabled(true);
+            if (mRotationObserver != null) mRotationObserver.startObserver();
+            if (mOnOrientationChangeListener != null) mOnOrientationChangeListener.setEnabled(true);
         } else {
-            mOnOrientationChangeListener.setEnabled(false);
-            mRotationObserver.stopObserver();
+            if (mOnOrientationChangeListener != null)
+                mOnOrientationChangeListener.setEnabled(false);
+            if (mRotationObserver != null) mRotationObserver.stopObserver();
         }
+
     }
 
     @Synthetic

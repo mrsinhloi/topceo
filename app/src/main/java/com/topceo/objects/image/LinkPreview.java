@@ -1,13 +1,10 @@
 package com.topceo.objects.image;
 
-import android.graphics.Paint;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.google.gson.internal.LinkedTreeMap;
-
-import org.jetbrains.annotations.Nullable;
 
 import io.realm.RealmObject;
 
