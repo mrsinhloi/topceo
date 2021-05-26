@@ -11,8 +11,8 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.exoplayer2.ExoPlaybackException;
-import com.master.exoplayer.ExoPlayerHelper;
-import com.master.exoplayer.MasterExoPlayer;
+import com.topceo.mediaplayer.masterplayer.ExoPlayerHelper;
+import com.topceo.mediaplayer.masterplayer.MasterExoPlayer;
 import com.topceo.R;
 import com.topceo.adapter.FeedAdapter;
 import com.topceo.autoplayvideo.CameraAnimation;
@@ -61,7 +61,6 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
 
             int heightImage = item.getNeedHeightImage(widthImage);
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(widthImage, heightImage);
-//                params.setMargins(roundCorner, 0, roundCorner, roundCorner);
             vvInfo.setLayoutParams(params);
             ivInfo.setLayoutParams(params);
 

@@ -1482,8 +1482,8 @@ public class VideoActivityPipList extends SwipeBackActivity implements IVideoVie
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
-    public static final String ACTION_PLAY_VIDEO = "ACTION_PLAY_VIDEO";
-    public static final String ACTION_FINISH = "ACTION_FINISH_LIST_VIDEO";
+    public static final String ACTION_PLAY_VIDEO = "ACTION_PLAY_VIDEO_PIP";
+    public static final String ACTION_FINISH = "ACTION_FINISH_LIST_VIDEO_PIP";
 
     private BroadcastReceiver receiver;
 

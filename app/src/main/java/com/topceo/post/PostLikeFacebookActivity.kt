@@ -618,7 +618,10 @@ class PostLikeFacebookActivity : AppCompatActivity() {
         groupId: Long
     ) {
         if (itemContent != null) {
-            ProgressUtils.show(context)
+            if(!isFinishing){
+                ProgressUtils.show(context)
+            }
+
             val itemType: String = ImageItem.ITEM_TYPE_FACEBOOK
             //upload hinh xong thi upload cac thong tin con lai
             var text = txtDes.text.toString()

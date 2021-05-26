@@ -20,7 +20,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.androidnetworking.error.ANError;
 import com.google.android.gms.ads.MobileAds;
-import com.master.exoplayer.MasterExoPlayerHelper;
 import com.topceo.R;
 import com.topceo.activity.MH08_SuggestActivity;
 import com.topceo.adapter.FeedAdapter;
@@ -29,6 +28,7 @@ import com.topceo.config.MyApplication;
 import com.topceo.config.VideoListConfig;
 import com.topceo.db.TinyDB;
 import com.topceo.login.MH15_SigninActivity;
+import com.topceo.mediaplayer.masterplayer.MasterExoPlayerHelper;
 import com.topceo.objects.image.ImageItem;
 import com.topceo.objects.other.User;
 import com.topceo.services.Webservices;

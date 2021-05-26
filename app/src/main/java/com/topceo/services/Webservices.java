@@ -78,20 +78,20 @@ public class Webservices {
     }
 
     public static String GET_NEWSFEED() {
-        return "{Newsfeed(Count:15)" + feedItem + "}";
+        return "{Newsfeed(Count:"+PAGE_ITEM+")" + feedItem + "}";
     }
 
     public static String GET_NEWSFEED_MORE(long imageItemId, long lastItemDate) {
-        return "{Newsfeed(Count:15, LastItemId:" + imageItemId + ", LastItemDate:" + getLastItemDate(lastItemDate) + ")" + feedItem + "}";
+        return "{Newsfeed(Count:"+PAGE_ITEM+", LastItemId:" + imageItemId + ", LastItemDate:" + getLastItemDate(lastItemDate) + ")" + feedItem + "}";
     }
 
     //NEU LA TAB SON TUNG THI LAY Y HET, CHI DOI TEN
     public static String GET_NEWSFEED_SONTUNG() {
-        return "{GeneralGroupFeeds(Count:15)" + feedItem + "}";
+        return "{GeneralGroupFeeds(Count:"+PAGE_ITEM+")" + feedItem + "}";
     }
 
     public static String GET_NEWSFEED_MORE_SONTUNG(long imageItemId, long lastItemDate) {
-        return "{GeneralGroupFeeds(Count:15, LastItemId:" + imageItemId + ", LastItemDate:" + getLastItemDate(lastItemDate) + ")" + feedItem + "}";
+        return "{GeneralGroupFeeds(Count:"+PAGE_ITEM+", LastItemId:" + imageItemId + ", LastItemDate:" + getLastItemDate(lastItemDate) + ")" + feedItem + "}";
     }
 
 
@@ -100,7 +100,7 @@ public class Webservices {
     }
 
     public static String GET_NEWSFEED_SONTUNG_UPDATE_FIRST() {
-        return "{GeneralGroupFeeds(Count:15)" + feedItemShort + "}";
+        return "{GeneralGroupFeeds(Count:"+PAGE_ITEM+")" + feedItemShort + "}";
     }
 
     public static String GET_NEWSFEED_SONTUNG_UPDATE_MORE(long imageItemId, int count) {
@@ -109,8 +109,9 @@ public class Webservices {
 
 
     //lay posts theo group
+    public static final int PAGE_ITEM = 15;
     public static String GET_FEED_OF_GROUP(long groupId, long lastItemId) {
-        return "{GroupFeeds(Count:15, LastItemId:" + lastItemId + ", GroupId:" + groupId + ")" + feedItem + "}";
+        return "{GroupFeeds(Count:"+PAGE_ITEM+", LastItemId:" + lastItemId + ", GroupId:" + groupId + ")" + feedItem + "}";
     }
 
     /**

@@ -3425,8 +3425,8 @@ public class MyUtils {
 //                Intent intent = new Intent(context, VideoActivityPipDetail.class);
 //                context.startActivity(intent);
 //                MyUtils.closePip(context);
-                Intent mh2 = new Intent(VideoActivityPipList.ACTION_FINISH);
-                context.sendBroadcast(mh2);
+//                Intent mh2 = new Intent(VideoActivityPipList.ACTION_FINISH);
+//                context.sendBroadcast(mh2);
 
                 new Handler().postDelayed(new Runnable() {
                     @Override

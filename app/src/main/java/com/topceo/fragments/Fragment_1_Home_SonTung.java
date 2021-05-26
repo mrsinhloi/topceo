@@ -32,7 +32,6 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.master.exoplayer.MasterExoPlayerHelper;
 import com.topceo.BuildConfig;
 import com.topceo.R;
 import com.topceo.activity.MH08_SuggestActivity;
@@ -46,6 +45,7 @@ import com.topceo.config.VideoListConfig;
 import com.topceo.db.TinyDB;
 import com.topceo.group.models.GroupInfo;
 import com.topceo.login.MH15_SigninActivity;
+import com.topceo.mediaplayer.masterplayer.MasterExoPlayerHelper;
 import com.topceo.objects.db.ImageItemDB;
 import com.topceo.objects.image.ImageItem;
 import com.topceo.objects.other.User;
@@ -423,7 +423,7 @@ public class Fragment_1_Home_SonTung extends Fragment {
 //        rv.setHasFixedSize(true);
 
         // use a linear layout manager
-        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         rv.setLayoutManager(mLayoutManager);
 //        ViewCompat.setNestedScrollingEnabled(rv, false);
 //        rv.setNestedScrollingEnabled(false);
@@ -1027,13 +1027,6 @@ public class Fragment_1_Home_SonTung extends Fragment {
         } else if (!isVisibleToUser && fragmentOnCreated) {// only when you go out of fragment screen
             fragmentVisible = false;
             fragmentResume = false;
-//            MyUtils.showToastDebug(getContext(), "go out " + isVisibleToUser);
-//            requestStopVideo(true);
-
-            //todo stop video
-            /*if (rv != null && rv.getHandingVideoHolder() != null) {
-                rv.getHandingVideoHolder().stopVideo();
-            }*/
             VideoListConfig.Companion.pause(helper);
 
         }

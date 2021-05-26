@@ -7,13 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.exoplayer2.ExoPlaybackException
-import com.master.exoplayer.ExoPlayerHelper
-import com.master.exoplayer.MasterExoPlayer
-import com.master.exoplayer.MasterExoPlayerHelper
-
-import com.master.exoplayer.MuteStrategy
 import com.topceo.R
 import com.topceo.autoplayvideo.CameraAnimation
+import com.topceo.mediaplayer.masterplayer.ExoPlayerHelper
+import com.topceo.mediaplayer.masterplayer.MasterExoPlayer
+import com.topceo.mediaplayer.masterplayer.MasterExoPlayerHelper
+import com.topceo.mediaplayer.masterplayer.MuteStrategy
 import com.topceo.utils.MyUtils
 
 class VideoListConfig {
@@ -74,6 +73,7 @@ class VideoListConfig {
         ////
         open fun setMute(vvInfo: MasterExoPlayer?, imgSound: ImageView) {
             if (vvInfo != null) {
+                //set icon mute
                 if (vvInfo.isMute) {
                     imgSound.setImageResource(R.drawable.ic_volume_off_white_24dp)
                 } else {

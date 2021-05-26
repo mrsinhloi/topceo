@@ -83,19 +83,15 @@ import com.liuzhenlin.texturevideoview.IVideoPlayer;
 import com.liuzhenlin.texturevideoview.IjkVideoPlayer;
 import com.liuzhenlin.texturevideoview.TextureVideoView;
 import com.liuzhenlin.texturevideoview.VideoPlayer;
-import com.master.exoplayer.MasterExoPlayer;
 import com.topceo.BuildConfig;
 import com.topceo.R;
 import com.topceo.activity.MH01_MainActivity;
-import com.topceo.activity.MH02_PhotoDetailActivity;
-import com.topceo.activity.MH11_LikeActivity;
-import com.topceo.autoplayvideo.CameraAnimation;
 import com.topceo.chat.ChatUtils;
-import com.topceo.chat.MainChatActivity;
 import com.topceo.config.MyApplication;
 import com.topceo.db.TinyDB;
 import com.topceo.eventbus.EventImageComment;
 import com.topceo.fragments.GlideCircleTransform;
+import com.topceo.group.GroupDetailActivity;
 import com.topceo.mediaplayer.pip.bean.Video;
 import com.topceo.mediaplayer.pip.presenter.IVideoPresenter;
 import com.topceo.mediaplayer.pip.presenter.IVideoView;
@@ -762,8 +758,12 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
 
     private void reOpenPreviousActivity() {
 //        MH01_MainActivity activity = getPreviousActivity();
-        Intent intent = new Intent(context, MH01_MainActivity.class);
-        startActivity(intent);
+
+        //neu man hinh Group ko ton tai thi moi mo lai man hinh Main
+        if(!GroupDetailActivity.isExists) {
+            Intent intent = new Intent(context, MH01_MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
