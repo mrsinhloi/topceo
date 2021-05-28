@@ -1,7 +1,6 @@
 package com.topceo.group;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -15,17 +14,11 @@ import com.androidnetworking.common.ANRequest;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.topceo.R;
-import com.topceo.activity.MH02_PhotoDetailActivity;
 import com.topceo.config.MyApplication;
-import com.topceo.fragments.Fragment_1_Home_User;
-import com.topceo.fragments.Fragment_2_Explorer;
-import com.topceo.hashtag.HashTagActivity;
-import com.topceo.objects.image.ImageItem;
 import com.topceo.objects.image.ImageSize;
 import com.topceo.objects.image.Item;
 import com.topceo.objects.image.MediaObject;
 import com.topceo.post.UploadImageListener;
-import com.topceo.profile.Fragment_5_User_Profile_Grid;
 import com.topceo.services.ReturnResult;
 import com.topceo.services.SasChild;
 import com.topceo.services.SasParent;
@@ -78,7 +71,7 @@ public class GroupCoverUtils {
 
             //chuan bi lay duong dan sas truoc khi upload anh len azure
 //            ProgressUtils.show(context);
-            ANRequest.PostRequestBuilder request = AndroidNetworking.post(Webservices.URL + "group/getUploadSAS")
+            ANRequest.PostRequestBuilder request = AndroidNetworking.post(Webservices.API_URL + "group/getUploadSAS")
                     .addBodyParameter("GroupGUID", guid)
                     .setOkHttpClient(MyApplication.getClient());
 

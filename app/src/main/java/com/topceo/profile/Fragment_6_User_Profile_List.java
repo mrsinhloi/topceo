@@ -779,7 +779,7 @@ public class Fragment_6_User_Profile_List extends Fragment {
 
     ////////////////////////////////////////////////////////////////////////////////////////////
     private void reportPost(int reportTypeId, long imageItemId) {
-        AndroidNetworking.post(Webservices.URL + "image/report")
+        AndroidNetworking.post(Webservices.API_URL + "image/report")
                 .addQueryParameter("ReportTypeId", String.valueOf(reportTypeId))
                 .addQueryParameter("ImageItemId", String.valueOf(imageItemId))
                 .setOkHttpClient(MyApplication.getClient())
@@ -810,7 +810,7 @@ public class Fragment_6_User_Profile_List extends Fragment {
 
     ////////////////////////////////////////////////////////////////////////////////////////////
     private void deletePost(long imageItemId, final int position) {
-        AndroidNetworking.post(Webservices.URL + "image/delete")
+        AndroidNetworking.post(Webservices.API_URL + "image/delete")
                 .addQueryParameter("ImageItemId", String.valueOf(imageItemId))
                 .setOkHttpClient(MyApplication.getClient())
                 .build()

@@ -16,10 +16,8 @@ open class App : Application(), LifecycleObserver {
 
     companion object{
         var eventControlListener: EventControlListener? = null
-        public val WHEN_APP_MOVE_TO_BACKGROUND  = "WHEN_APP_MOVE_TO_BACKGROUND"
-        public val WHEN_APP_DESTROY             = "WHEN_APP_DESTROY"
-
-//        public val WHEN_APP_MOVE_TO_FOREGROUND = "WHEN_APP_MOVE_TO_FOREGROUND"
+        val WHEN_APP_MOVE_TO_BACKGROUND  = "WHEN_APP_MOVE_TO_BACKGROUND"
+        val WHEN_APP_MOVE_TO_FOREGROUND = "WHEN_APP_MOVE_TO_FOREGROUND"
 
     }
 

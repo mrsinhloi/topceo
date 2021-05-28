@@ -639,7 +639,7 @@ public class MH02_Update_Profile_Activity extends AppCompatActivity {
             ProgressUtils.show(context);
 
             final long start = System.currentTimeMillis();
-            AndroidNetworking.post(Webservices.URL + "user/signupByPhone")
+            AndroidNetworking.post(Webservices.API_URL + "user/signupByPhone")
                     .addQueryParameter("Phone", phone)
                     .addQueryParameter("UserName", username)
                     .addQueryParameter("Password", password)
@@ -712,7 +712,7 @@ public class MH02_Update_Profile_Activity extends AppCompatActivity {
                 .build();*/
 
         final long start = System.currentTimeMillis();
-        AndroidNetworking.post(Webservices.URL + "user/login")
+        AndroidNetworking.post(Webservices.API_URL + "user/login")
                 .addBodyParameter("username", phone)
                 .addBodyParameter("password", password)
                 .setOkHttpClient(MyApplication.client)

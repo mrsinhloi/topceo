@@ -125,7 +125,7 @@ public class CommentUserLikedActivity extends AppCompatActivity {
 
     public void getUserCommentLikeImage(long commentId, long lastId) {
         String service = "image/comment/getLikeList";
-        ANRequest.PostRequestBuilder param = AndroidNetworking.post(Webservices.URL + service)
+        ANRequest.PostRequestBuilder param = AndroidNetworking.post(Webservices.API_URL + service)
                 .addQueryParameter("CommentId", String.valueOf(commentId))
                 .addQueryParameter("ItemCount", "30")
                 .setOkHttpClient(MyApplication.getClient());

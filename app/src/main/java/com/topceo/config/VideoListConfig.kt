@@ -26,7 +26,7 @@ class VideoListConfig {
                 context,
                 R.id.vvInfo,
                 true,
-                0.65f,
+                0.5f,
                 MuteStrategy.ALL,
                 true,
                 false,

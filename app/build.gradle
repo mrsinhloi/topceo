@@ -49,6 +49,25 @@ android {
             moduleName "webp"
         }
 
+
+        // Read the API key from ./secure.properties into R.string.maps_api_key
+        def secureProps = new Properties()
+        if (file("../secure.properties").exists()) {
+            file("../secure.properties")?.withInputStream { secureProps.load(it) }
+        }
+        resValue "string", "API_URL", (secureProps.getProperty("API_URL") ?: "")
+        resValue "string", "API_URL_DEBUG", (secureProps.getProperty("API_URL_DEBUG") ?: "")
+        resValue "string", "IS_DEBUG", (secureProps.getProperty("IS_DEBUG") ?: "")
+        resValue "string", "GOOGLE_MAPS_ANDROID_API_KEY", (secureProps.getProperty("GOOGLE_MAPS_ANDROID_API_KEY") ?: "")
+
+
+        resValue "string", "URL_GRAPHQL", (secureProps.getProperty("URL_GRAPHQL") ?: "")
+        resValue "string", "URL_CORE_CHAT", (secureProps.getProperty("URL_CORE_CHAT") ?: "")
+        resValue "string", "URL_PAYMENT", (secureProps.getProperty("URL_PAYMENT") ?: "")
+        resValue "string", "URL_INSIGHT", (secureProps.getProperty("URL_INSIGHT") ?: "")
+        resValue "string", "URL_TERM", (secureProps.getProperty("URL_TERM") ?: "")
+
+
     }
 
     buildTypes {
@@ -56,7 +75,6 @@ android {
             resValue "string", "GOOGLE_MAPS_ANDROID_API_KEY", "AIzaSyD_DKDULQjfrkxC9tu7K0eSmu_WjEf3ZLg"
 
             minifyEnabled false
-            ext.enableCrashlytics = false
 //            ext.alwaysUpdateBuildId = false
         }
         release {

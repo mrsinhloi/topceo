@@ -589,7 +589,7 @@ public class MH16_SignupActivity extends AppCompatActivity {
             progressDialog.setMessage(getText(R.string.avatar_uploading));
             progressDialog.show();*/
             ProgressUtils.show(context);
-            AndroidNetworking.post(Webservices.URL + "user/getAvatarUploadSAS")
+            AndroidNetworking.post(Webservices.API_URL + "user/getAvatarUploadSAS")
                     .addQueryParameter("ItemGUID", GUID)
                     .addQueryParameter("ImageExtension", extension)
                     .setOkHttpClient(MyApplication.getClient())
@@ -740,7 +740,7 @@ public class MH16_SignupActivity extends AppCompatActivity {
                 .build();
 
         final long start = System.currentTimeMillis();
-        AndroidNetworking.post(Webservices.URL + "user/login")
+        AndroidNetworking.post(Webservices.API_URL + "user/login")
                 .addBodyParameter("username", username)
                 .addBodyParameter("password", password)
                 .setOkHttpClient(MyApplication.client)

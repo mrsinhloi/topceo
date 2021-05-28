@@ -41,7 +41,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -1743,7 +1742,7 @@ public class MH01_MainActivity extends AppCompatActivity {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
     private void checkVersion() {
-        AndroidNetworking.post(Webservices.URL + "system/getVersionInfo")
+        AndroidNetworking.post(Webservices.API_URL + "system/getVersionInfo")
                 .setOkHttpClient(MyApplication.getClient())
                 .setPriority(Priority.LOW)
                 .build()

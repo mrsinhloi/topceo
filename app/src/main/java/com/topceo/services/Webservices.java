@@ -47,14 +47,34 @@ public class Webservices {
     public static final String COUNTRY_NAME = Locale.getDefault().getDisplayCountry();//Viet Nam
 
 
-    public static final String URL = "https://topceo-api.ehubstar.com/";
-//    public static final String URL = "http://10.10.9.76:3002/";
+    //INIT URLS/////////////////////////////////////////////////////////
+    public static String API_URL = "";
+    public static String API_URL_DEBUG = "";
+    public static String IS_DEBUG = "";
 
-    public static final String URL_GRAPHQL = URL + "data";
-    public static final String URL_CORE_CHAT = "https://apichat.app/";
-    public static final String URL_PAYMENT = "http://topceo-pay.ehubstar.com";
-    public static final String URL_INSIGHT = "http://topceo-insight.ehubstar.com";
-    public static final String URL_TERM = "http://topceo-term.ehubstar.com/term-vi.html";
+    public static String URL_GRAPHQL = "";
+    public static String URL_CORE_CHAT = "";
+
+    public static String URL_PAYMENT = "";
+    public static String URL_INSIGHT = "";
+    public static String URL_TERM = "";
+
+    public static void initURLs(Context context) {
+        if (context != null) {
+            API_URL = context.getString(R.string.API_URL);
+            API_URL_DEBUG = context.getString(R.string.API_URL_DEBUG);
+            IS_DEBUG = context.getString(R.string.IS_DEBUG);
+
+            URL_GRAPHQL = context.getString(R.string.URL_GRAPHQL);
+            URL_CORE_CHAT = context.getString(R.string.URL_CORE_CHAT);
+
+            URL_PAYMENT = context.getString(R.string.URL_PAYMENT);
+            URL_INSIGHT = context.getString(R.string.URL_INSIGHT);
+            URL_TERM = context.getString(R.string.URL_TERM);
+
+        }
+    }
+    //INIT URLS/////////////////////////////////////////////////////////
 
 
     /**
@@ -78,20 +98,20 @@ public class Webservices {
     }
 
     public static String GET_NEWSFEED() {
-        return "{Newsfeed(Count:"+PAGE_ITEM+")" + feedItem + "}";
+        return "{Newsfeed(Count:" + PAGE_ITEM + ")" + feedItem + "}";
     }
 
     public static String GET_NEWSFEED_MORE(long imageItemId, long lastItemDate) {
-        return "{Newsfeed(Count:"+PAGE_ITEM+", LastItemId:" + imageItemId + ", LastItemDate:" + getLastItemDate(lastItemDate) + ")" + feedItem + "}";
+        return "{Newsfeed(Count:" + PAGE_ITEM + ", LastItemId:" + imageItemId + ", LastItemDate:" + getLastItemDate(lastItemDate) + ")" + feedItem + "}";
     }
 
     //NEU LA TAB SON TUNG THI LAY Y HET, CHI DOI TEN
     public static String GET_NEWSFEED_SONTUNG() {
-        return "{GeneralGroupFeeds(Count:"+PAGE_ITEM+")" + feedItem + "}";
+        return "{GeneralGroupFeeds(Count:" + PAGE_ITEM + ")" + feedItem + "}";
     }
 
     public static String GET_NEWSFEED_MORE_SONTUNG(long imageItemId, long lastItemDate) {
-        return "{GeneralGroupFeeds(Count:"+PAGE_ITEM+", LastItemId:" + imageItemId + ", LastItemDate:" + getLastItemDate(lastItemDate) + ")" + feedItem + "}";
+        return "{GeneralGroupFeeds(Count:" + PAGE_ITEM + ", LastItemId:" + imageItemId + ", LastItemDate:" + getLastItemDate(lastItemDate) + ")" + feedItem + "}";
     }
 
 
@@ -100,7 +120,7 @@ public class Webservices {
     }
 
     public static String GET_NEWSFEED_SONTUNG_UPDATE_FIRST() {
-        return "{GeneralGroupFeeds(Count:"+PAGE_ITEM+")" + feedItemShort + "}";
+        return "{GeneralGroupFeeds(Count:" + PAGE_ITEM + ")" + feedItemShort + "}";
     }
 
     public static String GET_NEWSFEED_SONTUNG_UPDATE_MORE(long imageItemId, int count) {
@@ -110,8 +130,9 @@ public class Webservices {
 
     //lay posts theo group
     public static final int PAGE_ITEM = 15;
+
     public static String GET_FEED_OF_GROUP(long groupId, long lastItemId) {
-        return "{GroupFeeds(Count:"+PAGE_ITEM+", LastItemId:" + lastItemId + ", GroupId:" + groupId + ")" + feedItem + "}";
+        return "{GroupFeeds(Count:" + PAGE_ITEM + ", LastItemId:" + lastItemId + ", GroupId:" + groupId + ")" + feedItem + "}";
     }
 
     /**
@@ -767,7 +788,7 @@ public class Webservices {
         progressDialog.setMessage("Checking Account...");
         progressDialog.show();*/
         ProgressUtils.show(context);
-        AndroidNetworking.post(Webservices.URL + "user/checkUserNameExists")
+        AndroidNetworking.post(Webservices.API_URL + "user/checkUserNameExists")
                 .addQueryParameter("UserName", userName)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -811,7 +832,7 @@ public class Webservices {
         progressDialog.setMessage("Checking Account...");
         progressDialog.show();*/
         ProgressUtils.show(context);
-        AndroidNetworking.post(Webservices.URL + "user/checkPhoneExists")
+        AndroidNetworking.post(Webservices.API_URL + "user/checkPhoneExists")
                 .addQueryParameter("Phone", phone)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -855,7 +876,7 @@ public class Webservices {
         progressDialog.setMessage("Checking Account...");
         progressDialog.show();*/
         ProgressUtils.show(context);
-        AndroidNetworking.post(Webservices.URL + "user/checkEmailExists")
+        AndroidNetworking.post(Webservices.API_URL + "user/checkEmailExists")
                 .addQueryParameter("Email", email)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -1437,7 +1458,7 @@ public class Webservices {
         progressDialog.setMessage(context.getText(R.string.searching));
         progressDialog.show();*/
 
-        AndroidNetworking.post(Webservices.URL + methodName)
+        AndroidNetworking.post(Webservices.API_URL + methodName)
                 .addQueryParameter("Keyword", keyword)
                 .addQueryParameter("RowCount", ROW_COUNT)
                 .setOkHttpClient(MyApplication.getClient())
@@ -1529,7 +1550,7 @@ public class Webservices {
         progressDialog.setMessage(context.getText(R.string.searching));
         progressDialog.show();*/
 
-        AndroidNetworking.post(Webservices.URL + "user/getUserNotify")
+        AndroidNetworking.post(Webservices.API_URL + "user/getUserNotify")
                 .addQueryParameter("IsViewed", String.valueOf(isViewed))
                 .addQueryParameter("LastId", String.valueOf(lastId))
                 .setOkHttpClient(MyApplication.getClient())
@@ -1630,7 +1651,7 @@ public class Webservices {
     public static Task<Object> addUserEndpoint(Context context) {
         final TaskCompletionSource<Object> successful = new TaskCompletionSource<>();
         if (context != null) {
-            AndroidNetworking.post(Webservices.URL + "user/addUserEndpoint")
+            AndroidNetworking.post(Webservices.API_URL + "user/addUserEndpoint")
                     .addQueryParameter("DeviceId", MyUtils.getDeviceId(context))
                     .addQueryParameter("OnesignalId", MyApplication.getInstance().getOneSignalId())
                     .addQueryParameter("OnesignalAppId", context.getString(R.string.one_signal_app_id))
@@ -1686,7 +1707,7 @@ public class Webservices {
     public static Task<Object> deleteUserEndpoint(Context context) {
         final TaskCompletionSource<Object> successful = new TaskCompletionSource<>();
         if (context != null) {
-            AndroidNetworking.post(Webservices.URL + "user/deleteUserEndpoint")
+            AndroidNetworking.post(Webservices.API_URL + "user/deleteUserEndpoint")
                     .addQueryParameter("DeviceId", MyUtils.getDeviceId(context))
                     .addQueryParameter("OnesignalId", MyApplication.getInstance().getOneSignalId())
                     .addQueryParameter("OnesignalAppId", context.getString(R.string.one_signal_app_id))
@@ -1953,7 +1974,7 @@ public class Webservices {
     public static Task<Object> getListUserFollowing() {
         final TaskCompletionSource<Object> successful = new TaskCompletionSource<>();
 
-        AndroidNetworking.post(Webservices.URL + "user/following/getIdList")
+        AndroidNetworking.post(Webservices.API_URL + "user/following/getIdList")
                 .setOkHttpClient(MyApplication.getClient())
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -2141,7 +2162,7 @@ public class Webservices {
         progressDialog.show();*/
         ProgressUtils.show(context);
 
-        AndroidNetworking.post(Webservices.URL + "user/forgetPassword")
+        AndroidNetworking.post(Webservices.API_URL + "user/forgetPassword")
                 .addQueryParameter("Email", String.valueOf(email))
                 .setOkHttpClient(MyApplication.getClient())
                 .build()
@@ -2179,7 +2200,7 @@ public class Webservices {
         final TaskCompletionSource<Object> successful = new TaskCompletionSource<>();
         ProgressUtils.show(context);
 
-        AndroidNetworking.post(Webservices.URL + "user/updatePassword")
+        AndroidNetworking.post(Webservices.API_URL + "user/updatePassword")
                 .addBodyParameter("Password", newPassword)
                 .setOkHttpClient(MyApplication.getClient())
                 .build()
@@ -2549,7 +2570,7 @@ public class Webservices {
         progressDialog.show();*/
         ProgressUtils.show(context);
 
-        AndroidNetworking.post(Webservices.URL + "user/sendResetPassword")
+        AndroidNetworking.post(Webservices.API_URL + "user/sendResetPassword")
                 .addBodyParameter("UserName", username)
                 .setOkHttpClient(MyApplication.getClient())
                 .build()
@@ -2591,7 +2612,7 @@ public class Webservices {
         progressDialog.show();*/
         ProgressUtils.show(context);
 
-        AndroidNetworking.post(Webservices.URL + "user/verification/sendEmail")
+        AndroidNetworking.post(Webservices.API_URL + "user/verification/sendEmail")
 //                .addBodyParameter("Email", email)
                 .setOkHttpClient(MyApplication.getClient())
                 .build()
@@ -2632,7 +2653,7 @@ public class Webservices {
         progressDialog.setMessage(context.getText(R.string.pleasewait));
         progressDialog.show();*/
 
-        AndroidNetworking.post(Webservices.URL + "user/getUserNotifyCount")
+        AndroidNetworking.post(Webservices.API_URL + "user/getUserNotifyCount")
                 .setOkHttpClient(MyApplication.getClient())
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -2673,7 +2694,7 @@ public class Webservices {
         progressDialog.setMessage(context.getString(R.string.loading));
         progressDialog.show();*/
         ProgressUtils.show(context);
-        AndroidNetworking.post(Webservices.URL + "user/verification/verifyPhone")
+        AndroidNetworking.post(Webservices.API_URL + "user/verification/verifyPhone")
                 .addBodyParameter("AuthToken", token)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -2797,7 +2818,7 @@ public class Webservices {
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage(context.getText(R.string.pleasewait));
         progressDialog.show();*/
-        AndroidNetworking.post(Webservices.URL + "search/chatContact")
+        AndroidNetworking.post(Webservices.API_URL + "search/chatContact")
                 .addBodyParameter("Keyword", keyword)
                 .addBodyParameter("RowCount", String.valueOf(10))
                 .addBodyParameter("ByFollow", String.valueOf(0))

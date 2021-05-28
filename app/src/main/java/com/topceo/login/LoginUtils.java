@@ -61,7 +61,7 @@ public class LoginUtils {
                 .cookieJar(new CookieStore())
                 .build();
         final long start = System.currentTimeMillis();
-        AndroidNetworking.post(Webservices.URL + "user/loginFacebook")
+        AndroidNetworking.post(Webservices.API_URL + "user/loginFacebook")
                 .addQueryParameter("username", FacebookId)
                 .addQueryParameter("password", Password)
                 .setOkHttpClient(MyApplication.client)
@@ -119,7 +119,7 @@ public class LoginUtils {
 
         //https://www.sitepoint.com/consuming-web-apis-in-android-with-okhttp/
         final long start = System.currentTimeMillis();
-        String url = Webservices.URL + "user/login";
+        String url = Webservices.API_URL + "user/login";
         AndroidNetworking.post(url)
                 .addBodyParameter("username", username)
                 .addBodyParameter("password", password)

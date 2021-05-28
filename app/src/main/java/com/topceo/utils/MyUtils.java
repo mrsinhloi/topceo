@@ -2595,7 +2595,7 @@ public class MyUtils {
 
     ////////////////////////////////////////////////////////////////////////////////////////////
     public static void reportPost(int reportTypeId, long imageItemId, final Context context) {
-        AndroidNetworking.post(Webservices.URL + "image/report")
+        AndroidNetworking.post(Webservices.API_URL + "image/report")
                 .addQueryParameter("ReportTypeId", String.valueOf(reportTypeId))
                 .addQueryParameter("ImageItemId", String.valueOf(imageItemId))
                 .setOkHttpClient(MyApplication.getClient())
@@ -2625,7 +2625,7 @@ public class MyUtils {
     }
 
     public static void reportUser(int reportTypeId, long userId, final Context context) {
-        AndroidNetworking.post(Webservices.URL + "image/report")
+        AndroidNetworking.post(Webservices.API_URL + "image/report")
                 .addQueryParameter("ReportTypeId", String.valueOf(reportTypeId))
                 .addQueryParameter("UserId", String.valueOf(userId))
                 .setOkHttpClient(MyApplication.getClient())

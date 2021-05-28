@@ -432,7 +432,7 @@ public class MH03_PostActivity_Backup extends AppCompatActivity {
             progressDialog.setMessage(getText(R.string.image_uploading));
             progressDialog.show();*/
             ProgressUtils.show(context);
-            AndroidNetworking.post(Webservices.URL + "image/getUploadSAS")
+            AndroidNetworking.post(Webservices.API_URL + "image/getUploadSAS")
                     .addBodyParameter("ItemGUID", GUID)
                     .addBodyParameter("ImageExtensions[]", extension)//array
                     .setOkHttpClient(MyApplication.getClient())
@@ -1473,7 +1473,7 @@ public class MH03_PostActivity_Backup extends AppCompatActivity {
             progressDialog.setMessage(getText(R.string.video_uploading));
             progressDialog.show();*/
             ProgressUtils.show(context);
-            AndroidNetworking.post(Webservices.URL + "image/getUploadSAS")
+            AndroidNetworking.post(Webservices.API_URL + "image/getUploadSAS")
                     .addBodyParameter("ItemGUID", GUID)
                     .addBodyParameter("ImageExtensions[]", extension)//array
                     .setOkHttpClient(MyApplication.getClient())

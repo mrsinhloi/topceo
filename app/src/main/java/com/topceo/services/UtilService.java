@@ -79,7 +79,7 @@ public class UtilService {
 
     public static void setLikeComment(long commentId, boolean isLiked) {
         String service = isLiked ? "image/comment/like" : "image/comment/unlike";
-        AndroidNetworking.post(Webservices.URL + service)
+        AndroidNetworking.post(Webservices.API_URL + service)
                 .addQueryParameter("CommentId", String.valueOf(commentId))
                 .setOkHttpClient(MyApplication.getClient())
                 .build()

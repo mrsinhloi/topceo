@@ -74,7 +74,6 @@ open class ChatApplication : App() {
         var isShowFullChatFeature: Boolean = true
 
 
-
         fun setOneSignalUserId(userId: String) {
             oneSignalUserId = userId
         }
@@ -370,7 +369,7 @@ open class ChatApplication : App() {
 
                         //option
                         val options = IO.Options()
-                        options.forceNew = true//co nen su dung lai ket noi hien co hay khong
+                        options.forceNew = false //co nen su dung lai ket noi hien co hay khong
                         options.reconnection = true
                         options.timeout = 10000
                         options.reconnectionDelay = 2000//tăng 1000 -> 2000 ms
@@ -420,11 +419,9 @@ open class ChatApplication : App() {
             }
 
             //neu da setup socket xong roi
-//            if (isSetupSocket) {
             if (socket != null && !socket!!.connected()) {
                 socket!!.connect()
             }
-//            }
             return socket
         }
 
@@ -461,13 +458,11 @@ open class ChatApplication : App() {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-
             }
         }
 
         var isSetupSocket = false
         private fun openSocket() {
-            //        MyUtils.log("openSocket socket null = " + (socket == null));
             if (!isSetupSocket) {
                 socket = getSocketInitIfNull()
                 socket?.takeUnless {
@@ -498,8 +493,8 @@ open class ChatApplication : App() {
                     on("userDisconnected", userDisconnected)
                     Logger.d("Socket connect() new")
 
-                    connect()
                     isSetupSocket = true
+                    connect()
                 }
             }
         }
@@ -548,12 +543,17 @@ open class ChatApplication : App() {
         }
 
 
+        var lastState = ""
         fun setSocketState(socketState: String) {
-            //log trang thai socket
-            val intent = Intent(ChatActivity.ACTION_STATE_SOCKET)
-            intent.putExtra(ChatActivity.STRING_STATE_SOCKET, socketState)
-            if (appContext != null) {
-                appContext?.sendBroadcast(intent)
+            if(socketState != lastState) {
+                lastState = socketState
+
+                //log trang thai socket
+                val intent = Intent(ChatActivity.ACTION_STATE_SOCKET)
+                intent.putExtra(ChatActivity.STRING_STATE_SOCKET, socketState)
+                if (appContext != null) {
+                    appContext?.sendBroadcast(intent)
+                }
             }
         }
 
@@ -590,7 +590,12 @@ open class ChatApplication : App() {
                 appContext!!.sendBroadcast(Intent(ChatActivity.ACTION_OFFLINE))
             }*/
 
-            setSocketState(SocketState.ERROR + " " + cause)
+            if (!MyUtils.checkInternetConnection(appContext)) {
+                setSocketState(appContext.getString(R.string.offline_mode))
+                socket?.disconnect()
+            }
+
+//            setSocketState(SocketState.ERROR + " " + cause)
             isConnecting = false
         }
 

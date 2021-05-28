@@ -755,7 +755,7 @@ public class Fragment_1_Home_SonTung extends Fragment {
 
     ////////////////////////////////////////////////////////////////////////////////////////////
     private void deletePost(long imageItemId, final int position) {
-        AndroidNetworking.post(Webservices.URL + "image/delete")
+        AndroidNetworking.post(Webservices.API_URL + "image/delete")
                 .addQueryParameter("ImageItemId", String.valueOf(imageItemId))
                 .setOkHttpClient(MyApplication.getClient())
                 .build()

@@ -146,6 +146,7 @@ public class ChatGroupDetailActivity extends AppCompatActivity {
 
         ownerId = ChatApplication.Companion.getUser().get_id();
         db = new TinyDB(this);
+        outputFileUri = getCaptureImageOutputUri();
 
         /*setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
@@ -177,7 +178,7 @@ public class ChatGroupDetailActivity extends AppCompatActivity {
                 if (!isSupport) {
                     //doi avatar
                     if (MyUtils.checkInternetConnection(context)) {
-                        startActivityForResult(getPickImageChooserIntent(), 200);
+                        startActivityForResult(getPickImageChooserIntent(), REQUEST_PICK_IMAGE);
                     } else {
                         MyUtils.showThongBao(context);
                     }
@@ -632,7 +633,7 @@ public class ChatGroupDetailActivity extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
 
             case ALL_PERMISSIONS_RESULT:
@@ -670,16 +671,17 @@ public class ChatGroupDetailActivity extends AppCompatActivity {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    public static final int REQUEST_PICK_IMAGE = 200;
+    Uri outputFileUri;
+
+
     /**
      * Create a chooser intent to select the source to get image from.<br/>
      * The source can be camera's (ACTION_IMAGE_CAPTURE) or gallery's (ACTION_GET_CONTENT).<br/>
      * All possible sources are added to the intent chooser.
      */
     public Intent getPickImageChooserIntent() {
-
-        // Determine Uri of camera image to save.
-        Uri outputFileUri = getCaptureImageOutputUri();
-
         List<Intent> allIntents = new ArrayList<>();
         PackageManager packageManager = getPackageManager();
 
@@ -692,6 +694,8 @@ public class ChatGroupDetailActivity extends AppCompatActivity {
             intent.setPackage(res.activityInfo.packageName);
             if (outputFileUri != null) {
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+//                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
             }
             allIntents.add(intent);
         }
@@ -732,31 +736,47 @@ public class ChatGroupDetailActivity extends AppCompatActivity {
      */
     private Uri getCaptureImageOutputUri() {
         Uri outputFileUri = null;
+        File getImage = MyUtils.createImageFile(context);
+        if (getImage != null) {
+            outputFileUri = Uri.fromFile(getImage);
+        }
+        return outputFileUri;
+
+        /*Uri outputFileUri = null;
         File getImage = getExternalCacheDir();
         if (getImage != null) {
             outputFileUri = Uri.fromFile(new File(getImage.getPath(), "profile.png"));
         }
-        return outputFileUri;
+        return outputFileUri;*/
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Bitmap bitmap;
         if (resultCode == Activity.RESULT_OK) {
 
-            //reset 2 path
-            resetPath();
-
-            if (getPickImageResultUri(data) != null) {
-                picUri = getPickImageResultUri(data);
-
-                parseUri();
-
-            }
-
             switch (requestCode) {
+                case REQUEST_PICK_IMAGE:
+                    //reset 2 path
+                    resetPath();
+
+                    Uri uri = data.getData();//getPickImageResultUri(data);
+                    if (uri != null) {
+                        picUri = uri;
+                        parseUri();
+                    } else {
+                        Bitmap b = (Bitmap) data.getExtras().get("data");
+                        if (b != null) {
+                            if (b.getWidth() > b.getHeight()) {
+                                b = MyUtils.rotateImage(b, 90);
+                            }
+                            String path = MyUtils.saveBitmap(b, outputFileUri.getPath());
+                            picUri = Uri.fromFile(new File(path));
+                            parseUri();
+                        }
+                    }
+                    break;
                 case FilePickerConst.REQUEST_CODE_PHOTO:
                     if (resultCode == Activity.RESULT_OK && data != null) {
                         ArrayList<Object> photoPaths = new ArrayList<>();
@@ -843,7 +863,7 @@ public class ChatGroupDetailActivity extends AppCompatActivity {
                 myBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), picUri);
                 myBitmap = MyUtils.rotateImageIfRequired(myBitmap, picUri);
                 Bitmap thumb = MyUtils.getResizedBitmap(myBitmap, getResources().getDimensionPixelSize(R.dimen.img_size_thumb));
-                Bitmap full = MyUtils.getResizedBitmap(myBitmap, getResources().getDimensionPixelSize(R.dimen.img_size_full));
+                Bitmap full = MyUtils.getResizedBitmap(myBitmap, getResources().getDimensionPixelSize(R.dimen.img_size_thumb));//img_size_full
 
                 //doc thong tin width,height
                 MyUtils.log("width=" + thumb.getWidth() + ", height=" + thumb.getHeight());
@@ -940,7 +960,6 @@ public class ChatGroupDetailActivity extends AppCompatActivity {
             String action = data.getAction();
             isCamera = action != null && action.equals(MediaStore.ACTION_IMAGE_CAPTURE);
         }
-
 
         return isCamera ? getCaptureImageOutputUri() : data.getData();
     }

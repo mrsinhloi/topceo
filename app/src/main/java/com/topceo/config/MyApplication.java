@@ -31,6 +31,7 @@ import com.bumptech.glide.request.FutureTarget;
 import com.danikula.videocache.HttpProxyCacheServer;
 import com.downloader.PRDownloader;
 import com.downloader.PRDownloaderConfig;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.gu.toolargetool.TooLargeTool;
 import com.liuzhenlin.common.utils.SystemBarUtils;
 import com.liuzhenlin.common.utils.Utils;
@@ -73,7 +74,6 @@ import com.onesignal.OSNotification;
 import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OSPermissionSubscriptionState;
 import com.onesignal.OneSignal;
-import com.workchat.core.config.App;
 import com.workchat.core.config.ChatApplication;
 import com.workchat.core.config.EventControlListener;
 import com.workchat.core.mbn.models.UserChatCore;
@@ -331,7 +331,6 @@ public class MyApplication extends ChatApplication implements EventControlListen
 //                Drawable iconBackCustom = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, iconSize, iconSize, false));
                 Drawable iconBackCustom = getResources().getDrawable(R.drawable.ic_svg_16_36dp);
                 ChatApplication.Companion.init(
-                        //todo dang dung key cua workchat
                         getString(R.string.GOOGLE_MAPS_ANDROID_API_KEY),
                         MyApplication.this,
                         BuildConfig.APPLICATION_ID,
@@ -514,7 +513,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
 
         if (isFromFacebook) {
             final long start = System.currentTimeMillis();
-            AndroidNetworking.post(Webservices.URL + "user/loginFacebook")
+            AndroidNetworking.post(Webservices.API_URL + "user/loginFacebook")
                     .addQueryParameter("username", db.getString(TinyDB.FACEBOOK_ID))
                     .addQueryParameter("password", db.getString(TinyDB.FACEBOOK_PASSWORD))
                     .setOkHttpClient(client)
@@ -575,7 +574,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
 
             if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
                 isCallingInitCookie = true;
-                AndroidNetworking.post(Webservices.URL + "user/login")
+                AndroidNetworking.post(Webservices.API_URL + "user/login")
                         .addBodyParameter("username", username)
                         .addBodyParameter("password", password)
                         .setOkHttpClient(client)
@@ -1097,6 +1096,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
 
     @Override
     public void onCreate() {
+        Webservices.initURLs(this);
         TooLargeTool.startLogging(this);
         context = this;
         application = this;
@@ -1196,6 +1196,8 @@ public class MyApplication extends ChatApplication implements EventControlListen
         //socials
         initSocials();
 
+        //crashlytics
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG);
 
 
     }

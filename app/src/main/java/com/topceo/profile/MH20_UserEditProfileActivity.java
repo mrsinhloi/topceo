@@ -12,7 +12,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -37,9 +36,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.topceo.R;
 import com.topceo.accountkit.PhoneUtils;
@@ -81,12 +78,10 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 import bolts.Continuation;
 import bolts.Task;
@@ -809,7 +804,7 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
             progressDialog.setMessage(getText(R.string.avatar_uploading));
             progressDialog.show();*/
             ProgressUtils.show(context);
-            AndroidNetworking.post(Webservices.URL + "user/getAvatarUploadSAS")
+            AndroidNetworking.post(Webservices.API_URL + "user/getAvatarUploadSAS")
                     .addQueryParameter("ItemGUID", GUID)
                     .addQueryParameter("ImageExtension", extension)
                     .setOkHttpClient(MyApplication.getClient())

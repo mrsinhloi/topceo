@@ -221,10 +221,10 @@ public class ChatActivity extends AppCompatActivity implements
 
     private void loadMore() {
         if (isFindPinMessage) {//load more tu tin Pin
-            getRoomPreviousLogs(adapter.getLastLogId_Top());
+            getRoomPreviousLogs(adapter.getLastLogId_Top(), 0);
         } else {//load danh sach chat
             loadMore = true;
-            loadHistory();
+            loadHistory(0);
         }
     }
 
@@ -346,14 +346,19 @@ public class ChatActivity extends AppCompatActivity implements
                     //project
                     project = b.getParcelable(Project.PROJECT_MODEL);
 
+                    //
+                    loadPinData(0);
 
                 }
             }
         }
     }
 
+
     ///////////////////////////////////////////////////////////////////////
-    private Socket socket;
+    public Socket getSocket() {
+        return ChatApplication.Companion.getSocket();
+    }
 
     /**
      * Khi mo truc tiep tu app MBN qua thi phai enable chuc nang lang nghe cua socket
@@ -374,19 +379,8 @@ public class ChatActivity extends AppCompatActivity implements
      */
     private boolean isSelectImageOrFile = false;
 
-    private void initSocketOnly() {
-        //link den socket trong application
-        socket = ChatApplication.Companion.getSocket();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ChatApplication.Companion.getSocketInitIfNull();
-            }
-        }, 1000);
-    }
-
     private void initSocket() {
-        socket = ChatApplication.Companion.getSocket();
+        Socket socket = ChatApplication.Companion.getSocket();
         if (socket == null) {
             ChatApplication.Companion.getSocketInitIfNull();
         }
@@ -405,7 +399,7 @@ public class ChatActivity extends AppCompatActivity implements
     }
 
     private boolean isSocketConnected() {
-        socket = ChatApplication.Companion.getSocket();
+        Socket socket = getSocket();
         if (socket != null && socket.connected()) {
             MyUtils.log("socket connected true");
             return true;
@@ -438,8 +432,6 @@ public class ChatActivity extends AppCompatActivity implements
     ImageView getImgChannelClose;
     @BindView(R2.id.txtChannelName)
     TextView txtChannelName;
-
-
 
 
     private boolean isForward = false;
@@ -486,7 +478,7 @@ public class ChatActivity extends AppCompatActivity implements
         //khoi tao socket
         initSocketConnection();
         //hien thi trang thai ban dau
-        if (socket == null || (socket != null && !socket.connected())) {
+        if (!isSocketConnected()) {
             stateOffline();
         }
         /////////////////////////////////////////////////////////////////////////////////////
@@ -502,7 +494,7 @@ public class ChatActivity extends AppCompatActivity implements
         Drawable d = ChatApplication.Companion.getIconBackCustom();
         if (d != null) {
             toolbar.setNavigationIcon(d);
-        }else {
+        } else {
             toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         }
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -514,15 +506,15 @@ public class ChatActivity extends AppCompatActivity implements
             }
         });
 
-        if(ChatApplication.Companion.isUseZoom()) {
+        if (ChatApplication.Companion.isUseZoom()) {
             imgZoom.setVisibility(View.VISIBLE);
             imgZoom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    checkCanCreateMeeting();
+                    checkCanCreateMeeting(0);
                 }
             });
-        }else{
+        } else {
             imgZoom.setVisibility(View.GONE);
         }
 
@@ -707,20 +699,20 @@ public class ChatActivity extends AppCompatActivity implements
     }
 
 
-    private void loadPinData() {
-        if (isSocketConnected() && room != null) {
-
+    private void loadPinData(int from) {
+        if (isSocketConnected() && !TextUtils.isEmpty(roomId)) {
+            logFrom("getPinLogs", from);
             //Load tu tren xuong duoi, moi nhat da sap xep tren dau
             final String id = "";
             JSONObject obj = new JSONObject();
             try {
-                obj.put("roomId", room.get_id());
+                obj.put("roomId", roomId);
                 obj.put("lastLogId", id);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            socket.emit("getPinLogs", obj, (Ack) args -> runOnUiThread(() -> {
+            getSocket().emit("getPinLogs", obj, (Ack) args -> runOnUiThread(() -> {
                 final ArrayList<RoomLog> list = RoomLog.parseListRoomLog(context, args);
                 if (list != null && list.size() > 0) {
                     imgPin.setVisibility(View.VISIBLE);
@@ -862,7 +854,7 @@ public class ChatActivity extends AppCompatActivity implements
                 int pastVisibleItems = linearLayout.findLastCompletelyVisibleItemPosition();
                 int size = adapter.getItemCount();
                 //size > 10 khi list <10 se bi load duplicate
-                if (!isLoading && size >= PAGE_ITEM && size - pastVisibleItems <= PAGE_ITEM * 2) {//pastVisibleItems  == 0
+                if (!isLoading && size >= PAGE_ITEM && size - pastVisibleItems <= PAGE_ITEM / 2) {//pastVisibleItems  == 0
                     //tu dong lay them
                     loadMore();
                 }
@@ -873,7 +865,7 @@ public class ChatActivity extends AppCompatActivity implements
                     int firstVisibleItems = linearLayout.findFirstCompletelyVisibleItemPosition();
                     if (!isLoading && size >= PAGE_ITEM && firstVisibleItems <= PAGE_ITEM) {//pastVisibleItems  == 0
                         //tu dong lay them
-                        getRoomNextLogsBottom(adapter.getLastLogId_Bottom());
+                        getRoomNextLogsBottom(adapter.getLastLogId_Bottom(), 0);
                     }
 
                         /*if (!isLoading && !rv.canScrollVertically(RecyclerView.FOCUS_DOWN)) {
@@ -982,7 +974,7 @@ public class ChatActivity extends AppCompatActivity implements
                 }
 
 
-                setLogIsView(log.get_id());
+                setLogIsView(log.get_id(), 0);
                 hideEmptyView();
             }
         }
@@ -1058,9 +1050,9 @@ public class ChatActivity extends AppCompatActivity implements
         //neu co url thi goi ham sendlink, nguoc lai thi goi ham new message
         List<String> links = LinkUtils.extractUrls(message);
         if (links.size() > 0) {
-            sendSocketLink(message, links.get(0));
+            sendSocketLink(message, links.get(0), 0);
         } else {
-            sendSocketMessage(message);
+            sendSocketMessage(message, 0);
         }
 
         //hide keyboard
@@ -1072,13 +1064,12 @@ public class ChatActivity extends AppCompatActivity implements
 
     }
 
-    private void timeoutSend() {
 
-    }
-
-    private void sendSocketMessage(String message) {
+    private void sendSocketMessage(String message, int from) {
         if (MyUtils.checkInternetConnection(context)) {
             if (isSocketConnected() && room != null) {
+                logFrom("sendText", from);
+
                 isSending = true;
                 progressWheelCenter.setVisibility(View.VISIBLE);
                 JSONObject obj = new JSONObject();
@@ -1092,7 +1083,7 @@ public class ChatActivity extends AppCompatActivity implements
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                socket.emit("sendText", obj, new Ack() {
+                getSocket().emit("sendText", obj, new Ack() {
                     @Override
                     public void call(Object... args) {
 
@@ -1128,9 +1119,11 @@ public class ChatActivity extends AppCompatActivity implements
     //SEND LINK SAU DO PARSE UPDATE LINK
     private String guid = "";//luu lai de luc goi updatelink thi goi len
 
-    private void sendSocketLink(final String message, final String link) {
+    private void sendSocketLink(final String message, final String link, int from) {
         if (MyUtils.checkInternetConnection(context)) {
             if (isSocketConnected() && room != null) {
+                logFrom("sendLink", from);
+
                 isSending = true;
                 progressWheelCenter.setVisibility(View.VISIBLE);
                 JSONObject obj = new JSONObject();
@@ -1145,7 +1138,7 @@ public class ChatActivity extends AppCompatActivity implements
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                socket.emit("sendLink", obj, new Ack() {
+                getSocket().emit("sendLink", obj, new Ack() {
                     @Override
                     public void call(final Object... args) {
                         boolean isSuccess = RoomLog.isSuccess(context, args);
@@ -1214,15 +1207,19 @@ public class ChatActivity extends AppCompatActivity implements
             }
 
             //update socket
-            updateLinkParse(m.getRoomId(), m.get_id(), text, content.getUrl(), content.getTitle(), url, content.getDescription(), m.getItemGUID());
+            updateLinkParse(m.getRoomId(), m.get_id(), text, content.getUrl(), content.getTitle(), url, content.getDescription(), m.getItemGUID(), 0);
         }
     }
 
     private void updateLinkParse(String roomId, String chatLogId,
-                                 String text, String link, String title, String imageLink, String description, String itemGUID) {
-        Socket mSocket = ChatApplication.Companion.getSocket();
+                                 String text, String link, String title,
+                                 String imageLink, String description, String itemGUID,
+                                 int from
+    ) {
         // Sending an object
-        if (mSocket != null && mSocket.connected()) {
+        if (isSocketConnected()) {
+            logFrom("updateLink", from);
+
             JSONObject obj = new JSONObject();
             try {
                 obj.put("roomId", roomId);
@@ -1234,7 +1231,7 @@ public class ChatActivity extends AppCompatActivity implements
                 obj.put("description", description);
                 obj.put("itemGUID", itemGUID);
 
-                mSocket.emit("updateLink", obj, new Ack() {
+                getSocket().emit("updateLink", obj, new Ack() {
                     @Override
                     public void call(Object... args) {
                         Log.d("test", args[0].toString());
@@ -1248,26 +1245,33 @@ public class ChatActivity extends AppCompatActivity implements
             MyUtils.showToast(context, R.string.socket_not_connected);
         }
     }
-    //////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void setLogIsView(String logId) {
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    String lastLogId = "";
+
+    private void setLogIsView(String logId, int from) {
         if (isSocketConnected() && room != null && !TextUtils.isEmpty(logId)) {
-            JSONObject obj = new JSONObject();
-            try {
-                obj.put("roomId", room.get_id());
-                obj.put("chatLogId", logId);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            socket.emit("setLogIsView", obj, new Ack() {
-                @Override
-                public void call(Object... args) {
+            if (!logId.equals(lastLogId)) {
+                logFrom("setLogIsView", from);
+                lastLogId = logId;
+                JSONObject obj = new JSONObject();
+                try {
+                    obj.put("roomId", room.get_id());
+                    obj.put("chatLogId", logId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                getSocket().emit("setLogIsView", obj, new Ack() {
+                    @Override
+                    public void call(Object... args) {
 //                    boolean isSuccess = RoomLog.isSuccess(context, args);
 //                    if (isSuccess) {
 //                        //ham on se nhan 1 ket qua tra ve, va cap nhat lai cho recent adapter
 //                    }
-                }
-            });
+                    }
+                });
+            }
+
         }
     }
 
@@ -1404,11 +1408,6 @@ public class ChatActivity extends AppCompatActivity implements
                 }
 
             }
-
-
-            //show hide icon pin
-            loadPinData();
-
         }
 
         title.setOnClickListener(new View.OnClickListener() {
@@ -1528,14 +1527,14 @@ public class ChatActivity extends AppCompatActivity implements
                     //2 param giong nhau, chi de phan biet voi room private
                     String link = params.get(0);
                     //Hoi co dong y vao room
-                    initRoomChannel(link);
+                    initRoomChannel(link, 0);
 
                     break;
                 case 1://private
-                    initRoomChatWithUser();
+                    initRoomChatWithUser(0);
                     break;
                 case 5://page
-                    initRoomChatWithPage();
+                    initRoomChatWithPage(0);
                     break;
                 case 8://item
                     initRoomChatWithItem();
@@ -1547,23 +1546,23 @@ public class ChatActivity extends AppCompatActivity implements
                 //room nay chi co thong tin co ban de load truoc history, can lay lai room day du
                 whenHaveRoom();
                 //lay lai room day du
-                initRoomChatWithRoomIdAndSetAdapter(room.get_id());
+                initRoomChatWithRoomIdAndSetAdapter(room.get_id(), 0);
 
             } else if (!TextUtils.isEmpty(roomId)) {
 //                initRoomChatWithRoomId(roomId);
                 //room nay chi co thong tin co ban de load truoc history, can lay lai room day du
                 whenHaveRoom();
                 //lay lai room day du
-                initRoomChatWithRoomIdAndSetAdapter(roomId);
+                initRoomChatWithRoomIdAndSetAdapter(roomId, 1);
             } else if (project != null) {
                 title.setText(project.getProjectName());
-                initRoomChatProject(project.getProjectId());
+                initRoomChatProject(project.getProjectId(), 0);
             } else if (!TextUtils.isEmpty(guestId)) {
-                initRoomChatWithUser();
+                initRoomChatWithUser(1);
             } else if (!TextUtils.isEmpty(jsonCreateRoom)) {
-                createChatRoom(jsonCreateRoom);
+                createChatRoom(jsonCreateRoom, 0);
             } else if (!TextUtils.isEmpty(channelId)) {
-                getChannelAdminRoom(channelId);
+                getChannelAdminRoom(channelId, 0);
             } else if (isSupport) {
                 Object obj = db.getObject(Room.ROOM_SUPPORT_CACHE, Room.class);
                 if (obj != null) {
@@ -1572,10 +1571,10 @@ public class ChatActivity extends AppCompatActivity implements
                     //room nay chi co thong tin co ban de load truoc history, can lay lai room day du
                     whenHaveRoom();
                     //lay lai room day du
-                    initRoomChatWithRoomIdAndSetAdapter(room.get_id());
+                    initRoomChatWithRoomIdAndSetAdapter(room.get_id(), 2);
                 } else {
                     //tao tu dau
-                    initRoomChatWithSupport();
+                    initRoomChatWithSupport(0);
                 }
             }
         }
@@ -1583,9 +1582,11 @@ public class ChatActivity extends AppCompatActivity implements
 
     String guestId;
 
-    private void initRoomChatWithUser() {
+    private void initRoomChatWithUser(int from) {
         if (room == null) {
             if (isSocketConnected()) {
+                logFrom("getPrivateRoom", from);
+
                 JSONObject obj = new JSONObject();
                 try {
                     if (params != null && params.size() > 0) {
@@ -1600,7 +1601,7 @@ public class ChatActivity extends AppCompatActivity implements
                 }
 
                 if (obj.length() > 0) {
-                    socket.emit("getPrivateRoom", obj, (Ack) args -> runOnUiThread(() -> {
+                    getSocket().emit("getPrivateRoom", obj, (Ack) args -> runOnUiThread(() -> {
                         room = Room.parseRoom(context, args);
                         whenHaveRoom();
                     }));
@@ -1614,9 +1615,11 @@ public class ChatActivity extends AppCompatActivity implements
     }
 
 
-    private void initRoomChatProject(long projectId) {
+    private void initRoomChatProject(long projectId, int from) {
         if (room == null) {
             if (isSocketConnected()) {
+                logFrom("getProjectRoom", from);
+
                 JSONObject obj = new JSONObject();
                 try {
                     obj.put("projectId", projectId);
@@ -1625,7 +1628,7 @@ public class ChatActivity extends AppCompatActivity implements
                 }
 
                 if (obj.length() > 0) {
-                    socket.emit("getProjectRoom", obj, (Ack) args -> runOnUiThread(() -> {
+                    getSocket().emit("getProjectRoom", obj, (Ack) args -> runOnUiThread(() -> {
                         room = Room.parseRoom(context, args);
                         whenHaveRoom();
                     }));
@@ -1641,9 +1644,11 @@ public class ChatActivity extends AppCompatActivity implements
     /////////////////////////////////////////////////////////////
     private boolean isSupport = false;
 
-    private void initRoomChatWithSupport() {
+    private void initRoomChatWithSupport(int from) {
         if (room == null) {
             if (isSocketConnected()) {
+                logFrom("getSupportRoom", from);
+
                 JSONObject obj = new JSONObject();
                 try {
                     obj.put("supportGroupId", 1);
@@ -1652,16 +1657,7 @@ public class ChatActivity extends AppCompatActivity implements
                 }
 
                 if (obj.length() > 0) {
-                    /*socket.emit("getSupportRoom", obj, (Ack) args -> runOnUiThread(() -> {
-                        room = Room.parseRoom(context, args);
-                        whenHaveRoom();
-
-                        //luu lai de lan 2 load len
-                        if (room != null) {
-                            db.putObject(Room.ROOM_SUPPORT_CACHE, room);
-                        }
-                    }));*/
-                    socket.emit("getSupportRoom", obj, new Ack() {
+                    getSocket().emit("getSupportRoom", obj, new Ack() {
                         @Override
                         public void call(Object... args) {
                             room = Room.parseRoom(context, args);
@@ -1729,7 +1725,7 @@ public class ChatActivity extends AppCompatActivity implements
                     e.printStackTrace();
                 }
 
-                socket.emit("getItemRoom", obj, new Ack() {
+                getSocket().emit("getItemRoom", obj, new Ack() {
                     @Override
                     public void call(final Object... args) {
                         runOnUiThread(new Runnable() {
@@ -1754,26 +1750,12 @@ public class ChatActivity extends AppCompatActivity implements
     }
 
 
-    private void initRoomChatWithRoomId(final String roomId) {
-
-        /*for (int i = 0; i < 10; i++) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                }
-            }, i * 1000);
-        }*/
-
-        MyUtils.howLong(startGlobal,
-                " have room " + roomId +
-                        " socket " + (socket == null) +
-                        " isconnected " + isSocketConnected()
-        );
-
+    private void initRoomChatWithRoomId(final String roomId, int from) {
         if (room == null) {
             final long start = SystemClock.elapsedRealtime();
             if (isSocketConnected()) {
+                logFrom("getChatRoom", from);
+
                 if (!TextUtils.isEmpty(roomId)) {
                     JSONObject obj = new JSONObject();
                     try {
@@ -1781,7 +1763,7 @@ public class ChatActivity extends AppCompatActivity implements
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    socket.emit("getChatRoom", obj, new Ack() {
+                    getSocket().emit("getChatRoom", obj, new Ack() {
                         @Override
                         public void call(final Object... args) {
                             boolean isSuccess = Room.isSuccess(context, args);
@@ -1855,10 +1837,12 @@ public class ChatActivity extends AppCompatActivity implements
         }
     }
 
-    private void initRoomChatWithRoomIdAndSetAdapter(final String roomId) {
+    private void initRoomChatWithRoomIdAndSetAdapter(final String roomId, int from) {
         if (!TextUtils.isEmpty(roomId)) {
             final long start = SystemClock.elapsedRealtime();
             if (isSocketConnected()) {
+                logFrom("getChatRoom", from);
+
                 if (!TextUtils.isEmpty(roomId)) {
                     JSONObject obj = new JSONObject();
                     try {
@@ -1866,7 +1850,7 @@ public class ChatActivity extends AppCompatActivity implements
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    socket.emit("getChatRoom", obj, new Ack() {
+                    getSocket().emit("getChatRoom", obj, new Ack() {
                         @Override
                         public void call(final Object... args) {
 
@@ -1915,24 +1899,13 @@ public class ChatActivity extends AppCompatActivity implements
         }
     }
 
-    private void initRoomChatWithPage() {
+    private void initRoomChatWithPage(int from) {
         if (room == null) {
 
             if (isSocketConnected()) {
-                JSONObject obj = new JSONObject();
+                logFrom("getPageRoom", from);
 
-                /*List<Integer> member = new ArrayList<>();
-                List<String> list = page.getAdmins();
-                if (list != null && list.size() > 0) {
-                    for (int i = 0; i < list.size(); i++) {
-                        try {
-                            int number = Integer.parseInt(list.get(i));
-                            member.add(number);
-                        } catch (NumberFormatException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }*/
+                JSONObject obj = new JSONObject();
 
                 try {
                     if (params != null && params.size() > 0) {
@@ -1957,7 +1930,7 @@ public class ChatActivity extends AppCompatActivity implements
                     e.printStackTrace();
                 }
 
-                socket.emit("getPageRoom", obj, new Ack() {
+                getSocket().emit("getPageRoom", obj, new Ack() {
                     @Override
                     public void call(final Object... args) {
                         runOnUiThread(new Runnable() {
@@ -1979,15 +1952,17 @@ public class ChatActivity extends AppCompatActivity implements
         }
     }
 
-    private void initRoomChannel(String linkChannel) {
+    private void initRoomChannel(String linkChannel, int from) {
         if (isSocketConnected()) {
+            logFrom("getRoomFromJoinLink", from);
+
             JSONObject obj = new JSONObject();
             try {
                 obj.put("joinLink", linkChannel);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            socket.emit("getRoomFromJoinLink", obj, new Ack() {
+            getSocket().emit("getRoomFromJoinLink", obj, new Ack() {
                 @Override
                 public void call(final Object... args) {
                     runOnUiThread(new Runnable() {
@@ -2017,7 +1992,7 @@ public class ChatActivity extends AppCompatActivity implements
                                         ////do room nay moi tao, thieu quyen, nen phai goi lay lai
                                         roomId = room.get_id();
                                         room = null;
-                                        initRoomChatWithRoomId(roomId);
+                                        initRoomChatWithRoomId(roomId, 0);
                                     }
                                 } else {
                                     //goi qua man hinh hoi co muon vao room nay khong
@@ -2034,10 +2009,12 @@ public class ChatActivity extends AppCompatActivity implements
     }
 
 
-    private void createChatRoom(String jsonCreateRoom) {
+    private void createChatRoom(String jsonCreateRoom, int from) {
         if (room == null) {
 
             if (isSocketConnected()) {
+                logFrom("createChatRoom", from);
+
                 if (!TextUtils.isEmpty(jsonCreateRoom)) {
 
                     JSONObject obj = new JSONObject();
@@ -2049,7 +2026,7 @@ public class ChatActivity extends AppCompatActivity implements
                     }
 
 
-                    socket.emit("createChatRoom", obj, new Ack() {
+                    getSocket().emit("createChatRoom", obj, new Ack() {
                         @Override
                         public void call(final Object... args) {
                             runOnUiThread(new Runnable() {
@@ -2083,10 +2060,12 @@ public class ChatActivity extends AppCompatActivity implements
      *
      * @param channelId
      */
-    private void getChannelAdminRoom(String channelId) {
+    private void getChannelAdminRoom(String channelId, int from) {
         if (room == null) {
 
             if (isSocketConnected()) {
+                logFrom("getChannelAdminRoom", from);
+
                 JSONObject obj = new JSONObject();
                 try {
                     obj.put("userIdGuest", owner.get_id());
@@ -2095,7 +2074,7 @@ public class ChatActivity extends AppCompatActivity implements
                     e.printStackTrace();
                 }
 
-                socket.emit("getChannelAdminRoom", obj, new Ack() {
+                getSocket().emit("getChannelAdminRoom", obj, new Ack() {
                     @Override
                     public void call(final Object... args) {
                         runOnUiThread(new Runnable() {
@@ -2127,11 +2106,11 @@ public class ChatActivity extends AppCompatActivity implements
 
         //co chat log thi load theo dang tim den 1 log
         if (!TextUtils.isEmpty(chatLogId)) {
-            getRoomNearbyLogs(chatLogId);
+            getRoomNearbyLogs(chatLogId, 0);
         } else {//load tu dau
             //load lai lich su
             loadMore = true;
-            loadHistory();
+            loadHistory(1);
         }
 
         //dang ky scroll theo loai nao pin/ko pin
@@ -2234,11 +2213,12 @@ public class ChatActivity extends AppCompatActivity implements
     private boolean loadMore = true;
     public static final int PAGE_ITEM = 15;
 
-    private void loadHistory() {
+    private void loadHistory(int from) {
         final long start = SystemClock.elapsedRealtime();
         isFindPinMessage = false;
         if (!isLoading && loadMore) {
             if (isSocketConnected() && adapter != null) {
+                logFrom("getRoomLogs", from);
 
                 final String id = adapter.getLastLogId_Top();
                 JSONObject obj = new JSONObject();
@@ -2260,9 +2240,9 @@ public class ChatActivity extends AppCompatActivity implements
                     e.printStackTrace();
                 }
 
-                MyUtils.log("load more " + id);
+//                MyUtils.log("load more " + id);
                 isLoading = true;
-                socket.emit("getRoomLogs", obj, new AckWithTimeOut(AckWithTimeOut.TIME_OUT) {
+                getSocket().emit("getRoomLogs", obj, new AckWithTimeOut(AckWithTimeOut.TIME_OUT) {
                     @Override
                     public void call(Object... args) {
                         if (args != null) {
@@ -2271,7 +2251,7 @@ public class ChatActivity extends AppCompatActivity implements
                                 isLoading = false;
                                 if (adapter != null && adapter.getItemCount() == 0) {
                                     MyUtils.showToastDebugInThread(context, "Timeout call again");
-                                    loadHistory();
+                                    loadHistory(2);
                                 }
 
                             } else {
@@ -2346,7 +2326,7 @@ public class ChatActivity extends AppCompatActivity implements
                                             RoomLog log = ChatApplication.Companion.getLogForward();
                                             if (log != null) {
                                                 //goi tin
-                                                forwardMessage(log);
+                                                forwardMessage(log, 0);
                                             } else {
                                                 //#1 share text
                                                 String sharedText = ChatApplication.Companion.getSharedText();
@@ -2657,10 +2637,10 @@ public class ChatActivity extends AppCompatActivity implements
                             String id = b.getString(RoomLog.ROOM_LOG_ID, "");
                             boolean isPin = b.getBoolean(RoomLog.IS_PIN, false);
                             if (!TextUtils.isEmpty(id)) {
-                                setPinMessage(room.get_id(), id, isPin);
+                                setPinMessage(room.get_id(), id, isPin, 0);
 
                                 //khi pin hoac unpin thi kiem tra xem co con danh sach pin hay khong
-                                loadPinData();
+                                loadPinData(1);
                             }
                         }
                         break;
@@ -2673,7 +2653,7 @@ public class ChatActivity extends AppCompatActivity implements
                                 adapter.setPinMessage(id, isPin);
 
                                 //khi pin hoac unpin thi kiem tra xem co con danh sach pin hay khong
-                                loadPinData();
+                                loadPinData(2);
                             }
                         }
                         break;
@@ -2682,7 +2662,7 @@ public class ChatActivity extends AppCompatActivity implements
                         if (b != null) {
                             String id = b.getString(RoomLog.ROOM_LOG_ID, "");
                             if (!TextUtils.isEmpty(id)) {
-                                getRoomNearbyLogs(id);
+                                getRoomNearbyLogs(id, 1);
                                 registerScrollRecyclerview();
                             }
                         }
@@ -2711,7 +2691,7 @@ public class ChatActivity extends AppCompatActivity implements
                     case ACTION_SEND_PLAN:
                         if (b != null) {
                             PlanModelLocal plan = b.getParcelable(PlanModelLocal.PLAN_MODEL);
-                            sendPlan(plan);
+                            sendPlan(plan, 0);
                         }
                         break;
 
@@ -2943,6 +2923,7 @@ public class ChatActivity extends AppCompatActivity implements
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
 
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             // permission granted
             switch (requestCode) {
@@ -3095,7 +3076,7 @@ public class ChatActivity extends AppCompatActivity implements
                             address = location.getAddress();
                             isCheckin = location.isCurrentLocation();
 
-                            sendLocation();
+                            sendLocation(0);
                         }
                     }
 
@@ -3181,7 +3162,8 @@ public class ChatActivity extends AppCompatActivity implements
                                             user.getName(),
                                             user.getAvatar(),
                                             user.getPhone(),
-                                            user.getEmail(), uuid);
+                                            user.getEmail(), uuid,
+                                            0);
                                 }
                             }
                         }
@@ -3227,7 +3209,7 @@ public class ChatActivity extends AppCompatActivity implements
             File f = new File(filePath);
             fileSize = MyUtils.getSizeBytes(f.length());
 
-            generateUploadSAS(fileName, ContentTypeInChat.FILE);
+            generateUploadSAS(fileName, ContentTypeInChat.FILE, 0);
             //upload azure
             //goi ham send file
         }
@@ -3340,7 +3322,7 @@ public class ChatActivity extends AppCompatActivity implements
 
                         //tao sas
                         fileImageName = MyUtils.getFileNameAndExtension(imgPathFull);
-                        generateUploadSAS(fileImageName, ContentTypeInChat.IMAGE);
+                        generateUploadSAS(fileImageName, ContentTypeInChat.IMAGE, 1);
                         //upload azure
                         //goi ham send image
                     }
@@ -3373,7 +3355,7 @@ public class ChatActivity extends AppCompatActivity implements
 
                         //tao sas
                         fileImageName = MyUtils.getFileNameAndExtension(imgPathFull);
-                        generateUploadSAS(fileImageName, ContentTypeInChat.IMAGE);
+                        generateUploadSAS(fileImageName, ContentTypeInChat.IMAGE, 2);
                         //upload azure
                         //goi ham send image
                     }
@@ -3492,8 +3474,9 @@ public class ChatActivity extends AppCompatActivity implements
      * @param fileName
      * @param contentType {@link ContentTypeInChat}
      */
-    private void generateUploadSAS(final String fileName, final int contentType) {
+    private void generateUploadSAS(final String fileName, final int contentType, int from) {
         if (isSocketConnected() && room != null) {
+            logFrom("generateUploadSAS", from);
 
             final String uuid = MyUtils.getGUID();
 
@@ -3534,7 +3517,7 @@ public class ChatActivity extends AppCompatActivity implements
             }
 
 
-            socket.emit("generateUploadSAS", obj, new Ack() {
+            getSocket().emit("generateUploadSAS", obj, new Ack() {
                 @Override
                 public void call(Object... args) {
                     //return sasUrl, sasThumbUrl (nếu là image)
@@ -3651,8 +3634,10 @@ public class ChatActivity extends AppCompatActivity implements
     }
 
 
-    private void sendImage(SasModel sas, String fileName, String uuid) {
+    private void sendImage(SasModel sas, String fileName, String uuid, int from) {
         if (isSocketConnected() && room != null) {
+            logFrom("sendImage", from);
+
             JSONObject obj = new JSONObject();
             try {
                 //roomId, fileImageName, link, thumbLink, height, width, size, thumbHeight, thumbWidth, thumbSize, itemGUID
@@ -3673,7 +3658,7 @@ public class ChatActivity extends AppCompatActivity implements
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            socket.emit("sendImage", obj, new Ack() {
+            getSocket().emit("sendImage", obj, new Ack() {
                 @Override
                 public void call(Object... args) {
                     //return sasUrl, sasThumbUrl (nếu là image)
@@ -3700,8 +3685,10 @@ public class ChatActivity extends AppCompatActivity implements
         }
     }
 
-    private void sendVideo(SasModel sas, String fileName, String uuid) {
+    private void sendVideo(SasModel sas, String fileName, String uuid, int from) {
         if (isSocketConnected() && room != null) {
+            logFrom("sendVideo", from);
+
             JSONObject obj = new JSONObject();
             try {
                 //roomId, fileImageName, link, thumbLink, height, width, size, thumbHeight, thumbWidth, thumbSize, itemGUID
@@ -3722,7 +3709,7 @@ public class ChatActivity extends AppCompatActivity implements
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            socket.emit("sendVideo", obj, new Ack() {
+            getSocket().emit("sendVideo", obj, new Ack() {
                 @Override
                 public void call(Object... args) {
                     //return sasUrl, sasThumbUrl (nếu là image)
@@ -3752,8 +3739,10 @@ public class ChatActivity extends AppCompatActivity implements
      * @param size        tính theo byte
      * @param uuid
      */
-    private void sendVoice(SasModel sas, int voiceLength, float size, String uuid) {
+    private void sendVoice(SasModel sas, int voiceLength, float size, String uuid, int from) {
         if (isSocketConnected() && room != null) {
+            logFrom("sendVoice", from);
+
             JSONObject obj = new JSONObject();
             try {
                 //roomId, fileImageName, link, thumbLink, height, width, size, thumbHeight, thumbWidth, thumbSize, itemGUID
@@ -3768,7 +3757,7 @@ public class ChatActivity extends AppCompatActivity implements
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            socket.emit("sendVoice", obj, new Ack() {
+            getSocket().emit("sendVoice", obj, new Ack() {
                 @Override
                 public void call(Object... args) {
                     //return sasUrl, sasThumbUrl (nếu là image)
@@ -3797,8 +3786,12 @@ public class ChatActivity extends AppCompatActivity implements
                              String contactAvatar,
                              String contactMobile,
                              String contactEmail,
-                             String uuid) {
+                             String uuid,
+                             int from
+    ) {
         if (isSocketConnected() && room != null) {
+            logFrom("sendContact", from);
+
             JSONObject obj = new JSONObject();
             try {
                 //roomId, fileImageName, link, thumbLink, height, width, size, thumbHeight, thumbWidth, thumbSize, itemGUID
@@ -3815,7 +3808,7 @@ public class ChatActivity extends AppCompatActivity implements
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            socket.emit("sendContact", obj, new Ack() {
+            getSocket().emit("sendContact", obj, new Ack() {
                 @Override
                 public void call(Object... args) {
                     //return sasUrl, sasThumbUrl (nếu là image)
@@ -3841,8 +3834,10 @@ public class ChatActivity extends AppCompatActivity implements
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private JSONArray albums = null;
 
-    private void sendAlbum(String uuid) {
+    private void sendAlbum(String uuid, int from) {
         if (isSocketConnected() && room != null && albums != null) {
+            logFrom("sendAlbum", from);
+
             JSONObject obj = new JSONObject();
             try {
                 //roomId, fileImageName, link, thumbLink, height, width, size, thumbHeight, thumbWidth, thumbSize, itemGUID
@@ -3856,7 +3851,7 @@ public class ChatActivity extends AppCompatActivity implements
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            socket.emit("sendAlbum", obj, new Ack() {
+            getSocket().emit("sendAlbum", obj, new Ack() {
                 @Override
                 public void call(Object... args) {
                     //return sasUrl, sasThumbUrl (nếu là image)
@@ -3881,8 +3876,10 @@ public class ChatActivity extends AppCompatActivity implements
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////
-    private void sendFile(SasModel sas, String fileName, String uuid) {
+    private void sendFile(SasModel sas, String fileName, String uuid, int from) {
         if (isSocketConnected() && room != null) {
+            logFrom("sendFile", from);
+
             JSONObject obj = new JSONObject();
             try {
                 //roomId, fileImageName, link, thumbLink, height, width, size, thumbHeight, thumbWidth, thumbSize, itemGUID
@@ -3897,7 +3894,7 @@ public class ChatActivity extends AppCompatActivity implements
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            socket.emit("sendFile", obj, new Ack() {
+            getSocket().emit("sendFile", obj, new Ack() {
                 @Override
                 public void call(Object... args) {
                     //return sasUrl, sasThumbUrl (nếu là image)
@@ -4032,7 +4029,6 @@ public class ChatActivity extends AppCompatActivity implements
         super.onResume();
 
         isResume = true;
-        initSocketOnly();
 
         //socket
         if (owner == null) {
@@ -4150,9 +4146,11 @@ public class ChatActivity extends AppCompatActivity implements
 
     boolean isCheckin = true;
 
-    private void sendLocation() {
+    private void sendLocation(int from) {
         if (lat != 0 && lon != 0) {
             if (isSocketConnected() && room != null) {
+                logFrom("sendLocation", from);
+
                 JSONObject obj = new JSONObject();
                 try {
                     obj.put("roomId", room.get_id());
@@ -4167,7 +4165,7 @@ public class ChatActivity extends AppCompatActivity implements
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                socket.emit("sendLocation", obj, new Ack() {
+                getSocket().emit("sendLocation", obj, new Ack() {
                     @Override
                     public void call(Object... args) {
                         boolean isSuccess = RoomLog.isSuccess(context, args);
@@ -4413,11 +4411,11 @@ public class ChatActivity extends AppCompatActivity implements
     private void updateLogViewed() {
         if (adapter != null) {
             //cap nhat la da doc logid
-            setLogIsView(adapter.getLastLogId_Bottom());
+            setLogIsView(adapter.getLastLogId_Bottom(), 1);
         }
     }
 
-    private void setPinMessage(String roomId, final String logId, final boolean isPin) {
+    private void setPinMessage(String roomId, final String logId, final boolean isPin, int from) {
         if (isSocketConnected()) {
             JSONObject obj = new JSONObject();
             try {
@@ -4433,7 +4431,8 @@ public class ChatActivity extends AppCompatActivity implements
             } else {
                 method = "unpinMessage";
             }
-            socket.emit(method, obj, new Ack() {
+            logFrom(method, from);
+            getSocket().emit(method, obj, new Ack() {
                 @Override
                 public void call(final Object... args) {
 
@@ -4470,8 +4469,9 @@ public class ChatActivity extends AppCompatActivity implements
      *
      * @param logId
      */
-    private void getRoomNearbyLogs(final String logId) {
+    private void getRoomNearbyLogs(final String logId, int from) {
         if (isSocketConnected() && adapter != null && !TextUtils.isEmpty(logId)) {
+            logFrom("getRoomNearbyLogs", from);
 
             isFindPinMessage = true;
 
@@ -4485,7 +4485,7 @@ public class ChatActivity extends AppCompatActivity implements
             }
 
             isLoading = true;
-            socket.emit("getRoomNearbyLogs", obj, new Ack() {
+            getSocket().emit("getRoomNearbyLogs", obj, new Ack() {
                 @Override
                 public void call(Object... args) {
 
@@ -4506,7 +4506,7 @@ public class ChatActivity extends AppCompatActivity implements
 
 
                                         //danh dau tin nay da xem
-                                        setLogIsView(logId);
+                                        setLogIsView(logId, 2);
 
                                         hideEmptyView();
                                     }
@@ -4554,8 +4554,9 @@ public class ChatActivity extends AppCompatActivity implements
      *
      * @param logId
      */
-    private void getRoomPreviousLogs(final String logId) {
+    private void getRoomPreviousLogs(final String logId, int from) {
         if (isSocketConnected() && room != null && adapter != null && !TextUtils.isEmpty(logId)) {
+            logFrom("getRoomPreviousLogs", from);
 
             JSONObject obj = new JSONObject();
             try {
@@ -4568,7 +4569,7 @@ public class ChatActivity extends AppCompatActivity implements
 
             MyUtils.log("load message getRoomPreviousLogs on top");
             isLoading = true;
-            socket.emit("getRoomPreviousLogs", obj, new Ack() {
+            getSocket().emit("getRoomPreviousLogs", obj, new Ack() {
                 @Override
                 public void call(Object... args) {
                     final ArrayList<RoomLog> list = RoomLog.parseListRoomLog(context, args);
@@ -4612,8 +4613,9 @@ public class ChatActivity extends AppCompatActivity implements
      *
      * @param logId
      */
-    private void getRoomNextLogsBottom(final String logId) {
+    private void getRoomNextLogsBottom(final String logId, int from) {
         if (isSocketConnected() && room != null && adapter != null && !TextUtils.isEmpty(logId)) {
+            logFrom("getRoomNextLogs", from);
 
             JSONObject obj = new JSONObject();
             try {
@@ -4627,7 +4629,7 @@ public class ChatActivity extends AppCompatActivity implements
 //            MyUtils.log("load message getRoomNextLogsBottom on bottom");
 //            progressWheel.setVisibility(View.VISIBLE);
             isLoading = true;
-            socket.emit("getRoomNextLogs", obj, new Ack() {
+            getSocket().emit("getRoomNextLogs", obj, new Ack() {
                 @Override
                 public void call(final Object... args) {
 
@@ -4720,7 +4722,7 @@ public class ChatActivity extends AppCompatActivity implements
                 @Override
                 public void onClick(View v) {
                     //chap nhan vao, goi add member vao channel
-                    addRoomMember();
+                    addRoomMember(0);
 
                 }
             });
@@ -4751,8 +4753,9 @@ public class ChatActivity extends AppCompatActivity implements
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
-    private void addRoomMember() {
+    private void addRoomMember(int from) {
         if (isSocketConnected() && room != null) {
+            logFrom("addRoomMember", from);
 
             JSONObject obj = new JSONObject();
             try {
@@ -4772,7 +4775,7 @@ public class ChatActivity extends AppCompatActivity implements
                 e.printStackTrace();
             }
 
-            socket.emit("addRoomMember", obj, new Ack() {
+            getSocket().emit("addRoomMember", obj, new Ack() {
                 @Override
                 public void call(Object... args) {
                     //return sasUrl, sasThumbUrl (nếu là image)
@@ -4794,7 +4797,7 @@ public class ChatActivity extends AppCompatActivity implements
                                 ////do room nay moi tao, thieu quyen, nen phai goi lay lai
                                 roomId = room.get_id();
                                 room = null;
-                                initRoomChatWithRoomId(roomId);
+                                initRoomChatWithRoomId(roomId, 1);
                             }
                         }
                     });
@@ -4948,7 +4951,7 @@ public class ChatActivity extends AppCompatActivity implements
                         protected void onPostExecute(Void aVoid) {
                             super.onPostExecute(aVoid);
                             //tao sas
-                            generateUploadSAS(fileName, ContentTypeInChat.VIDEO);
+                            generateUploadSAS(fileName, ContentTypeInChat.VIDEO, 3);
                         }
                     }.execute();
                 } else if (mimeType.contains("image")) {
@@ -5160,7 +5163,6 @@ public class ChatActivity extends AppCompatActivity implements
     private int voiceDuration = 0;
 
 
-
     private void start() {
         try {
             //init recorder
@@ -5283,7 +5285,7 @@ public class ChatActivity extends AppCompatActivity implements
                 File f = new File(filePath);
                 fileSize = MyUtils.getSizeBytes(f.length());
                 voiceDuration = MyUtils.getAudioDuration(f);
-                generateUploadSAS(fileName, ContentTypeInChat.VOICE);
+                generateUploadSAS(fileName, ContentTypeInChat.VOICE, 4);
                 //upload azure
                 //goi ham send file
             }
@@ -5341,8 +5343,10 @@ public class ChatActivity extends AppCompatActivity implements
 
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
-    private void sendPlan(final PlanModelLocal plan) {
+    private void sendPlan(final PlanModelLocal plan, int from) {
         if (isSocketConnected() && room != null && plan != null) {
+            logFrom("sendPlan", from);
+
             JSONObject obj = new JSONObject();
             try {
                 obj.put("roomId", room.get_id());
@@ -5360,7 +5364,7 @@ public class ChatActivity extends AppCompatActivity implements
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            socket.emit("sendPlan", obj, new Ack() {
+            getSocket().emit("sendPlan", obj, new Ack() {
                 @Override
                 public void call(final Object... args) {
 //                    MyUtils.log("OK");
@@ -5565,8 +5569,9 @@ public class ChatActivity extends AppCompatActivity implements
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
-    private void forwardMessage(RoomLog log) {
+    private void forwardMessage(RoomLog log, int from) {
         if (isSocketConnected() && room != null && log != null) {
+            logFrom("forwardMessage", from);
 
             //tao originMessage local khong dinh den originMessage ben ngoai
             JSONObject json = createOriginMessage(log);
@@ -5585,7 +5590,7 @@ public class ChatActivity extends AppCompatActivity implements
                     e.printStackTrace();
                 }
 
-                socket.emit("forwardMessage", obj, new Ack() {
+                getSocket().emit("forwardMessage", obj, new Ack() {
                     @Override
                     public void call(Object... args) {
 
@@ -5690,7 +5695,7 @@ public class ChatActivity extends AppCompatActivity implements
 
                 if (!isSendAlbum) {//chi 1 hinh
                     //goi ham send image
-                    sendImage(model, fileName, uuid);
+                    sendImage(model, fileName, uuid, 0);
                 } else {
                     //send album
                     //thanh cong thi kiem tra trong queue neu con thi goi tiep
@@ -5703,7 +5708,7 @@ public class ChatActivity extends AppCompatActivity implements
                         processUploadMedia(path);
                     } else {
                         //da goi het hinh
-                        sendAlbum(uuidAlbum);
+                        sendAlbum(uuidAlbum, 0);
                     }
                 }
 
@@ -5789,7 +5794,7 @@ public class ChatActivity extends AppCompatActivity implements
 
                 if (isSendAlbum == false) {//chi 1 hinh
                     //goi ham send video
-                    sendVideo(model, fileName, uuid);
+                    sendVideo(model, fileName, uuid, 0);
                 } else {
                     //send album
                     //thanh cong thi kiem tra trong queue neu con thi goi tiep
@@ -5798,7 +5803,7 @@ public class ChatActivity extends AppCompatActivity implements
                         processUploadMedia(paths.get(0));
                     } else {
                         //da goi het video
-                        sendAlbum(uuidAlbum);
+                        sendAlbum(uuidAlbum, 1);
                     }
                 }
 
@@ -5898,11 +5903,11 @@ public class ChatActivity extends AppCompatActivity implements
             if (aBoolean) {
                 switch (contentType) {
                     case ContentTypeInChat.VOICE:
-                        sendVoice(model, voiceDuration, fileSize, uuid);
+                        sendVoice(model, voiceDuration, fileSize, uuid, 0);
                         break;
                     case ContentTypeInChat.FILE:
                         //goi ham send FILE
-                        sendFile(model, fileName, uuid);
+                        sendFile(model, fileName, uuid, 0);
                         break;
                 }
 
@@ -5949,9 +5954,11 @@ public class ChatActivity extends AppCompatActivity implements
     ////////////////////////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
-    private void checkCanCreateMeeting() {
+    private void checkCanCreateMeeting(int from) {
         if (MyUtils.checkInternetConnection(context)) {
             if (isSocketConnected() && !TextUtils.isEmpty(roomId)) {
+                logFrom("getRoomZoomMeetings", from);
+
                 JSONObject obj = new JSONObject();
                 try {
                     obj.put("roomId", roomId);
@@ -5962,7 +5969,7 @@ public class ChatActivity extends AppCompatActivity implements
                     e.printStackTrace();
                 }
 
-                socket.emit("getRoomZoomMeetings", obj, new Ack() {
+                getSocket().emit("getRoomZoomMeetings", obj, new Ack() {
                     @Override
                     public void call(final Object... args) {
 
@@ -6068,7 +6075,7 @@ public class ChatActivity extends AppCompatActivity implements
 
                 String title = meetingTxtTitle.getText().toString().trim();
                 String pass = meetingTxtPassword.getText().toString().trim();
-                createZoomMeeting(title, pass, alert);
+                createZoomMeeting(title, pass, alert, 0);
 
             }
         });
@@ -6088,9 +6095,11 @@ public class ChatActivity extends AppCompatActivity implements
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
-    private void createZoomMeeting(String title, String password, AlertDialog alert) {
+    private void createZoomMeeting(String title, String password, AlertDialog alert, int from) {
         if (MyUtils.checkInternetConnection(context)) {
             if (isSocketConnected() && !TextUtils.isEmpty(roomId) && room != null) {
+                logFrom("sendZoomMeeting", from);
+
                 JSONObject obj = new JSONObject();
                 try {
                     obj.put("roomId", roomId);
@@ -6104,7 +6113,7 @@ public class ChatActivity extends AppCompatActivity implements
                     e.printStackTrace();
                 }
 
-                socket.emit("sendZoomMeeting", obj, new Ack() {
+                getSocket().emit("sendZoomMeeting", obj, new Ack() {
                     @Override
                     public void call(final Object... args) {
 
@@ -6154,7 +6163,7 @@ public class ChatActivity extends AppCompatActivity implements
         ChatApplication.Companion.reopenMainActivity();
     }
 
-    private void onClickLocation(){
+    private void onClickLocation() {
         boolean check = checkPermissionLocation();
         if (!check) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -6184,10 +6193,11 @@ public class ChatActivity extends AppCompatActivity implements
             }
         }
     }
+
     ///////////////////////////////////////////////////////////////////////////////////////////////
-    private void configChatFeature(){
+    private void configChatFeature() {
         //Mặc định show đầy đủ chức năng(tập tin, ghi âm, liên hệ, đặt lịch)
-        if(!ChatApplication.Companion.isShowFullChatFeature()){//ẩn các chức năng trên
+        if (!ChatApplication.Companion.isShowFullChatFeature()) {//ẩn các chức năng trên
             //nút add sẽ thay bằng nút vị trí
             imgAdd.setImageResource(R.drawable.ic_location_on_grey_500_48dp);
             linearAdd.setOnClickListener(new View.OnClickListener() {
@@ -6196,7 +6206,7 @@ public class ChatActivity extends AppCompatActivity implements
                     onClickLocation();
                 }
             });
-        }else{
+        } else {
             ///menu bottom
             intExpandItem();
             //init views
@@ -6205,6 +6215,8 @@ public class ChatActivity extends AppCompatActivity implements
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
-
+    private void logFrom(String function, int from) {
+        MyUtils.log("logfrom: " + function + " from " + from);
+    }
 
 }

@@ -24,7 +24,7 @@ public class ApiManager {
     private ApiManager() {
         Retrofit retrofit = new Retrofit.Builder()
                 .client(MyApplication.getClient())
-                .baseUrl(Webservices.URL)
+                .baseUrl(Webservices.API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         services = retrofit.create(WebserviceApi.class);

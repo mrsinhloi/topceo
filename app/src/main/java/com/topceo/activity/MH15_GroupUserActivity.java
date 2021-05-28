@@ -207,7 +207,7 @@ public class MH15_GroupUserActivity extends AppCompatActivity {
 
     private void getGroups(long userId) {
         if (MyUtils.checkInternetConnection(context)) {
-            AndroidNetworking.post(Webservices.URL + "user/group/getList")
+            AndroidNetworking.post(Webservices.API_URL + "user/group/getList")
                     .addBodyParameter("UserId", String.valueOf(userId))
                     .setOkHttpClient(MyApplication.getClient())
                     .build()

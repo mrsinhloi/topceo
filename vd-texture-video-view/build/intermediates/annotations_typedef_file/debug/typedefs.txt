@@ -1,0 +1,2 @@
+D com/liuzhenlin/texturevideoview/TextureVideoView$ViewMode
+D com/liuzhenlin/texturevideoview/drawable/CircularProgressDrawable$ProgressDrawableSize

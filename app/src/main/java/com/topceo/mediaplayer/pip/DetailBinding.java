@@ -444,7 +444,7 @@ public class DetailBinding {
 
     ////////////////////////////////////////////////////////////////////////////////////////////
     private void deletePost(long imageItemId) {
-        AndroidNetworking.post(Webservices.URL + "image/delete")
+        AndroidNetworking.post(Webservices.API_URL + "image/delete")
                 .addQueryParameter("ImageItemId", String.valueOf(imageItemId))
                 .setOkHttpClient(MyApplication.getClient())
                 .build()
