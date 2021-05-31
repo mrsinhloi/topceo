@@ -1,0 +1,97 @@
+com/devsmart/android/DbUtils.java
+ com.devsmart.android.DbUtils
+com/devsmart/android/ServiceBinder.java
+ com.devsmart.android.ServiceBinder
+ com.devsmart.android.ServiceBinder$1
+com/commonsware/cwac/loaderex/AbstractCursorLoader.java
+ com.commonsware.cwac.loaderex.AbstractCursorLoader
+com/devsmart/android/activity/FragmentShellActivity.java
+ com.devsmart.android.activity.FragmentShellActivity
+com/devsmart/android/ILocationService.java
+ com.devsmart.android.ILocationService
+ com.devsmart.android.ILocationService$Default
+ com.devsmart.android.ILocationService$Stub
+ com.devsmart.android.ILocationService$Stub$Proxy
+com/devsmart/android/activity/NavigationDelegate.java
+ com.devsmart.android.activity.NavigationDelegate
+com/devsmart/android/ui/lifecycle/LifecycleHook.java
+ com.devsmart.android.ui.lifecycle.LifecycleHook
+com/devsmart/android/ui/lifecycle/LifecycleHookFragmentActivity.java
+ com.devsmart.android.ui.lifecycle.LifecycleHookFragmentActivity
+com/devsmart/android/Utils.java
+ com.devsmart.android.Utils
+com/commonsware/cwac/merge/MergeAdapter.java
+ com.commonsware.cwac.merge.MergeAdapter
+ com.commonsware.cwac.merge.MergeAdapter$1
+ com.commonsware.cwac.merge.MergeAdapter$CascadeDataSetObserver
+ com.commonsware.cwac.merge.MergeAdapter$EnabledSackAdapter
+ com.commonsware.cwac.merge.MergeAdapter$PieceState
+ com.commonsware.cwac.merge.MergeAdapter$PieceStateRoster
+com/devsmart/android/ui/lifecycle/LifecycleHookFragment.java
+ com.devsmart.android.ui.lifecycle.LifecycleHookFragment
+com/devsmart/android/ui/HorizontalListView.java
+ com.devsmart.android.ui.HorizontalListView
+ com.devsmart.android.ui.HorizontalListView$1
+ com.devsmart.android.ui.HorizontalListView$2
+ com.devsmart.android.ui.HorizontalListView$3
+com/devsmart/android/BuildConfig.java
+ com.devsmart.android.BuildConfig
+com/devsmart/android/ui/EqualSpaceLayout.java
+ com.devsmart.android.ui.EqualSpaceLayout
+com/devsmart/android/ui/ProgressDialogFragment.java
+ com.devsmart.android.ui.ProgressDialogFragment
+com/devsmart/android/StringUtils.java
+ com.devsmart.android.StringUtils
+ com.devsmart.android.StringUtils$ClickSpan
+com/devsmart/android/RandomIterator.java
+ com.devsmart.android.RandomIterator
+com/devsmart/android/ui/lifecycle/FragmentStateManager.java
+ com.devsmart.android.ui.lifecycle.FragmentStateManager
+ com.devsmart.android.ui.lifecycle.FragmentStateManager$FragmentState
+com/devsmart/android/ui/IteratorListView.java
+ com.devsmart.android.ui.IteratorListView
+ com.devsmart.android.ui.IteratorListView$1
+ com.devsmart.android.ui.IteratorListView$2
+ com.devsmart.android.ui.IteratorListView$3
+ com.devsmart.android.ui.IteratorListView$ViewAdapter
+com/devsmart/android/IOUtils.java
+ com.devsmart.android.IOUtils
+ com.devsmart.android.IOUtils$BackgroundTask
+ com.devsmart.android.IOUtils$BackgroundTask$1
+ com.devsmart.android.IOUtils$DataProgressCallback
+ com.devsmart.android.IOUtils$ProgressBackgroundTask
+ com.devsmart.android.IOUtils$ProgressBackgroundTask$1
+ com.devsmart.android.IOUtils$ProgressBackgroundTask$ProgressListener
+com/devsmart/android/mathutils/Quotient.java
+ com.devsmart.android.mathutils.Quotient
+com/devsmart/android/LightweightTimer.java
+ com.devsmart.android.LightweightTimer
+ com.devsmart.android.LightweightTimer$1
+com/devsmart/android/LocationService.java
+ com.devsmart.android.LocationService
+ com.devsmart.android.LocationService$1
+ com.devsmart.android.LocationService$2
+com/commonsware/cwac/loaderex/ContentChangingTask.java
+ com.commonsware.cwac.loaderex.ContentChangingTask
+com/devsmart/android/ui/LayoutParamsHelper.java
+ com.devsmart.android.ui.LayoutParamsHelper
+com/devsmart/android/OrientationUtil.java
+ com.devsmart.android.OrientationUtil
+ com.devsmart.android.OrientationUtil$1
+ com.devsmart.android.OrientationUtil$OrientationListener
+ com.devsmart.android.OrientationUtil$Side
+com/commonsware/cwac/loaderex/SQLiteCursorLoader.java
+ com.commonsware.cwac.loaderex.SQLiteCursorLoader
+ com.commonsware.cwac.loaderex.SQLiteCursorLoader$DeleteTask
+ com.commonsware.cwac.loaderex.SQLiteCursorLoader$ExecSQLTask
+ com.commonsware.cwac.loaderex.SQLiteCursorLoader$InsertTask
+ com.commonsware.cwac.loaderex.SQLiteCursorLoader$ReplaceTask
+ com.commonsware.cwac.loaderex.SQLiteCursorLoader$UpdateTask
+com/devsmart/android/GraphicsUtils.java
+ com.devsmart.android.GraphicsUtils
+ com.devsmart.android.GraphicsUtils$1
+ com.devsmart.android.GraphicsUtils$ScaleType
+com/devsmart/android/ui/lifecycle/LifecycleHookDialogFragment.java
+ com.devsmart.android.ui.lifecycle.LifecycleHookDialogFragment
+com/devsmart/android/SimplePrefsStorage.java
+ com.devsmart.android.SimplePrefsStorage

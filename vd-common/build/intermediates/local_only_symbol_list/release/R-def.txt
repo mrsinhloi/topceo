@@ -1,0 +1,13 @@
+R_DEF: Internal format may change without notice
+local
+drawable ic_media_app_notification
+string downloadNotificationChannelId
+string downloadNotificationChannelName
+string msgNotificationChannelId
+string msgNotificationChannelName
+string playbackControlNotificationChannelId
+string playbackControlNotificationChannelName
+string share
+string silentNotificationChannelId
+string silentNotificationChannelName
+string undo

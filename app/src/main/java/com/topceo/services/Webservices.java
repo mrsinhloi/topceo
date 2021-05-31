@@ -49,10 +49,8 @@ public class Webservices {
 
     //INIT URLS/////////////////////////////////////////////////////////
     public static String API_URL = "";
-    public static String API_URL_DEBUG = "";
-    public static String IS_DEBUG = "";
-
     public static String URL_GRAPHQL = "";
+
     public static String URL_CORE_CHAT = "";
 
     public static String URL_PAYMENT = "";
@@ -62,11 +60,11 @@ public class Webservices {
     public static void initURLs(Context context) {
         if (context != null) {
             API_URL = context.getString(R.string.API_URL);
-            API_URL_DEBUG = context.getString(R.string.API_URL_DEBUG);
-            IS_DEBUG = context.getString(R.string.IS_DEBUG);
-
             URL_GRAPHQL = context.getString(R.string.URL_GRAPHQL);
+
+
             URL_CORE_CHAT = context.getString(R.string.URL_CORE_CHAT);
+
 
             URL_PAYMENT = context.getString(R.string.URL_PAYMENT);
             URL_INSIGHT = context.getString(R.string.URL_INSIGHT);

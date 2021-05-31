@@ -224,7 +224,7 @@ open class ChatApplication : App() {
             }
             isRegistered = false
             //
-            closeSocket()
+            closeSocket(0)
 
             //reset local
             setUser(null)
@@ -499,8 +499,8 @@ open class ChatApplication : App() {
             }
         }
 
-        fun closeSocket() {
-            MyUtils.log("closeSocket socket null = " + (socket == null))
+        fun closeSocket(from:Int) {
+            MyUtils.log("closeSocket from $from");
 //            socket = getSocketInitIfNull()
             if (socket != null) {
                 socket?.apply {
@@ -538,7 +538,7 @@ open class ChatApplication : App() {
         }
 
         fun logout(){
-            closeSocket()
+            closeSocket(1)
             setUser(null)
         }
 
@@ -592,7 +592,7 @@ open class ChatApplication : App() {
 
             if (!MyUtils.checkInternetConnection(appContext)) {
                 setSocketState(appContext.getString(R.string.offline_mode))
-                socket?.disconnect()
+                closeSocket(2)
             }
 
 //            setSocketState(SocketState.ERROR + " " + cause)
@@ -868,7 +868,7 @@ open class ChatApplication : App() {
                                     val type = obj.getString("type")
                                     if (type == "UnauthorizedError") {
 
-                                        closeSocket()
+                                        closeSocket(3)
 
                                         //todo chuyen thanh event
 //                                        appContext!!.sendBroadcast(Intent(MainActivity.ACTION_WHEN_TOKEN_INVALID))
@@ -930,7 +930,7 @@ open class ChatApplication : App() {
             /*if (realmChat != null && !realmChat!!.isClosed) {
                 realmChat!!.close()
             }*/
-            closeSocket()
+            closeSocket(4)
             isSetupSocket = false
             socket = null
         }
