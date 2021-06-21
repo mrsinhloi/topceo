@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -73,7 +74,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
 
-public class MH02_PhotoDetailActivity extends AppCompatActivity {
+public class MH02_PhotoDetailActivity extends AppCompatActivity{
     private Activity context = this;
     private int avatarSize = 0;
     private int widthImage = 0, heightImage = 0;
@@ -109,7 +110,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
             heightImage = item.getNeedHeightImage(widthImage);
             img2.setLayoutParams(new FrameLayout.LayoutParams(widthImage, heightImage));
 
-            if (user.getUserId() == item.getOwner().getUserId()) {
+            if (user!=null && item.getOwner()!=null && user.getUserId() == item.getOwner().getUserId()) {
                 btnFollow.setVisibility(View.GONE);
             } else {
                 btnFollow.setVisibility(View.VISIBLE);
@@ -125,9 +126,11 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
                     imgSave,
                     txtInput,
                     rv,
-                    linearReply);
-            setTitleBar();
+                    linearReply,
+                    scrollView
+                    );
 
+            setTitleBar();
             setUI();
         }
     }
@@ -272,6 +275,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
     CameraAnimation ivCameraAnimation;
 
     private boolean isVideo = false;
+
     public void setUI() {
         if (item != null) {
             binding.setUserVip(avatarSize, img1, imgVip);
@@ -344,6 +348,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
     public static final String ACTION_UPDATE_STATE_FOLLOW = "ACTION_UPDATE_STATE_FOLLOW_" + MH02_PhotoDetailActivity.class.getSimpleName();
     public static final String ACTION_POST_DELETED = "ACTION_POST_DELETED_";
     public static final String ACTION_COMMENT_DELETED = "ACTION_COMMENT_DELETED_";
+
     private void registerReceiver() {
         receiver = new BroadcastReceiver() {
             @Override
@@ -486,10 +491,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
 
 
     /////////////////////////////////////////////////////////////////////////////////////////////
-    private void initAdapter() {
-        binding.initAdapter(rippleSend);
-        binding.initHastag();
-    }
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -515,7 +517,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
             MyUtils.initCookie(context);
             item = savedInstanceState.getParcelable(ImageItem.IMAGE_ITEM);
             ArrayList<ImageComment> list = savedInstanceState.getParcelableArrayList(ImageComment.IMAGE_COMMENT_ARRAY_LIST);
-            if (list != null && list.size() > 0) {
+            if (list != null && list.size() > 0 && binding.getmAdapter()!=null) {
                 binding.getmAdapter().clear();
                 binding.getmAdapter().addListItems(list);
 //                list_empty.setVisibility(View.GONE);
@@ -562,28 +564,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
     }
 
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    //COMMENT
-    @BindView(R.id.recyclerView1)
-    RecyclerView rv;
-    @BindView(R.id.editText1)
-    SocialAutoCompleteTextView txtInput;
-    @BindView(R.id.ripple1)
-    LinearLayout rippleSend;
 
-    private void initComment() {
-        initAdapter();
-
-        if (scrollView != null) {
-            scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-                @Override
-                public void onScrollChange(NestedScrollView nestedScrollView, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    MyUtils.hideKeyboard(context);
-                }
-            });
-        }
-
-    }
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -766,6 +747,38 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
 
     }
 
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //COMMENT
+    @BindView(R.id.recyclerView1)
+    RecyclerView rv;
+    @BindView(R.id.editText1)
+    SocialAutoCompleteTextView txtInput;
+    @BindView(R.id.ripple1)
+    LinearLayout rippleSend;
+
+    private void initComment() {
+        initAdapter();
+
+        if (scrollView != null) {
+            scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(NestedScrollView nestedScrollView, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    MyUtils.hideKeyboard(context);
+                }
+            });
+        }
+
+    }
+    private void initAdapter() {
+        if (binding != null) {
+            rv.setFocusable(false);
+            ViewCompat.setNestedScrollingEnabled(rv, false);
+
+            binding.initAdapter(rippleSend);
+            binding.initHastag();
+        }
+    }
 
 }
 

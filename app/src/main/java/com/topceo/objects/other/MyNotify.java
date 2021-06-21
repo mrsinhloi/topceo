@@ -25,12 +25,79 @@ public class MyNotify implements Parcelable {
     private long TargetUserId;
     private long ImageItemId;
     private long CommentId;
+    private long ReplyToId;
+    private String ExternalLink;
+
     private long ChatRoomId;
     private long ChatLogId;
     private long CreateDate;
     private String ViewDate;
     private String ImageUrl;
     private boolean IsViewed;
+
+    protected MyNotify(Parcel in) {
+        NotifyId = in.readLong();
+        ReplyToId = in.readLong();
+        ExternalLink = in.readString();
+        UserId = in.readLong();
+        NotifyTypeId = in.readInt();
+        NotifyType = in.readString();
+        Message = in.readString();
+        ActionUserId = in.readLong();
+        ActionUserName = in.readString();
+        ActionUserAvatar = in.readString();
+        TargetUserId = in.readLong();
+        ImageItemId = in.readLong();
+        CommentId = in.readLong();
+        ChatRoomId = in.readLong();
+        ChatLogId = in.readLong();
+        CreateDate = in.readLong();
+        ViewDate = in.readString();
+        ImageUrl = in.readString();
+        IsViewed = in.readByte() != 0;
+        GroupId = in.readLong();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(NotifyId);
+        dest.writeLong(ReplyToId);
+        dest.writeString(ExternalLink);
+        dest.writeLong(UserId);
+        dest.writeInt(NotifyTypeId);
+        dest.writeString(NotifyType);
+        dest.writeString(Message);
+        dest.writeLong(ActionUserId);
+        dest.writeString(ActionUserName);
+        dest.writeString(ActionUserAvatar);
+        dest.writeLong(TargetUserId);
+        dest.writeLong(ImageItemId);
+        dest.writeLong(CommentId);
+        dest.writeLong(ChatRoomId);
+        dest.writeLong(ChatLogId);
+        dest.writeLong(CreateDate);
+        dest.writeString(ViewDate);
+        dest.writeString(ImageUrl);
+        dest.writeByte((byte) (IsViewed ? 1 : 0));
+        dest.writeLong(GroupId);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<MyNotify> CREATOR = new Creator<MyNotify>() {
+        @Override
+        public MyNotify createFromParcel(Parcel in) {
+            return new MyNotify(in);
+        }
+
+        @Override
+        public MyNotify[] newArray(int size) {
+            return new MyNotify[size];
+        }
+    };
 
     public long getGroupId() {
         return GroupId;
@@ -42,6 +109,21 @@ public class MyNotify implements Parcelable {
 
     private long GroupId;
 
+    public long getReplyToId() {
+        return ReplyToId;
+    }
+
+    public void setReplyToId(long replyToId) {
+        ReplyToId = replyToId;
+    }
+
+    public String getExternalLink() {
+        return ExternalLink;
+    }
+
+    public void setExternalLink(String externalLink) {
+        ExternalLink = externalLink;
+    }
 
     public long getNotifyId() {
         return NotifyId;
@@ -184,63 +266,5 @@ public class MyNotify implements Parcelable {
         IsViewed = viewed;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.NotifyId);
-        dest.writeLong(this.UserId);
-        dest.writeInt(this.NotifyTypeId);
-        dest.writeString(this.NotifyType);
-        dest.writeString(this.Message);
-        dest.writeLong(this.ActionUserId);
-        dest.writeString(this.ActionUserName);
-        dest.writeString(this.ActionUserAvatar);
-        dest.writeLong(this.TargetUserId);
-        dest.writeLong(this.ImageItemId);
-        dest.writeLong(this.CommentId);
-        dest.writeLong(this.ChatRoomId);
-        dest.writeLong(this.ChatLogId);
-        dest.writeLong(this.CreateDate);
-        dest.writeString(this.ViewDate);
-        dest.writeString(this.ImageUrl);
-        dest.writeByte(this.IsViewed ? (byte) 1 : (byte) 0);
-        dest.writeLong(this.GroupId);
-    }
-
-    protected MyNotify(Parcel in) {
-        this.NotifyId = in.readLong();
-        this.UserId = in.readLong();
-        this.NotifyTypeId = in.readInt();
-        this.NotifyType = in.readString();
-        this.Message = in.readString();
-        this.ActionUserId = in.readLong();
-        this.ActionUserName = in.readString();
-        this.ActionUserAvatar = in.readString();
-        this.TargetUserId = in.readLong();
-        this.ImageItemId = in.readLong();
-        this.CommentId = in.readLong();
-        this.ChatRoomId = in.readLong();
-        this.ChatLogId = in.readLong();
-        this.CreateDate = in.readLong();
-        this.ViewDate = in.readString();
-        this.ImageUrl = in.readString();
-        this.IsViewed = in.readByte() != 0;
-        this.GroupId = in.readLong();
-    }
-
-    public static final Creator<MyNotify> CREATOR = new Creator<MyNotify>() {
-        @Override
-        public MyNotify createFromParcel(Parcel source) {
-            return new MyNotify(source);
-        }
-
-        @Override
-        public MyNotify[] newArray(int size) {
-            return new MyNotify[size];
-        }
-    };
 }

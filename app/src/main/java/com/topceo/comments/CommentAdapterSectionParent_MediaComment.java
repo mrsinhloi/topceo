@@ -25,6 +25,7 @@ import com.topceo.eventbus.EventMediaComment;
 import com.topceo.fragments.GlideCircleTransform;
 import com.topceo.mediaplayer.audio.MediaPlayerActivity;
 import com.topceo.mediaplayer.video.VideoActivity;
+import com.topceo.objects.image.ImageComment;
 import com.topceo.objects.other.User;
 import com.topceo.services.ReturnResult;
 import com.topceo.services.Webservices;
@@ -358,6 +359,11 @@ public class CommentAdapterSectionParent_MediaComment extends SectionedRecyclerV
 
                 }
             });
+
+            //neu so count <=3 thi hien thi
+            if (count <= ImageComment.NUMBER_CHILD_SHOW_MORE) {
+//                holder.linearReplyMore.performClick();
+            }
         } else {
             holder.linearReplyMore.setVisibility(View.GONE);
         }
@@ -622,7 +628,7 @@ public class CommentAdapterSectionParent_MediaComment extends SectionedRecyclerV
 
                                 int numberRemove = 1;
                                 if (positionChild == -1) {
-                                    if(getItemCount(section)>0){
+                                    if (getItemCount(section) > 0) {
                                         numberRemove = getItemCount(section) + 1;
                                     }
                                     //xoa cha theo section

@@ -35,14 +35,16 @@ class VideoListConfig {
             )
 
             if (fragmentOrActivity is Fragment) {
-                helper.makeLifeCycleAware(fragmentOrActivity)
-                fragmentOrActivity.parentFragmentManager.addOnBackStackChangedListener {
-                    if (fragmentOrActivity.parentFragmentManager.fragments.last() == fragmentOrActivity) {
-                        //resume
-                        helper.exoPlayerHelper.play()
-                    } else {
-                        //pause
-                        helper.exoPlayerHelper.pause()
+                if (fragmentOrActivity.activity != null && !fragmentOrActivity.requireActivity().isFinishing) {
+                    helper.makeLifeCycleAware(fragmentOrActivity)
+                    fragmentOrActivity.parentFragmentManager.addOnBackStackChangedListener {
+                        if (fragmentOrActivity.parentFragmentManager.fragments.last() == fragmentOrActivity) {
+                            //resume
+                            helper.exoPlayerHelper.play()
+                        } else {
+                            //pause
+                            helper.exoPlayerHelper.pause()
+                        }
                     }
                 }
             } else if (fragmentOrActivity is AppCompatActivity) {

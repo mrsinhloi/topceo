@@ -250,17 +250,18 @@ public class NotifyClass implements Parcelable {
 	11	FollowingShare	"User đang follow thực hiện share
 	lên tường nhà"	Tới Profile User theo dõi (dựa vào TargeUserId)			*/
     public static class NotifyTypeId {
-        public static final int Following=1;
-        public static final int AcceptedFollowing=2;
-        public static final int UploadNewPhoto=3;
-        public static final int NewLike=4;
-        public static final int NewComment=5;
-        public static final int NewChatMessage=6;
-        public static final int NewChatFile=7;
-        public static final int MentionInComment=8;
-        public static final int FollowingComment=9;
-        public static final int FollowingLike=10;
-        public static final int FollowingShare=11;
+        public static final int Following = 1;
+        public static final int AcceptedFollowing = 2;
+        public static final int UploadNewPhoto = 3;
+        public static final int NewLike = 4;
+        public static final int NewComment = 5;
+        public static final int NewChatMessage = 6;
+        public static final int NewChatFile = 7;
+        public static final int MentionInComment = 8;
+        public static final int FollowingComment = 9;
+        public static final int FollowingLike = 10;
+        public static final int FollowingShare = 11;
+        public static final int ExternalLink = -1;
     }
 
 }

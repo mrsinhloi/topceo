@@ -29,6 +29,8 @@ import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.gson.JsonObject
+import com.myxteam.videocompression.CompressionListener
+import com.myxteam.videocompression.VideoCompression
 import com.otaliastudios.transcoder.Transcoder
 import com.otaliastudios.transcoder.TranscoderListener
 import com.otaliastudios.transcoder.common.TrackType
@@ -50,10 +52,7 @@ import com.topceo.link_preview_2.LinkPreviewCallback
 import com.topceo.link_preview_2.SourceContent
 import com.topceo.link_preview_2.TextCrawler
 import com.topceo.mediaplayer.preview.VideoSelectThumbnailActivity
-import com.topceo.objects.image.ImageItem
-import com.topceo.objects.image.Item
-import com.topceo.objects.image.LinkPreview
-import com.topceo.objects.image.MyItemData
+import com.topceo.objects.image.*
 import com.topceo.objects.other.User
 import com.topceo.profile.Fragment_5_User_Profile_Grid
 import com.topceo.profile.Fragment_Profile_Owner
@@ -618,7 +617,7 @@ class PostLikeFacebookActivity : AppCompatActivity() {
         groupId: Long
     ) {
         if (itemContent != null) {
-            if(!isFinishing){
+            if (!isFinishing) {
                 ProgressUtils.show(context)
             }
 
@@ -687,7 +686,10 @@ class PostLikeFacebookActivity : AppCompatActivity() {
     }
 
 
-    private val perms = arrayOf(Manifest.permission.CAMERA)
+    private val perms = arrayOf(
+        Manifest.permission.CAMERA,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_EXTERNAL_STORAGE)
     private fun permissionCamera(isVideo: Boolean) {
         this.isVideo = isVideo
         PermissionX.init(this)
@@ -1094,7 +1096,7 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             }
         }
 
-    fun video2CompressVideo(videoPath: String, thumbPath: String) {
+    /*fun video2CompressVideo(videoPath: String, thumbPath: String) {
         enableView(false)
         ProgressUtils.show(context)
 
@@ -1149,6 +1151,49 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             }).transcode()
 
 
+    }*/
+
+    val DEFAULT_WIDTH = 540
+    val DEFAULT_HEIGHT = 960
+    fun video2CompressVideo(videoPath: String, thumbPath: String) {
+        enableView(false)
+        ProgressUtils.show(context)
+
+        //Neu video size > VideoCompression.DEFAULT_WIDTH thi moi nen
+        val size = MyUtils.decodeFile(thumbPath)
+        val width = size.x
+        val height = size.y
+
+        var isNeedCompress = false
+        if (width > height) {//so chieu cao
+            isNeedCompress = width > DEFAULT_HEIGHT
+        } else {//so chieu ngang
+            isNeedCompress = width > DEFAULT_WIDTH
+        }
+        if (isNeedCompress) {
+            //nen video
+            val start = SystemClock.elapsedRealtime()
+            VideoCompression(this, videoPath, object : CompressionListener {
+                override fun onCancel() {
+                    enableView(true)
+                }
+
+                override fun onFailed(exception: Throwable) {
+                    enableView(true)
+                }
+
+                override fun onSuccess(path: String) {
+                    val howlong = (SystemClock.elapsedRealtime() - start) / 1000
+                    printFileSize(path, howlong)
+                    video3UploadServer(path, thumbPath)
+                }
+
+            }, linearProgress).compress()
+        } else {
+            video3UploadServer(videoPath, thumbPath)
+        }
+
+
     }
 
     fun video3UploadServer(videoPath: String, thumbPath: String) {
@@ -1171,14 +1216,14 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             "$kb KB"
         }
 
-        if(howlong>0) {
-            MyUtils.log("File size = $msg in $howlong seconds")
-        }else{
-            MyUtils.log("File size = $msg")
+        if (howlong > 0) {
+            MyUtils.log("File size = $msg in $howlong seconds, $path")
+        } else {
+            MyUtils.log("File size = $msg, $path")
         }
     }
 
-    fun enableView(enable:Boolean){
+    fun enableView(enable: Boolean) {
         scrollView.isEnabled = enable
     }
 

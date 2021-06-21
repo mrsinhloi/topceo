@@ -44,7 +44,7 @@ public class NotificationActivity extends AppCompatActivity {
                 if (obj.getNotifyId() > 0) {
                     updateUserNotifyIsView(obj);
                 } else {
-                    goMain(null);
+                    goMain(obj);
                     finish();
                 }
 

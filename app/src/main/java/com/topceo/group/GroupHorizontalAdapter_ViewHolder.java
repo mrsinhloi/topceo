@@ -60,7 +60,6 @@ public class GroupHorizontalAdapter_ViewHolder extends RecyclerView.ViewHolder {
     }
 
     private FeedAdapter adapter;
-    private boolean isFirst = true;
     public void bind(boolean isRefresh, FeedAdapter feedAdapter) {
         adapter = feedAdapter;
         if (list.size() > 0) {
@@ -107,8 +106,8 @@ public class GroupHorizontalAdapter_ViewHolder extends RecyclerView.ViewHolder {
                                             if (pageIndex == 1) {
                                                 //ko co group nao thi mo all group
                                                 adapter.removeGroup();
-                                                if(isFirst){
-                                                    isFirst = false;
+                                                if(MyApplication.getInstance().isFirst){
+                                                    MyApplication.getInstance().isFirst = false;
                                                     AllGroupActivity.Companion.openActivity(context,0);
                                                 }
                                             }

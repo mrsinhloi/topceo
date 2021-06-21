@@ -140,6 +140,7 @@ public class VideoActivity extends AppCompatActivity {
     private void setUIVideo() {
         binding.setUIVideo(videoSelected);
         //todo play item selected
+
     }
 
 

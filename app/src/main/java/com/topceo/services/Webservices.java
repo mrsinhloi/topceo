@@ -39,12 +39,12 @@ import bolts.TaskCompletionSource;
  */
 public class Webservices {
 
-    private static String languageId = Locale.getDefault().getLanguage().toUpperCase();//"VI", "EN";
-    private static String languageName = Locale.getDefault().getDisplayName();//"English(United State)"
+    private static final String languageId = Locale.getDefault().getLanguage().toUpperCase();//"VI", "EN";
+    private static final String languageName = Locale.getDefault().getDisplayName();//"English(United State)"
 
     public static final String OS = "Android";
-    public static final String COUNTRY_ID = Locale.getDefault().getCountry();//VN
-    public static final String COUNTRY_NAME = Locale.getDefault().getDisplayCountry();//Viet Nam
+    public static String COUNTRY_ID = Locale.getDefault().getCountry();//VN
+    public static String COUNTRY_NAME = Locale.getDefault().getDisplayCountry();//Viet Nam
 
 
     //INIT URLS/////////////////////////////////////////////////////////
@@ -931,9 +931,7 @@ public class Webservices {
 
         if (!TextUtils.isEmpty(bios)) {
             //thay the \n thanh <br>
-            if (bios.contains("\n")) {
-                bios = MyUtils.replaceDescriptionForServer(bios);
-            }
+            bios = MyUtils.replaceDescriptionForServer(bios);
             value += ",Favorite:\"" + bios + "\"";
         }
 
@@ -2230,8 +2228,9 @@ public class Webservices {
     public static Task<Object> sendComment(long imageItemId, String comment, long replyToId) {
         final TaskCompletionSource<Object> successful = new TaskCompletionSource<>();
 
+        final String commentNew = MyUtils.replaceDescriptionForServer(comment);
         AndroidNetworking.post(Webservices.URL_GRAPHQL)
-                .addQueryParameter("query", Webservices.SEND_COMMENT(imageItemId, comment, replyToId))
+                .addQueryParameter("query", Webservices.SEND_COMMENT(imageItemId, commentNew, replyToId))
                 .setOkHttpClient(MyApplication.getClient())
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -2248,7 +2247,7 @@ public class Webservices {
                             if (image != null) {
 
                                 //#1 bo sung comment
-                                image.setComment(comment);
+                                image.setComment(commentNew);
                                 image.setCreateDate(System.currentTimeMillis() / 1000);
                                 //#2 bo sung thong tin user truoc khi tra ve
                                 UserShort userShort = MyApplication.getUserShort();

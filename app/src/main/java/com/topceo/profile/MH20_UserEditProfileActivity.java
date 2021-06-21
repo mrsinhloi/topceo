@@ -295,7 +295,7 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
                 txt1.setText(user.getFullName());
                 txt2.setText(user.getUserName());
                 txt4.setText(user.getPhone());
-                txt10.setText(user.getEmail());
+//                txt10.setText(user.getEmail());
 
                 String favorite = user.getFavorite();
                 if (!TextUtils.isEmpty(favorite)) {
@@ -441,7 +441,7 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
             fullName = txt1.getText().toString().trim();
             userName = txt2.getText().toString().trim().toLowerCase();
             phone = txt4.getText().toString().trim();
-            email = txt10.getText().toString().trim().toLowerCase();
+//            email = txt10.getText().toString().trim().toLowerCase();
             bios = editBios.getText().toString().trim();
 
             web = txt9.getText().toString().trim().toLowerCase();
@@ -477,14 +477,14 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
                 txt2.setError(null);
             }
 
-            if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            /*if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 txt10.setError(getText(R.string.email_invalid));
                 valid = false;
                 txt10.requestFocus();
                 return;
             } else {
                 txt10.setError(null);
-            }
+            }*/
 
             if (TextUtils.isEmpty(phone) || phone.length() < 10) {
                 txt4.setError(getText(R.string.phone_invalid));

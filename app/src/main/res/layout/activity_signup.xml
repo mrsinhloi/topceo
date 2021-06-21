@@ -37,7 +37,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/margin_24dp">
+            android:paddingStart="@dimen/margin_24dp"
+            android:paddingEnd="@dimen/margin_24dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -142,15 +143,15 @@
                 app:boxBackgroundMode="none"
                 app:hintEnabled="false">
 
+                <!--android:digits="abcdefghijklmnopqrstuvwxyz0123456789_"-->
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_sky_rectangle_border"
-                    android:digits="abcdefghijklmnopqrstuvwxyz0123456789_"
                     android:fontFamily="@font/roboto_medium"
                     android:hint="@string/nickname"
-                    android:inputType="textVisiblePassword|textNoSuggestions"
+                    android:inputType="textEmailAddress"
                     android:imeOptions="actionNext"
                     android:singleLine="true"
                     android:textSize="@dimen/font_medium" />

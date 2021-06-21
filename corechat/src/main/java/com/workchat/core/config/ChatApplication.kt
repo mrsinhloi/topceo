@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.text.TextUtils
+import androidx.appcompat.app.AppCompatDelegate
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.orhanobut.logger.Logger
 import com.workchat.core.api.emit
@@ -933,6 +934,7 @@ open class ChatApplication : App() {
             closeSocket(4)
             isSetupSocket = false
             socket = null
+
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////
 

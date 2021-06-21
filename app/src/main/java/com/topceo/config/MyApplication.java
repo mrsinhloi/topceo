@@ -13,13 +13,17 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.multidex.MultiDex;
 
 import com.androidnetworking.AndroidNetworking;
@@ -31,11 +35,25 @@ import com.bumptech.glide.request.FutureTarget;
 import com.danikula.videocache.HttpProxyCacheServer;
 import com.downloader.PRDownloader;
 import com.downloader.PRDownloaderConfig;
+import com.facebook.ads.AdSettings;
+import com.facebook.ads.AudienceNetworkAds;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.gu.toolargetool.TooLargeTool;
 import com.liuzhenlin.common.utils.SystemBarUtils;
 import com.liuzhenlin.common.utils.Utils;
 import com.liuzhenlin.texturevideoview.utils.DensityUtils;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
+import com.mikepenz.materialdrawer.util.DrawerUIUtils;
+import com.onesignal.OSNotification;
+import com.onesignal.OSNotificationOpenResult;
+import com.onesignal.OSPermissionSubscriptionState;
+import com.onesignal.OneSignal;
 import com.topceo.BuildConfig;
 import com.topceo.R;
 import com.topceo.activity.MH01_MainActivity;
@@ -60,20 +78,6 @@ import com.topceo.services.Webservices;
 import com.topceo.socialspost.facebook.FacebookApi;
 import com.topceo.utils.MyUtils;
 import com.topceo.video_compressor.file.FileUtils;
-import com.facebook.ads.AdSettings;
-import com.facebook.ads.AudienceNetworkAds;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
-import com.mikepenz.materialdrawer.util.DrawerImageLoader;
-import com.mikepenz.materialdrawer.util.DrawerUIUtils;
-import com.onesignal.OSNotification;
-import com.onesignal.OSNotificationOpenResult;
-import com.onesignal.OSPermissionSubscriptionState;
-import com.onesignal.OneSignal;
 import com.workchat.core.config.ChatApplication;
 import com.workchat.core.config.EventControlListener;
 import com.workchat.core.mbn.models.UserChatCore;
@@ -113,7 +117,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  */
 public class MyApplication extends ChatApplication implements EventControlListener {
 
-
+    public boolean isFirst = true;
     private int mStatusHeight;
 
     private volatile int mScreenWidth = -1;
@@ -318,6 +322,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
                 .setNotificationOpenedHandler(new ExampleNotificationOpenedHandler())
                 .init();
         /////////////////////////////#############/////////////////////////
+        Drawable iconBackCustom = AppCompatResources.getDrawable(this, R.drawable.ic_svg_16_36dp);
         OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
             @Override
             public void idsAvailable(String userId, String registrationId) {
@@ -329,7 +334,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
 //                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_round_arrow_back_ios_20);
                 int iconSize = getResources().getDimensionPixelSize(R.dimen.ic_size_36);
 //                Drawable iconBackCustom = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, iconSize, iconSize, false));
-                Drawable iconBackCustom = getResources().getDrawable(R.drawable.ic_svg_16_36dp);
+
                 ChatApplication.Companion.init(
                         getString(R.string.GOOGLE_MAPS_ANDROID_API_KEY),
                         MyApplication.this,
@@ -360,94 +365,19 @@ public class MyApplication extends ChatApplication implements EventControlListen
     }
 
 
-    public static void initWebservice() {
+    public static void initWebservice(String authorization) {
         //networking
         if (cookie == null) {
             cookie = new CookieStore();
         }
 
         //#region PASS SERVER CERTIFICED///////////////////////////////////////////////////////////////
-        //trust certificate
-        /*X509TrustManager trustManager = null;
-        SSLSocketFactory sslSocketFactory = null;
-        try {
-            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(
-                    TrustManagerFactory.getDefaultAlgorithm());
-            trustManagerFactory.init((KeyStore) null);
-            TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
-            if (trustManagers.length != 1 || !(trustManagers[0] instanceof X509TrustManager)) {
-                throw new IllegalStateException("Unexpected default trust managers:"
-                        + Arrays.toString(trustManagers));
-            }
-            trustManager = (X509TrustManager) trustManagers[0];
-
-            ////
-            // Create a trust manager that does not validate certificate chains
-            final TrustManager[] trustAllCerts = new TrustManager[]{
-                    new X509TrustManager() {
-                        @Override
-                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
-                        }
-
-                        @Override
-                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
-                        }
-
-                        @Override
-                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                            return new java.security.cert.X509Certificate[]{};
-                        }
-                    }
-            };
-
-            // Install the all-trusting trust manager
-            final SSLContext sslContext = SSLContext.getInstance("SSL");
-            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
-            // Create an ssl socket factory with our all-trusting manager
-            sslSocketFactory = sslContext.getSocketFactory();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        //#endregion PASS SERVER CERTIFICED///////////////////////////////////////////////////////////////
-
-
-        /////
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                .cookieJar(cookie)
-                .connectTimeout(60 * 1000, TimeUnit.SECONDS)
-                .addInterceptor(interceptor)
-                .addNetworkInterceptor(new Interceptor() {
-                    @Override
-                    public okhttp3.Response intercept(Chain chain) throws IOException {
-                        Request request = null;
-                        Request original = chain.request();
-                        // Request customization: add request headers
-                        Request.Builder requestBuilder = original.newBuilder()
-                                .addHeader("Authorization", getToken());
-
-                        request = requestBuilder.build();
-                        return chain.proceed(request);
-                    }
-                });
-
-        if (trustManager != null && sslSocketFactory != null) {
-            builder.sslSocketFactory(sslSocketFactory, trustManager);
-        }
-        builder.hostnameVerifier(new HostnameVerifier() {
-            @Override
-            public boolean verify(String hostname, SSLSession session) {
-                return true;
-            }
-        });
-
-        client = builder.build();
-        */
+//        HttpLoggingInterceptor logg = new HttpLoggingInterceptor();
+//        logg.setLevel(HttpLoggingInterceptor.Level.HEADERS);
 
         //trust https
-        OkHttpClient.Builder builder = UnsafeOkHttpClient.getBuilder(getToken());
+        OkHttpClient.Builder builder = UnsafeOkHttpClient.getBuilder(authorization);
+//        builder.addInterceptor(logg);
         builder.cookieJar(cookie);
         builder.connectTimeout(60, TimeUnit.SECONDS);
         builder.protocols(Util.immutableList(Protocol.HTTP_1_1));
@@ -1094,6 +1024,18 @@ public class MyApplication extends ChatApplication implements EventControlListen
     public int screenWidth;
     public int heightLinkPreview;
 
+    private boolean isTrackBugs = true;
+    private void initCrashCollect(){
+        if(isTrackBugs){
+
+            /*new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    throw new RuntimeException("Boom!");
+                }
+            }, 5000);*/
+        }
+    }
     @Override
     public void onCreate() {
         Webservices.initURLs(this);
@@ -1112,6 +1054,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
         Lingver.init(this, language);
 
         super.onCreate();
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         // OneSignal Initialization
         initOneSignal();
@@ -1127,7 +1070,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
         AdSettings.setMultiprocessSupportMode(AdSettings.MultiprocessSupportMode.MULTIPROCESS_SUPPORT_MODE_OFF);
 
 
-        initWebservice();
+        initWebservice(getToken());
 
         //video compressor
         FileUtils.createApplicationFolder();
@@ -1179,7 +1122,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
         RealmConfiguration configuration =
                 new RealmConfiguration.Builder()
                         .name("topceo.realm")
-                        .schemaVersion(5)
+                        .schemaVersion(6)
                         .deleteRealmIfMigrationNeeded()
                         .build();
         Realm.setDefaultConfiguration(configuration);
@@ -1199,6 +1142,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
         //crashlytics
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG);
 
+        initCrashCollect();
 
     }
 
@@ -1210,11 +1154,15 @@ public class MyApplication extends ChatApplication implements EventControlListen
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
+    public static void whenSignUp(String tokenBearer){
+        initWebservice(tokenBearer);
+        apiManager = ApiManager.getIntanceNew();//tao moi lai
+    }
     public static void whenLoginSuccess() {
         //load lai thong tin user
         initUser();
         //tao lai header cho client cho AndroidNetworking
-        initWebservice();
+        initWebservice(getToken());
         //dung chung client vua dc tao ben tren
         apiManager = ApiManager.getIntanceNew();//tao moi lai
 

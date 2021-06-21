@@ -3,6 +3,7 @@ package com.smartapp.gallery
 import android.Manifest
 import android.app.DownloadManager
 import android.content.DialogInterface
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -30,6 +31,11 @@ class ShowGalleryActivity : SwipeBackActivity() {
     var paths: java.util.ArrayList<String> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //android O fix bug orientation
+        if (Build.VERSION.SDK_INT != Build.VERSION_CODES.O) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+        }
+
         setContentView(R.layout.activity_view_images)
 
         setDragEdge(SwipeBackLayout.DragEdge.TOP)

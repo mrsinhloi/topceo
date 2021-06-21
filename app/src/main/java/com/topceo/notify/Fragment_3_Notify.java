@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ import com.topceo.group.members.ApproveMemberActivity;
 import com.topceo.objects.image.ImageItem;
 import com.topceo.objects.other.MyNotify;
 import com.topceo.objects.other.User;
+import com.topceo.onesignal.NotifyObject;
 import com.topceo.onesignal.NotifyType;
 import com.topceo.services.ReturnResult;
 import com.topceo.services.Webservices;
@@ -263,19 +265,23 @@ public class Fragment_3_Notify extends Fragment {
         public void onBindViewHolder(final ViewHolder holder, final int position) {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
-            if (position >= 0 && position < getItemCount()) {
-                final MyNotify item = mDataset.get(position);
-                if (item != null) {
-                    if (item.getNotifyId() > 0) {
-                        bindNotifyNormal(item, holder, position);
-                    } else {
-                        //danh sach moi tham gia group
-                        if (item instanceof GroupNotify) {
-                            GroupNotify notify = (GroupNotify) item;
-                            bindNotifyGroup(notify, holder, position);
+            try {
+                if (position >= 0 && position < getItemCount()) {
+                    final MyNotify item = mDataset.get(position);
+                    if (item != null) {
+                        if (item.getNotifyId() > 0) {
+                            bindNotifyNormal(item, holder, position);
+                        } else {
+                            //danh sach moi tham gia group
+                            if (item instanceof GroupNotify) {
+                                GroupNotify notify = (GroupNotify) item;
+                                bindNotifyGroup(notify, holder, position);
+                            }
                         }
                     }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
             /////////////////////////////////////////////////////////////////////////
@@ -454,27 +460,43 @@ public class Fragment_3_Notify extends Fragment {
                 @Override
                 public void onClick(View view) {
                     //neu la tin cho duyet
-                    if (item.getNotifyType().equals(NotifyType.TYPE_14_GROUP_MEMBER_REQUEST) &&
+                    if (item.getNotifyTypeId() == NotifyType.TYPE_16_GROUP_MEMBER_REQUEST &&
                             item.getGroupId() > 0) {
                         //tai thoi diem nhan thi dung, sau do thi co the sai do admin co the doi quyen user nay
                         //vao man hinh approve nhom
                         ApproveMemberActivity.Companion.openActivity(context, item.getGroupId());
                     } else {
                         //get ImageComment vao man hinh MH02_PhotoDetailActivity
-                        Webservices.getImageItem(item.getImageItemId()).continueWith(new Continuation<Object, Void>() {
-                            @Override
-                            public Void then(Task<Object> task) throws Exception {
-                                if (task.getError() == null) {
-                                    if (task.getResult() != null) {
-                                        ImageItem image = (ImageItem) task.getResult();
-                                        if (image != null) {
-                                            MyUtils.gotoDetailImage(context, image);
+                        if (item.getImageItemId() > 0) {
+                            Webservices.getImageItem(item.getImageItemId()).continueWith(new Continuation<Object, Void>() {
+                                @Override
+                                public Void then(Task<Object> task) throws Exception {
+                                    if (task.getError() == null) {
+                                        if (task.getResult() != null) {
+                                            ImageItem image = (ImageItem) task.getResult();
+                                            if (image != null) {
+                                                long commentId = item.getReplyToId();
+                                                if (commentId <= 0) {
+                                                    commentId = item.getCommentId();
+                                                }
+                                                if (commentId > 0) {
+                                                    NotifyObject notify = new NotifyObject();
+                                                    notify.setCommentId(commentId);
+                                                    notify.setReplyToId(commentId);
+
+                                                    image.setNotifyObject(notify);
+                                                }
+                                                MyUtils.gotoDetailImage(context, image);
+                                            }
                                         }
                                     }
+                                    return null;
                                 }
-                                return null;
-                            }
-                        });
+                            });
+                        } else if (item.getNotifyTypeId() == NotifyType.TYPE_OPEN_EXTERNAL_LINK) {
+                            String link = item.getExternalLink();
+                            MyUtils.openWebPage(link, context);
+                        }
                     }
 
                     updateUserNotifyIsView(item.getNotifyId());
@@ -788,7 +810,13 @@ public class Fragment_3_Notify extends Fragment {
                             if (result != null) {
                                 if (result.getErrorCode() == ReturnResult.SUCCESS) {
                                     if (isLive() && mAdapter != null) {
-                                        mAdapter.updateAllViewed();
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                mAdapter.updateAllViewed();
+                                            }
+                                        }, 600);
+
                                         //lay lai thong tin so luong notify
                                         if (getContext() != null) {
                                             getContext().sendBroadcast(new Intent(MH01_MainActivity.ACTION_GET_NUMBER_NOTIFY));
@@ -836,7 +864,7 @@ public class Fragment_3_Notify extends Fragment {
                                         @Override
                                         public void run() {
                                             mDataset.addAll(list);
-                                            if(isLive()){
+                                            if (isLive()) {
                                                 mAdapter.notifyDataSetChanged();
                                             }
                                         }

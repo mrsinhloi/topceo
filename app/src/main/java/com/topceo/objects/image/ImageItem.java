@@ -12,6 +12,7 @@ import com.topceo.objects.db.ItemDB;
 import com.topceo.objects.db.UserShortDB;
 import com.topceo.objects.other.UserShort;
 import com.smartapp.collage.MediaLocal;
+import com.topceo.onesignal.NotifyObject;
 import com.topceo.utils.MyUtils;
 
 import org.jetbrains.annotations.Nullable;
@@ -68,6 +69,16 @@ public class ImageItem implements Parcelable {
     private long ItemId;
     private long GroupId;
 
+    //bo sung local dieu huong vao comment
+    private NotifyObject notifyObject;
+
+    public NotifyObject getNotifyObject() {
+        return notifyObject;
+    }
+
+    public void setNotifyObject(NotifyObject notifyObject) {
+        this.notifyObject = notifyObject;
+    }
 
     protected ImageItem(Parcel in) {
         ImageItemId = in.readLong();
@@ -99,7 +110,11 @@ public class ImageItem implements Parcelable {
         Likes = in.createTypedArrayList(ImageLike.CREATOR);
         Shares = in.createTypedArrayList(ImageShare.CREATOR);
         typeView = in.readInt();
-        ItemData = in.readValue(Object.class.getClassLoader());
+        try {
+            ItemData = in.readValue(Object.class.getClassLoader());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -133,7 +148,11 @@ public class ImageItem implements Parcelable {
         dest.writeTypedList(Likes);
         dest.writeTypedList(Shares);
         dest.writeInt(typeView);
-        dest.writeValue(ItemData);
+        try {
+            dest.writeValue(ItemData);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -446,6 +465,7 @@ public class ImageItem implements Parcelable {
     }
 
     public ArrayList<ImageComment> getComments() {
+        if (Comments == null) Comments = new ArrayList<>();
         return Comments;
     }
 
@@ -615,12 +635,11 @@ public class ImageItem implements Parcelable {
 
     public MyItemData getItemData() {
         MyItemData data = LinkPreview.getMyItemData(ItemData);
-        if(data!=null){
+        if (data != null) {
             ItemData = data;
         }
         return data;
     }
-
 
 
     public void setItemData(MyItemData myItemData) {

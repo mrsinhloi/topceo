@@ -454,7 +454,7 @@ public class CommentActivityParent extends AppCompatActivity {
                 txtReply1.setText(name);
             }
 
-            txtReply2.setText(comment.getComment());
+            txtReply2.setText(MyUtils.fromHtml(comment.getComment()));
 
 
         } else {

@@ -7,7 +7,7 @@
 7    package="com.liuzhenlin.common" >
 8
 9    <uses-sdk
-10        android:minSdkVersion="21"
+10        android:minSdkVersion="23"
 10-->/Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-common/src/main/AndroidManifest.xml
 11        android:targetSdkVersion="29" />
 11-->/Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-common/src/main/AndroidManifest.xml

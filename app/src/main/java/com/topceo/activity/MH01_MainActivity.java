@@ -36,6 +36,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -217,7 +218,7 @@ public class MH01_MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         mh01_mainActivity = this;
         isExist = true;
         db = new TinyDB(context);
@@ -258,7 +259,11 @@ public class MH01_MainActivity extends AppCompatActivity {
         imgShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(context, ShoppingActivity.class));
+                if (checkPermission()) {
+                    startActivity(new Intent(context, ShoppingActivity.class));
+                } else {
+                    requestPermission(MyPermission.MY_PERMISSIONS_REQUEST_STORAGE);
+                }
             }
         });
         imgSearch.setOnClickListener(new View.OnClickListener() {
@@ -476,7 +481,7 @@ public class MH01_MainActivity extends AppCompatActivity {
 //                    startActivity(new Intent(context, MH03_PostActivity.class));
 //                    pickImage();
 //                    startActivity(new Intent(context, PostLikeFacebookActivity.class));
-                    startActivity(new Intent(context, ShoppingActivity.class));
+                    imgShop.performClick();
                     return false;
                 case R.id.navigation_4:
                     switchFragment(FragmentPosition.NOTIFY);
@@ -707,12 +712,12 @@ public class MH01_MainActivity extends AppCompatActivity {
     private void navigateNotify(NotifyObject obj) {
         if (obj != null) {
 //            MyUtils.showToastDebug(context, "Notify đã vào màn hình chính");
-            switch (obj.getNotifyType()) {
+            switch (obj.getNotifyTypeId()) {
 
                 //MỞ APP
                 case NotifyType.TYPE_0_SYSTEM:
-                case NotifyType.TYPE_6_NEW_CHAT_MESSAGE:
-                case NotifyType.TYPE_7_NEW_CHAT_FILE:
+//                case NotifyType.TYPE_6_NEW_CHAT_MESSAGE:
+//                case NotifyType.TYPE_7_NEW_CHAT_FILE:
 
                     break;
 
@@ -725,14 +730,24 @@ public class MH01_MainActivity extends AppCompatActivity {
                     break;
 
 
-                //MỞ CHI TIẾT HÌNH ẢNH CÓ COMMENT BÊN
+                //MỞ CHI TIẾT HÌNH ẢNH
                 case NotifyType.TYPE_3_UPLOAD_NEW_PHOTO:
                 case NotifyType.TYPE_4_NEW_LIKE:
                 case NotifyType.TYPE_10_FOLLOWING_LIKE:
                 case NotifyType.TYPE_5_NEW_COMMENT:
                 case NotifyType.TYPE_8_MENTION_IN_COMMENT:
                 case NotifyType.TYPE_9_FOLLOWING_COMMENT:
+                case NotifyType.TYPE_15_MENTION_IN_IMAGE:
+                case NotifyType.TYPE_13_COMMENT_HAS_REPLY:
                     gotoPhotoDetail(obj);
+                    break;
+
+                //mo link ben ngoai
+                case NotifyType.TYPE_OPEN_EXTERNAL_LINK:
+                    String link = obj.getExternalLink();
+                    if (!TextUtils.isEmpty(link)) {
+                        MyUtils.openWebPage(link, context);
+                    }
                     break;
 
 
@@ -741,12 +756,12 @@ public class MH01_MainActivity extends AppCompatActivity {
                     break;
 
                 //VAO GROUP
-                case NotifyType.TYPE_13_GROUP_INVITE:
+                case NotifyType.TYPE_17_GROUP_INVITE:
                     if (obj.getGroupId() > 0) {
                         GroupDetailActivity.Companion.openActivity(context, obj.getGroupId(), false);
                     }
                     break;
-                case NotifyType.TYPE_14_GROUP_MEMBER_REQUEST:
+                case NotifyType.TYPE_16_GROUP_MEMBER_REQUEST:
                     if (obj.getGroupId() > 0) {
                         ApproveMemberActivity.Companion.openActivity(context, obj.getGroupId());
                     }
@@ -763,44 +778,47 @@ public class MH01_MainActivity extends AppCompatActivity {
 
     private void gotoPhotoDetail(final NotifyObject notify) {
         //get ImageComment vao man hinh MH02_PhotoDetailActivity
-        Webservices.getImageItem(notify.getImageItemId()).continueWith(new Continuation<Object, Void>() {
-            @Override
-            public Void then(Task<Object> task) throws Exception {
-                if (task.getError() == null) {
-                    if (task.getResult() != null) {
-                        ImageItem image = (ImageItem) task.getResult();
-                        if (image != null) {
-                            MyUtils.gotoDetailImage(context, image);
-                        }
-                    } else {
-                        boolean isLostCookie = MyApplication.controlException((ANError) task.getError());
-                        MyUtils.log("Fragment_1_Home_User - getNewFeed() - Exception = " + ((ANError) task.getError()).getErrorCode());
-
-                        if (isLostCookie) {
-                            MyApplication.initCookie(context).continueWith(new Continuation<Object, Void>() {
-                                @Override
-                                public Void then(Task<Object> task) throws Exception {
-                                    if (task.getResult() != null) {
-                                        User kq = (User) task.getResult();
-                                        if (kq != null) {
-                                            gotoPhotoDetail(notify);
-                                        }
-                                    }
-                                    return null;
-                                }
-                            });
+        if(notify.getImageItemId()>0){
+            Webservices.getImageItem(notify.getImageItemId()).continueWith(new Continuation<Object, Void>() {
+                @Override
+                public Void then(Task<Object> task) throws Exception {
+                    if (task.getError() == null) {
+                        if (task.getResult() != null) {
+                            ImageItem image = (ImageItem) task.getResult();
+                            if (image != null) {
+                                image.setNotifyObject(notify);
+                                MyUtils.gotoDetailImage(context, image);
+                            }
                         } else {
-                            if (!TextUtils.isEmpty(task.getError().getMessage())) {
-                                MyUtils.showToast(context, task.getError().getMessage());
+                            boolean isLostCookie = MyApplication.controlException((ANError) task.getError());
+                            MyUtils.log("Fragment_1_Home_User - getNewFeed() - Exception = " + ((ANError) task.getError()).getErrorCode());
+
+                            if (isLostCookie) {
+                                MyApplication.initCookie(context).continueWith(new Continuation<Object, Void>() {
+                                    @Override
+                                    public Void then(Task<Object> task) throws Exception {
+                                        if (task.getResult() != null) {
+                                            User kq = (User) task.getResult();
+                                            if (kq != null) {
+                                                gotoPhotoDetail(notify);
+                                            }
+                                        }
+                                        return null;
+                                    }
+                                });
+                            } else {
+                                if (!TextUtils.isEmpty(task.getError().getMessage())) {
+                                    MyUtils.showToast(context, task.getError().getMessage());
+                                }
                             }
                         }
-                    }
-                } else {
+                    } else {
 
+                    }
+                    return null;
                 }
-                return null;
-            }
-        });
+            });
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -904,6 +922,7 @@ public class MH01_MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         isExist = false;
 
+        MyApplication.getInstance().isFirst = true;
         ChatApplication.Companion.whenAppDestroy();
         if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
@@ -1105,6 +1124,9 @@ public class MH01_MainActivity extends AppCompatActivity {
                         break;
                     case MyPermission.MY_PERMISSIONS_REQUEST_READ_LOCATION:
 //                        gpsFunction();
+                        break;
+                    case MyPermission.MY_PERMISSIONS_REQUEST_STORAGE:
+                        imgShop.performClick();
                         break;
 
                 }
@@ -1329,6 +1351,7 @@ public class MH01_MainActivity extends AppCompatActivity {
         }
 
     }
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
 

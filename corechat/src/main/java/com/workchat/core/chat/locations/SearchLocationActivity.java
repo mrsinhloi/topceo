@@ -160,6 +160,7 @@ public class SearchLocationActivity extends AppCompatActivity implements OnMapRe
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
+    @BindView(R2.id.linear1) LinearLayout linear1;
     @BindView(R2.id.editText1)
     EditText txtSearch;
 
@@ -827,6 +828,8 @@ public class SearchLocationActivity extends AppCompatActivity implements OnMapRe
                     if (exception instanceof ApiException) {
                         ApiException apiException = (ApiException) exception;
                         Log.e("TAG", "Place not found: " + apiException.getStatusCode());
+                        //ko co danh sach thi ko search
+                        linear1.setVisibility(View.GONE);
                     }
                 }
             });

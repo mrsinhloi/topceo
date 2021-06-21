@@ -301,9 +301,9 @@
                     <EditText
                         android:id="@+id/editText6"
                         android:hint="@string/atsign_username"
-                        android:digits="abcdefghijklmnopqrstuvwxyz0123456789_.@"
                         android:maxLength="100"
                         android:maxLines="1"
+                        android:inputType="textEmailAddress"
                         style="@style/text_style_input_right" />
 
                 </LinearLayout>
@@ -322,9 +322,9 @@
                     <EditText
                         android:id="@+id/editText7"
                         android:hint="@string/atsign_username"
-                        android:digits="abcdefghijklmnopqrstuvwxyz0123456789_.@"
                         android:maxLength="100"
                         android:maxLines="1"
+                        android:inputType="textEmailAddress"
                         style="@style/text_style_input_right" />
 
                 </LinearLayout>

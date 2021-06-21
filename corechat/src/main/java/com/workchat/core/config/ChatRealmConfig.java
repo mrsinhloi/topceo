@@ -10,13 +10,21 @@ public class ChatRealmConfig {
     public ChatRealmConfig() {
         realmConfig = new RealmConfiguration.Builder()     // The app is responsible for calling `Realm.init(Context)`
                 .name("chat.core.realm")
-                .schemaVersion(4)
+                .schemaVersion(5)
                 .deleteRealmIfMigrationNeeded()// So always use a unique name
                 .modules(new ChatLibraryModule())// Always use explicit modules in library projects
                 .build();
 
         // Reset Realm
-        Realm.deleteRealm(realmConfig);
+        try {
+            Realm realm = Realm.getDefaultInstance();
+            if(!realm.isClosed()){
+                realm.close();
+            }
+            Realm.deleteRealm(realmConfig);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Realm open() {

@@ -263,6 +263,7 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
     @Synthetic
     RefreshVideoProgressInPiPTask mRefreshVideoProgressInPiPTask;
 
+
     @RequiresApi(Build.VERSION_CODES.O)
     private final class RefreshVideoProgressInPiPTask {
         RefreshVideoProgressInPiPTask() {
@@ -313,6 +314,7 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
     }
 
 
+    @SuppressLint("Range")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -760,7 +762,7 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
 //        MH01_MainActivity activity = getPreviousActivity();
 
         //neu man hinh Group ko ton tai thi moi mo lai man hinh Main
-        if(!GroupDetailActivity.isExists) {
+        if (!GroupDetailActivity.isExists) {
             Intent intent = new Intent(context, MH01_MainActivity.class);
             startActivity(intent);
         }
@@ -1268,12 +1270,16 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
                                     + "    " + "size / 2.5dp = " + size / progressMaxHeight);
                         }
 
-                        mPipParamsBuilder.setAspectRatio(
-                                new Rational(width, height + progressHeight));
-                        setPictureInPictureParams(mPipParamsBuilder.build());
+                        try {
+                            mPipParamsBuilder.setAspectRatio(
+                                    new Rational(width, height + progressHeight));
+                            setPictureInPictureParams(mPipParamsBuilder.build());
 
-                        cachedVideoAspectRatio = videoAspectRatio;
-                        cachedSize = size;
+                            cachedVideoAspectRatio = videoAspectRatio;
+                            cachedSize = size;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             };
@@ -1462,7 +1468,7 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
 //            if (img2 != null)
 //                img2.setLayoutParams(new FrameLayout.LayoutParams(widthImage, heightImage));
 
-            if (user.getUserId() == item.getOwner().getUserId()) {
+            if (user != null && item.getOwner() != null && user.getUserId() == item.getOwner().getUserId()) {
                 btnFollow.setVisibility(View.GONE);
             } else {
                 btnFollow.setVisibility(View.VISIBLE);
@@ -1478,7 +1484,9 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
                     imgSave,
                     txtInput,
                     rv,
-                    linearReply);
+                    linearReply,
+                    null
+            );
             setTitleBar();
 
             setUI();
@@ -1525,8 +1533,10 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
     }
 
     private void initAdapter() {
-        binding.initAdapter(rippleSend);
-        binding.initHastag();
+        if (binding != null) {
+            binding.initAdapter(rippleSend);
+            binding.initHastag();
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -1541,7 +1551,7 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
             MyUtils.initCookie(context);
             item = savedInstanceState.getParcelable(ImageItem.IMAGE_ITEM);
             ArrayList<ImageComment> list = savedInstanceState.getParcelableArrayList(ImageComment.IMAGE_COMMENT_ARRAY_LIST);
-            if (list != null && list.size() > 0) {
+            if (list != null && list.size() > 0 && binding.getmAdapter() != null) {
                 binding.getmAdapter().clear();
                 binding.getmAdapter().addListItems(list);
 //                list_empty.setVisibility(View.GONE);

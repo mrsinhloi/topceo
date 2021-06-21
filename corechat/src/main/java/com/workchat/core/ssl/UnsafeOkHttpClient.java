@@ -89,12 +89,12 @@ public class UnsafeOkHttpClient {
 
 
             /////
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+//            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient.Builder builder = new OkHttpClient.Builder()
 //                    .cookieJar(cookie)
-                    .connectTimeout(60 * 1000, TimeUnit.SECONDS)
-                    .addInterceptor(interceptor);
+                    .connectTimeout(60 * 1000, TimeUnit.SECONDS);
+//                    .addInterceptor(interceptor);
 
             if(!TextUtils.isEmpty(token)){
                 builder.addNetworkInterceptor(new Interceptor() {

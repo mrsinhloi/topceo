@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.topceo.group.GroupDetailActivity">
 
     <!--<com.google.android.material.appbar.AppBarLayout
@@ -44,6 +45,7 @@
     </com.google.android.material.appbar.AppBarLayout>-->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/action_bar_color"
@@ -61,6 +63,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_below="@id/toolbar"
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -69,7 +72,7 @@
         <include layout="@layout/content_scrolling" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,27 +81,10 @@
         app:backgroundTint="@color/colorPrimary"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@drawable/ic_plus_white_24dp"
-        app:tint="@null" />
-
-    <!--<LinearLayout
-        app:layout_behavior="com.ehubstar.group.AutoCloseBottomSheetBehavior"
-        app:behavior_hideable="true"
-        app:behavior_peekHeight="0dp"
-        android:id="@+id/bottomSetting"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="vertical">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:fitsSystemWindows="true"
-            app:layout_collapseMode="parallax"
-            android:src="@drawable/no_media_small" />
-    </LinearLayout>-->
+        app:tint="@null" />-->
 
     <include
         android:id="@+id/llProgressBar"
         layout="@layout/layout_progress_loading"
         android:visibility="gone" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</RelativeLayout>

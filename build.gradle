@@ -64,7 +64,7 @@ task clean(type: Delete) {
 
 
 ext {
-    minSdkVersion = 21 //de ho tro cho thu vien nen video https://github.com/zolad/VideoSlimmer
+    minSdkVersion = 23 //de ho tro cho thu vien nen video https://github.com/zolad/VideoSlimmer
     compileSdkVersion = 30
     targetSdkVersion = 29
     buildToolsVersion = "30.0.3"

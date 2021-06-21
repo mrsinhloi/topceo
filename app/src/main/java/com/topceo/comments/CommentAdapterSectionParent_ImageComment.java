@@ -32,6 +32,7 @@ import com.topceo.objects.other.User;
 import com.topceo.services.ReturnResult;
 import com.topceo.services.Webservices;
 import com.topceo.socialview.core.widget.SocialTextView;
+import com.topceo.utils.AnimateUtils;
 import com.topceo.utils.MyUtils;
 import com.sackcentury.shinebuttonlib.ShineButton;
 
@@ -104,6 +105,7 @@ public class CommentAdapterSectionParent_ImageComment extends SectionedRecyclerV
         return null;
     }
 
+
     public ArrayList<ImageComment> getAllItem() {
         return listItems;
     }
@@ -122,7 +124,7 @@ public class CommentAdapterSectionParent_ImageComment extends SectionedRecyclerV
         }
     }
 
-    private int findPostionParent(long id) {
+    public int findPostionParent(long id) {
         int position = -1;
         if (listItems != null && listItems.size() > 0) {
             for (int i = 0; i < listItems.size(); i++) {
@@ -154,6 +156,13 @@ public class CommentAdapterSectionParent_ImageComment extends SectionedRecyclerV
 
 
         }
+    }
+
+    int positionAnimation = -1;
+
+    public void animation(int position) {
+        positionAnimation = position;
+        notifyItemChanged(position);
     }
 
     public class MyViewHolderItem extends RecyclerView.ViewHolder {
@@ -212,6 +221,9 @@ public class CommentAdapterSectionParent_ImageComment extends SectionedRecyclerV
 
         @BindView(R.id.btnLike)
         ShineButton btnLike;
+
+        @BindView(R.id.linearParentComment)
+        LinearLayout linearParentComment;
 
         public MyViewHolderSection(View view) {
             super(view);
@@ -366,6 +378,12 @@ public class CommentAdapterSectionParent_ImageComment extends SectionedRecyclerV
 
                 }
             });
+
+            //neu so count <=3 thi hien thi
+            if (count <= ImageComment.NUMBER_CHILD_SHOW_MORE) {
+//                holder.linearReplyMore.performClick();
+            }
+
         } else {
             holder.linearReplyMore.setVisibility(View.GONE);
         }
@@ -405,6 +423,12 @@ public class CommentAdapterSectionParent_ImageComment extends SectionedRecyclerV
             holder.linearDelete.setVisibility(View.GONE);
         }
 
+        if (positionAnimation == section) {
+            AnimateUtils.Companion.animate(holder.linearParentComment);
+            positionAnimation = -1;
+        } else {
+            holder.linearParentComment.setBackgroundResource(R.color.white);
+        }
     }
 
     @Override

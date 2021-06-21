@@ -150,6 +150,8 @@ import io.realm.Realm;
 
 public class MyUtils {
 
+    public static final int NUNMBER_THUMBNAIL = 10;
+
     public static ArrayList<Bitmap> extractThumbnail(Context context, String videoPath) {
         ArrayList<Bitmap> list = new ArrayList<>();
 
@@ -164,7 +166,7 @@ public class MyUtils {
             long duration = durationSecond * second;//nano second
             for (long i = second; i <= duration; i += second * 2) // for incrementing 1s use 1000
             {
-                if (list.size() > 30) {
+                if (list.size() >= NUNMBER_THUMBNAIL) {
                     break;
                 }
                 list.add(mRetriever.getFrameAtTime(i, MediaMetadataRetriever.OPTION_CLOSEST_SYNC));
@@ -211,8 +213,18 @@ public class MyUtils {
     }
 
     public static String replaceDescriptionForServer(String description) {
-        return description.replace("\n", "<br>");
+        if (description.contains("\n")) {
+            description = description.replace("\n", "<br>");
+        }
+        return description;
     }
+    /*public static String replaceDescriptionHaveBR(String description) {
+        if (description.contains("<br>")) {
+            description = description.replace("<br>", "\n");
+        }
+        return description;
+    }*/
+
 
     public static boolean checkInternetConnection(Context context) {
         boolean b = false;
@@ -2797,10 +2809,14 @@ public class MyUtils {
 
     public static void openWebPage(String url, Context context) {
         if (context != null && !TextUtils.isEmpty(url)) {
-            Uri webpage = Uri.parse(url);
-            Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
-            if (intent.resolveActivity(context.getPackageManager()) != null) {
-                context.startActivity(intent);
+            try {
+                Uri webpage = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                if (intent.resolveActivity(context.getPackageManager()) != null) {
+                    context.startActivity(intent);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
@@ -3092,9 +3108,10 @@ public class MyUtils {
             }
         }
     }
+
     public static void stopPlayerService(Context context, Class<?> serviceClass) {
         if (context != null && serviceClass != null) {
-            if(isMyServiceRunning(context,serviceClass)) {
+            if (isMyServiceRunning(context, serviceClass)) {
                 Intent intent = new Intent(context, serviceClass);
                 context.stopService(intent);
             }
@@ -3422,12 +3439,6 @@ public class MyUtils {
             MyApplication.imgItem = item;
 
             if (item.isVideo()) {
-//                Intent intent = new Intent(context, VideoActivityPipDetail.class);
-//                context.startActivity(intent);
-//                MyUtils.closePip(context);
-//                Intent mh2 = new Intent(VideoActivityPipList.ACTION_FINISH);
-//                context.sendBroadcast(mh2);
-
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -3436,7 +3447,6 @@ public class MyUtils {
                 }, 500);
             } else {
                 Intent intent = new Intent(context, MH02_PhotoDetailActivity.class);
-//            intent.putExtra(ImageItem.IMAGE_ITEM, item);
                 context.startActivity(intent);
             }
 

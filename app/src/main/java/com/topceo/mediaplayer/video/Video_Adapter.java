@@ -22,6 +22,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.topceo.R;
+import com.topceo.config.MyApplication;
+import com.topceo.mediaplayer.pip.presenter.VideoListItemOpsKt;
 import com.topceo.shopping.MediaItem;
 import com.topceo.utils.MyUtils;
 
@@ -97,14 +99,14 @@ public class Video_Adapter extends
             public void onClick(View v) {
                 //khac bai thi moi play
                 if (position != positionSelected) {
-                    //set player
+                    //set player old
                     Intent intent = new Intent(VideoActivity.ACTION_PLAY_VIDEO);
                     intent.putExtra(MediaItem.MEDIA_ITEM, item);
                     intent.putExtra(MediaItem.MEDIA_POSITION, position);
                     getContext().sendBroadcast(intent);
-
                     positionSelected = position;
                     notifyDataSetChanged();
+
                 }
             }
         });

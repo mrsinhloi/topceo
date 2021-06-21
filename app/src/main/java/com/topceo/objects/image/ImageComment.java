@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.topceo.objects.other.UserShort;
+import com.topceo.utils.MyUtils;
 
 import io.realm.RealmList;
 
@@ -11,6 +12,7 @@ import io.realm.RealmList;
  * Created by MrPhuong on 2016-07-27.
  */
 public class ImageComment implements Parcelable {
+    public static final int NUMBER_CHILD_SHOW_MORE = 3;
     public static final String IMAGE_COMMENT_ARRAY_LIST = "IMAGE_COMMENT_ARRAY_LIST";
     public static final String COMMENT_OBJECT="COMMENT_OBJECT";
     public static final String COMMENT_ID = "COMMENT_ID";
@@ -121,8 +123,11 @@ public class ImageComment implements Parcelable {
     }
 
     public String getComment() {
+        if(Comment == null) Comment = "";
         return Comment;
     }
+
+
 
     public void setComment(String comment) {
         Comment = comment;

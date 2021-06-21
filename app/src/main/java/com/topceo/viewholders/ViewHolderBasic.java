@@ -705,45 +705,51 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
     ////////////////////////////////////////////////////////////////////////////////////////////
     //#region COMMENT BINDING
     private void initComment(ImageItem item, int position) {
-        //#1 title
-        if (item.getComments().size() > 0) {
-            txtViewAllComment.setVisibility(View.VISIBLE);
-            linearCommentPreview.setVisibility(View.VISIBLE);
-            linearCommentPreview.setOnClickListener(new View.OnClickListener() {
+        if (item != null) {
+            if (item.getCommentCount() == 0) {
+                item.getComments().clear();
+            }
+
+            //#1 title
+            if (item.getComments().size() > 0) {
+                txtViewAllComment.setVisibility(View.VISIBLE);
+                linearCommentPreview.setVisibility(View.VISIBLE);
+                linearCommentPreview.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        linearComment.performClick();
+                    }
+                });
+
+                //#2 content
+                if (item.getComments().size() >= 2) {
+                    txtViewAllComment.setText(context.getString(R.string.view_all_number_comment, item.getCommentCount()));
+                    //LAY 2 COMMENT DAU TIEN
+                    relativePreview1.setVisibility(View.VISIBLE);
+                    relativePreview2.setVisibility(View.VISIBLE);
+                    setUpComment(txtName1, txtDes1, btnLike1, item.getComments().get(0), position, 0);
+                    setUpComment(txtName2, txtDes2, btnLike2, item.getComments().get(1), position, 1);
+
+
+                } else {
+                    txtViewAllComment.setText(R.string.view_comment);
+                    //CHI CO 1 COMMENT
+                    relativePreview1.setVisibility(View.VISIBLE);
+                    relativePreview2.setVisibility(View.GONE);
+                    separator.setVisibility(View.GONE);
+                    setUpComment(txtName1, txtDes1, btnLike1, item.getComments().get(0), position, 0);
+                }
+            } else {
+                txtViewAllComment.setVisibility(View.GONE);
+                linearCommentPreview.setVisibility(View.GONE);
+            }
+            txtViewAllComment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     linearComment.performClick();
                 }
             });
-
-            //#2 content
-            if (item.getComments().size() >= 2) {
-                txtViewAllComment.setText(context.getString(R.string.view_all_number_comment, item.getCommentCount()));
-                //LAY 2 COMMENT DAU TIEN
-                relativePreview1.setVisibility(View.VISIBLE);
-                relativePreview2.setVisibility(View.VISIBLE);
-                setUpComment(txtName1, txtDes1, btnLike1, item.getComments().get(0), position, 0);
-                setUpComment(txtName2, txtDes2, btnLike2, item.getComments().get(1), position, 1);
-
-
-            } else {
-                txtViewAllComment.setText(R.string.view_comment);
-                //CHI CO 1 COMMENT
-                relativePreview1.setVisibility(View.VISIBLE);
-                relativePreview2.setVisibility(View.GONE);
-                separator.setVisibility(View.GONE);
-                setUpComment(txtName1, txtDes1, btnLike1, item.getComments().get(0), position, 0);
-            }
-        } else {
-            txtViewAllComment.setVisibility(View.GONE);
-            linearCommentPreview.setVisibility(View.GONE);
         }
-        txtViewAllComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                linearComment.performClick();
-            }
-        });
     }
 
     private void setUpComment(TextView txtName, SocialTextView txtDes, ShineButton btnLike, ImageComment comment, int positionImage, int positionComment) {

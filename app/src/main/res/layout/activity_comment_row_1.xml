@@ -5,6 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:padding="10dp"
+    android:id="@+id/linearParentComment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
@@ -62,16 +63,21 @@
                     android:textSize="@dimen/title_size"
                     android:textStyle="bold"/>
 
-                <com.sackcentury.shinebuttonlib.ShineButton
-                    android:id="@+id/btnLike"
-                    android:layout_width="@dimen/heart_size"
-                    android:layout_height="@dimen/heart_size"
-                    android:layout_marginEnd="@dimen/margin_5dp"
-                    android:src="@color/grey_400"
-                    app:allow_random_color="false"
-                    app:btn_color="@color/grey_400"
-                    app:btn_fill_color="@color/sky_end"
-                    app:siShape="@raw/heart" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <com.sackcentury.shinebuttonlib.ShineButton
+                        android:id="@+id/btnLike"
+                        android:layout_width="@dimen/heart_size"
+                        android:layout_height="@dimen/heart_size"
+                        android:layout_marginEnd="@dimen/margin_5dp"
+                        android:src="@color/grey_400"
+                        app:allow_random_color="false"
+                        app:btn_color="@color/grey_400"
+                        app:btn_fill_color="@color/sky_end"
+                        app:siShape="@raw/heart" />
+                </LinearLayout>
             </LinearLayout>
 
 

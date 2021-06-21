@@ -417,7 +417,10 @@ public class MediaPlayerActivity extends AppCompatActivity implements View.OnCli
 
     private boolean checkIsPlayer() {
 
-        boolean isPlayer = mPlayerAdapter.isMediaPlayer();
+        boolean isPlayer = false;
+        if (mPlayerAdapter != null) {
+            isPlayer = mPlayerAdapter.isMediaPlayer();
+        }
         if (!isPlayer) {
             MyUtils.showToastDebug(context, "Play song first");
         }

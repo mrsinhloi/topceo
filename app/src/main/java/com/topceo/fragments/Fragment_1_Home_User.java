@@ -408,8 +408,14 @@ public class Fragment_1_Home_User extends Fragment {
             mAdapter.setCanPost(isCanPost, GroupInfo.GROUP_PERSONAL);
         }
         rv.setAdapter(mAdapter);
-        helper = VideoListConfig.Companion.configVideoAutoPlaying(context, this, rv);
+        if(isLive()){
+            helper = VideoListConfig.Companion.configVideoAutoPlaying(context, this, rv);
+        }
 
+    }
+
+    private boolean isLive(){
+        return getActivity()!=null && !getActivity().isFinishing();
     }
     MasterExoPlayerHelper helper;
 

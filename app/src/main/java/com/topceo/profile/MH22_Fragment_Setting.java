@@ -433,13 +433,13 @@ public class MH22_Fragment_Setting extends Fragment {
                         }
                     });*/
 
-                    if (user.isVip() || user.getUserId() == User.ADMIN_ROLE_ID) {
+                    /*if (user.isVip() || user.getUserId() == User.ADMIN_ROLE_ID) {
                         vipLinear.setVisibility(View.GONE);
 //                        vipSeparate.setVisibility(View.GONE);
                     } else {
                         vipLinear.setVisibility(View.VISIBLE);
 //                        vipSeparate.setVisibility(View.VISIBLE);
-                    }
+                    }*/
                 }
             }
         }

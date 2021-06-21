@@ -29,6 +29,7 @@ import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,6 +55,7 @@ import com.topceo.objects.image.ImageComment;
 import com.topceo.objects.image.ImageItem;
 import com.topceo.objects.other.User;
 import com.topceo.objects.other.UserShort;
+import com.topceo.onesignal.NotifyObject;
 import com.topceo.profile.Fragment_5_User_Profile_Grid;
 import com.topceo.profile.Fragment_Profile_Owner;
 import com.topceo.services.ReturnResult;
@@ -99,8 +101,9 @@ public class DetailBinding {
     SocialAutoCompleteTextView txtInput;
     RecyclerView rv;
     LinearLayout linearReply;
+    NestedScrollView scrollView;
 
-    public DetailBinding(Activity context, User user, ImageItem item, Realm realm, boolean isMyPost, TextView txt3, CheckBox imgLike, ImageView imgSave, SocialAutoCompleteTextView txtInput, RecyclerView rv, LinearLayout linearReply) {
+    public DetailBinding(Activity context, User user, ImageItem item, Realm realm, boolean isMyPost, TextView txt3, CheckBox imgLike, ImageView imgSave, SocialAutoCompleteTextView txtInput, RecyclerView rv, LinearLayout linearReply, NestedScrollView scrollView) {
         this.context = context;
         this.user = user;
         this.item = item;
@@ -113,6 +116,7 @@ public class DetailBinding {
         this.txtInput = txtInput;
         this.rv = rv;
         this.linearReply = linearReply;
+        this.scrollView = scrollView;
 
     }
 
@@ -812,6 +816,47 @@ public class DetailBinding {
 
     }
 
+    private void findCommentIdAndSrollTo() {
+        if (mAdapter != null && rv != null) {
+            ImageItem img = MyApplication.imgItem;
+            if (img != null) {
+                NotifyObject notify = img.getNotifyObject();
+                if (notify != null) {
+                    //scroll toi item
+                    long commentId = notify.getReplyToId();
+                    if (commentId <= 0) {
+                        commentId = notify.getCommentId();
+                    }
+
+                    if (commentId > 0) {
+                        int position = mAdapter.findPostionParent(commentId);
+                        if (position >= 0) {
+                            if (scrollView == null) {//video
+                                rv.scrollToPosition(position);
+                                MyUtils.showToast(context, "Scroll to postion = " + position);
+                            } else {//image
+                                float y =  rv.getChildAt(position).getY();
+                                scrollView.smoothScrollTo(0, (int) y);
+                                MyUtils.showToast(context, "Scroll to postion = " + position);
+                            }
+                            //xoa bo
+                            if (MyApplication.imgItem != null) {
+                                MyApplication.imgItem.setNotifyObject(null);
+                            }
+
+                            //animation
+                            mAdapter.animation(position);
+                        }
+
+
+                    }
+
+
+                }
+            }
+        }
+    }
+
     /**
      * {"data":{"ImageComment":{"Comments":
      * [{"ItemId":1062,"User":{"UserName":"jessicahua","AvatarSmall":"http:\/\/service.winkjoy.vn\/Pictures\/87b2fef5-3b6a-4a05-ae09-90bcc8396ad4\/bbbf19b1-8ccb-4145-983a-cb6bee1ddf96.JPG"},"Comment":"Dep qua ah @ChupHinhDep","CreateDate":"2016-06-25 00:40:40"}
@@ -836,6 +881,15 @@ public class DetailBinding {
                                 if (lastItemId == 0) {//page 1
                                     mAdapter.clear();
                                     mAdapter.addListItems(comments);
+
+                                    //scroll den comment tu notify neu co
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            findCommentIdAndSrollTo();
+                                        }
+                                    }, 1000);
+
                                 } else {//load more
                                     mAdapter.addListItems(comments);
                                 }
@@ -889,6 +943,7 @@ public class DetailBinding {
             if (replyToComment != null) {
                 replyToId = replyToComment.getItemId();
             }
+
             Webservices.sendComment(item.getImageItemId(), comment, replyToId).continueWith(new Continuation<Object, Void>() {
                 @Override
                 public Void then(Task<Object> task) throws Exception {
@@ -976,7 +1031,7 @@ public class DetailBinding {
                 txtReply1.setText(name);
             }
 
-            txtReply2.setText(replyToComment.getComment());
+            txtReply2.setText(MyUtils.fromHtml(replyToComment.getComment()));
 
 
         } else {

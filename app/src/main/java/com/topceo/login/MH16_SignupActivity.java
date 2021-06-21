@@ -429,7 +429,6 @@ public class MH16_SignupActivity extends AppCompatActivity {
 
         readData();
 
-
         if (name.isEmpty() || name.length() < 5) {
             txt2.setError(getText(R.string.name_request_lenght));
             txt2.requestFocus();
@@ -821,6 +820,7 @@ public class MH16_SignupActivity extends AppCompatActivity {
             ProgressUtils.show(context);
 
             String token = "bearer " + user.getToken();
+            MyApplication.whenSignUp(token);
             MyApplication.apiManager.signupComplete(
                     token,
                     name,
