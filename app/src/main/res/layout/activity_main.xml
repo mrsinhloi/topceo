@@ -42,12 +42,12 @@
                     android:orientation="horizontal">
                     <ImageView
                         android:id="@+id/imgAddUser"
-                        android:src="@drawable/ic_svg_11"
+                        app:srcCompat="@drawable/ic_svg_11"
                         style="@style/sky_bar_icon_1" />
 
                     <ImageView
                         android:id="@+id/imgSearch"
-                        android:src="@drawable/ic_svg_12"
+                        app:srcCompat="@drawable/ic_svg_12"
                         style="@style/sky_bar_icon_1" />
 
                     <View android:layout_width="0dp"
@@ -58,7 +58,7 @@
 
                     <ImageView
                         android:id="@+id/imgViewAll"
-                        android:src="@drawable/ic_svg_13"
+                        app:srcCompat="@drawable/ic_svg_13"
                         style="@style/sky_bar_icon_1"
                         android:visibility="visible" />
 

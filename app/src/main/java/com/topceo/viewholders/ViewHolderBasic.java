@@ -7,7 +7,9 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -25,10 +27,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatDrawableManager;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
@@ -179,6 +187,29 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
         context = v.getContext();
         view = v;
         this.avatarSize = avatarSize;
+
+        /*Drawable d = null;
+        try {
+            d = AppCompatResources.getDrawable(context, R.drawable.ic_like_anim);
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                d = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_like_anim, null);
+            } catch (Resources.NotFoundException notFoundException) {
+                notFoundException.printStackTrace();
+                try {
+                    d = ContextCompat.getDrawable(context, R.drawable.ic_like_anim);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }
+
+        if(d!=null){
+            imgLike.setBackgroundDrawable(d);
+        }*/
+
+
 
     }
 

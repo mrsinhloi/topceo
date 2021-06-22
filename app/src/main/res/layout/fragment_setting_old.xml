@@ -86,7 +86,7 @@
                 android:focusable="false"
                 android:padding="15dp"
                 android:focusableInTouchMode="false"
-                android:src="@drawable/ic_svg_24" />
+                app:srcCompat="@drawable/ic_svg_24" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -781,7 +781,7 @@
             <ImageView
                 android:layout_width="72dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_svg_logo_512"
+                app:srcCompat="@drawable/ic_svg_logo_512"
                 android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatTextView

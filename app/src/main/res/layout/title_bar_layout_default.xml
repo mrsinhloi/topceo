@@ -17,7 +17,7 @@
 
         <ImageView
             android:id="@+id/imgBack"
-            android:src="@drawable/ic_svg_16"
+            app:srcCompat="@drawable/ic_svg_16"
             style="@style/ic_back_style" />
         <include layout="@layout/header_logo_and_icons"/>
 

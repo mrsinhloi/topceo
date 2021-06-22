@@ -216,9 +216,10 @@ public class MH01_MainActivity extends AppCompatActivity {
 
     public static MH01_MainActivity mh01_mainActivity;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+
         mh01_mainActivity = this;
         isExist = true;
         db = new TinyDB(context);

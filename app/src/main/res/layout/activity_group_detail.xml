@@ -59,7 +59,7 @@
             android:layout_height="@dimen/logo_height"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/dimen_10dp"
-            android:src="@drawable/ic_svg_logo_toolbar_40" />
+            app:srcCompat="@drawable/ic_svg_logo_toolbar_40" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

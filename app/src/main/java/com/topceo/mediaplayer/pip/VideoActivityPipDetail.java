@@ -52,6 +52,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.core.widget.NestedScrollView;

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:orientation="horizontal">
@@ -18,7 +19,7 @@
     <ImageView
         android:id="@+id/imgBack"
         style="@style/ic_back_style"
-        android:src="@drawable/ic_svg_16" />
+        app:srcCompat="@drawable/ic_svg_16" />
 
     <include
         android:layout_marginEnd="3dp"

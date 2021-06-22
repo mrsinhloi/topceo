@@ -57,8 +57,8 @@
                     android:layout_width="15dp"
                     android:layout_height="18dp"
                     app:tint="@color/sky_end"
-                    android:layout_marginLeft="@dimen/margin_5dp"
-                    android:src="@drawable/ic_svg_24"/>
+                    android:layout_marginStart="@dimen/margin_5dp"
+                    app:srcCompat="@drawable/ic_svg_24"/>
             </LinearLayout>
 
 

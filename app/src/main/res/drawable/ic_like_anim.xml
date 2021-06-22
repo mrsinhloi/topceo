@@ -6,5 +6,6 @@
         />
 
     <item
+        android:state_checked="false"
         android:drawable="@drawable/ic_svg_19"/>
 </selector>

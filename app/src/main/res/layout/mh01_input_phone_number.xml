@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
@@ -47,7 +48,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3.5"
-                        android:src="@drawable/ic_svg_logo_512" />
+                        app:srcCompat="@drawable/ic_svg_logo_512" />
                 </LinearLayout>
 
                 <TextView

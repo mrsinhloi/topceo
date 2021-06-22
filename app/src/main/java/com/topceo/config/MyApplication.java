@@ -1054,7 +1054,6 @@ public class MyApplication extends ChatApplication implements EventControlListen
         Lingver.init(this, language);
 
         super.onCreate();
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         // OneSignal Initialization
         initOneSignal();

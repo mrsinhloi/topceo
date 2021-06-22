@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
 
@@ -17,7 +18,7 @@
             android:layout_height="150dp"
             android:id="@+id/imageView"
             android:layout_weight="2.5"
-            android:src="@drawable/ic_svg_logo_512"/>
+            app:srcCompat="@drawable/ic_svg_logo_512"/>
     </LinearLayout>
 
     <ProgressBar
