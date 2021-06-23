@@ -1,11 +1,10 @@
 package com.topceo.activity;
 
-import android.Manifest;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -36,10 +35,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -81,6 +77,7 @@ import com.topceo.group.members.ApproveMemberActivity;
 import com.topceo.login.MH15_SigninActivity;
 import com.topceo.login.WelcomeActivity;
 import com.topceo.mediaplayer.audio.PlayerService;
+import com.topceo.mediaplayer.pip.presenter.VideoListItemOpsKt;
 import com.topceo.mediaplayer.preview.VideoSelectThumbnailActivity;
 import com.topceo.notify.Fragment_3_Notify;
 import com.topceo.objects.image.ImageItem;
@@ -105,11 +102,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.topceo.utils.PermissionUtils;
 import com.workchat.core.config.ChatApplication;
 import com.workchat.core.event.EventSearchContactChat_Receive;
 import com.workchat.core.event.EventSearchContactChat_Request;
 import com.workchat.core.mbn.models.UserChatCore;
 import com.workchat.core.models.realm.Room;
+import com.workchat.core.utils.PermissionUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -145,7 +144,7 @@ public class MH01_MainActivity extends AppCompatActivity {
     NoSwipePager viewPager;
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
-    private Context context = this;
+    private Activity context = this;
     public static boolean isExist = false;
     private NotifyObject notify;
     @BindView(R.id.imgAddUser)
@@ -260,10 +259,10 @@ public class MH01_MainActivity extends AppCompatActivity {
         imgShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkPermission()) {
+                if (PermissionUtils.checkPermission()) {
                     startActivity(new Intent(context, ShoppingActivity.class));
                 } else {
-                    requestPermission(MyPermission.MY_PERMISSIONS_REQUEST_STORAGE);
+                    PermissionUtils.requestPermission(MH01_MainActivity.this, MyPermission.MY_PERMISSIONS_REQUEST_STORAGE);
                 }
             }
         });
@@ -779,7 +778,7 @@ public class MH01_MainActivity extends AppCompatActivity {
 
     private void gotoPhotoDetail(final NotifyObject notify) {
         //get ImageComment vao man hinh MH02_PhotoDetailActivity
-        if(notify.getImageItemId()>0){
+        if (notify.getImageItemId() > 0) {
             Webservices.getImageItem(notify.getImageItemId()).continueWith(new Continuation<Object, Void>() {
                 @Override
                 public Void then(Task<Object> task) throws Exception {
@@ -835,6 +834,7 @@ public class MH01_MainActivity extends AppCompatActivity {
     public static final String ACTION_SET_NUMBER_CHAT_UNREAD = "ACTION_SET_NUMBER_CHAT_UNREAD";
     public static final String ACTION_CHANGE_ICON = "ACTION_CHANGE_ICON_topceo";
 
+    public static final String ACTION_CHECK_PERMISSION = "ACTION_CHECK_PERMISSION";
 
     private BroadcastReceiver receiver;
 
@@ -885,6 +885,12 @@ public class MH01_MainActivity extends AppCompatActivity {
                         MenuItem item = menu.findItem(R.id.navigation_5);
                         setIconUser(item);
                     }
+                } else if (intent.getAction().equalsIgnoreCase(ACTION_CHECK_PERMISSION)) {
+                    if (PermissionUtils.checkPermission()) {
+
+                    } else {
+                        PermissionUtils.requestPermission(MH01_MainActivity.this, REQUEST_STORAGE_READ_VIDEO);
+                    }
                 }
 
             }
@@ -901,6 +907,8 @@ public class MH01_MainActivity extends AppCompatActivity {
         intent.addAction(ACTION_OPEN_PROFILE);
         intent.addAction(ACTION_SET_NUMBER_CHAT_UNREAD);
         intent.addAction(ACTION_CHANGE_ICON);
+        intent.addAction(ACTION_CHECK_PERMISSION);
+
 
 
         registerReceiver(receiver, intent);
@@ -1105,11 +1113,11 @@ public class MH01_MainActivity extends AppCompatActivity {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private void pickImage() {
 
-        if (checkPermission()) {
+        if (PermissionUtils.checkPermission()) {
             Intent intent = new Intent(this, PickImageActivity.class);
             startActivityForResult(intent, REQUEST_CAMERA);
         } else {
-            requestPermission(MyPermission.MY_PERMISSIONS_REQUEST_CAMERA);
+            PermissionUtils.requestPermission(this, MyPermission.MY_PERMISSIONS_REQUEST_CAMERA);
         }
 
     }
@@ -1128,6 +1136,12 @@ public class MH01_MainActivity extends AppCompatActivity {
                         break;
                     case MyPermission.MY_PERMISSIONS_REQUEST_STORAGE:
                         imgShop.performClick();
+                        break;
+                    case REQUEST_STORAGE_READ_VIDEO:
+                        ImageItem item = MyApplication.imgItem;
+                        if (item != null) {
+                            VideoListItemOpsKt.playVideoImageItem(context, item.getImageLarge());
+                        }
                         break;
 
                 }
@@ -1161,6 +1175,7 @@ public class MH01_MainActivity extends AppCompatActivity {
     }
 
 
+    public static final int REQUEST_STORAGE_READ_VIDEO = 56;
     public static final int REQUEST_CAMERA = 0;
 
     @Override
@@ -1360,7 +1375,7 @@ public class MH01_MainActivity extends AppCompatActivity {
     /////////////////////////////////////////////////
     //DOC SAN GALLERY
     private void saveGallery() {
-        if (isAllowReadSdCard()) {
+        if (PermissionUtils.isAllowReadSdCard()) {
             getGalleryPhotoAndVideo();
         }
     }
@@ -1509,82 +1524,7 @@ public class MH01_MainActivity extends AppCompatActivity {
     /////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private boolean isAllowReadSdCard() {
 
-        boolean result = true;
-
-        String[] arrPermissions = {
-                Manifest.permission.READ_EXTERNAL_STORAGE};
-        for (int i = 0; i < arrPermissions.length; i++) {
-            int grant = ContextCompat.checkSelfPermission(getApplicationContext(), arrPermissions[i]);
-            if (grant == PackageManager.PERMISSION_DENIED) {
-                result = false;
-                break;
-            }
-        }
-
-        return result;
-    }
-
-
-    String[] arrPermissions = {
-            Manifest.permission.CAMERA,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE};
-
-    private boolean checkPermission() {
-
-        boolean result = true;
-        for (int i = 0; i < arrPermissions.length; i++) {
-            int grant = ContextCompat.checkSelfPermission(getApplicationContext(), arrPermissions[i]);
-            if (grant == PackageManager.PERMISSION_DENIED) {
-                result = false;
-                break;
-            }
-        }
-
-        return result;
-    }
-
-
-    private ArrayList<String> listPermissionNeedRequest() {
-        ArrayList<String> list = new ArrayList<>();
-        for (String item :
-                arrPermissions) {
-            if (ContextCompat.checkSelfPermission(this, item) != PackageManager.PERMISSION_GRANTED) {
-                list.add(item);
-            }
-        }
-        return list;
-    }
-
-    private void requestPermission(int requestCode) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ArrayList<String> list = listPermissionNeedRequest();
-            if (list.size() > 0) {
-                //lay item 0, neu bi tu choi thi bao ra
-                String first = list.get(0);
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this, first)) {
-                    android.app.AlertDialog.Builder dialog = new android.app.AlertDialog.Builder(context);
-                    dialog.setTitle(R.string.notification);
-                    dialog.setMessage(R.string.deny_permission_notify);
-                    dialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            MyUtils.goToSettings(context);
-                        }
-                    });
-                    dialog.setNegativeButton(R.string.no, null);
-                    android.app.AlertDialog alertDialog = dialog.create();
-                    alertDialog.show();
-                } else {
-                    requestPermissions(list.toArray(new String[list.size()]), requestCode);
-                }
-
-            }
-        }
-    }
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     /////////////////////////////////////////////////////////////////////////////////////////////////

@@ -14,6 +14,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.Animatable;
@@ -108,13 +109,16 @@ import com.topceo.services.Webservices;
 import com.topceo.shopping.ShoppingActivity;
 import com.topceo.socialview.commons.widget.SocialAutoCompleteTextView;
 import com.topceo.utils.DateFormat;
+import com.topceo.utils.MyPermission;
 import com.topceo.utils.MyUtils;
+import com.topceo.utils.PermissionUtils;
 import com.topceo.viewholders.HolderUtils;
 import com.topceo.views.ShowMoreTextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -314,27 +318,54 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
         }
     }
 
-
+    Bundle savedInstanceState;
     @SuppressLint("Range")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter.attachToView(this);
-        if (mPresenter.initPlaylist(savedInstanceState, getIntent())) {
-            setRequestedOrientation(mScreenOrientation);
-            setContentView(R.layout.pip_activity_video_detail);
-            ButterKnife.bind(this);
-            initViews(savedInstanceState);
-        } else {
-            Activity preactivity = getPreviousActivity();
-            if (preactivity == null) {
-                showToast(this, R.string.cannotPlayThisVideo, Toast.LENGTH_LONG);
-            } else {
-                UiUtils.showUserCancelableSnackbar(preactivity.getWindow().getDecorView(),
-                        R.string.cannotPlayThisVideo, Snackbar.LENGTH_LONG);
+        this.savedInstanceState = savedInstanceState;
+        initCreate();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                switch (requestCode) {
+                    case MyPermission.MY_PERMISSIONS_REQUEST_STORAGE:
+                        initCreate();
+                        break;
+
+                }
+
             }
-            finish();
+
         }
+    }
+
+    private void initCreate(){
+        if(PermissionUtils.checkPermission()){
+            mPresenter.attachToView(this);
+            if (mPresenter.initPlaylist(savedInstanceState, getIntent())) {
+                setRequestedOrientation(mScreenOrientation);
+                setContentView(R.layout.pip_activity_video_detail);
+                ButterKnife.bind(this);
+                initViews(savedInstanceState);
+            } else {
+                Activity preactivity = getPreviousActivity();
+                if (preactivity == null) {
+                    showToast(this, R.string.cannotPlayThisVideo, Toast.LENGTH_LONG);
+                } else {
+                    UiUtils.showUserCancelableSnackbar(preactivity.getWindow().getDecorView(),
+                            R.string.cannotPlayThisVideo, Snackbar.LENGTH_LONG);
+                }
+                finish();
+            }
+        }else{
+            PermissionUtils.requestPermission(this, MyPermission.MY_PERMISSIONS_REQUEST_STORAGE);
+        }
+
     }
 
     @Override
@@ -1635,7 +1666,7 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
     /*@BindView(R.id.imageView2)
     ImageView img2;*/
     @BindView(R.id.imgLike)
-    CheckBox imgLike;
+    ImageView imgLike;
     @BindView(R.id.imgMenu2)
     ImageView imgMenu;
 

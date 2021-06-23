@@ -27,13 +27,11 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <CheckBox
+            <ImageView
                 android:id="@+id/imgLike"
                 android:layout_width="@dimen/post_icon_size"
                 android:layout_height="@dimen/post_icon_size"
-                app:buttonCompat="@drawable/ic_like_anim"
-                android:background="@null"
-                android:checked="false"
+                app:srcCompat="@drawable/ic_svg_19"
                 android:stateListAnimator="@anim/scale" />
             <!--<CheckBox
                 android:id="@+id/imgLike"

@@ -48,6 +48,7 @@ import com.topceo.R;
 import com.topceo.activity.MH11_LikeActivity;
 import com.topceo.adapter.FeedAdapter;
 import com.topceo.config.MyApplication;
+import com.topceo.mediaplayer.pip.DetailBinding;
 import com.topceo.objects.image.ImageComment;
 import com.topceo.objects.image.ImageItem;
 import com.topceo.objects.image.Info;
@@ -105,7 +106,7 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
     public @BindView(R.id.imageView1)
     ImageView img1;
     public @BindView(R.id.imgLike)
-    CheckBox imgLike;
+    ImageView imgLike;
     public @BindView(R.id.imgMenu2)
     ImageView imgMenu;
 
@@ -379,19 +380,16 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
             linearLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    imgLike.setChecked(!imgLike.isChecked());
-                }
-            });
-            imgLike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                    imgLike.setChecked(!imgLike.isChecked());
+                    boolean isChecked = !mDataset.get(position).isLiked();
+                    DetailBinding.setImageLikeState(imgLike, isChecked);
+
                     //update local
                     item.setLiked(isChecked);
-//                    item.setLiked(item.isLiked());
-
                     if (position < mDataset.size()) {
                         mDataset.get(position).setLiked(item.isLiked());
                     }
+
 
                     //set lai giao dien: nut like va so luong like----------------------
                     int like = item.getLikeCount();
@@ -418,6 +416,7 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
 //                MyUtils.updateImageItem(context, item);
                 }
             });
+
             ////
             linearComment.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -550,8 +549,7 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
 
 
         //control image button Thich
-        imgLike.setOnCheckedChangeListener(null);
-        imgLike.setChecked(item.isLiked());
+        DetailBinding.setImageLikeState(imgLike, item.isLiked());
 
         if (item.isSaved()) {
             imgSave.setImageResource(R.drawable.ic_svg_23);

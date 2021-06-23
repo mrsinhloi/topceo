@@ -8,9 +8,9 @@
 
     <FrameLayout
         android:id="@+id/frameLayout"
-        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:orientation="vertical">
 
         <!--<com.topceo.mediaplayer.video.customJzvd.MyJzvdStd
@@ -21,7 +21,7 @@
         <com.liuzhenlin.texturevideoview.TextureVideoView
             android:id="@+id/videoPlayer"
             android:layout_width="match_parent"
-            android:layout_height="200dp"/>
+            android:layout_height="200dp" />
 
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/youtubePlayer"
@@ -29,8 +29,8 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:visibility="visible"
-            tools:visibility="gone"
-            />
+            tools:visibility="gone" />
+
         <ImageView
             android:id="@+id/imgBack"
             android:layout_width="wrap_content"
@@ -39,12 +39,13 @@
             android:src="@drawable/ic_arrow_back_white_24dp"
             app:tint="@color/grey_200" />
     </FrameLayout>
+
     <androidx.core.widget.NestedScrollView
-        android:layout_below="@id/frameLayout"
-        android:layout_above="@+id/linearInputComment"
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/linearInputComment"
+        android:layout_below="@id/frameLayout"
         android:focusableInTouchMode="true"
         android:overScrollMode="never"
         android:scrollbars="none">
@@ -55,21 +56,20 @@
             android:orientation="vertical">
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:background="@color/white"
+                android:orientation="vertical"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp">
 
                 <TextView
                     android:id="@+id/txt1"
-                    android:layout_marginStart="@dimen/margin_16dp"
-                    android:layout_marginEnd="@dimen/margin_16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:maxLines="2"
@@ -80,20 +80,20 @@
 
                 <TextView
                     android:id="@+id/txt2"
-                    android:layout_marginStart="@dimen/margin_16dp"
-                    android:layout_marginEnd="@dimen/margin_16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
                     android:maxLines="1"
-                    tools:text="Sơn Tùng M-TP"
                     android:textColor="@color/grey_500"
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    tools:text="Sơn Tùng M-TP" />
 
                 <LinearLayout
-                    android:layout_marginStart="@dimen/margin_5dp"
-                    android:layout_marginEnd="@dimen/margin_16dp"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:layout_marginStart="@dimen/margin_5dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -106,21 +106,20 @@
                         app:btn_color="@color/grey_400"
                         app:btn_fill_color="@color/red_500"
                         app:siShape="@raw/star" />-->
-                    <CheckBox
+                    <ImageView
                         android:id="@+id/btnLike"
                         android:layout_width="23dp"
                         android:layout_height="23dp"
                         android:layout_marginStart="@dimen/margin_10dp"
-                        android:button="@null"
-                        android:checked="false"
                         android:stateListAnimator="@anim/scale"
-                        android:background="@drawable/ic_like_anim" />
+                        app:srcCompat="@drawable/ic_svg_19" />
+
                     <TextView
                         android:id="@+id/txtLikeCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
                         android:layout_gravity="center_vertical"
+                        android:text="0"
                         android:textColor="@color/grey_500"
                         android:textSize="12sp" />
 
@@ -128,19 +127,21 @@
                         android:id="@+id/imgComment"
                         android:layout_width="23dp"
                         android:layout_height="23dp"
-                        android:padding="4dp"
                         android:layout_marginLeft="@dimen/margin_10dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="4dp"
                         android:src="@drawable/ic_comment"
                         app:tint="@color/sky_end" />
+
                     <TextView
                         android:id="@+id/txtCommentCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
                         android:layout_gravity="center_vertical"
+                        android:text="0"
                         android:textColor="@color/grey_500"
                         android:textSize="12sp" />
+
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1dp"
@@ -159,15 +160,15 @@
 
             <TextView
                 android:id="@+id/txtItems"
-                android:layout_marginTop="@dimen/dimen_10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
                 android:paddingStart="@dimen/margin_15dp"
-                tools:text="@string/list_x_items"
+                android:textColor="@color/grey_500"
                 android:textSize="@dimen/subtitle_size"
                 android:textStyle="bold"
-                android:textColor="@color/grey_500"
-                 />
+                tools:text="@string/list_x_items" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView1"
                 android:layout_width="match_parent"
@@ -179,25 +180,29 @@
                 android:layout_height="wrap_content"
                 android:background="@color/grey_200"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:padding="@dimen/margin_16dp"
                     android:text="@string/comments"
-                    android:textSize="@dimen/title_size"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    android:textSize="@dimen/title_size" />
+
                 <ImageView
-                    android:visibility="gone"
                     android:id="@+id/imgExpand"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:padding="@dimen/margin_10dp"
-                    android:src="@drawable/ic_keyboard_arrow_down_grey_500_24dp"/>
+                    android:src="@drawable/ic_keyboard_arrow_down_grey_500_24dp"
+                    android:visibility="gone" />
             </LinearLayout>
 
-            <include layout="@layout/item_reply"
-                android:visibility="gone"/>
+            <include
+                layout="@layout/item_reply"
+                android:visibility="gone" />
+
             <include layout="@layout/separator_horizoltal" />
 
 
@@ -208,6 +213,6 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <include layout="@layout/layout_input_comment"/>
+    <include layout="@layout/layout_input_comment" />
 
 </RelativeLayout>

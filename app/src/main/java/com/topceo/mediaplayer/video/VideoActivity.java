@@ -47,7 +47,7 @@ public class VideoActivity extends AppCompatActivity {
     @BindView(R.id.imgBack)
     ImageView imgBack;
     @BindView(R.id.btnLike)
-    CheckBox btnLike;
+    ImageView btnLike;
     @BindView(R.id.imgComment)
     ImageView imgComment;
     @BindView(R.id.txtLikeCount)

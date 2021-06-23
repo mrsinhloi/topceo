@@ -1417,7 +1417,7 @@ public class VideoActivityPipList extends SwipeBackActivity implements IVideoVie
     private Media media;
 
     @BindView(R.id.btnLike)
-    CheckBox btnLike;
+    ImageView btnLike;
     @BindView(R.id.imgComment)
     ImageView imgComment;
     @BindView(R.id.txtLikeCount)

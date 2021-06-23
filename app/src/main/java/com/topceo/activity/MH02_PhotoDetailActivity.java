@@ -202,7 +202,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity{
     @BindView(R.id.imageView2)
     ImageView img2;
     @BindView(R.id.imgLike)
-    CheckBox imgLike;
+    ImageView imgLike;
     @BindView(R.id.imgMenu2)
     ImageView imgMenu;
 

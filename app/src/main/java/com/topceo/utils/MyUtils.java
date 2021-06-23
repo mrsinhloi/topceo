@@ -67,6 +67,7 @@ import com.desmond.squarecamera.myproject.APIConstants;
 import com.desmond.squarecamera.myproject.ImageUtils;
 import com.topceo.BuildConfig;
 import com.topceo.R;
+import com.topceo.activity.MH01_MainActivity;
 import com.topceo.activity.MH02_PhotoDetailActivity;
 import com.topceo.activity.MH04_FeedEditActivity;
 import com.topceo.config.MyApplication;
@@ -3439,12 +3440,16 @@ public class MyUtils {
             MyApplication.imgItem = item;
 
             if (item.isVideo()) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        VideoListItemOpsKt.playVideoImageItem(context, item.getImageLarge());
-                    }
-                }, 500);
+                if(PermissionUtils.checkPermission()) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            VideoListItemOpsKt.playVideoImageItem(context, item.getImageLarge());
+                        }
+                    }, 500);
+                }else{
+                    context.sendBroadcast(new Intent(MH01_MainActivity.ACTION_CHECK_PERMISSION));
+                }
             } else {
                 Intent intent = new Intent(context, MH02_PhotoDetailActivity.class);
                 context.startActivity(intent);

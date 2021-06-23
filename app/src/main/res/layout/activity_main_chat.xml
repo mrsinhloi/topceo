@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/backImg"
             android:layout_marginStart="@dimen/dimen_5dp"
-            android:src="@drawable/ic_svg_16_36dp"
+            app:srcCompat="@drawable/ic_svg_16_36dp"
             style="@style/ic_back_style" />
 
 

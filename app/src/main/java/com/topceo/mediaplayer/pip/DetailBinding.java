@@ -96,14 +96,14 @@ public class DetailBinding {
     private boolean isMyPost = false;
 
     TextView txt3;
-    CheckBox imgLike;
+    ImageView imgLike;
     ImageView imgSave;
     SocialAutoCompleteTextView txtInput;
     RecyclerView rv;
     LinearLayout linearReply;
     NestedScrollView scrollView;
 
-    public DetailBinding(Activity context, User user, ImageItem item, Realm realm, boolean isMyPost, TextView txt3, CheckBox imgLike, ImageView imgSave, SocialAutoCompleteTextView txtInput, RecyclerView rv, LinearLayout linearReply, NestedScrollView scrollView) {
+    public DetailBinding(Activity context, User user, ImageItem item, Realm realm, boolean isMyPost, TextView txt3, ImageView imgLike, ImageView imgSave, SocialAutoCompleteTextView txtInput, RecyclerView rv, LinearLayout linearReply, NestedScrollView scrollView) {
         this.context = context;
         this.user = user;
         this.item = item;
@@ -178,7 +178,7 @@ public class DetailBinding {
             txt3.setText("");
         }
 
-        imgLike.setChecked(item.isLiked());
+        setImageLikeState(imgLike, item.isLiked());
         if (item.isSaved()) {
             imgSave.setImageResource(R.drawable.ic_svg_23);
         } else {
@@ -192,7 +192,7 @@ public class DetailBinding {
                            TextView txt6,
                            ImageView imgMenu,
                            LinearLayout linearLike,
-                           CheckBox imgLike,
+                           ImageView imgLike,
                            LinearLayout linearSave,
                            ImageView img2,
                            LinearLayout linearComment,
@@ -226,10 +226,11 @@ public class DetailBinding {
             }
         });
 
-        imgLike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        item.setLiked(item.isLiked());
+        imgLike.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                item.setLiked(isChecked);
+            public void onClick(View v) {
+                item.setLiked(!item.isLiked());
                 whenLike();
             }
         });
@@ -835,7 +836,7 @@ public class DetailBinding {
                                 rv.scrollToPosition(position);
                                 MyUtils.showToast(context, "Scroll to postion = " + position);
                             } else {//image
-                                float y =  rv.getChildAt(position).getY();
+                                float y = rv.getChildAt(position).getY();
                                 scrollView.smoothScrollTo(0, (int) y);
                                 MyUtils.showToast(context, "Scroll to postion = " + position);
                             }
@@ -1198,7 +1199,15 @@ public class DetailBinding {
     //HASHTAG MENTION//////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-
+    public static void setImageLikeState(ImageView imgLike, boolean isChecked) {
+        if (imgLike != null) {
+            if(isChecked){
+                imgLike.setImageResource(R.drawable.ic_svg_20);
+            }else{
+                imgLike.setImageResource(R.drawable.ic_svg_19);
+            }
+        }
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

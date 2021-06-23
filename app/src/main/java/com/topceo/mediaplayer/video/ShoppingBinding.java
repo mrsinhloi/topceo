@@ -27,6 +27,7 @@ import com.google.gson.reflect.TypeToken;
 import com.topceo.R;
 import com.topceo.comments.CommentAdapterSectionParent_MediaComment;
 import com.topceo.config.MyApplication;
+import com.topceo.mediaplayer.pip.DetailBinding;
 import com.topceo.objects.other.User;
 import com.topceo.services.ReturnResult;
 import com.topceo.services.Webservices;
@@ -505,16 +506,19 @@ public class ShoppingBinding {
 
     Video_Adapter adapterVideo;
     CommentAdapterSectionParent_MediaComment adapterComment;
-    public void initUI(CheckBox btnLike) {
+    public void initUI(ImageView btnLike) {
 
         if (media != null) {
-            btnLike.setChecked(media.isLiked());
+            DetailBinding.setImageLikeState(btnLike, media.isLiked());
+//            btnLike.setChecked(media.isLiked());
         }
-        btnLike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            public void onClick(View v) {
                 if (media != null) {
-                    setLikeMedia(media.getMediaId(), b);
+                    media.setLiked(!media.isLiked());
+                    setLikeMedia(media.getMediaId(), media.isLiked());
+                    DetailBinding.setImageLikeState(btnLike, media.isLiked());
                 }
             }
         });
