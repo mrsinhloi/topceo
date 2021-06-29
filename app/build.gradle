@@ -383,7 +383,6 @@ dependencies {
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 
-    implementation "com.folioreader:folioreader:0.5.4"
     implementation 'com.airbnb.android:lottie:3.7.0'
     // Material Dialog Library
     implementation 'dev.shreyaspatil.MaterialDialog:MaterialDialog:2.2.2'
@@ -433,6 +432,8 @@ dependencies {
 //    implementation 'com.github.mrsinhloi:VideoCompression:1.0.3'
 
     implementation project(':toolarge')
+    implementation project (':folioreader')
+//    implementation "com.folioreader:folioreader:0.5.4"
 }
 androidExtensions {
     experimental = true
