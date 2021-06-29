@@ -231,9 +231,6 @@ public class MH01_MainActivity extends AppCompatActivity {
         }
 
 
-//        ProgressUtils.show(this);
-
-
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -1349,12 +1346,12 @@ public class MH01_MainActivity extends AppCompatActivity {
         startMediaPlayer();
 
         //load san danh sach gallery
-        new Handler().postDelayed(new Runnable() {
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 saveGallery();
             }
-        }, 2000);
+        }, 2000);*/
 
     }
 
@@ -1375,8 +1372,10 @@ public class MH01_MainActivity extends AppCompatActivity {
     /////////////////////////////////////////////////
     //DOC SAN GALLERY
     private void saveGallery() {
-        if (PermissionUtils.isAllowReadSdCard()) {
-            getGalleryPhotoAndVideo();
+        if(!isFinishing()){
+            if (PermissionUtils.isAllowReadSdCard()) {
+                getGalleryPhotoAndVideo();
+            }
         }
     }
 

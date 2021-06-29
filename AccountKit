@@ -20,8 +20,6 @@ RELEASE KEY
 keytool -list -v -keystore /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/ehubstar.jks -alias ehubstar -storepass ehubstar@2019 -keypass ehubstar@2019
 SHA1:   74:C4:C0:8B:31:CB:8A:91:F4:60:B2:25:9A:7E:08:10:1B:B6:7C:73
 SHA256: BF:F3:85:39:24:A0:BE:06:E6:60:55:F9:52:01:73:45:DD:8B:A6:55:14:4D:5E:5A:5B:60:06:81:C3:B1:8C:25
-SHA1:   74:C4:C0:8B:31:CB:8A:91:F4:60:B2:25:9A:7E:08:10:1B:B6:7C:73
-SHA256: BF:F3:85:39:24:A0:BE:06:E6:60:55:F9:52:01:73:45:DD:8B:A6:55:14:4D:5E:5A:5B:60:06:81:C3:B1:8C:25
 
 App Bundle TopCeo:
 SHA1:   90:5E:C5:63:5D:AD:76:28:30:A1:CE:E8:57:DC:CC:9F:59:D0:4F:50

@@ -13,7 +13,7 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <ImageView
             android:id="@+id/imgBack"
-            android:src="@drawable/ic_svg_16_36dp"
+            app:srcCompat="@drawable/ic_svg_16_36dp"
             style="@style/ic_back_style" />
         <TextView
             android:layout_width="match_parent"

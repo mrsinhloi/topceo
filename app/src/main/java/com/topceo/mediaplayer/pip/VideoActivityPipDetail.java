@@ -19,9 +19,11 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Icon;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.transition.ChangeBounds;
 import android.transition.TransitionManager;
@@ -319,6 +321,7 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
     }
 
     Bundle savedInstanceState;
+
     @SuppressLint("Range")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -344,8 +347,8 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
         }
     }
 
-    private void initCreate(){
-        if(PermissionUtils.checkPermission()){
+    private void initCreate() {
+        if (PermissionUtils.checkPermission()) {
             mPresenter.attachToView(this);
             if (mPresenter.initPlaylist(savedInstanceState, getIntent())) {
                 setRequestedOrientation(mScreenOrientation);
@@ -362,7 +365,7 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
                 }
                 finish();
             }
-        }else{
+        } else {
             PermissionUtils.requestPermission(this, MyPermission.MY_PERMISSIONS_REQUEST_STORAGE);
         }
 
@@ -854,11 +857,12 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
 
     private void setAutoRotationEnabled(boolean enabled) {
         if (enabled) {
-            mRotationObserver.startObserver();
-            mOnOrientationChangeListener.setEnabled(true);
+            if (mRotationObserver != null) mRotationObserver.startObserver();
+            if (mOnOrientationChangeListener != null) mOnOrientationChangeListener.setEnabled(true);
         } else {
-            mOnOrientationChangeListener.setEnabled(false);
-            mRotationObserver.stopObserver();
+            if (mOnOrientationChangeListener != null)
+                mOnOrientationChangeListener.setEnabled(false);
+            if (mRotationObserver != null) mRotationObserver.stopObserver();
         }
     }
 
@@ -1806,5 +1810,12 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
         }
     }
 
-
+    /*@Override
+    protected void onResume() {
+        super.onResume();
+        if (!Settings.canDrawOverlays(this)) {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+            startActivityForResult(intent, 1234);
+        }
+    }*/
 }

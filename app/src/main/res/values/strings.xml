@@ -749,4 +749,10 @@
     <string name="nickname">Nickname</string>
     <string name="nick_name">Nickname</string>
     <string name="asign">\@</string>
+    <string name="usernameChars" translatable="false">0123456789abcdefghijklmnopqrstuvwxyz_.</string>
+    <string name="company">Company</string>
+    <string name="company_address">Company address</string>
+
+    <string name="at">at</string>
+    <string name="username_hint">username</string>
 </resources>

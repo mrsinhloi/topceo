@@ -75,7 +75,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
 
-public class MH02_PhotoDetailActivity extends AppCompatActivity{
+public class MH02_PhotoDetailActivity extends AppCompatActivity {
     private Activity context = this;
     private int avatarSize = 0;
     private int widthImage = 0, heightImage = 0;
@@ -111,7 +111,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity{
             heightImage = item.getNeedHeightImage(widthImage);
             img2.setLayoutParams(new FrameLayout.LayoutParams(widthImage, heightImage));
 
-            if (user!=null && item.getOwner()!=null && user.getUserId() == item.getOwner().getUserId()) {
+            if (user != null && item.getOwner() != null && user.getUserId() == item.getOwner().getUserId()) {
                 btnFollow.setVisibility(View.GONE);
             } else {
                 btnFollow.setVisibility(View.VISIBLE);
@@ -129,7 +129,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity{
                     rv,
                     linearReply,
                     scrollView
-                    );
+            );
 
             setTitleBar();
             setUI();
@@ -494,7 +494,6 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity{
     /////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -503,8 +502,13 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity{
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(ImageComment.IMAGE_COMMENT_ARRAY_LIST, binding.getmAdapter().getAllItem());
-        outState.putParcelable(ImageItem.IMAGE_ITEM, item);
+        if (binding != null && binding.getmAdapter() != null && binding.getmAdapter().getAllItem() != null && binding.getmAdapter().getAllItem().size() > 0) {
+            outState.putParcelableArrayList(ImageComment.IMAGE_COMMENT_ARRAY_LIST, binding.getmAdapter().getAllItem());
+        }
+
+        if (item != null) {
+            outState.putParcelable(ImageItem.IMAGE_ITEM, item);
+        }
     }
 
     @Override
@@ -518,7 +522,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity{
             MyUtils.initCookie(context);
             item = savedInstanceState.getParcelable(ImageItem.IMAGE_ITEM);
             ArrayList<ImageComment> list = savedInstanceState.getParcelableArrayList(ImageComment.IMAGE_COMMENT_ARRAY_LIST);
-            if (list != null && list.size() > 0 && binding.getmAdapter()!=null) {
+            if (list != null && list.size() > 0 && binding.getmAdapter() != null) {
                 binding.getmAdapter().clear();
                 binding.getmAdapter().addListItems(list);
 //                list_empty.setVisibility(View.GONE);
@@ -563,9 +567,6 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity{
     private void initReplyLayout(ImageComment comment) {
         binding.initReplyLayout(comment, linearReply, imgReplyClose, txtReply1, txtReply2);
     }
-
-
-
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -771,6 +772,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity{
         }
 
     }
+
     private void initAdapter() {
         if (binding != null) {
             rv.setFocusable(false);

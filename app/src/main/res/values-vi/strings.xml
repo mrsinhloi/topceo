@@ -402,7 +402,7 @@
     <string name="txt_doi_mat_khau">Đổi mật khẩu</string>
     <string name="password">Mật khẩu</string>
     <string name="use_phone_number_login_to_system">Dùng số điện thoại của bạn để đăng nhập vào hệ thống</string>
-    <string name="verify_your_number_before_login_into_system">Số điện thoại cần được xác minh trước khi truy cập\n vào hệ thống</string>
+    <string name="verify_your_number_before_login_into_system">Số điện thoại cần được xác minh trước khi\ntruy cập vào hệ thống</string>
     <string name="start">Bắt đầu</string>
     <string name="your_profile">Hồ sơ của bạn</string>
     <string name="next">Tiếp</string>
@@ -671,4 +671,8 @@
     <string name="nickname">Nickname</string>
     <string name="nick_name">Nickname</string>
     <string name="asign">\@</string>
+    <string name="company">Công ty</string>
+    <string name="company_address">Địa chỉ công ty</string>
+    <string name="at">tại</string>
+    <string name="username_hint">username</string>
 </resources>

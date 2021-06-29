@@ -23,7 +23,7 @@
             android:id="@+id/imageView1"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/ic_width"
-            android:src="@drawable/ic_svg_16_36dp"
+            app:srcCompat="@drawable/ic_svg_16_36dp"
             style="@style/ic_back_style" />
 
         <TextView

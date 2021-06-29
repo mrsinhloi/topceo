@@ -910,7 +910,7 @@ public class Webservices {
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
-    public static String UPDATE_USER_PROFILE(String fullName, String userName, String email, String phone, int gender, String social, String bios) {
+    public static String UPDATE_USER_PROFILE(String fullName, String userName, String email, String phone, int gender, String social, String bios, String job, String company, String address) {
         //cai nao ko co thi ko truyen
         String value = "";
         if (!TextUtils.isEmpty(userName)) {
@@ -926,6 +926,12 @@ public class Webservices {
         }
 
         value += ",Gender:" + gender;
+        value += ",Job:\"" + job + "\"";
+        value += ",Company:\"" + company + "\"";
+        value += ",Address:\"" + address + "\"";
+
+
+
 
         value += "," + social;
 
@@ -938,10 +944,10 @@ public class Webservices {
         return "mutation{UpdateUserProfile(FullName:\"" + fullName + "\"" + value + "){UserId}}";
     }
 
-    public static Task<Object> updateUserProfile(String fullName, String userName, String email, String phone, int gender, String social, String bios) {
+    public static Task<Object> updateUserProfile(String fullName, String userName, String email, String phone, int gender, String social, String bios, String job, String company, String address) {
         final TaskCompletionSource<Object> successful = new TaskCompletionSource<>();
 
-        String queryString = Webservices.UPDATE_USER_PROFILE(fullName, userName, email, phone, gender, social, bios);
+        String queryString = Webservices.UPDATE_USER_PROFILE(fullName, userName, email, phone, gender, social, bios, job, company, address);
         AndroidNetworking.post(Webservices.URL_GRAPHQL)
                 .addQueryParameter("query", queryString)
                 .setOkHttpClient(MyApplication.getClient())
@@ -1056,7 +1062,7 @@ public class Webservices {
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////////
-    private static final String userItem = "{ UserId, ChatUserId, Email, FullName, UserName, IsVip, AvatarSmall, AvatarMedium, AvatarOriginal, ImageCount, FollowingCount, FollowerCount, VipLevelId, VipLevel, GroupCount, Favorite}";
+    private static final String userItem = "{ UserId, ChatUserId, Email, FullName, UserName, Job, Company, Address, IsVip, AvatarSmall, AvatarMedium, AvatarOriginal, ImageCount, FollowingCount, FollowerCount, VipLevelId, VipLevel, GroupCount, Favorite}";
     private static final String userItemInfoFollow = "{UserId, FollowingCount, FollowerCount, GroupCount, ImageCount}";
 
     public static String GET_USER(String userName) {
@@ -2431,8 +2437,7 @@ public class Webservices {
 
 
     public static String GET_USER_SOCIAL(long UserId) {
-        return "{User(Id:" + UserId + "){UserId, UserName,FullName, SocialInfo{NameCode, Link}}}";
-
+        return "{User(Id:" + UserId + "){UserId, UserName, FullName, Job, Company,Address, SocialInfo{NameCode, Link}}}";
     }
 
 

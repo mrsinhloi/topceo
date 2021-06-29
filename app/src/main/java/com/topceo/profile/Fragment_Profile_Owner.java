@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -170,6 +171,13 @@ public class Fragment_Profile_Owner extends Fragment {
         return view;
     }
 
+    @BindView(R.id.linearAddress)
+    LinearLayout linearAddress;
+    @BindView(R.id.txtAddress)
+    TextView txtAddress;
+    @BindView(R.id.txtJob)
+    TextView txtJob;
+
 
     private void setVip(User user) {
         /*if (user.isVip() || user.getUserId() == User.ADMIN_ROLE_ID) {
@@ -204,11 +212,30 @@ public class Fragment_Profile_Owner extends Fragment {
             }
 
             String name = user.getFullName();
+            name = "<b>" + name + "</b>";
             if (!TextUtils.isEmpty(user.getUserName())) {
                 name += " (" + user.getUserName() + ")";
             }
             MyUtils.setText(name, txtFullName);
             MyUtils.setText(user.getFavorite(), txtDescription);
+
+            String job = user.getJob();
+            String company = user.getCompany();
+            if (!TextUtils.isEmpty(job) && !TextUtils.isEmpty(company)) {
+                txtJob.setVisibility(View.VISIBLE);
+
+                String source = job + " <font color=\'grey\'>" + getString(R.string.at) + "</font> <b>" + company + "</b>";
+                txtJob.setText(MyUtils.fromHtml(source));
+            } else {
+                txtJob.setVisibility(View.GONE);
+            }
+
+            if (!TextUtils.isEmpty(user.getAddress())) {
+                linearAddress.setVisibility(View.VISIBLE);
+                txtAddress.setText(user.getAddress());
+            } else {
+                linearAddress.setVisibility(View.GONE);
+            }
 
             //set social
             getSocialInfo(user.getUserId());
@@ -1002,7 +1029,7 @@ public class Fragment_Profile_Owner extends Fragment {
                                     }
 
                                     if (list.size() > 0) {
-                                        if(getActivity()!=null && !getActivity().isFinishing()){
+                                        if (getActivity() != null && !getActivity().isFinishing()) {
                                             ProfileUtils.setSocialText(getContext(), getLayoutInflater(), linearSocials, list);
                                         }
                                     }

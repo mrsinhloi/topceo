@@ -24,6 +24,62 @@ public class UserMedium extends UserShort implements Parcelable {
     private String VipLevel;
     private String ChatUserId;
 
+    private String Job;
+    private String Company;
+    private String Address;
+
+
+    protected UserMedium(Parcel in) {
+        super(in);
+        Email = in.readString();
+        AvatarMedium = in.readString();
+        AvatarOriginal = in.readString();
+        ImageCount = in.readInt();
+        FollowingCount = in.readInt();
+        FollowerCount = in.readInt();
+        VipLevelId = in.readInt();
+        VipLevel = in.readString();
+        ChatUserId = in.readString();
+        Job = in.readString();
+        Company = in.readString();
+        Address = in.readString();
+        Favorite = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(Email);
+        dest.writeString(AvatarMedium);
+        dest.writeString(AvatarOriginal);
+        dest.writeInt(ImageCount);
+        dest.writeInt(FollowingCount);
+        dest.writeInt(FollowerCount);
+        dest.writeInt(VipLevelId);
+        dest.writeString(VipLevel);
+        dest.writeString(ChatUserId);
+        dest.writeString(Job);
+        dest.writeString(Company);
+        dest.writeString(Address);
+        dest.writeString(Favorite);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<UserMedium> CREATOR = new Creator<UserMedium>() {
+        @Override
+        public UserMedium createFromParcel(Parcel in) {
+            return new UserMedium(in);
+        }
+
+        @Override
+        public UserMedium[] newArray(int size) {
+            return new UserMedium[size];
+        }
+    };
 
     public String getFavorite() {
         return Favorite;
@@ -55,6 +111,10 @@ public class UserMedium extends UserShort implements Parcelable {
         user.setGroupCount(getGroupCount());
         user.setChatUserId(getChatUserId());
         user.setFavorite(getFavorite());
+
+        user.setJob(getJob());
+        user.setCompany(getCompany());
+        user.setAddress(getAddress());
 
         return user;
     }
@@ -124,54 +184,10 @@ public class UserMedium extends UserShort implements Parcelable {
         VipLevel = vipLevel;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeString(this.Email);
-        dest.writeString(this.AvatarMedium);
-        dest.writeString(this.AvatarOriginal);
-        dest.writeInt(this.ImageCount);
-        dest.writeInt(this.FollowingCount);
-        dest.writeInt(this.FollowerCount);
-        dest.writeInt(this.VipLevelId);
-        dest.writeString(this.VipLevel);
-        dest.writeString(this.ChatUserId);
-        dest.writeString(this.Favorite);
-    }
 
     public UserMedium() {
     }
 
-    protected UserMedium(Parcel in) {
-        super(in);
-        this.Email = in.readString();
-        this.AvatarMedium = in.readString();
-        this.AvatarOriginal = in.readString();
-        this.ImageCount = in.readInt();
-        this.FollowingCount = in.readInt();
-        this.FollowerCount = in.readInt();
-        this.VipLevelId = in.readInt();
-        this.VipLevel = in.readString();
-        this.ChatUserId = in.readString();
-        this.Favorite = in.readString();
-    }
-
-    public static final Creator<UserMedium> CREATOR = new Creator<UserMedium>() {
-        @Override
-        public UserMedium createFromParcel(Parcel source) {
-            return new UserMedium(source);
-        }
-
-        @Override
-        public UserMedium[] newArray(int size) {
-            return new UserMedium[size];
-        }
-    };
 
     public String getChatUserId() {
         return ChatUserId;
@@ -182,4 +198,27 @@ public class UserMedium extends UserShort implements Parcelable {
     }
 
 
+    public String getJob() {
+        return Job;
+    }
+
+    public void setJob(String job) {
+        Job = job;
+    }
+
+    public String getCompany() {
+        return Company;
+    }
+
+    public void setCompany(String company) {
+        Company = company;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
 }

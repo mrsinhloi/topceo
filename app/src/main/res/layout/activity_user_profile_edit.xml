@@ -97,10 +97,8 @@
                     <EditText
                         android:id="@+id/editText2"
                         style="@style/text_style_input_right"
-                        android:digits="abcdefghijklmnopqrstuvwxyz0123456789_."
                         android:hint="@string/user_name"
-                        android:imeOptions="actionNext"
-                        android:singleLine="true"
+                        android:inputType="textEmailAddress"
                         android:maxLength="100"/>
 
                 </LinearLayout>
@@ -214,6 +212,60 @@
                         />
 
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:text="@string/job"
+                        style="@style/textview_style_title_1" />
+
+                    <EditText
+                        android:id="@+id/editText12"
+                        android:hint="@string/job"
+                        android:inputType="textCapSentences"
+                        style="@style/text_style_input_right" />
+
+                </LinearLayout>
+
+                <include layout="@layout/separate_horizontal" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:text="@string/company"
+                        style="@style/textview_style_title_1" />
+
+                    <EditText
+                        android:id="@+id/editText13"
+                        android:hint="@string/company"
+                        android:inputType="textCapSentences"
+                        style="@style/text_style_input_right" />
+
+                </LinearLayout>
+
+                <include layout="@layout/separate_horizontal" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:text="@string/company_address"
+                        style="@style/textview_style_title_1" />
+
+                    <EditText
+                        android:id="@+id/editText14"
+                        android:hint="@string/company_address"
+                        android:inputType="textCapSentences"
+                        style="@style/text_style_input_right" />
+
+                </LinearLayout>
+
+                <include layout="@layout/separate_horizontal" />
                 <TextView
                     android:text="@string/bios"
                     style="@style/textview_style_title_1"
@@ -300,7 +352,7 @@
 
                     <EditText
                         android:id="@+id/editText6"
-                        android:hint="@string/atsign_username"
+                        android:hint="@string/username_hint"
                         android:maxLength="100"
                         android:maxLines="1"
                         android:inputType="textEmailAddress"
@@ -321,7 +373,7 @@
 
                     <EditText
                         android:id="@+id/editText7"
-                        android:hint="@string/atsign_username"
+                        android:hint="@string/username_hint"
                         android:maxLength="100"
                         android:maxLines="1"
                         android:inputType="textEmailAddress"

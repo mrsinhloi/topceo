@@ -58,7 +58,8 @@
               "client_id": "634367870032-g58bn7ekcdvu7iitk76ua0bm7tdmu035.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.ehubly.topceo"
+                "bundle_id": "com.ehubly.topceo",
+                "app_store_id": "1550606839"
               }
             }
           ]

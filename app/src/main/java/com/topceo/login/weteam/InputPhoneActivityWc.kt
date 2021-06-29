@@ -5,13 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import com.topceo.R
-import com.topceo.accountkit.PhoneUtils
-import com.topceo.db.TinyDB
-import com.topceo.objects.other.User
-import com.topceo.utils.MyUtils
 import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
@@ -19,14 +13,17 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.gson.JsonObject
 import com.sonhvp.utilities.listeners.textWatcher
+import com.topceo.R
+import com.topceo.accountkit.PhoneUtils
 import com.topceo.config.MyApplication
-import com.topceo.login.weteam.BaseActivity
+import com.topceo.db.TinyDB
+import com.topceo.objects.other.User
 import com.topceo.services.ReturnResult
 import com.topceo.services.Webservices
+import com.topceo.utils.MyUtils
 import com.topceo.utils.ProgressUtils
 import kotlinx.android.synthetic.main.wc_mh01_input_phone_number.*
 import kotlinx.android.synthetic.main.wc_mh01_input_phone_number.view.*
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,10 +31,20 @@ import retrofit2.Response
 
 class InputPhoneActivityWc : Activity() {
 
+    fun checkPlayService() {
+        val googleApiAvailability = GoogleApiAvailability.getInstance()
+        val status = googleApiAvailability.isGooglePlayServicesAvailable(this)
+        if (status != ConnectionResult.SUCCESS) {
+            //Status that you are interested is SERVICE_VERSION_UPDATE_REQUIRED
+            val dialog = googleApiAvailability.getErrorDialog(this, status, 1)
+            dialog.show()
+        }else{
+            init()
+        }
+    }
 
-//    override val fragContainer: Int = 0
+    //    override val fragContainer: Int = 0
     lateinit var db: TinyDB
-
     private var phoneTemp = ""
     var isValidateInLocal: Boolean = false
     var isForgetPassword = false
@@ -46,6 +53,7 @@ class InputPhoneActivityWc : Activity() {
         super.onCreate(savedInstanceState)
         db = TinyDB(this)
         init()
+//        checkPlayService()
     }
 
     private fun init() {
@@ -67,7 +75,7 @@ class InputPhoneActivityWc : Activity() {
 
     }
 
-    fun initUI(){
+    fun initUI() {
         setContentView(R.layout.wc_mh01_input_phone_number)
         linearInputPhone.visibility = View.VISIBLE
         window.decorView.rootView.apply {
@@ -301,7 +309,7 @@ class InputPhoneActivityWc : Activity() {
                     /*if (response.error?.errorCode == ErrorCodes.NO_NETWORK) launch {
                         messageDialog { R.string.nointernet }
                     }*/
-                    if(!MyUtils.checkInternetConnection(this)){
+                    if (!MyUtils.checkInternetConnection(this)) {
                         messageDialog { R.string.nointernet }
                     }
                 }

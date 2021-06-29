@@ -17,9 +17,11 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.Icon;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.transition.ChangeBounds;
 import android.transition.TransitionManager;
 import android.util.Log;
@@ -1655,5 +1657,12 @@ public class VideoActivityPipList extends SwipeBackActivity implements IVideoVie
         });
     }
 
-
+    /*@Override
+    protected void onResume() {
+        super.onResume();
+        if (!Settings.canDrawOverlays(this)) {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+            startActivityForResult(intent, 1234);
+        }
+    }*/
 }

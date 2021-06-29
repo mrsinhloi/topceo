@@ -83,6 +83,7 @@ public class User implements Parcelable {
     private String ReleaseMessage;
 
     private String Job;
+    private String Company;
     private String Address;
     private String Favorite;
     private String Biography;
@@ -126,6 +127,7 @@ public class User implements Parcelable {
         ReleaseDate = in.readLong();
         ReleaseMessage = in.readString();
         Job = in.readString();
+        Company = in.readString();
         Address = in.readString();
         Favorite = in.readString();
         Biography = in.readString();
@@ -139,9 +141,9 @@ public class User implements Parcelable {
         CoreChatCustomToken = in.readString();
         JoinDate = in.readLong();
         isBanned = in.readByte() != 0;
-        ImageItems = in.createTypedArrayList(ImageItem.CREATOR);
-        Followings = in.createTypedArrayList(User.CREATOR);
-        Followers = in.createTypedArrayList(User.CREATOR);
+//        ImageItems = in.createTypedArrayList(ImageItem.CREATOR);
+//        Followings = in.createTypedArrayList(User.CREATOR);
+//        Followers = in.createTypedArrayList(User.CREATOR);
     }
 
     @Override
@@ -177,6 +179,7 @@ public class User implements Parcelable {
         dest.writeLong(ReleaseDate);
         dest.writeString(ReleaseMessage);
         dest.writeString(Job);
+        dest.writeString(Company);
         dest.writeString(Address);
         dest.writeString(Favorite);
         dest.writeString(Biography);
@@ -190,9 +193,9 @@ public class User implements Parcelable {
         dest.writeString(CoreChatCustomToken);
         dest.writeLong(JoinDate);
         dest.writeByte((byte) (isBanned ? 1 : 0));
-        dest.writeTypedList(ImageItems);
-        dest.writeTypedList(Followings);
-        dest.writeTypedList(Followers);
+//        dest.writeTypedList(ImageItems);
+//        dest.writeTypedList(Followings);
+//        dest.writeTypedList(Followers);
     }
 
     @Override
@@ -342,6 +345,7 @@ public class User implements Parcelable {
     }
 
     public String getJob() {
+        if (Job == null) Job = "";
         return Job;
     }
 
@@ -350,6 +354,7 @@ public class User implements Parcelable {
     }
 
     public String getAddress() {
+        if (Address == null) Address = "";
         return Address;
     }
 
@@ -617,6 +622,10 @@ public class User implements Parcelable {
         user.setChatUserId(getChatUserId());
         user.setFavorite(getFavorite());
 
+        user.setJob(getJob());
+        user.setCompany(getCompany());
+        user.setAddress(getAddress());
+
         return user;
     }
 
@@ -669,4 +678,12 @@ public class User implements Parcelable {
     }
 
 
+    public String getCompany() {
+        if (Company == null) Company = "";
+        return Company;
+    }
+
+    public void setCompany(String company) {
+        Company = company;
+    }
 }

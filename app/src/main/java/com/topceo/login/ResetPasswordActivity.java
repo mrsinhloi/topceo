@@ -67,6 +67,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         MyUtils.transparentStatusBar(getWindow());
 
         setSupportActionBar(toolbar);
+//        toolbar.setNavigationIcon(R.drawable.ic_svg_16);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

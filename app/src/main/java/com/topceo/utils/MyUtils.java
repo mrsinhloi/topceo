@@ -34,6 +34,8 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.provider.Settings.Secure;
 import android.text.Html;
+import android.text.InputFilter;
+import android.text.LoginFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.format.Formatter;
@@ -150,6 +152,22 @@ import io.realm.Realm;
 
 
 public class MyUtils {
+
+    public static void setEdittextFilter(EditText txt, String filterChars) {
+        if (txt != null) {
+            /*txt.setFilters(new InputFilter[]{new InputFilter() {
+                @Override
+                public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                    if (source != null && !filterChars.contains(("" + source))) {
+                        return "";
+                    }
+                    return source;
+                }
+            }});*/
+
+
+        }
+    }
 
     public static final int NUNMBER_THUMBNAIL = 10;
 
@@ -1965,18 +1983,22 @@ public class MyUtils {
     }
 
     public static Point decodeFile(String path) {
-        try {
-            //decode image size
-            BitmapFactory.Options o = new BitmapFactory.Options();
-            o.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream(new FileInputStream(path), null, o);
-            //Find the correct scale value. It should be the power of 2.
+        Point point = new Point(0, 0);
+        if (!TextUtils.isEmpty(path)) {
+            try {
+                //decode image size
+                BitmapFactory.Options o = new BitmapFactory.Options();
+                o.inJustDecodeBounds = true;
+                BitmapFactory.decodeStream(new FileInputStream(path), null, o);
+                //Find the correct scale value. It should be the power of 2.
 
-            int width_tmp = o.outWidth, height_tmp = o.outHeight;
-            return new Point(width_tmp, height_tmp);
-        } catch (FileNotFoundException e) {
+                int width_tmp = o.outWidth, height_tmp = o.outHeight;
+                point = new Point(width_tmp, height_tmp);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
-        return null;
+        return point;
     }
 
 
@@ -3128,15 +3150,25 @@ public class MyUtils {
         return matcher.matches();
     }
 
-    public static final String getUsername(String value) {
-        String username = "";
-        String regex = "^@((?=.*[a-zA-Z])\\w{3,25})$";
+    public static final boolean isUsernameOnly(String value) {
+        String regex = "^((?=.*[a-zA-Z])\\w{3,25})$";
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(value);
-        while (matcher.find()) {
-            if (matcher.groupCount() > 0) {
-                username = matcher.group(1);
-                break;
+        return matcher.matches();
+    }
+
+
+    public static final String getUsername(String value) {
+        String username = value;
+        if (username.contains("@")) {
+            String regex = "^@((?=.*[a-zA-Z])\\w{3,25})$";
+            final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+            final Matcher matcher = pattern.matcher(value);
+            while (matcher.find()) {
+                if (matcher.groupCount() > 0) {
+                    username = matcher.group(1);
+                    break;
+                }
             }
         }
         return username;
@@ -3440,14 +3472,14 @@ public class MyUtils {
             MyApplication.imgItem = item;
 
             if (item.isVideo()) {
-                if(PermissionUtils.checkPermission()) {
+                if (PermissionUtils.checkPermission()) {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             VideoListItemOpsKt.playVideoImageItem(context, item.getImageLarge());
                         }
                     }, 500);
-                }else{
+                } else {
                     context.sendBroadcast(new Intent(MH01_MainActivity.ACTION_CHECK_PERMISSION));
                 }
             } else {

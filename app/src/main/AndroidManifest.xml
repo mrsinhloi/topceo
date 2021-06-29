@@ -22,6 +22,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!--<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>-->
     <!--
 <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -53,7 +54,7 @@
         android:theme="@style/ThemeFullscreenDefault"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme,android:allowBackup"
-        tools:targetApi="q">
+        >
 
         <activity
             android:name=".chat.MainChatActivity"
@@ -339,7 +340,7 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".activity.MH07_MyCardActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="unspecified"
             android:theme="@style/ThemeDialog" />
         <activity
             android:name=".profile.MH21_NotifySettingActivity"

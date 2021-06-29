@@ -9,8 +9,6 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
-import com.workchat.corechat.BuildConfig
-
 
 open class App : Application(), LifecycleObserver {
 
@@ -58,7 +56,7 @@ open class App : Application(), LifecycleObserver {
                 .build()
         Logger.clearLogAdapters()
         Logger.addLogAdapter(object: AndroidLogAdapter(logFormat) {
-            override fun isLoggable(priority: Int, tag: String?): Boolean = BuildConfig.DEBUG
+            override fun isLoggable(priority: Int, tag: String?): Boolean = false
         })
     }
 

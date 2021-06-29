@@ -13,17 +13,14 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
-import android.os.Handler;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.multidex.MultiDex;
 
 import com.androidnetworking.AndroidNetworking;
@@ -42,7 +39,6 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.gu.toolargetool.TooLargeTool;
 import com.liuzhenlin.common.utils.SystemBarUtils;
 import com.liuzhenlin.common.utils.Utils;
 import com.liuzhenlin.texturevideoview.utils.DensityUtils;
@@ -50,6 +46,7 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
+import com.myxteam.toolarge.TooLargeTool;
 import com.onesignal.OSNotification;
 import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OSPermissionSubscriptionState;
@@ -1038,8 +1035,8 @@ public class MyApplication extends ChatApplication implements EventControlListen
     }
     @Override
     public void onCreate() {
-        Webservices.initURLs(this);
         TooLargeTool.startLogging(this);
+        Webservices.initURLs(this);
         context = this;
         application = this;
         db = new TinyDB(this);
@@ -1142,6 +1139,9 @@ public class MyApplication extends ChatApplication implements EventControlListen
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG);
 
         initCrashCollect();
+
+        //firebase
+//        FirebaseAuth.getInstance().getFirebaseAuthSettings().forceRecaptchaFlowForTesting(true);
 
     }
 

@@ -52,6 +52,7 @@ import com.topceo.utils.MyUtils;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import bolts.Continuation;
 import bolts.Task;
@@ -74,7 +75,7 @@ public class Fragment_1_Home_User extends Fragment {
         super.onCreate(savedInstanceState);
         MyUtils.log("Fragment_1_Home_User - onCreate");
 
-        db = new TinyDB(getActivity());
+        db = new TinyDB(getContext());
         try {
             getUser();
 

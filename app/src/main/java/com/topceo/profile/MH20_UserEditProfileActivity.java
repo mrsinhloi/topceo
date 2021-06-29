@@ -36,8 +36,10 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.topceo.BuildConfig;
 import com.topceo.R;
 import com.topceo.accountkit.PhoneUtils;
 import com.topceo.activity.MH01_MainActivity;
@@ -121,6 +123,14 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
     @BindView(R.id.editText11)
     EditText txt11;
 
+    @BindView(R.id.editText12)
+    EditText txt12;
+    @BindView(R.id.editText13)
+    EditText txt13;
+    @BindView(R.id.editText14)
+    EditText txt14;
+
+
     @BindView(R.id.img1)
     ImageView img1;
     @BindView(R.id.img2)
@@ -161,6 +171,7 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
         avatarSize = getResources().getDimensionPixelSize(R.dimen.user_profile_avatar_size);
 
         ///////////////
+//        MyUtils.setEdittextFilter(txt2, getString(R.string.usernameChars));
         //set user//////////////////////////////////////////////////////
         initUser();
 
@@ -266,15 +277,9 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
 
             if (context != null) {
                 String url = user.getAvatarSmall();
-                /*Glide.with(context)
-                        .load(url)//"http://d2i37wz5q98nd1.cloudfront.net/wp-content/uploads/2015/08/VCCircle_Sundar_Pichai.png")
-                        .placeholder(R.drawable.ic_no_avatar)
-                        .override(avatarSize, avatarSize)
-                        .transform(new GlideCircleTransform(context))
-                        .into(avatar);*/
-
                 Glide.with(context)
                         .load(url)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .placeholder(R.drawable.ic_no_avatar)
                         .centerCrop()
                         .override(avatarSize, avatarSize)
@@ -295,7 +300,21 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
                 txt1.setText(user.getFullName());
                 txt2.setText(user.getUserName());
                 txt4.setText(user.getPhone());
-//                txt10.setText(user.getEmail());
+
+                /*if (BuildConfig.DEBUG) {
+                    txt12.setText(job);
+                    txt13.setText(company);
+                    txt14.setText(address);
+                } else {
+                    txt12.setText(user.getJob());
+                    txt13.setText(user.getCompany());
+                    txt14.setText(user.getAddress());
+                }*/
+
+                txt12.setText(user.getJob());
+                txt13.setText(user.getCompany());
+                txt14.setText(user.getAddress());
+
 
                 String favorite = user.getFavorite();
                 if (!TextUtils.isEmpty(favorite)) {
@@ -430,7 +449,7 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
     }*/
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
-    private String fullName = "", userName = "", phone = "", email = "", bios = "";
+    private String fullName = "", userName = "", phone = "", email = "", bios = "", job = "", company = "", address = "";
     private String web = "", facebook = "", twitter = "", instagram = "", youtube = "", linkedIn = "";
     int gender = -1;
 
@@ -441,8 +460,13 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
             fullName = txt1.getText().toString().trim();
             userName = txt2.getText().toString().trim().toLowerCase();
             phone = txt4.getText().toString().trim();
-//            email = txt10.getText().toString().trim().toLowerCase();
+            job = txt12.getText().toString().trim();
+            company = txt13.getText().toString().trim();
+            address = txt14.getText().toString().trim();
+
+
             bios = editBios.getText().toString().trim();
+
 
             web = txt9.getText().toString().trim().toLowerCase();
             facebook = txt5.getText().toString().trim().toLowerCase();
@@ -462,12 +486,6 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
                 txt1.setError(null);
             }
 
-            if (!MyValidator.validateUsername(userName)) {
-                MyUtils.showToast(context, R.string.user_name_explain_2);
-                txt2.requestFocus();
-                return;
-            }
-
             if (TextUtils.isEmpty(userName) || userName.length() < 3) {
                 txt2.setError(getText(R.string.name_request_lenght));
                 valid = false;
@@ -476,6 +494,17 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
             } else {
                 txt2.setError(null);
             }
+
+
+            if (!MyValidator.validateUsername(userName)) {
+//                MyUtils.showAlertDialog(context, R.string.user_name_explain_2);
+                txt2.setError(getText(R.string.user_name_explain_2));
+                txt2.requestFocus();
+//                txt2.selectAll();
+                return;
+            }
+
+
 
             /*if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 txt10.setError(getText(R.string.email_invalid));
@@ -523,7 +552,7 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
 
             //twitter
             if (!TextUtils.isEmpty(twitter)) {
-                if (MyUtils.isUsername(twitter)) {
+                if (MyUtils.isUsernameOnly(twitter)) {
                     txt6.setError(null);
                 } else {
                     txt6.setError(getText(R.string.twitter_invalid));
@@ -534,7 +563,7 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
             }
             //instagram
             if (!TextUtils.isEmpty(instagram)) {
-                if (MyUtils.isUsername(instagram)) {
+                if (MyUtils.isUsernameOnly(instagram)) {
                     txt7.setError(null);
                 } else {
                     txt7.setError(getText(R.string.instagram_invalid));
@@ -715,7 +744,7 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
         progressDialog.setMessage(getText(R.string.updating));
         progressDialog.show();*/
         ProgressUtils.show(context);
-        Webservices.updateUserProfile(fullName, userName, email, phone, gender, social, bios).continueWith(new Continuation<Object, Void>() {
+        Webservices.updateUserProfile(fullName, userName, email, phone, gender, social, bios, job, company, address).continueWith(new Continuation<Object, Void>() {
             @Override
             public Void then(Task<Object> task) throws Exception {
                 if (task.getError() == null) {//ko co exception

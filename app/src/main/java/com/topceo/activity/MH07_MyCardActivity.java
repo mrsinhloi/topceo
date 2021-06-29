@@ -83,11 +83,15 @@ public class MH07_MyCardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         //android O fix bug orientation
-        if (Build.VERSION.SDK_INT != Build.VERSION_CODES.O) {
+        if (android.os.Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+        }
+        else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
+
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.my_card_activity);
         ButterKnife.bind(this);
 
