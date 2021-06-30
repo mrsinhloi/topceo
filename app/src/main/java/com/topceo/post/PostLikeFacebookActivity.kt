@@ -31,10 +31,6 @@ import com.facebook.login.LoginResult
 import com.google.gson.JsonObject
 import com.myxteam.videocompression.CompressionListener
 import com.myxteam.videocompression.VideoCompression
-import com.otaliastudios.transcoder.Transcoder
-import com.otaliastudios.transcoder.TranscoderListener
-import com.otaliastudios.transcoder.common.TrackType
-import com.otaliastudios.transcoder.strategy.DefaultVideoStrategy
 import com.permissionx.guolindev.PermissionX
 import com.smartapp.collage.CollageAdapterUrls
 import com.smartapp.collage.MediaLocal
@@ -52,7 +48,10 @@ import com.topceo.link_preview_2.LinkPreviewCallback
 import com.topceo.link_preview_2.SourceContent
 import com.topceo.link_preview_2.TextCrawler
 import com.topceo.mediaplayer.preview.VideoSelectThumbnailActivity
-import com.topceo.objects.image.*
+import com.topceo.objects.image.ImageItem
+import com.topceo.objects.image.Item
+import com.topceo.objects.image.LinkPreview
+import com.topceo.objects.image.MyItemData
 import com.topceo.objects.other.User
 import com.topceo.profile.Fragment_5_User_Profile_Grid
 import com.topceo.profile.Fragment_Profile_Owner
@@ -206,7 +205,11 @@ class PostLikeFacebookActivity : AppCompatActivity() {
             override fun afterTextChanged(p0: Editable?) {
                 val link = RegexUtils.getList(p0?.toString(), RegexUtils.URL_REGEX)
                 if (link.size > 0) {
-                    var url = link.get(0).toLowerCase()
+
+                    var url = link.get(0)
+                    if(!MyUtils.isYoutubeUrl(url)){
+                        url = url.lowercase()
+                    }
                     val isValid = Patterns.WEB_URL.matcher(url).find()
                     if (isValid) {
 
@@ -426,7 +429,14 @@ class PostLikeFacebookActivity : AppCompatActivity() {
                             linkData!!.url = content.url
                             if (content.images != null && content.images.size > 0) {
                                 linkData!!.imageurl = content.images[0]
-                            }
+                            }/*else{
+                                //neu la link youtube
+                                val youtubeID = MyUtils.getYoutubeId(url);
+                                if(youtubeID.isNotBlankAndNotEmpty()){
+                                    val imgUrl = "https://img.youtube.com/vi/$youtubeID/0.jpg"
+                                    linkData!!.imageurl = imgUrl
+                                }
+                            }*/
                             showUIPreview(linkData!!)
 
                             //edit post
@@ -1227,6 +1237,12 @@ class PostLikeFacebookActivity : AppCompatActivity() {
         scrollView.isEnabled = enable
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.clear()
+    }
 }
 
 

@@ -1118,7 +1118,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
         RealmConfiguration configuration =
                 new RealmConfiguration.Builder()
                         .name("topceo.realm")
-                        .schemaVersion(6)
+                        .schemaVersion(7)
                         .deleteRealmIfMigrationNeeded()
                         .build();
         Realm.setDefaultConfiguration(configuration);
@@ -1426,6 +1426,7 @@ public class MyApplication extends ChatApplication implements EventControlListen
     public static ImageItem imgItem;//tu danh sach sang detail
     public static ImageItem itemReturn;
     public static ImageItem imgEdit;
+    public static boolean isClickCommentButton = false;
 
 
 }

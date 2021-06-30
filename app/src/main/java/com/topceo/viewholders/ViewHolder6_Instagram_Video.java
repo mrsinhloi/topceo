@@ -112,14 +112,20 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
             frameLayoutVideo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    linearComment.performClick();
+//                    linearComment.performClick();
+                    //neu la video thi dung phat
+                    stopVideo();
+                    MyUtils.gotoDetailImage(context, item);
                 }
             });
             txt5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (!txt5.isClickMoreLess()) {
-                        linearComment.performClick();
+//                        linearComment.performClick();
+                        //neu la video thi dung phat
+                        stopVideo();
+                        MyUtils.gotoDetailImage(context, item);
                     } else {
                         //reset
                         txt5.setClickMoreLess(false);
@@ -135,7 +141,7 @@ public class ViewHolder6_Instagram_Video extends MyVideoHolder {
                 public void onClick(View view) {
                     //neu la video thi dung phat
                     stopVideo();
-                    MyUtils.gotoDetailImage(context, item);
+                    MyUtils.gotoDetailImage(context, item, true);
                 }
             });
 //            playVideo();

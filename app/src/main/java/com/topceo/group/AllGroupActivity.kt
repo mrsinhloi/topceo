@@ -14,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.JsonObject
+import com.google.gson.reflect.TypeToken
+import com.smartapp.loadmore.OnLoadMoreListener
+import com.smartapp.loadmore.RecyclerViewLoadMoreScroll
 import com.topceo.R
 import com.topceo.config.MyApplication
 import com.topceo.db.TinyDB
@@ -22,10 +26,6 @@ import com.topceo.objects.other.User
 import com.topceo.services.ReturnResult
 import com.topceo.services.Webservices
 import com.topceo.utils.MyUtils
-import com.google.gson.JsonObject
-import com.google.gson.reflect.TypeToken
-import com.smartapp.loadmore.OnLoadMoreListener
-import com.smartapp.loadmore.RecyclerViewLoadMoreScroll
 import kotlinx.android.synthetic.main.activity_all_group.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -427,5 +427,12 @@ class AllGroupActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(broadcastReceiver)
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.clear()
     }
 }

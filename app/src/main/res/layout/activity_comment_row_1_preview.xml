@@ -31,29 +31,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
+            android:focusable="false"
             android:textColor="@color/black"
             android:textSize="@dimen/font_size_default"
             android:textStyle="bold"/>
 
         <com.topceo.socialview.core.widget.SocialTextView
             android:id="@+id/txtDes1"
-            android:layout_toRightOf="@+id/txtName1"
-            android:layout_toLeftOf="@+id/btnLike1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="7dp"
             android:layout_marginLeft="7dp"
-            android:autoLink="all"
+            android:layout_marginRight="7dp"
+            android:layout_toLeftOf="@+id/btnLike1"
+            android:layout_toRightOf="@+id/txtName1"
             android:focusable="false"
             android:lineSpacingMultiplier="1.1"
             android:text=""
-            android:textSize="@dimen/font_size_default"
             android:textColor="@color/black"
+            android:textIsSelectable="true"
+            android:textSize="@dimen/font_size_default"
             app:hashtagColor="@color/hashtag"
-            app:mentionColor="@color/mention"
             app:hyperlinkColor="@color/green_500"
-            app:socialFlags="hashtag|mention|hyperlink"
-            android:textIsSelectable="true" />
+            app:mentionColor="@color/mention"
+            app:socialFlags="hashtag|mention|hyperlink" />
 
         <com.sackcentury.shinebuttonlib.ShineButton
             android:layout_width="@dimen/heart_size"
@@ -96,6 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
+            android:focusable="false"
             android:textColor="@color/black"
             android:textSize="@dimen/font_size_default"
             android:textStyle="bold"/>
@@ -107,7 +108,6 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="7dp"
             android:layout_marginLeft="7dp"
-            android:autoLink="all"
             android:focusable="false"
             android:lineSpacingMultiplier="1.2"
             android:text=""

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -34,6 +35,8 @@ import com.topceo.objects.promotion.PromotionScreen;
 import com.topceo.services.Webservices;
 import com.topceo.shopping.ShoppingActivity;
 import com.topceo.utils.MyUtils;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -344,4 +347,9 @@ public class MH08_SuggestActivity extends AppCompatActivity {
         }
     }
     ///////////////////////////////////////////////////
+    @Override
+    protected void onSaveInstanceState(@NonNull @NotNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.clear();
+    }
 }

@@ -486,7 +486,7 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
                 txt1.setError(null);
             }
 
-            if (TextUtils.isEmpty(userName) || userName.length() < 3) {
+            if (TextUtils.isEmpty(userName) || userName.length() < 5) {
                 txt2.setError(getText(R.string.name_request_lenght));
                 valid = false;
                 txt2.requestFocus();

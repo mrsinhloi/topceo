@@ -27,7 +27,8 @@ import kotlinx.android.synthetic.main.collage_two_horizontal_and_vertical.view.*
 import kotlinx.android.synthetic.main.collage_two_vertical.view.*
 import kotlinx.android.synthetic.main.collage_two_vertical_and_horizontal.view.*
 
-class CollageAdapterUrls(val context: Context, images: List<MediaLocal>) : RecyclerView.Adapter<CollageAdapterUrls.BasePhotoGridHolder>() {
+class CollageAdapterUrls(val context: Context, images: List<MediaLocal>) :
+    RecyclerView.Adapter<CollageAdapterUrls.BasePhotoGridHolder>() {
     var screenWidth = 0
     var screenHeight = 0
 
@@ -76,18 +77,18 @@ class CollageAdapterUrls(val context: Context, images: List<MediaLocal>) : Recyc
         }
 
         internal fun getViewTypeForThreeImages(bitmap: MediaLocal) =
-                if (bitmap.isVertical()) THREE_WITH_ONE_VERTICAL_IMAGES else THREE_WITH_ONE_HORIZONTAL_IMAGES
+            if (bitmap.isVertical()) THREE_WITH_ONE_VERTICAL_IMAGES else THREE_WITH_ONE_HORIZONTAL_IMAGES
 
         internal fun getViewTypeForFourImages(bitmap: MediaLocal) =
-                if (bitmap.isSquare())
-                    FOUR_WITH_ONE_SQUARE_IMAGES
-                else if (bitmap.isVertical())
-                    FOUR_WITH_ONE_VERTICAL_IMAGES
-                else
-                    FOUR_WITH_ONE_HORIZONTAL_IMAGES
+            if (bitmap.isSquare())
+                FOUR_WITH_ONE_SQUARE_IMAGES
+            else if (bitmap.isVertical())
+                FOUR_WITH_ONE_VERTICAL_IMAGES
+            else
+                FOUR_WITH_ONE_HORIZONTAL_IMAGES
 
         internal fun getViewTypeForFiveImages(bitmap: MediaLocal) =
-                if (bitmap.isVertical()) FIVE_WITH_ONE_VERTICAL_IMAGES else FIVE_WITH_ONE_HORIZONTAL_IMAGES
+            if (bitmap.isVertical()) FIVE_WITH_ONE_VERTICAL_IMAGES else FIVE_WITH_ONE_HORIZONTAL_IMAGES
 
     }
 
@@ -418,10 +419,10 @@ class CollageAdapterUrls(val context: Context, images: List<MediaLocal>) : Recyc
                 img.setImageBitmap(b)
             } else {
                 Glide.with(context)
-                        .load(media.path)
-                        .fitCenter()
-                        .override(screenWidth, screenHeight)
-                        .into(img)
+                    .load(media.path)
+                    .fitCenter()
+                    .override(screenWidth, screenHeight)
+                    .into(img)
             }
 
         } else {
@@ -439,36 +440,61 @@ class CollageAdapterUrls(val context: Context, images: List<MediaLocal>) : Recyc
             if (isHor) {
                 //lay theo ratio
                 val width = screenWidth
-                val height = screenWidth
+                var height = screenWidth
+
+                val rw = media.width
+                val rh = media.height
+                if (rw > 0 && rh > 0) {
+                    height = width * rh / rw
+                }
+
                 Glide.with(context)
-                        .asBitmap()
-                        .load(media.path)
-                        .override(width, height)
-                        .into(object : SimpleTarget<Bitmap?>() {
-                            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
-                                var bitmap = resource
+                    .asBitmap()
+                    .load(media.path)
+                    .override(width, height)
+                    .into(object : SimpleTarget<Bitmap?>() {
+                        override fun onResourceReady(
+                            resource: Bitmap,
+                            transition: Transition<in Bitmap?>?
+                        ) {
+                            if (rw == 0) {
                                 val rw = resource.width
                                 if (rw > 0) {
                                     val rh = resource.height
                                     var newHeight = width * rh / rw
-                                    bitmap = Bitmap.createScaledBitmap(resource, width, newHeight, false)
+                                    try {
+                                        val bitmap = Bitmap.createScaledBitmap(
+                                            resource,
+                                            width,
+                                            newHeight,
+                                            false
+                                        )
+                                        img.setImageBitmap(bitmap)
+                                    } catch (e: Exception) {
+                                        e.printStackTrace()
+                                    }
+
                                 }
-                                img.setImageBitmap(bitmap)
+                            } else {
+                                img.setImageBitmap(resource)
                             }
 
-                            override fun onLoadFailed(errorDrawable: Drawable?) {
-                                super.onLoadFailed(errorDrawable)
-                            }
 
-                        })
+                        }
+
+                        override fun onLoadFailed(errorDrawable: Drawable?) {
+                            super.onLoadFailed(errorDrawable)
+                        }
+
+                    })
             } else {
                 val width = screenWidth / imgSize
                 val height = screenWidth / imgSize
                 Glide.with(context)
-                        .load(media.path)
-                        .override(width, height)
-                        .centerCrop()
-                        .into(img)
+                    .load(media.path)
+                    .override(width, height)
+                    .centerCrop()
+                    .into(img)
             }
 
 

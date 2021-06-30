@@ -14,9 +14,9 @@ import java.util.ArrayList;
  * Created by MrPhuong on 2016-07-27.
  */
 public class User implements Parcelable {
+    public static final String USER = "USER";
 
     public static final int ADMIN_ROLE_ID = 1;
-    public static final String USER = "USER";
     public static final String USER_NAME = "USER_NAME";
     public static final java.lang.String USER_ID = "USER_ID";
     public static final String ARRAY_LIST = "ARRAY_LIST";
@@ -248,9 +248,9 @@ public class User implements Parcelable {
         MaritalStatus = maritalStatus;
     }
 
-    private ArrayList<ImageItem> ImageItems;
-    private ArrayList<User> Followings;
-    private ArrayList<User> Followers;
+    private ArrayList<ImageItem> ImageItems = new ArrayList<>();
+    private ArrayList<User> Followings = new ArrayList<>();
+    private ArrayList<User> Followers = new ArrayList<>();
 
     public long getUserId() {
         return UserId;

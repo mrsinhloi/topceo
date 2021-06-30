@@ -821,6 +821,11 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
         if (realm != null) {
             realm.close();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
         MyApplication.imgItem = null;
     }
 
@@ -1461,9 +1466,13 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
         super.onSaveInstanceState(outState);
         mPresenter.saveData(outState);
 
+        if (binding.getmAdapter() != null && binding.getmAdapter().getAllItem().size() > 0) {
+            outState.putParcelableArrayList(ImageComment.IMAGE_COMMENT_ARRAY_LIST, binding.getmAdapter().getAllItem());
+        }
 
-        outState.putParcelableArrayList(ImageComment.IMAGE_COMMENT_ARRAY_LIST, binding.getmAdapter().getAllItem());
-        outState.putParcelable(ImageItem.IMAGE_ITEM, item);
+        if (item != null) {
+            outState.putParcelable(ImageItem.IMAGE_ITEM, item);
+        }
     }
 
 
@@ -1526,6 +1535,7 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
             setTitleBar();
 
             setUI();
+
         }
     }
 
@@ -1565,6 +1575,16 @@ public class VideoActivityPipDetail extends SwipeBackActivity implements IVideoV
                 }
             });
         }*/
+
+        if (MyApplication.isClickCommentButton) {
+            MyApplication.isClickCommentButton = false;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    linearComment.performClick();
+                }
+            }, 1000);
+        }
 
     }
 

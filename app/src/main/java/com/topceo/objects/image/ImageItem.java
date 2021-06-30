@@ -72,14 +72,6 @@ public class ImageItem implements Parcelable {
     //bo sung local dieu huong vao comment
     private NotifyObject notifyObject;
 
-    public NotifyObject getNotifyObject() {
-        return notifyObject;
-    }
-
-    public void setNotifyObject(NotifyObject notifyObject) {
-        this.notifyObject = notifyObject;
-    }
-
     protected ImageItem(Parcel in) {
         ImageItemId = in.readLong();
         ItemGUID = in.readString();
@@ -106,15 +98,11 @@ public class ImageItem implements Parcelable {
         ItemType = in.readString();
         ItemId = in.readLong();
         GroupId = in.readLong();
+        notifyObject = in.readParcelable(NotifyObject.class.getClassLoader());
         Comments = in.createTypedArrayList(ImageComment.CREATOR);
         Likes = in.createTypedArrayList(ImageLike.CREATOR);
         Shares = in.createTypedArrayList(ImageShare.CREATOR);
         typeView = in.readInt();
-        try {
-            ItemData = in.readValue(Object.class.getClassLoader());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -144,15 +132,11 @@ public class ImageItem implements Parcelable {
         dest.writeString(ItemType);
         dest.writeLong(ItemId);
         dest.writeLong(GroupId);
+        dest.writeParcelable(notifyObject, flags);
         dest.writeTypedList(Comments);
         dest.writeTypedList(Likes);
         dest.writeTypedList(Shares);
         dest.writeInt(typeView);
-        try {
-            dest.writeValue(ItemData);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -171,6 +155,16 @@ public class ImageItem implements Parcelable {
             return new ImageItem[size];
         }
     };
+
+    public NotifyObject getNotifyObject() {
+        return notifyObject;
+    }
+
+    public void setNotifyObject(NotifyObject notifyObject) {
+        this.notifyObject = notifyObject;
+    }
+
+
 
     public ImageItemDB copy() {
         ImageItemDB item = new ImageItemDB(ImageItemId,

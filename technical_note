@@ -8,3 +8,22 @@ ShoppingAdapter -> click item  -> sendBroadcast to ShoppingActivity -> get list 
     (MH01_MainActivity nhan: EventSearchContactChat_Request, SearchUserChatFromRestApiActivity: EventSearchContactChat_Receive)
 - app theme phai mo rong tu material :
  <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+
+
+ //resize image
+ CollageAdapterUrls 467
+
+ //clear save instance-----------------------------------------------------------
+ @Override
+     protected void onSaveInstanceState(@NonNull @NotNull Bundle outState) {
+         super.onSaveInstanceState(outState);
+         outState.clear();
+     }
+
+ MH01_MainActivity
+ AllGroupActivity
+ MH11_LikeActivity
+ MH02_PhotoDetailActivity
+ PostLikeFacebookActivity
+ MH08_SuggestActivity
+ //clear save instance-----------------------------------------------------------

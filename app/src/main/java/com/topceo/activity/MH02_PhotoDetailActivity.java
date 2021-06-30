@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -22,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatCheckBox;
@@ -156,7 +158,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_detail);
         ButterKnife.bind(this);
-        MobileAds.initialize(this, getString(R.string.admob_app_id));
+//        MobileAds.initialize(this, getString(R.string.admob_app_id));
 
         //thong bao tat ca media tu Fragment_1_Home_User deu tat toan bo
         sendBroadcast(new Intent(Fragment_1_Home_User.ACTION_SET_MUTE_ALL));
@@ -167,6 +169,15 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
         initComment();
         registerReceiver();
 
+        if (MyApplication.isClickCommentButton) {
+            MyApplication.isClickCommentButton = false;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    linearComment.performClick();
+                }
+            }, 1000);
+        }
 
     }
 
@@ -404,10 +415,14 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
         if (realm != null) {
             realm.close();
         }
-
-        MyApplication.imgItem = null;
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MyApplication.imgItem = null;
+        MyApplication.isClickCommentButton = false;
+    }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////
@@ -498,8 +513,12 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
 
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
-
     @Override
+    protected void onSaveInstanceState(@NonNull @NotNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.clear();
+    }
+   /* @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (binding != null && binding.getmAdapter() != null && binding.getmAdapter().getAllItem() != null && binding.getmAdapter().getAllItem().size() > 0) {
@@ -531,7 +550,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
             }
 
         }
-    }
+    }*/
 
     //EVENT BUS/////////////////////////////////////////////////////////////////////////////////////
     @Override
@@ -782,6 +801,7 @@ public class MH02_PhotoDetailActivity extends AppCompatActivity {
             binding.initHastag();
         }
     }
+
 
 }
 

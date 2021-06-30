@@ -283,8 +283,7 @@ public class DetailBinding {
         linearComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                txtInput.requestFocus();
-                MyUtils.showKeyboard(context);
+                inputComment();
             }
         });
         ////
@@ -330,6 +329,12 @@ public class DetailBinding {
 
             }
         });
+    }
+
+    private void inputComment() {
+        txtInput.setFocusableInTouchMode(true);
+        txtInput.requestFocus();
+        MyUtils.showKeyboard(context, txtInput);
     }
 
 
@@ -898,6 +903,12 @@ public class DetailBinding {
                             }
 
                             comments.clear();
+
+                            //show/hide rv
+                            if (lastItemId == 0) {
+                                checkItemAdapter();
+                            }
+
                         }
                     } else {
                         boolean isLostCookie = MyApplication.controlException((ANError) task.getError());
@@ -927,6 +938,16 @@ public class DetailBinding {
             });
         } else {
             MyUtils.showThongBao(context);
+        }
+    }
+
+    private void checkItemAdapter() {
+        if (mAdapter != null && mAdapter.getItemCount() > 0) {
+            if (rv.getVisibility() != View.VISIBLE)
+                rv.setVisibility(View.VISIBLE);
+        } else {
+            if (rv.getVisibility() != View.GONE)
+                rv.setVisibility(View.GONE);
         }
     }
 
@@ -971,6 +992,8 @@ public class DetailBinding {
                                 item.getComments().add(0, img);
                                 updateCommentCount();
 
+                                checkItemAdapter();
+
                             }
                         }
                     } else {
@@ -1011,6 +1034,8 @@ public class DetailBinding {
 
             setUI();
             MyUtils.updateImageItem(context, item, false);
+
+            checkItemAdapter();
         }
     }
 
@@ -1201,9 +1226,9 @@ public class DetailBinding {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public static void setImageLikeState(ImageView imgLike, boolean isChecked) {
         if (imgLike != null) {
-            if(isChecked){
+            if (isChecked) {
                 imgLike.setImageResource(R.drawable.ic_svg_20);
-            }else{
+            } else {
                 imgLike.setImageResource(R.drawable.ic_svg_19);
             }
         }

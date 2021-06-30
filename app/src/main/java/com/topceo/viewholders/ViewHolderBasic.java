@@ -426,8 +426,7 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
                     if (itemType.equals(Item.TYPE_VIDEO)) {
                         stopVideo();
                     }*/
-
-                    MyUtils.gotoDetailImage(context, item);
+                    MyUtils.gotoDetailImage(context, item, true);
                 }
             });
             /*txt5.setOnClickListener(new View.OnClickListener() {
@@ -746,9 +745,23 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
                 linearCommentPreview.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        linearComment.performClick();
+//                        linearComment.performClick();
+                        MyUtils.gotoDetailImage(context, item);
                     }
                 });
+                txtDes1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        linearCommentPreview.performClick();
+                    }
+                });
+                txtDes2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        linearCommentPreview.performClick();
+                    }
+                });
+
 
                 //#2 content
                 if (item.getComments().size() >= 2) {
@@ -775,7 +788,7 @@ public class ViewHolderBasic extends RecyclerView.ViewHolder {
             txtViewAllComment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    linearComment.performClick();
+                    MyUtils.gotoDetailImage(context, item);
                 }
             });
         }

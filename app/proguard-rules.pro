@@ -17,4 +17,8 @@
 #}
 -dontwarn okio.**
 
+-keepclassmembers class * implements android.os.Parcelable {
+    static ** CREATOR;
+}
+
 -keepresourcefiles assets/io/michaelrocks/libphonenumber/android/**

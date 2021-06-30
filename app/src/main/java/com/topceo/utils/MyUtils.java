@@ -2393,7 +2393,7 @@ public class MyUtils {
     public static void showKeyboard(Activity context, EditText txt) {
         if (context != null) {
             InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(txt, 0);
+            imm.showSoftInput(txt, InputMethodManager.SHOW_IMPLICIT);
         }
     }
 
@@ -3465,6 +3465,10 @@ public class MyUtils {
         }
     }
 
+    public static void gotoDetailImage(Context context, ImageItem item, boolean isClickCommentButton) {
+        MyApplication.isClickCommentButton = isClickCommentButton;
+        gotoDetailImage(context, item);
+    }
     public static void gotoDetailImage(Context context, ImageItem item) {
         if (context != null && item != null) {
 

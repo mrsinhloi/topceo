@@ -21,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.DisplayCutout;
@@ -113,6 +114,7 @@ import com.workchat.core.utils.PermissionUtil;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -217,7 +219,7 @@ public class MH01_MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
 
         mh01_mainActivity = this;
         isExist = true;
@@ -290,61 +292,6 @@ public class MH01_MainActivity extends AppCompatActivity {
 
         final boolean isLogined = db.getBoolean(TinyDB.IS_LOGINED);
         if (isLogined) {
-
-            /*final ProgressDialog progressDialog = new ProgressDialog(context,
-                    R.style.AppTheme_Dark_Dialog);
-            progressDialog.setIndeterminate(true);
-            progressDialog.setMessage(getText(R.string.loading));
-            progressDialog.show();*/
-
-            //tao cookie truoc khi su dung
-            /*MyApplication.initCookie(getApplicationContext()).continueWith(new Continuation<Object, Void>() {
-                @Override
-                public Void then(Task<Object> task) throws Exception {
-//                    progressDialog.dismiss();
-                    if (task.getResult() != null) {
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                //kiem tra neu bi banned
-                                if (task.getResult() instanceof Integer) {
-                                    MyUtils.showAlertDialog(MH01_MainActivity.this, R.string.account_is_banned, true);
-                                } else {
-                                    if (task.getResult() instanceof User) {
-                                        user = (User) task.getResult();
-                                        if (user != null) {
-                                            if (user.getReleaseDate() == 0) {
-                                                initUI();
-                                            } else {
-
-                                                if (user.isHashtagSuggested()) {//da suggest roi
-                                                    finish();
-                                                    Intent intent = new Intent(context, MH12_CountDownActivity.class);
-                                                    intent.putExtra(MH12_CountDownActivity.NUMBER, user.getReleaseDate());
-                                                    intent.putExtra(MH12_CountDownActivity.MESSAGE, user.getReleaseMessage());
-                                                    startActivity(intent);
-                                                } else {
-                                                    initUI();
-                                                }
-
-                                            }
-                                        }
-
-                                    }
-                                }
-
-                            }
-                        });
-
-                    } else {
-
-                    }
-                    return null;
-                }
-            });*/
-
             //doc lai thong tin user, neu chua suggest thi moi hien
             Object obj = db.getObject(User.USER, User.class);
             if (obj != null) {
@@ -2066,8 +2013,13 @@ public class MH01_MainActivity extends AppCompatActivity {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-
     ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    protected void onSaveInstanceState(@NonNull @NotNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.clear();
+    }
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

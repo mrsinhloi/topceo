@@ -325,7 +325,7 @@ dependencies {
 
 
     //check phone validate
-    implementation 'io.michaelrocks:libphonenumber-android:8.11.0'
+    implementation 'io.michaelrocks:libphonenumber-android:8.12.26'
     implementation 'com.github.iwgang:countdownview:2.1.6'
 
     implementation 'cc.cloudist.acplibrary:library:1.2.1'

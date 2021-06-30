@@ -8,7 +8,7 @@ import com.google.gson.internal.LinkedTreeMap;
 
 import io.realm.RealmObject;
 
-public class LinkPreview extends RealmObject implements Parcelable {
+public class LinkPreview extends RealmObject implements Parcelable{
 
     private String Link;
     private String Title;
@@ -106,26 +106,30 @@ public class LinkPreview extends RealmObject implements Parcelable {
     }
 
     public static MyItemData getMyItemData(Object ItemData) {
-        if (ItemData != null && !TextUtils.isEmpty(ItemData.toString())) {
-            if (ItemData instanceof LinkedTreeMap) {
-                LinkedTreeMap<Object, Object> t = (LinkedTreeMap) ItemData;
-                Object preview = t.get("LinkPreview");
-                if (preview instanceof LinkedTreeMap) {
-                    LinkedTreeMap<Object, Object> p = (LinkedTreeMap) preview;
-                    String link = p.get("Link").toString();
-                    String caption = p.get("Caption").toString();
-                    String title = p.get("Title").toString();
-                    String image = p.get("Image").toString();
-                    String sitename = p.get("SiteName").toString();
-                    LinkPreview pre = new LinkPreview(link, title, caption, image, sitename);
+        try {
+            if (ItemData != null && !TextUtils.isEmpty(ItemData.toString())) {
+                if (ItemData instanceof LinkedTreeMap) {
+                    LinkedTreeMap<Object, Object> t = (LinkedTreeMap) ItemData;
+                    Object preview = t.get("LinkPreview");
+                    if (preview instanceof LinkedTreeMap) {
+                        LinkedTreeMap<Object, Object> p = (LinkedTreeMap) preview;
+                        String link = p.get("Link").toString();
+                        String caption = p.get("Caption").toString();
+                        String title = p.get("Title").toString();
+                        String image = p.get("Image").toString();
+                        String sitename = p.get("SiteName").toString();
+                        LinkPreview pre = new LinkPreview(link, title, caption, image, sitename);
 
-                    MyItemData data = new MyItemData();
-                    data.setLinkPreview(pre);
-                    return data;
+                        MyItemData data = new MyItemData();
+                        data.setLinkPreview(pre);
+                        return data;
+                    }
+                }else if (ItemData instanceof MyItemData) {
+                    return (MyItemData) ItemData;
                 }
-            }else if (ItemData instanceof MyItemData) {
-                return (MyItemData) ItemData;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

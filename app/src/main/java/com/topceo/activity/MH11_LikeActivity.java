@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -47,6 +48,7 @@ import com.topceo.utils.MyUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -566,8 +568,12 @@ public class MH11_LikeActivity extends AppCompatActivity {
     ////////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
-
     @Override
+    protected void onSaveInstanceState(@NonNull @NotNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.clear();
+    }
+    /*@Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(ImageLike.ARRAY_LIST, mAdapter.mDataset);
@@ -594,7 +600,7 @@ public class MH11_LikeActivity extends AppCompatActivity {
             }
 
         }
-    }
+    }*/
 
 
     //#region SETUP TOOLBAR////////////////////////////////////////////////////////////////////////

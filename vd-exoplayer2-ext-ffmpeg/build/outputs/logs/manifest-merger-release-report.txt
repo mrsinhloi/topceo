@@ -1,0 +1,25 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml:1:1-64
+INJECTED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml:1:1-64
+INJECTED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml:1:1-64
+	package
+		ADDED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml:1:11-61
+		INJECTED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml
+		INJECTED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml:1:1-64
+uses-sdk
+INJECTED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml
+INJECTED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml
+INJECTED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml
+INJECTED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml
+		ADDED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml
+		INJECTED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml
+		ADDED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml
+		INJECTED from /Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/vd-exoplayer2-ext-ffmpeg/src/main/AndroidManifest.xml

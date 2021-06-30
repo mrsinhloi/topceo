@@ -34,6 +34,7 @@ import com.topceo.services.CookieStore;
 import com.topceo.services.ReturnResult;
 import com.topceo.services.Webservices;
 import com.topceo.utils.MyUtils;
+import com.topceo.utils.MyValidator;
 import com.topceo.utils.ProgressUtils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonObject;
@@ -437,6 +438,16 @@ public class MH16_SignupActivity extends AppCompatActivity {
         } else {
             txt2.setError(null);
         }
+
+        if (!MyValidator.validateUsername(name)) {
+            txt2.setError(getText(R.string.user_name_explain_2));
+            txt2.requestFocus();
+            valid = false;
+            return valid;
+        }else {
+            txt2.setError(null);
+        }
+
 
         if (TextUtils.isEmpty(password) || password.length() < 6) {
             txt3.setError(getText(R.string.password_request_lenght));

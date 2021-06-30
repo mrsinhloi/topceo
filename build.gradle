@@ -78,7 +78,7 @@ ext {
     //ket hop video pip
     appCompat = "1.3.0"
     constraintLayout = "2.0.4"
-    recyclerView = "1.2.0"
+    recyclerView = "1.2.1"
     annotation = '1.2.0'
     exoplayer2Version = '2.13.3'
 
