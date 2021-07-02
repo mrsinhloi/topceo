@@ -675,4 +675,6 @@
     <string name="company_address">Địa chỉ công ty</string>
     <string name="at">tại</string>
     <string name="username_hint">username</string>
+    <string name="verification_code_sent_via_sms">Mã xác thực đã được gởi qua SMS</string>
+    <string name="signup_with_email">Đăng ký bằng Email</string>
 </resources>

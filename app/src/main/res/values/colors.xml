@@ -17,6 +17,8 @@
     <!--<color name="btnColor">#0288d1</color>-->
     <color name="text_color_1">@color/sky_end</color>
     <color name="btnColor">@color/sky_end</color>
+    <color name="phoneColor">@color/black</color>
+
 
     <color name="textColorPrimary">@color/black</color>
     <color name="textInputOutlineColor">@color/sky_end</color>
