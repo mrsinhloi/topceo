@@ -116,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:layout_marginTop="@dimen/margin_24dp"
-                    android:text="@string/email"
+                    android:text="@string/input_your_email"
                     android:textColor="@color/black"
                     android:textSize="@dimen/font_size_medium" />
 
@@ -132,7 +132,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="40dp"
-                        android:hint="@string/email"
+                        android:hint="@string/input_your_email"
                         android:imeOptions="actionNext"
                         android:singleLine="true"
                         android:inputType="textEmailAddress"

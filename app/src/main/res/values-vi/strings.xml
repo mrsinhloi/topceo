@@ -407,7 +407,7 @@
     <string name="your_profile">Hồ sơ của bạn</string>
     <string name="next">Tiếp</string>
     <string name="fullname">Họ tên</string>
-    <string name="email">Email</string>
+    <string name="input_your_email">Email</string>
     <string name="please_input_fullname">Nhập họ tên</string>
     <string name="please_input_email">Nhập email</string>
     <string name="email_invalid">Email không hợp lệ</string>

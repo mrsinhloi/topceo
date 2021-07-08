@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_default_">16dp</dimen>
+    <dimen name="radius_default_">4dp</dimen>
+
+    <dimen name="font_default_">14sp</dimen>
+    <dimen name="font_medium_">16sp</dimen>
+    <dimen name="font_small_">12sp</dimen>
+
+    <dimen name="padding_5dp">5dp</dimen>
+    <dimen name="padding_10dp">10dp</dimen>
+    <dimen name="padding_24dp">24dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+
+</resources>

@@ -400,7 +400,7 @@
     <string name="fullname">Fullname</string>
     <string name="fullname_">Fullname (*)</string>
     <string name="email_">Email (*)</string>
-    <string name="email">Email</string>
+    <string name="input_your_email">Email</string>
     <string name="please_input_fullname">Enter your name</string>
     <string name="please_input_email">Enter email</string>
     <string name="email_invalid">Email is invalid</string>

@@ -23,7 +23,7 @@ public class User implements Parcelable {
     public static final String PHONE = "PHONE";
     public static final String TOKEN = "TOKEN";
 
-    public static final String AUTHORIZATION_CODE = "AUTHORIZATION_CODE";
+//    public static final String AUTHORIZATION_CODE = "AUTHORIZATION_CODE";
     public static final String IS_RESET_PASSWORD = "IS_RESET_PASSWORD";
     public static final String IS_SIGN_UP = "IS_SIGN_UP";
     public static final String PASSWORD = "PASSWORD";

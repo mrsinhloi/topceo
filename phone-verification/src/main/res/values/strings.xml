@@ -1,0 +1,20 @@
+<resources>
+    <string name="phone">Số điện thoại</string>
+    <string name="input_your_phone_number">Nhập số điện thoại của bạn</string>
+    <string name="phone_verification">Xác minh số điện thoại</string>
+    <string name="phone_verification_des">Bằng cách nhấn vào \"Xác minh số điện thoại\", bạn có thể nhận được một tin nhắn SMS. Cước tin nhắn và dữ liệu có thể áp dụng.</string>
+    <string name="phone_invalid">Số điện thoại không hợp lệ</string>
+    <string name="verification_code_sent_via_sms">Mã xác nhận đã gởi qua SMS</string>
+    <string name="did_not_receive_a_code">Không nhận được code?</string>
+    <string name="sign_up_with_email">Đăng ký bằng Email</string>
+    <string name="resend_code_after_x">Gởi lại mã sau 0:%1$02d</string>
+    <string name="resend_code">Gởi lại mã</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="the_sms_quota_for_the_project_has_been_exceeded">Không thể gởi tin SMS, do số lượng tin nhắn hàng ngày đã đạt giới hạn.</string>
+    <string name="invalid_request">Yêu cầu không hợp lệ</string>
+    <string name="the_verification_code_entered_was_invalid">Mã xác nhận không đúng</string>
+    <string name="reading_info">Read user info…</string>
+    <string name="forget_password_by_email">Quên mật khẩu bằng Email</string>
+
+</resources>

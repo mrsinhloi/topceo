@@ -133,6 +133,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 finish();
             }*/
         }
+        edit1.requestFocus();
     }
 
 

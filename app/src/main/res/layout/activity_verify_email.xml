@@ -21,8 +21,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_16dp"
+            android:layout_gravity="end"
             app:tint="@color/sky_end"
-            android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+            android:src="@drawable/ic_close_grey_500_24dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -90,7 +91,7 @@
                         android:layout_height="wrap_content"
                         app:boxBackgroundMode="none"
                         app:hintEnabled="false"
-                        android:hint="@string/email">
+                        android:hint="@string/input_your_email">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt1"
@@ -100,7 +101,7 @@
                             android:textSize="@dimen/font_medium"
                             android:focusable="false"
                             android:text=""
-                            android:hint="@string/email"
+                            android:hint="@string/input_your_email"
                             android:imeOptions="actionDone"
                             android:inputType="textEmailAddress" />
                     </com.google.android.material.textfield.TextInputLayout>

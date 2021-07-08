@@ -17,6 +17,7 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.myxteam.phone_verification.MH01_Input_Phone
 import kotlinx.android.synthetic.main.mh01_input_phone_number.view.*
 
 class InputPhoneActivity : AppCompatActivity() {
@@ -201,7 +202,7 @@ class InputPhoneActivity : AppCompatActivity() {
                             if (user2 != null) {
                                 val phone = user2.phoneNumber //chuan E164 +84912345678
                                 var data = Intent()
-                                data.putExtra(User.PHONE, phone)
+                                data.putExtra(MH01_Input_Phone.PHONE_NUMBER, phone)
                                 setResult(Activity.RESULT_OK, data)
                                 finish()
                             }
@@ -215,8 +216,8 @@ class InputPhoneActivity : AppCompatActivity() {
                             val token = it.result!!.token
                             if (!token.isNullOrEmpty()) {
                                 var data = Intent()
-                                data.putExtra(User.AUTHORIZATION_CODE, token)
-                                data.putExtra(User.PHONE, phone)
+                                data.putExtra(MH01_Input_Phone.AUTHORIZATION_CODE, token)
+                                data.putExtra(MH01_Input_Phone.PHONE_NUMBER, phone)
                                 setResult(Activity.RESULT_OK, data)
                                 finish()
                             }

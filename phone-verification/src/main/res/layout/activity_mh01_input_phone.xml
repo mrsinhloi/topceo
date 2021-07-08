@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MH01_Input_Phone">
+
+   <!-- <androidx.appcompat.widget.Toolbar
+        android:id="@+id/mToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:navigationIcon="@drawable/ic_round_arrow_back_ios_24"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="@string/input_your_phone_number"
+        app:titleTextColor="@color/black"
+        />-->
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/mToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="@string/input_your_phone_number"
+        app:titleTextColor="@color/white"
+        app:navigationIconTint="@color/white"
+        app:navigationIcon="@drawable/ic_round_arrow_back_ios_24"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        />
+
+    <!--<ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:padding="@dimen/padding_default_"
+        android:rotation="45"
+        android:src="@drawable/ic_round_add_circle_24"
+        app:tint="@color/grey_500" />-->
+
+    <!--<TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_default_"
+        android:text="@string/input_your_phone_number"
+        android:textColor="@color/black" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_24dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.rilixtech.widget.countrycodepicker.CountryCodePicker
+                android:id="@+id/ccp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/padding_default_"
+                android:background="@drawable/bg_not_fill_01"
+                android:gravity="center"
+                android:paddingStart="@dimen/padding_default_"
+                android:paddingTop="@dimen/padding_10dp"
+                android:paddingEnd="@dimen/padding_default_"
+                android:paddingBottom="@dimen/padding_10dp"
+                app:ccp_defaultCode="84"
+                app:ccp_textSize="@dimen/font_medium_" />
+
+            <!--<EditText
+                android:id="@+id/phone_number_edt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="phone"
+                android:inputType="phone" />-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/phone"
+                app:boxBackgroundMode="none"
+                app:hintEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phone_number_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_not_fill_01"
+                    android:hint="@string/phone"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/padding_default_"
+                    android:paddingTop="0dp"
+                    android:paddingEnd="@dimen/padding_default_"
+                    android:paddingBottom="0dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/font_medium_" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <in.aabhasjindal.otptextview.OtpTextView
+            android:id="@+id/otp_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            app:bar_enabled="false"
+            app:bar_height="2dp"
+            app:height="40dp"
+            app:length="6"
+            app:otp=""
+            app:otp_box_background_active="@drawable/bg_not_fill_01"
+            app:otp_box_background_error="@drawable/bg_not_fill_03"
+            app:otp_box_background_inactive="@drawable/bg_not_fill_02"
+            app:otp_text_size="24dp"
+            app:width="40dp" />
+
+        <Button
+            android:id="@+id/read_btn"
+            android:layout_marginTop="@dimen/padding_24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/phone_verification"
+            android:textSize="@dimen/font_default_"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/phone_verification_des"
+            android:textColor="@color/black"
+            android:lineSpacingMultiplier="1.3"
+            android:textSize="@dimen/font_default_"
+            android:layout_marginTop="@dimen/padding_24dp"/>
+
+        <TextView
+            android:id="@+id/logs_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_default_" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -12,6 +12,7 @@ import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.gson.JsonObject
+import com.myxteam.phone_verification.MH01_Input_Phone
 import com.sonhvp.utilities.listeners.textWatcher
 import com.topceo.R
 import com.topceo.accountkit.PhoneUtils
@@ -46,7 +47,7 @@ class InputPhoneActivityWc : Activity() {
     //    override val fragContainer: Int = 0
     lateinit var db: TinyDB
     private var phoneTemp = ""
-    var isValidateInLocal: Boolean = false
+    var isValidateInLocal = false
     var isForgetPassword = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -266,7 +267,7 @@ class InputPhoneActivityWc : Activity() {
                 }
 
 
-                if (resultCode == Activity.RESULT_OK) {
+                if (resultCode == RESULT_OK) {
                     val user = FirebaseAuth.getInstance().currentUser
                     if (user != null) {
                         val loadingDialog = MyUtils.createDialogLoading(
@@ -283,20 +284,18 @@ class InputPhoneActivityWc : Activity() {
                                 if (user != null) {
                                     val phone = user.phoneNumber //chuan E164 +84912345678
                                     var data = Intent()
-                                    data.putExtra(User.PHONE, phone)
-                                    setResult(Activity.RESULT_OK, data)
+                                    data.putExtra(MH01_Input_Phone.PHONE_NUMBER, phone)
+                                    setResult(RESULT_OK, data)
                                     finish()
                                 }
                             } else {
                                 //verify in server
-                                if (it.result != null) {
-                                    val token = it.result!!.token
-                                    if (!token.isNullOrEmpty()) {
-                                        var data = Intent()
-                                        data.putExtra(User.AUTHORIZATION_CODE, token)
-                                        setResult(Activity.RESULT_OK, data)
-                                        finish()
-                                    }
+                                val token = it.result.token
+                                if (!token.isNullOrEmpty()) {
+                                    val data = Intent()
+                                    data.putExtra(MH01_Input_Phone.AUTHORIZATION_CODE, token)
+                                    setResult(RESULT_OK, data)
+                                    finish()
                                 }
 
                             }

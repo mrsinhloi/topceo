@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
  * A login screen that offers login via email/password.
  */
 public class MH18_EmailVerifyActivity extends AppCompatActivity {
-    private static final String TAG = "MH17_ForgetPasswordActivity";
+    private static final String TAG = "MH18_EmailVerificationActivity";
     private Activity context = this;
 
     @BindView(R.id.imgBack)
@@ -58,16 +58,6 @@ public class MH18_EmailVerifyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (MyUtils.checkInternetConnection(context)) {
-                    /*phone = txt1.getText().toString();
-                    if (!TextUtils.isEmpty(phone) && phone.length() >= 10) {
-                        Intent intent = new Intent(context, MH01_InputPhoneNumber_Activity.class);
-                        intent.putExtra(User.PHONE, phone);
-                        intent.putExtra(User.IS_RESET_PASSWORD, true);
-                        startActivityForResult(intent, MH01_InputPhoneNumber_Activity.REQUEST_VALID_NUMBER_PHONE);
-                    } else {
-                        MyUtils.showToast(context, R.string.phone_invalid);
-                    }*/
-
 
                     String email = txt1.getText().toString().trim();
                     if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {

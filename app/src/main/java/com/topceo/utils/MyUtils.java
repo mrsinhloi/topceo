@@ -1,4 +1,4 @@
-package com.topceo.utils;
+ package com.topceo.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
