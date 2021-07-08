@@ -421,8 +421,8 @@
     <string name="phone_not_detect">An unknown phone numbers</string>
     <string name="checking">Checking ...</string>
     <string name="phone_exists">Phone number already exists</string>
-    <string name="phone_exists_please_chose_another_phone">The phone number %1$s already exists, please choose another phone number to sign up.</string>
-    <string name="phone_not_exists_please_chose_another_phone">The phone number %1$s does not exist, please choose another phone number.</string>
+    <string name="phone_exists_please_chose_another_phone">Registered phone number %1$s, please choose another phone number to sign up.</string>
+    <string name="phone_not_exists_please_chose_another_phone">Phone number %1$s has not registered an account\nPlease register.</string>
     <string name="please_input_info">Please enter the full information requested</string>
     <string name="signin_">Login ...</string>
     <string name="phone_input_and_phone_validate_not_match">Old phone number and this phone number do not match.</string>

@@ -433,8 +433,8 @@
     <string name="phone_not_detect">Không xác định được số điện thoại</string>
     <string name="checking">Checking...</string>
     <string name="phone_exists">Số điện thoại đã tồn tại</string>
-    <string name="phone_exists_please_chose_another_phone">Số điện thoại %1$s đã tồn tại, vui lòng chọn số điện thoại khác để đăng ký.</string>
-    <string name="phone_not_exists_please_chose_another_phone">Số điện thoại %1$s không tồn tại, vui lòng chọn số điện thoại khác.</string>
+    <string name="phone_exists_please_chose_another_phone">Số điện thoại %1$s đã đăng ký, vui lòng chọn số điện thoại khác để đăng ký.</string>
+    <string name="phone_not_exists_please_chose_another_phone">Số điện thoại %1$s chưa đăng ký tài khoản\nXin mời đăng ký.</string>
     <string name="please_input_info">Vui lòng nhập đầy đủ thông tin yêu cầu</string>
     <string name="signin_">Đăng nhập...</string>
     <string name="phone_input_and_phone_validate_not_match">Số điện thoại yêu cầu thay đổi và số điện thoại xác thực không trùng nhau.</string>
