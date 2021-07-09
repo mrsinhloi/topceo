@@ -34,6 +34,7 @@ public class User implements Parcelable {
     public static final String IS_SEND_VERIFY_EMAIL = "IS_SEND_VERIFY_EMAIL";
     public static final String IS_SHOW_ADMIN_PAGE = "IS_SHOW_ADMIN_PAGE";
     public static final String REFERAL_LINK = "REFERAL_LINK";
+    public static final String EMAIL = "EMAIL";
 
     private long UserId;
     private String ChatUserId;

@@ -380,7 +380,10 @@ public class MH15_SigninActivity extends AppCompatActivity {
                 case ACTION_COMPLETE_SIGNUP:
                     Bundle b = data.getExtras();
                     User user = b.getParcelable(User.USER);
-                    whenHaveUser(user);
+                    if(user!=null){
+                        MyUtils.whenHaveUser(user);
+                        onLoginSuccess();
+                    }
                     break;
 
 
@@ -509,24 +512,17 @@ public class MH15_SigninActivity extends AppCompatActivity {
 
     /////////////////////////////////////////////////////////////////////////////////////////
     public void onLoginSuccess() {
-
+        _loginButton.setEnabled(true);
         //Khi login thanh cong thi co cookie moi nen goi khoi tao retrofit
         MyApplication.whenLoginSuccess();
-
-        _loginButton.setEnabled(true);
-
-        //vao main de load cache truoc
-        gotoMain();
-
         //dong man hinh welcome
         sendBroadcast(new Intent(WelcomeActivity.ACTION_FINISH));
+        //vao main de load cache truoc
+        MyUtils.gotoMain(context);
         finish();
-
     }
 
-    private void gotoMain() {
-        startActivity(new Intent(MH15_SigninActivity.this, MH01_MainActivity.class));
-    }
+
 
     private LoginEvent event = new LoginEvent() {
         @Override
@@ -562,15 +558,6 @@ public class MH15_SigninActivity extends AppCompatActivity {
         }
     }
 
-    private void whenHaveUser(User user) {
-        if (user != null) {
-            String token = user.getCoreChatCustomToken();
-            MyApplication.saveTokenChat(token);
-            db.putBoolean(TinyDB.IS_LOGINED, true);
-            db.putObject(User.USER, user);
-            onLoginSuccess();
-        }
-    }
 
     private void loginByFirebase(String code, boolean isForgetPassword) {
 
@@ -605,7 +592,8 @@ public class MH15_SigninActivity extends AppCompatActivity {
                                                 intent.putExtra(User.PHONE, user.getPhone());
                                                 startActivity(intent);
                                             } else {
-                                                whenHaveUser(user);
+                                                MyUtils.whenHaveUser(user);
+                                                onLoginSuccess();
                                             }
                                         } else {
                                             //nguoc lai thi vao hoan tat dang ky
@@ -708,10 +696,12 @@ public class MH15_SigninActivity extends AppCompatActivity {
         String number = b.getString(MH01_Input_Phone.PHONE_NUMBER, "");
         boolean isForgetPassword = b.getBoolean(MH01_Input_Phone.IS_FORGET_PASSWORD, false);
         if(isForgetPassword){//quen mat khau
-            MyUtils.showAlertDialog(context, "Quen mat khau");
+//            MyUtils.showAlertDialog(context, "Quen mat khau");
         }else{//dang ky moi
-            MyUtils.showAlertDialog(context, "Dang ky moi");
+//            MyUtils.showAlertDialog(context, "Dang ky moi");
         }
+
+        MH18_EmailVerifyActivity.start(context, number, isForgetPassword);
     }
 
 

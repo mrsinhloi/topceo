@@ -76,6 +76,7 @@ import com.topceo.gallery.PickImageActivity;
 import com.topceo.group.GroupDetailActivity;
 import com.topceo.group.members.ApproveMemberActivity;
 import com.topceo.login.MH15_SigninActivity;
+import com.topceo.login.MH18_EmailVerifyActivity;
 import com.topceo.login.WelcomeActivity;
 import com.topceo.mediaplayer.audio.PlayerService;
 import com.topceo.mediaplayer.pip.presenter.VideoListItemOpsKt;
@@ -403,8 +404,28 @@ public class MH01_MainActivity extends AppCompatActivity {
     }
 
     private void gotoLogin() {
-        startActivity(new Intent(context, WelcomeActivity.class));
-        finish();
+        //kiem tra co deep link truoc khi tro ve login
+        Uri data = getIntent().getData();
+        if (data != null && data.isHierarchical()) {
+            String link = data.getQueryParameter("link");
+            String email = db.getString(MH18_EmailVerifyActivity.EMAIL_NEED_VERIFY, "");
+            //co link va email thi vao xac thuc
+            if (!TextUtils.isEmpty(link) &&
+                    !TextUtils.isEmpty(email)
+            ) {
+//                String emailLink = data.toString();
+//                MyUtils.log(emailLink);
+                MH18_EmailVerifyActivity.startEmailVerifyLink(context, link);
+                finish();
+            } else {
+                startActivity(new Intent(context, MH00_LoadingActivity.class));
+                finish();
+            }
+        } else {
+            startActivity(new Intent(context, MH00_LoadingActivity.class));
+            finish();
+        }
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -852,7 +873,6 @@ public class MH01_MainActivity extends AppCompatActivity {
         intent.addAction(ACTION_SET_NUMBER_CHAT_UNREAD);
         intent.addAction(ACTION_CHANGE_ICON);
         intent.addAction(ACTION_CHECK_PERMISSION);
-
 
 
         registerReceiver(receiver, intent);
@@ -1319,7 +1339,7 @@ public class MH01_MainActivity extends AppCompatActivity {
     /////////////////////////////////////////////////
     //DOC SAN GALLERY
     private void saveGallery() {
-        if(!isFinishing()){
+        if (!isFinishing()) {
             if (PermissionUtils.isAllowReadSdCard()) {
                 getGalleryPhotoAndVideo();
             }

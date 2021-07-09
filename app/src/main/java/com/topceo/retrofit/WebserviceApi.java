@@ -602,6 +602,8 @@ public interface WebserviceApi {
             @Field("Phone") String phone
     );
 
+
+
     //"Hoàn tất việc đăng kí.
     //Cần truyền Bearer Token lấy đc ở hàm loginByFirebase vào Header Authorization"
     @FormUrlEncoded
@@ -615,11 +617,38 @@ public interface WebserviceApi {
             @Field("Gender") int Gender,
             @Field("CountryId") String CountryId,
             @Field("CountryName") String CountryName,
-            @Field("FullName") String FullName
+            @Field("FullName") String FullName,
+            @Field("Phone") String Phone
+
 
     );
 
     @POST("user/getReferralLink")
     Call<JsonObject> getReferralLink();
+
+    //verfiy email
+
+    /**
+     * "Gửi Email xác thực tới User thông qua Firebase
+     * Hàm sẽ kiểm tra Email đã có trong hệ thống hay chưa?
+     *  - Nếu có thì thông báo về.
+     *  - Nếu chưa có thì Gửi Email xác thực"
+     */
+    @FormUrlEncoded
+    @POST("user/signup/sendVerifyEmail")
+    Call<JsonObject> sendVerifyEmail(
+            @Header("os") String os,
+            @Field("Email") String Email
+    );
+
+    /**
+     * "Xác thực Email qua idToken từ Firebase và lấy Token để hoàn tất đăng kí
+     */
+    @FormUrlEncoded
+    @POST("user/signup/verifyEmailToken")
+    Call<JsonObject> verifyEmailToken(
+            @Header("os") String os,
+            @Field("Code") String Code
+    );
 
 }

@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.google.gson.Gson;
 import com.topceo.R;
 import com.topceo.activity.MH01_MainActivity;
 import com.topceo.config.MyApplication;
@@ -42,6 +43,7 @@ import com.microsoft.azure.storage.StorageException;
 import com.microsoft.azure.storage.StorageUri;
 import com.microsoft.azure.storage.blob.CloudBlockBlob;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -74,6 +76,9 @@ public class MH16_SignupActivity extends AppCompatActivity {
     TextInputEditText txt3;
     @BindView(R.id.txt4)
     TextInputEditText txt4;
+    @BindView(R.id.txt5)
+    TextInputEditText txt5;
+
     @BindView(R.id.txt6)
     TextView txt6;
     @BindView(R.id.btn1)
@@ -104,6 +109,7 @@ public class MH16_SignupActivity extends AppCompatActivity {
     private String passTemp = "";
     private String fullnameTemp = "";
     private String phoneTemp = "";
+    private String emailTemp = "";
     private int positionTemp = 0;
     private TinyDB db;
 
@@ -117,15 +123,17 @@ public class MH16_SignupActivity extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         if (b != null) {
             String phone = b.getString(User.PHONE, "");
+            String email = b.getString(User.EMAIL, "");
             String token = b.getString(User.TOKEN, "");
 
-            user =new User();
+            user = new User();
             user.setPhone(phone);
+            user.setEmail(email);
             user.setToken(token);
         }
         if (user != null) {
             initUI();
-        }else{
+        } else {
             finish();
         }
     }
@@ -198,9 +206,22 @@ public class MH16_SignupActivity extends AppCompatActivity {
         setFocusChange(txt2);
         setFocusChange(txt3);
         setFocusChange(txt4);
+        setFocusChange(txt5);
 
+
+        //chi xac thuc bang sdt hoac bang email
         if (user != null) {
-            txt4.setText(user.getPhone());
+            //neu co dien thoai thi xac thuc bang dien thoai, ko cho sua
+            if(!TextUtils.isEmpty(user.getPhone())) {
+                txt4.setText(user.getPhone());
+                txt4.setEnabled(false);
+            }
+
+            //neu xac thuc bang email, ko cho sua
+            if(!TextUtils.isEmpty(user.getEmail())) {
+                txt5.setText(user.getEmail());
+                txt5.setEnabled(false);
+            }
         }
 
     }
@@ -249,6 +270,11 @@ public class MH16_SignupActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 usernameTemp = s.toString();
+                if(usernameTemp.contains(" ")){
+                    //tao nickname tu fullname, bo dau va bo khoang trang
+                    String nickname = MyUtils.createNickname(usernameTemp);
+                    txt2.setText(nickname);
+                }
             }
         });
 
@@ -318,6 +344,26 @@ public class MH16_SignupActivity extends AppCompatActivity {
                 phoneTemp = s.toString();
             }
         });
+        //email
+        if (!TextUtils.isEmpty(emailTemp)) {
+            txt5.setText(emailTemp);
+        }
+        txt5.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                emailTemp = s.toString();
+            }
+        });
 
     }
 
@@ -376,6 +422,7 @@ public class MH16_SignupActivity extends AppCompatActivity {
     String name;
     String password;
     String phone;
+    String email;
     int gender = -1;
 
     private void readData() {
@@ -383,6 +430,7 @@ public class MH16_SignupActivity extends AppCompatActivity {
         name = txt2.getText().toString().trim();
         password = txt3.getText().toString().trim();
         phone = txt4.getText().toString().trim();
+        email = txt5.getText().toString().trim();
         /*if (!TextUtils.isEmpty(phone)) {
             phone = PhoneUtils.getE164FormattedMobileNumber(phone, PhoneUtils.getDefaultCountryNameCode());
         }*/
@@ -430,32 +478,23 @@ public class MH16_SignupActivity extends AppCompatActivity {
 
         readData();
 
-        if (name.isEmpty() || name.length() < 5) {
-            txt2.setError(getText(R.string.name_request_lenght));
-            txt2.requestFocus();
+
+        if (!MyUtils.isEmailValid(email)) {
+            txt5.setError(getText(R.string.email_invalid));
+            txt5.requestFocus();
             valid = false;
             return valid;
         } else {
-            txt2.setError(null);
+            txt5.setError(null);
         }
 
-        if (!MyValidator.validateUsername(name)) {
-            txt2.setError(getText(R.string.user_name_explain_2));
-            txt2.requestFocus();
-            valid = false;
-            return valid;
-        }else {
-            txt2.setError(null);
-        }
-
-
-        if (TextUtils.isEmpty(password) || password.length() < 6) {
-            txt3.setError(getText(R.string.password_request_lenght));
-            txt3.requestFocus();
+        if (TextUtils.isEmpty(phone)) {
+            txt4.setError(getText(R.string.phone_invalid));
+            txt4.requestFocus();
             valid = false;
             return valid;
         } else {
-            txt3.setError(null);
+            txt4.setError(null);
         }
 
         if (fullname.isEmpty()) {
@@ -467,14 +506,30 @@ public class MH16_SignupActivity extends AppCompatActivity {
             txt1.setError(null);
         }
 
-
-        if (TextUtils.isEmpty(phone)) {
-            txt4.setError(getText(R.string.phone_invalid));
-            txt4.requestFocus();
+        if (name.isEmpty() || name.length() < 5) {
+            txt2.setError(getText(R.string.name_request_lenght));
+            txt2.requestFocus();
             valid = false;
             return valid;
         } else {
-            txt4.setError(null);
+            txt2.setError(null);
+        }
+        if (!MyValidator.validateUsername(name)) {
+            txt2.setError(getText(R.string.user_name_explain_2));
+            txt2.requestFocus();
+            valid = false;
+            return valid;
+        } else {
+            txt2.setError(null);
+        }
+
+        if (TextUtils.isEmpty(password) || password.length() < 6) {
+            txt3.setError(getText(R.string.password_request_lenght));
+            txt3.requestFocus();
+            valid = false;
+            return valid;
+        } else {
+            txt3.setError(null);
         }
 
 
@@ -838,6 +893,7 @@ public class MH16_SignupActivity extends AppCompatActivity {
                     password,
                     gender,
                     fullname,
+                    phone,
                     new Callback<JsonObject>() {
                         @Override
                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -857,8 +913,29 @@ public class MH16_SignupActivity extends AppCompatActivity {
                                         }
 
                                     } else {
-                                        //tai khoan da ton tai, thi dang nhap
-                                        MyUtils.showAlertDialog(context, result.getErrorMessage());
+                                        //{"ErrorCode":107,"Message":{"Invalid":[],"Existed":["UserName"]}}
+                                        String message = result.getErrorMessage();
+                                        if(message.contains("Existed")){
+                                            try {
+                                                JSONObject exist = new JSONObject(message);
+                                                if(exist.has("Existed")){
+                                                    String attr = exist.getString("Existed");
+                                                    if(attr.contains("UserName")) {
+                                                        MyUtils.showAlertDialog(context, R.string.user_name_exist);
+                                                    }else if(attr.contains("Email")) {
+                                                        MyUtils.showAlertDialog(context, R.string.email_exist);
+                                                    }else if(attr.contains("Phone")) {
+                                                        MyUtils.showAlertDialog(context, R.string.phone_exists);
+                                                    }
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+
+                                        }else {
+                                            //tai khoan da ton tai, thi dang nhap
+                                            MyUtils.showAlertDialog(context, message);
+                                        }
                                     }
                                 }
                             }

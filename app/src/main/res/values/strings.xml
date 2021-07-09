@@ -307,7 +307,7 @@
     <string name="name_request_validate">Username allow only lowercase letters, numbers, periods, underscores, and no spaces</string>
     <string name="sign_up_success">Sign up for success</string>
     <string name="phone_or_username">Phone/Username</string>
-    <string name="user_name_exist">Username already exist</string>
+    <string name="user_name_exist">Username already registered. Please choose another username.</string>
     <string name="user_name_not_exist">Username does not exist</string>
 
     <string name="sign_up_by_facebook">Sign up with Facebook</string>
@@ -757,4 +757,6 @@
     <string name="username_hint">username</string>
     <string name="verification_code_sent_via_sms">Verification code sent via SMS</string>
     <string name="signup_with_email">Sign up with Email</string>
+    <string name="verification_link_sent_to_your_email">A confirmation link has been sent to your email. Please check the email and click on the authentication link to complete the account registration.</string>
+    <string name="link_auth_expired_des">The verification link has expired, please enter your email and re-verify.</string>
 </resources>

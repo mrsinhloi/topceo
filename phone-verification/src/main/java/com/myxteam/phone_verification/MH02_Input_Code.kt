@@ -56,7 +56,7 @@ class MH02_Input_Code : AppCompatActivity() {
             override fun onOTPComplete(otp: String) {
 //                Toast.makeText(context, "The OTP is $otp", Toast.LENGTH_SHORT).show()
 //                binding.otpView.showError()
-                storedVerificationId?.let { verifyPhoneNumberWithCode(it, otp) }
+                verifyPhoneNumberWithCode(storedVerificationId, otp)
             }
 
         }
@@ -146,10 +146,13 @@ class MH02_Input_Code : AppCompatActivity() {
         }
     }
 
+    override fun onStop() {
+        hideKeyboard()
+        super.onStop()
+    }
     override fun onDestroy() {
         super.onDestroy()
         timer.cancel()
-        hideKeyboard()
     }
 
     private var storedVerificationId: String? = ""
@@ -241,11 +244,13 @@ class MH02_Input_Code : AppCompatActivity() {
     }
     // [END resend_verification]
 
-    private fun verifyPhoneNumberWithCode(verificationId: String, code: String) {
-        // [START verify_with_code]
-        val credential = PhoneAuthProvider.getCredential(verificationId, code)
-        // [END verify_with_code]
-        signInWithPhoneAuthCredential(credential)
+    private fun verifyPhoneNumberWithCode(verificationId: String?, code: String) {
+        if(!verificationId.isNullOrEmpty()){
+            // [START verify_with_code]
+            val credential = PhoneAuthProvider.getCredential(verificationId, code)
+            // [END verify_with_code]
+            signInWithPhoneAuthCredential(credential)
+        }
     }
 
     // [START sign_in_with_phone]

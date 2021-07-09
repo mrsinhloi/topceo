@@ -13,7 +13,7 @@ public class ProgressUtils {
 
     public static ACProgressFlower dialog;
 
-    public static void show(Context context) {
+    public static ACProgressFlower show(Context context) {
         if (context != null) {
             try {
                 hide();
@@ -24,10 +24,12 @@ public class ProgressUtils {
                         .fadeColor(Color.TRANSPARENT).build();//DKGRAY
                 dialog.setCanceledOnTouchOutside(true);
                 dialog.show();
+                return dialog;
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        return null;
     }
 
     public static void show(Context context, String message) {

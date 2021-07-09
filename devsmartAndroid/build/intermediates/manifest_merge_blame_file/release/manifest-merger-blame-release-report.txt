@@ -1,0 +1,15 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    xmlns:tools="http://schemas.android.com/tools"
+4    package="com.devsmart.android"
+5    android:versionCode="1"
+6    android:versionName="1.0"
+7    tools:overrideLibrary="android.support.v4" >
+8
+9    <uses-sdk
+10        android:minSdkVersion="23"
+10-->/Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/devsmartAndroid/src/main/AndroidManifest.xml
+11        android:targetSdkVersion="29" />
+11-->/Users/phamtrungphuong/Desktop/COMPANY/topceo/topceo/devsmartAndroid/src/main/AndroidManifest.xml
+12
+13</manifest>

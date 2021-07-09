@@ -10,17 +10,18 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.topceo.R;
-import com.topceo.config.MyApplication;
-import com.topceo.db.TinyDB;
-import com.topceo.dynamic_link.DynamicData;
-import com.topceo.login.WelcomeActivity;
-import com.topceo.onesignal.NotifyObject;
-import com.topceo.utils.MyUtils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
+import com.topceo.R;
+import com.topceo.config.MyApplication;
+import com.topceo.db.TinyDB;
+import com.topceo.dynamic_link.DynamicData;
+import com.topceo.login.MH18_EmailVerifyActivity;
+import com.topceo.login.WelcomeActivity;
+import com.topceo.onesignal.NotifyObject;
+import com.topceo.utils.MyUtils;
 
 import bolts.Continuation;
 import bolts.Task;
@@ -44,7 +45,7 @@ public class MH00_LoadingActivity extends AppCompatActivity {
         progressDynamiclink(getIntent());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading_00);
-        gotoApp();
+//        gotoApp();
 
 //        throw new RuntimeException("Test Crash"); // Force a crash
 
@@ -81,7 +82,7 @@ public class MH00_LoadingActivity extends AppCompatActivity {
                 MyUtils.showToast(this, R.string.khongCoInternet);
                 finish();
                 return;
-            }else{
+            } else {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -92,6 +93,7 @@ public class MH00_LoadingActivity extends AppCompatActivity {
 
 
         } else {
+            //neu vao tu email verify link
             startActivity(new Intent(context, WelcomeActivity.class));
             finish();
         }
@@ -108,6 +110,7 @@ public class MH00_LoadingActivity extends AppCompatActivity {
 
     //VIDEO VIEW CONTROL///
     private static final String VIDEO_SAMPLE = "video_loading";
+
     private Uri getMedia(String mediaName) {
         return Uri.parse("android.resource://" + getPackageName() +
                 "/raw/" + mediaName);
@@ -148,7 +151,7 @@ public class MH00_LoadingActivity extends AppCompatActivity {
     private static final String PLAYBACK_TIME = "play_time";
 
     //VIDEO VIEW CONTROL///
-    void checkCookie(){
+    void checkCookie() {
         //tao cookie truoc khi su dung
         MyApplication.initCookie(getApplicationContext()).continueWith(new Continuation<Object, Void>() {
             @Override
@@ -173,7 +176,7 @@ public class MH00_LoadingActivity extends AppCompatActivity {
                         }
                     });
 
-                }else{
+                } else {
 
                 }
                 return null;
@@ -229,9 +232,9 @@ public class MH00_LoadingActivity extends AppCompatActivity {
                                 } catch (NumberFormatException e) {
                                     e.printStackTrace();
                                 }
-                            }
 
-                            MyUtils.showToast(context, "You have affId = " + affId);
+                                MyUtils.showToast(context, "You have affId = " + affId);
+                            }
 
                         }
 
@@ -248,7 +251,6 @@ public class MH00_LoadingActivity extends AppCompatActivity {
                     }
                 });
     }
-
 
 
 }

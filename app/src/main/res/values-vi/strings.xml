@@ -15,7 +15,7 @@
     <string name="birthday">Ngày sinh</string>
     <string name="inputforcomplete">"Nhập thông tin để hoàn thành đăng kí"</string>
     <string name="country">"Quốc gia"</string>
-    <string name="phone">"Số điện thoại"</string>
+    <string name="phone">Số điện thoại</string>
     <string name="male">"Nam"</string>
     <string name="female">"Nữ"</string>
     <string name="otherkind">"Khoảnh khắc"</string>
@@ -305,7 +305,7 @@
     <string name="name_request_validate">Tên đăng nhập chỉ cho phép ký tự viết thường, số, dấu chấm, dấu gạch dưới, và không có khoảng trắng</string>
     <string name="sign_up_success">Đăng ký thành công</string>
     <string name="phone_or_username">Phone/Username</string>
-    <string name="user_name_exist">Tên đăng nhập đã tồn tại</string>
+    <string name="user_name_exist">Tên đăng nhập đã có người đăng ký. Vui lòng chọn tên đăng nhập khác.</string>
     <string name="user_name_not_exist">Tên đăng nhập không tồn tại</string>
 
     <string name="sign_up_by_facebook">Đăng ký bằng Facebook</string>
@@ -432,8 +432,8 @@
     <string name="creating_account">Tạo tài khoản…</string>
     <string name="phone_not_detect">Không xác định được số điện thoại</string>
     <string name="checking">Checking...</string>
-    <string name="phone_exists">Số điện thoại đã tồn tại</string>
-    <string name="phone_exists_please_chose_another_phone">Số điện thoại %1$s đã tồn tại, vui lòng chọn số điện thoại khác để đăng ký.</string>
+    <string name="phone_exists">Số điện thoại đã được đăng ký, vui lòng chọn số khác</string>
+    <string name="phone_exists_please_chose_another_phone">Số điện thoại %1$s đã được đăng ký, vui lòng chọn số điện thoại khác để đăng ký.</string>
     <string name="phone_not_exists_please_chose_another_phone">Số điện thoại %1$s không tồn tại, vui lòng chọn số điện thoại khác.</string>
     <string name="please_input_info">Vui lòng nhập đầy đủ thông tin yêu cầu</string>
     <string name="signin_">Đăng nhập...</string>
@@ -539,7 +539,7 @@
     <string name="new_post">Bài viết mới</string>
     <string name="accept">Đồng ý</string>
     <string name="ignore">Bỏ qua</string>
-    <string name="email_exist">Email đã tồn tại</string>
+    <string name="email_exist">Email đã được đăng ký, vui lòng chọn email khác</string>
     <string name="url">URL</string>
     <string name="username">Tên người dùng</string>
 
@@ -677,4 +677,6 @@
     <string name="username_hint">username</string>
     <string name="verification_code_sent_via_sms">Mã xác thực đã được gởi qua SMS</string>
     <string name="signup_with_email">Đăng ký bằng Email</string>
+    <string name="verification_link_sent_to_your_email">Một link xác thực đã được gởi đến email của bạn. Vui lòng kiểm tra email và nhấn vào link xác thực để hoàn thành đăng ký tài khoản.</string>
+    <string name="link_auth_expired_des">Link xác thực đã hết hiệu lực, vui lòng nhập email và xác thực lại.</string>
 </resources>

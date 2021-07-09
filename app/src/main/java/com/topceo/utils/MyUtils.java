@@ -1,4 +1,4 @@
- package com.topceo.utils;
+package com.topceo.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -76,11 +76,13 @@ import com.topceo.config.MyApplication;
 import com.topceo.crop.ImageActivity;
 import com.topceo.crop.bitmap.BitmapLoader;
 import com.topceo.crop.utils.AppAnalyze;
+import com.topceo.db.TinyDB;
 import com.topceo.fragments.Fragment_1_Home_User;
 import com.topceo.fragments.Fragment_2_Explorer;
 import com.topceo.group.GroupDetailActivity;
 import com.topceo.hashtag.HashTagActivity;
 import com.topceo.login.MH15_SigninActivity;
+import com.topceo.login.WelcomeActivity;
 import com.topceo.mediaplayer.extractor.ExtractorException;
 import com.topceo.mediaplayer.extractor.YoutubeStreamExtractor;
 import com.topceo.mediaplayer.extractor.model.YTMedia;
@@ -152,6 +154,18 @@ import io.realm.Realm;
 
 
 public class MyUtils {
+    public static void whenHaveUser(User user) {
+        if (user != null) {
+            String token = user.getCoreChatCustomToken();
+            MyApplication.saveTokenChat(token);
+            MyApplication.db.putBoolean(TinyDB.IS_LOGINED, true);
+            MyApplication.db.putObject(User.USER, user);
+        }
+    }
+
+    public static void gotoMain(Context context) {
+        context.startActivity(new Intent(context, MH01_MainActivity.class));
+    }
 
     public static void setEdittextFilter(EditText txt, String filterChars) {
         if (txt != null) {
@@ -2799,11 +2813,15 @@ public class MyUtils {
 
     /////////////////////////////////////////////////////////
     public static boolean isEmailValid(String email) {
-        final String EMAIL_PATTERN =
+        /*final String EMAIL_PATTERN =
                 "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
         final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         final Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+        return matcher.matches();*/
+        if (TextUtils.isEmpty(email) || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            return false;
+        }
+        return true;
     }
 
     public static void initCookie(Context context) {
@@ -3469,6 +3487,7 @@ public class MyUtils {
         MyApplication.isClickCommentButton = isClickCommentButton;
         gotoDetailImage(context, item);
     }
+
     public static void gotoDetailImage(Context context, ImageItem item) {
         if (context != null && item != null) {
 
