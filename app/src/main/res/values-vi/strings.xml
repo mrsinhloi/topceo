@@ -166,7 +166,7 @@
     <string name="topuserRank">Hạng</string>
     <string name="topuser100">Top 100 người dùng</string>
     <string name="topimage100">Top 100 ảnh đẹp</string>
-    <string name="loading">Đang tải...</string>
+    <string name="loading">Đang tải…</string>
     <string name="no_fbfriend">Không có bạn trên facebook</string>
     <string name="no_twitterfriend">Không có bạn trên twitter</string>
     <string name="report_tittle">Lựa chọn lý do:</string>
@@ -179,7 +179,7 @@
     <string name="saving_image">Đang lưu ảnh</string>
     <string name="save">Lưu</string>
     <string name="discard">Hủy</string>
-    <string name="pleasewait">Vui lòng chờ...</string>
+    <string name="pleasewait">Vui lòng chờ…</string>
     <string name="registergcm">Lỗi đăng ký tài khoản chát</string>
     <string name="updateinfo">Gửi thành công</string>
     <string name="reshare_success">Đã chia sẻ thành công lên tường của bạn nằm trong Profile</string>
@@ -217,7 +217,7 @@
     <string name="imagesizelarge">Lỗi, Có thể kích thước hình quá lớn, bạn vui lòng thử lại với hình khác.</string>
     <string name="contentimage">Viết mô tả về ảnh:</string>
     <string name="contenthint">Tối đa 1000 kí tự</string>
-    <string name="locationhint">Xác định vị trí...</string>
+    <string name="locationhint">Xác định vị trí…</string>
     <string name="userguide">Hướng dẫn sử dụng</string>
     <string name="title_activity_you">Bạn</string>
     <string name="following_title">Đang theo dõi</string>
@@ -293,7 +293,7 @@
     <string name="exist_account">Đã có tài khoản? <b>Đăng nhập</b></string>
     <string name="create_account">Tạo tài khoản</string>
     <string name="restore_password">Phục hồi mật khẩu</string>
-    <string name="authenticating">Đang xác thực...</string>
+    <string name="authenticating">Đang xác thực…</string>
     <string name="login_failed">Lỗi đăng nhập</string>
     <string name="invalid_email">Email không hợp lệ</string>
     <string name="password_request_lenght">Mật khẩu tối thiểu 6 ký tự</string>
@@ -301,7 +301,7 @@
     <string name="expand"><u>Xem thêm</u></string>
     <string name="collapse"><u>Thu gọn</u></string>
     <string name="login_with_alias">Đăng nhập như <b>%1$s</b></string>
-    <string name="logining">Đăng nhập...</string>
+    <string name="logining">Đăng nhập…</string>
     <string name="name_request_validate">Tên đăng nhập chỉ cho phép ký tự viết thường, số, dấu chấm, dấu gạch dưới, và không có khoảng trắng</string>
     <string name="sign_up_success">Đăng ký thành công</string>
     <string name="phone_or_username">Phone/Username</string>
@@ -317,12 +317,12 @@
     <string name="number_share">%1$d Chia sẻ</string>
     <string name="action_settings">Cài đặt</string>
     <string name="not_found">Không tìm thấy</string>
-    <string name="image_uploading">Đang upload ảnh...</string>
-    <string name="video_uploading">Đang upload video...</string>
-    <string name="avatar_uploading">Đang upload avatar...</string>
+    <string name="image_uploading">Đang upload ảnh…</string>
+    <string name="video_uploading">Đang upload video…</string>
+    <string name="avatar_uploading">Đang upload avatar…</string>
     <string name="camera">Camera</string>
     <string name="media">Media</string>
-    <string name="refreshing">Refreshing...</string>
+    <string name="refreshing">Refreshing…</string>
     <string name="attach_location">Kèm vị trí</string>
     <string name="publish_image">Đăng ảnh</string>
     <string name="image_description">Mô tả về ảnh của bạn</string>
@@ -359,7 +359,7 @@
     <string name="post_twitter_success">Post twitter thành công</string>
     <string name="facebook_ready">Facebook đã sẳn sàng. Nhấn nút Chia sẻ để hoàn thành</string>
     <string name="twitter_ready">Twitter đã sẳn sàng. Nhấn nút Chia sẻ để hoàn thành</string>
-    <string name="posting">Posting....</string>
+    <string name="posting">Posting….</string>
     <string name="edit_your_profile">Thông tin cá nhân</string>
     <string name="posts">Bài viết</string>
     <string name="change_photo">Đổi avatar</string>
@@ -369,7 +369,7 @@
     <string name="top">Hàng đầu</string>
     <string name="people">Mọi người</string>
     <string name="tags">Thẻ</string>
-    <string name="searching">Searching...</string>
+    <string name="searching">Searching…</string>
     <string name="hashtag_empty">Không tìm thấy hashtag</string>
     <string name="no_suggesstion">Không có gợi ý nào</string>
     <string name="like_title_long">Người đã thích ảnh của bạn</string>
@@ -388,10 +388,10 @@
     <string name="please_check_input_sigup">Vui lòng kiểm tra lại thông tin đăng ký</string>
     <string name="not_found_user">Không tìm thấy user</string>
     <string name="tap_to_select_image">Click để chọn ảnh</string>
-    <string name="sending">Đang gởi...</string>
+    <string name="sending">Đang gởi…</string>
     <string name="user_shared">Người đã chia sẻ ảnh của bạn</string>
     <string name="update_profile">Cập nhật profile</string>
-    <string name="updating">Đang cập nhật...</string>
+    <string name="updating">Đang cập nhật…</string>
     <string name="updating_not_dot">Đang cập nhật</string>
 
     <string name="seemore">Xem thêm</string>
@@ -431,18 +431,12 @@
     <string name="username_invalid">Tên đăng nhập không hợp lệ</string>
     <string name="creating_account">Tạo tài khoản…</string>
     <string name="phone_not_detect">Không xác định được số điện thoại</string>
-    <string name="checking">Checking...</string>
-<<<<<<< HEAD
+    <string name="checking">Checking…</string>
     <string name="phone_exists">Số điện thoại đã tồn tại</string>
     <string name="phone_exists_please_chose_another_phone">Số điện thoại %1$s đã đăng ký, vui lòng chọn số điện thoại khác để đăng ký.</string>
     <string name="phone_not_exists_please_chose_another_phone">Số điện thoại %1$s chưa đăng ký tài khoản\nXin mời đăng ký.</string>
-=======
-    <string name="phone_exists">Số điện thoại đã được đăng ký, vui lòng chọn số khác</string>
-    <string name="phone_exists_please_chose_another_phone">Số điện thoại %1$s đã được đăng ký, vui lòng chọn số điện thoại khác để đăng ký.</string>
-    <string name="phone_not_exists_please_chose_another_phone">Số điện thoại %1$s không tồn tại, vui lòng chọn số điện thoại khác.</string>
->>>>>>> phone-verification
     <string name="please_input_info">Vui lòng nhập đầy đủ thông tin yêu cầu</string>
-    <string name="signin_">Đăng nhập...</string>
+    <string name="signin_">Đăng nhập…</string>
     <string name="phone_input_and_phone_validate_not_match">Số điện thoại yêu cầu thay đổi và số điện thoại xác thực không trùng nhau.</string>
     <string name="phone_invalid">Số điện thoại không hợp lệ</string>
     <string name="phone_validate_is_not_of_owner">Số xác thực không phải của bạn</string>
@@ -494,9 +488,9 @@
     <string name="action_receive_notify">Nhận thông báo</string>
     <string name="account_is_banned">Tài khoản của bạn đã bị khóa. Vui lòng liên hệ admin@skysocial.vn</string>
     <string name="select_cover">Chọn hình cover</string>
-    <string name="trimming_progress">Trimming your video...</string>
+    <string name="trimming_progress">Trimming your video…</string>
     <string name="file_not_found">File không tồn tại</string>
-    <string name="video_processing">Đang xử lý video...</string>
+    <string name="video_processing">Đang xử lý video…</string>
     <string name="publish_video">Đăng video</string>
     <string name="video_description_hint">Mô tả về video của bạn</string>
     <string name="instagram">Instagram</string>
@@ -530,7 +524,7 @@
     <string name="existed">%1$s đã tồn tại</string>
     <string name="invalid">%1$s không hợp lệ</string>
     <string name="join_to_skysocial">Tham gia vào TopCEO</string>
-    <string name="developing">Developing...</string>
+    <string name="developing">Developing…</string>
     <string name="server_data_error">Data processing server error</string>
     <string name="email_verify">Xác minh qua email</string>
     <string name="user_info">Thông tin cá nhân</string>
@@ -540,7 +534,7 @@
     <string name="phone_auth_please">Số điện thoại chưa được xác thực</string>
     <string name="phone_change_confirm">Số điện thoại đã thay đổi, hệ thống sẽ cập nhật số điện thoại trước khi xác thực.</string>
     <string name="error_verification">Chưa xác thực được số điện thoại</string>
-    <string name="reading_info">Đọc thông tin...</string>
+    <string name="reading_info">Đọc thông tin…</string>
     <string name="show_admin_page">Hiển thị trang home của admin</string>
     <string name="new_post">Bài viết mới</string>
     <string name="accept">Đồng ý</string>
@@ -571,20 +565,20 @@
     <string name="username_and_comment"><b>%1$s</b> %2$s</string>
     <string name="group">Nhóm</string>
     <string name="back">Quay lại</string>
-    <string name="write_description">Viết chú thích...</string>
+    <string name="write_description">Viết chú thích…</string>
     <string name="list_x_items">Danh sách có %1$d mục</string>
     <string name="x_comment">%1$d Bình luận</string>
     <string name="x_like">%1$d Lượt thích</string>
 
-    <string name="downloading">Đang tải ...</string>
+    <string name="downloading">Đang tải …</string>
     <string name="storage_access_required">Truy cập bộ nhớ để lưu epub cần tải xuống.</string>
     <string name="storage_unavailable">Vui lòng cấp quyền lưu trữ để tải và đọc epub. Để cấp quyền vào Thông tin ứng dụng > Quyền > Bộ nhớ</string>
     <string name="user_has_not_page">Chưa có page nào được chọn. Mở app Facebook để đổi tài khoản.</string>
-    <string name="facebook_posting">Facebook posting...</string>
+    <string name="facebook_posting">Facebook posting…</string>
     <string name="post">Đăng</string>
-    <string name="write_description_images">Hãy nói gì đó về các bức ảnh này...</string>
+    <string name="write_description_images">Hãy nói gì đó về các bức ảnh này…</string>
     <string name="preview">Preview</string>
-    <string name="input_link">Nhập một link...</string>
+    <string name="input_link">Nhập một link…</string>
     <string name="please_input_link">Vui lòng nhập một link</string>
     <string name="are_you_thinking">Bạn đang nghĩ gì?</string>
     <string name="add_to_post">Thêm vào bài viết của bạn</string>
