@@ -23,7 +23,7 @@ public class User implements Parcelable {
     public static final String PHONE = "PHONE";
     public static final String TOKEN = "TOKEN";
 
-    public static final String AUTHORIZATION_CODE = "AUTHORIZATION_CODE";
+//    public static final String AUTHORIZATION_CODE = "AUTHORIZATION_CODE";
     public static final String IS_RESET_PASSWORD = "IS_RESET_PASSWORD";
     public static final String IS_SIGN_UP = "IS_SIGN_UP";
     public static final String PASSWORD = "PASSWORD";
@@ -34,6 +34,7 @@ public class User implements Parcelable {
     public static final String IS_SEND_VERIFY_EMAIL = "IS_SEND_VERIFY_EMAIL";
     public static final String IS_SHOW_ADMIN_PAGE = "IS_SHOW_ADMIN_PAGE";
     public static final String REFERAL_LINK = "REFERAL_LINK";
+    public static final String EMAIL = "EMAIL";
 
     private long UserId;
     private String ChatUserId;

@@ -11,7 +11,7 @@ buildscript {
 
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.1'
+        classpath 'com.android.tools.build:gradle:4.2.2'
         classpath 'com.google.gms:google-services:4.3.8'
 
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -82,7 +82,7 @@ ext {
     annotation = '1.2.0'
     exoplayer2Version = '2.13.3'
 
-    material = "1.4.0-alpha02"
+    material = "1.4.0"
     cardView = "1.0.0"
     legacySupportV4 = "1.0.0"
     vectorDrawable = "1.0.1"

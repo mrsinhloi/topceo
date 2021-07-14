@@ -39,7 +39,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.topceo.BuildConfig;
 import com.topceo.R;
 import com.topceo.accountkit.PhoneUtils;
 import com.topceo.activity.MH01_MainActivity;
@@ -49,7 +48,7 @@ import com.topceo.config.MyApplication;
 import com.topceo.db.TinyDB;
 import com.topceo.fragments.Fragment_1_Home_User;
 import com.topceo.fragments.GlideCircleTransform;
-import com.topceo.login.MH18_EmailVerifyActivity;
+import com.topceo.login.MH18_EmailVerifyActivity1;
 import com.topceo.objects.image.ImageSize;
 import com.topceo.objects.other.User;
 import com.topceo.services.ReturnResult;
@@ -358,7 +357,7 @@ public class MH20_UserEditProfileActivity extends AppCompatActivity {
 
                         //nếu chưa verify thì mới verify
                         if (!user.isEmailVerified()) {
-                            startActivity(new Intent(context, MH18_EmailVerifyActivity.class));
+                            startActivity(new Intent(context, MH18_EmailVerifyActivity1.class));
                         }
                     }
                 });

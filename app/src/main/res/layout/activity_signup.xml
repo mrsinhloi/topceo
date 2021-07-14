@@ -93,22 +93,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10dp"
+                android:hint="@string/email"
+                app:boxBackgroundMode="none"
+                app:hintEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_sky_rectangle_border"
+                    android:fontFamily="@font/roboto_medium"
+                    android:hint="@string/email"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:textSize="@dimen/font_medium" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10dp"
                 android:hint="@string/phone"
                 app:boxBackgroundMode="none"
                 app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt4"
-                    android:enabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_sky_rectangle_border"
                     android:fontFamily="@font/roboto_medium"
                     android:hint="@string/phone"
-                    android:imeOptions="actionDone"
+                    android:imeOptions="actionNext"
                     android:inputType="phone"
                     android:textSize="@dimen/font_medium" />
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -177,7 +197,6 @@
                     android:inputType="textPassword"
                     android:textSize="@dimen/font_medium" />
             </com.google.android.material.textfield.TextInputLayout>
-
 
 
             <LinearLayout

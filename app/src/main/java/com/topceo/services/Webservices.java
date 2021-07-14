@@ -2605,7 +2605,7 @@ public class Webservices {
         return successful.getTask();
     }
 
-    public static Task<Object> verifyEmail(String email, Context context) {
+    public static Task<Object>verifyEmail(String email, Context context) {
         final TaskCompletionSource<Object> successful = new TaskCompletionSource<>();
 
         /*final ProgressDialog progressDialog = new ProgressDialog(context, R.style.AppTheme_Dark_Dialog);

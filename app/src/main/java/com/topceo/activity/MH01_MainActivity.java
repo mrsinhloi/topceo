@@ -19,9 +19,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.DisplayCutout;
@@ -76,7 +74,7 @@ import com.topceo.gallery.PickImageActivity;
 import com.topceo.group.GroupDetailActivity;
 import com.topceo.group.members.ApproveMemberActivity;
 import com.topceo.login.MH15_SigninActivity;
-import com.topceo.login.WelcomeActivity;
+import com.topceo.login.MH18_EmailVerifyActivity1;
 import com.topceo.mediaplayer.audio.PlayerService;
 import com.topceo.mediaplayer.pip.presenter.VideoListItemOpsKt;
 import com.topceo.mediaplayer.preview.VideoSelectThumbnailActivity;
@@ -109,7 +107,6 @@ import com.workchat.core.event.EventSearchContactChat_Receive;
 import com.workchat.core.event.EventSearchContactChat_Request;
 import com.workchat.core.mbn.models.UserChatCore;
 import com.workchat.core.models.realm.Room;
-import com.workchat.core.utils.PermissionUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -403,7 +400,56 @@ public class MH01_MainActivity extends AppCompatActivity {
     }
 
     private void gotoLogin() {
-        startActivity(new Intent(context, WelcomeActivity.class));
+        //kiem tra co deep link truoc khi tro ve login
+        Uri data = getIntent().getData();
+        if (data != null && data.isHierarchical()) {
+            String link = data.getQueryParameter("link");
+
+            boolean isSignin = link.contains("signIn");
+            if (isSignin) {
+                String email = db.getString(MH18_EmailVerifyActivity1.EMAIL_NEED_VERIFY, "");
+                //co link va email thi vao xac thuc
+                if (!TextUtils.isEmpty(link) &&
+                        !TextUtils.isEmpty(email)
+                ) {
+                    MH18_EmailVerifyActivity1.startEmailVerifyLink(context, link);
+                    finish();
+                } else {
+                    gotoLoading();
+                }
+            } else {
+                boolean isResetPassword = link.contains("resetPassword");
+                if (isResetPassword) {
+                    Uri linkUri = Uri.parse(link);
+                    String oobCode = linkUri.getQueryParameter("oobCode");
+                    String continueUrl = linkUri.getQueryParameter("continueUrl");
+
+                    String email = db.getString(MH18_EmailVerifyActivity1.EMAIL_NEED_RESET_PASSWORD, "");
+                    //co link va email thi vao xac thuc
+                    if (!TextUtils.isEmpty(email) &&
+                            !TextUtils.isEmpty(oobCode) &&
+                            !TextUtils.isEmpty(continueUrl)
+                    ) {
+                        MH18_EmailVerifyActivity1.startEmailVerifyResetPasswor(context, oobCode, continueUrl);
+                        finish();
+                    } else {
+                        gotoLoading();
+                    }
+
+                    MyUtils.log("hiooo");
+                } else {
+                    gotoLoading();
+                }
+            }
+
+        } else {
+            gotoLoading();
+        }
+
+    }
+
+    private void gotoLoading() {
+        startActivity(new Intent(context, MH00_LoadingActivity.class));
         finish();
     }
 
@@ -852,7 +898,6 @@ public class MH01_MainActivity extends AppCompatActivity {
         intent.addAction(ACTION_SET_NUMBER_CHAT_UNREAD);
         intent.addAction(ACTION_CHANGE_ICON);
         intent.addAction(ACTION_CHECK_PERMISSION);
-
 
 
         registerReceiver(receiver, intent);
@@ -1319,7 +1364,7 @@ public class MH01_MainActivity extends AppCompatActivity {
     /////////////////////////////////////////////////
     //DOC SAN GALLERY
     private void saveGallery() {
-        if(!isFinishing()){
+        if (!isFinishing()) {
             if (PermissionUtils.isAllowReadSdCard()) {
                 getGalleryPhotoAndVideo();
             }

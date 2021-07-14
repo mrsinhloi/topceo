@@ -354,7 +354,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialiconsoutlined/location_on/outline_location_on_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialiconsround/close/round_close_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -365,7 +365,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_outline_location_on_24" />
+                            <entry key="outputName" value="ic_round_close_24" />
                             <entry key="sourceFile" value="$USER_HOME$/Downloads/untitled (2).svg" />
                           </map>
                         </option>

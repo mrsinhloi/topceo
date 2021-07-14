@@ -19,21 +19,22 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.JsonObject;
+import com.myxteam.phone_verification.MH01_Input_Phone;
+import com.myxteam.phone_verification.MH02_Input_Code;
+import com.myxteam.phone_verification.MyExtensionKt;
 import com.topceo.BuildConfig;
 import com.topceo.R;
-import com.topceo.activity.MH01_MainActivity;
 import com.topceo.config.MyApplication;
 import com.topceo.db.TinyDB;
-import com.topceo.firebase_auth.InputPhoneActivity;
 import com.topceo.language.LocalizationUtil;
-import com.topceo.login.workchat.ui.InputPhoneActivityWc;
 import com.topceo.objects.other.User;
 import com.topceo.services.ReturnResult;
 import com.topceo.services.Webservices;
 import com.topceo.utils.MyUtils;
 import com.topceo.utils.MyValidator;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.gson.JsonObject;
+import com.topceo.utils.ProgressUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,8 +49,8 @@ public class MH15_SigninActivity extends AppCompatActivity {
     public static final int REQUEST_SIGNUP = 11;
     public static final int ACTION_PHONE_VALIDATE = 12;
     public static final int ACTION_COMPLETE_SIGNUP = 13;
-    public static final int ACTION_PHONE_VALIDATE_FOR_FORGET_PASSWORD = 14;
-    public static final int ACTION_COMPLETE_CHANGE_PASSWORD = 15;
+    public static final int ACTION_PHONE_VALIDATE_AND_CHECK_EXIST = 14;
+    public static final int ACTION_PHONE_VALIDATE_FOR_FORGET_PASSWORD = 15;
 
 
     public static final String IS_OPEN_SIGN_UP = "IS_OPEN_SIGN_UP";
@@ -112,6 +113,7 @@ public class MH15_SigninActivity extends AppCompatActivity {
 
 
     boolean isSignup = false;
+
     private void initIntent(Intent intent) {
         if (intent != null) {
             Bundle b = intent.getExtras();
@@ -147,7 +149,8 @@ public class MH15_SigninActivity extends AppCompatActivity {
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////
-
+        _emailText.requestFocus();
+        MyExtensionKt.focusAndShowKeyboard(_emailText);
 
     }
 
@@ -288,10 +291,15 @@ public class MH15_SigninActivity extends AppCompatActivity {
                     startActivityForResult(intent, MH01_InputPhoneNumber_Activity.REQUEST_VALID_NUMBER_PHONE);*/
 //                    startActivity(new Intent(context, MH17_ForgetPasswordActivity.class));
 
-                    Intent intent = new Intent(context, InputPhoneActivityWc.class);
+                    /*Intent intent = new Intent(context, InputPhoneActivityWc.class);
                     intent.putExtra(InputPhoneActivityWc.VALIDATE_IN_LOCAL, false);
                     intent.putExtra(InputPhoneActivityWc.IS_FORGET_PASSWORD, true);
                     startActivityForResult(intent, ACTION_PHONE_VALIDATE_FOR_FORGET_PASSWORD);
+                    */
+
+                    Intent intent = new Intent(context, MH01_Input_Phone.class);
+                    intent.putExtra(MH01_Input_Phone.IS_FORGET_PASSWORD, true);
+                    startActivityForResult(intent, ACTION_PHONE_VALIDATE_AND_CHECK_EXIST);
                 } else {
                     MyUtils.showThongBao(context);
                 }
@@ -332,8 +340,12 @@ public class MH15_SigninActivity extends AppCompatActivity {
         intent.putExtra(User.IS_SIGN_UP, true);
         startActivity(intent);*/
 
-        Intent intent = new Intent(context, InputPhoneActivityWc.class);
+        /*Intent intent = new Intent(context, InputPhoneActivityWc.class);
         intent.putExtra(InputPhoneActivityWc.VALIDATE_IN_LOCAL, false);
+        startActivityForResult(intent, ACTION_PHONE_VALIDATE);*/
+
+        Intent intent = new Intent(context, MH01_Input_Phone.class);
+        intent.putExtra(MH01_Input_Phone.IS_VALIDATE_IN_LOCAL, false);
         startActivityForResult(intent, ACTION_PHONE_VALIDATE);
 
     }
@@ -364,28 +376,52 @@ public class MH15_SigninActivity extends AppCompatActivity {
                         login();
                     }
                     break;
-                case ACTION_PHONE_VALIDATE:
-                    Bundle b = data.getExtras();
-                    String code = b.getString(User.AUTHORIZATION_CODE);
-                    loginByFirebase(code, false);
-                    break;
+
                 case ACTION_COMPLETE_SIGNUP:
-                    b = data.getExtras();
+                    Bundle b = data.getExtras();
                     User user = b.getParcelable(User.USER);
-                    whenHaveUser(user);
+                    if(user!=null){
+                        MyUtils.whenHaveUser(user);
+                        onLoginSuccess();
+                    }
                     break;
-                case ACTION_PHONE_VALIDATE_FOR_FORGET_PASSWORD:
+
+
+                case ACTION_PHONE_VALIDATE_AND_CHECK_EXIST://#step1
                     b = data.getExtras();
-                    code = b.getString(User.AUTHORIZATION_CODE);
-                    loginByFirebase(code, true);
+                    String phoneNumber = b.getString(MH01_Input_Phone.PHONE_NUMBER);
+                    //kiem tra ton tai
+                    checkMobileExisted(phoneNumber);
+                    break;
+                case ACTION_PHONE_VALIDATE:
+                    b = data.getExtras();
+                    boolean isRequest = isRequestVerifyEmail(b);
+                    if (isRequest) {
+                        requestVerifyByEmail(b);
+                    } else {
+                        String code = b.getString(MH01_Input_Phone.AUTHORIZATION_CODE);
+                        loginByFirebase(code, false);
+                    }
+
+                    break;
+                case ACTION_PHONE_VALIDATE_FOR_FORGET_PASSWORD://#step2
+                    b = data.getExtras();
+                    isRequest = isRequestVerifyEmail(b);
+                    if (isRequest) {
+                        requestVerifyByEmail(b);
+                    } else {
+                        b = data.getExtras();
+                        String code = b.getString(MH01_Input_Phone.AUTHORIZATION_CODE);
+                        loginByFirebase(code, true);
+                    }
                     break;
             }
 
-        }else{
-            switch (requestCode){
+        } else {
+            switch (requestCode) {
                 case ACTION_PHONE_VALIDATE:
                     //vao xac thuc de dang ky, nhung back ve thi thoat khoi man hinh login nay
-                    if(isSignup){
+                    if (isSignup) {
                         finish();
                     }
                     break;
@@ -396,6 +432,7 @@ public class MH15_SigninActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         // Disable going back to the MainActivity
         moveTaskToBack(true);
     }
@@ -476,24 +513,17 @@ public class MH15_SigninActivity extends AppCompatActivity {
 
     /////////////////////////////////////////////////////////////////////////////////////////
     public void onLoginSuccess() {
-
+        _loginButton.setEnabled(true);
         //Khi login thanh cong thi co cookie moi nen goi khoi tao retrofit
         MyApplication.whenLoginSuccess();
-
-        _loginButton.setEnabled(true);
-
-        //vao main de load cache truoc
-        gotoMain();
-
         //dong man hinh welcome
         sendBroadcast(new Intent(WelcomeActivity.ACTION_FINISH));
+        //vao main de load cache truoc
+        MyUtils.gotoMain(context);
         finish();
-
     }
 
-    private void gotoMain() {
-        startActivity(new Intent(MH15_SigninActivity.this, MH01_MainActivity.class));
-    }
+
 
     private LoginEvent event = new LoginEvent() {
         @Override
@@ -529,15 +559,6 @@ public class MH15_SigninActivity extends AppCompatActivity {
         }
     }
 
-    private void whenHaveUser(User user) {
-        if (user != null) {
-            String token = user.getCoreChatCustomToken();
-            MyApplication.saveTokenChat(token);
-            db.putBoolean(TinyDB.IS_LOGINED, true);
-            db.putObject(User.USER, user);
-            onLoginSuccess();
-        }
-    }
 
     private void loginByFirebase(String code, boolean isForgetPassword) {
 
@@ -572,7 +593,8 @@ public class MH15_SigninActivity extends AppCompatActivity {
                                                 intent.putExtra(User.PHONE, user.getPhone());
                                                 startActivity(intent);
                                             } else {
-                                                whenHaveUser(user);
+                                                MyUtils.whenHaveUser(user);
+                                                onLoginSuccess();
                                             }
                                         } else {
                                             //nguoc lai thi vao hoan tat dang ky
@@ -605,6 +627,84 @@ public class MH15_SigninActivity extends AppCompatActivity {
         }
 
     }
+
+
+    private void checkMobileExisted(String phone) {
+        if (!TextUtils.isEmpty(phone)) {
+            if (MyUtils.checkInternetConnection(this)) {
+                ProgressUtils.show(this);
+                MyApplication.apiManager.checkPhoneExists(phone, new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        JsonObject body = response.body();
+                        if (body != null) {
+                            ReturnResult result = Webservices.parseJson(
+                                    body.toString(),
+                                    Boolean.class, false
+                            );
+                            if (result != null) {
+                                //Thanh cong thi tra ve UserMBN -> qua man hinh nhap thong tin
+                                if (result.getErrorCode() == ReturnResult.SUCCESS) { //da ton tai thi vao
+                                    if (result.getData() != null) {
+                                        boolean exist = (boolean) result.getData();
+                                        if (exist) {
+                                            /*Intent intent = new Intent(context, MH01_Input_Phone.class);
+                                            intent.putExtra(MH01_Input_Phone.IS_VALIDATE_IN_LOCAL, false);
+                                            startActivityForResult(intent, ACTION_PHONE_VALIDATE_FOR_FORGET_PASSWORD);*/
+                                            //verify code
+                                            Intent intent = new Intent(context, MH02_Input_Code.class);
+                                            intent.putExtra(MH01_Input_Phone.IS_VALIDATE_IN_LOCAL, false);
+                                            intent.putExtra(MH01_Input_Phone.IS_FORGET_PASSWORD, true);
+                                            intent.putExtra(MH01_Input_Phone.PHONE_NUMBER, phone);
+                                            startActivityForResult(intent, ACTION_PHONE_VALIDATE_FOR_FORGET_PASSWORD);
+                                        } else {
+                                            String text = getString(
+                                                    R.string.phone_not_exists_please_chose_another_phone,
+                                                    phone
+                                            );
+                                            MyUtils.showAlertDialog(context, text);
+                                        }
+                                    }
+                                } else {
+                                    //tai khoan da ton tai, thi dang nhap
+                                    MyUtils.showAlertDialog(context,
+                                            result.getErrorMessage()
+                                    );
+                                }
+                            }
+                        }
+                        ProgressUtils.hide();
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        ProgressUtils.hide();
+                    }
+                });
+
+            } else {
+                MyUtils.showThongBao(this);
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+    private boolean isRequestVerifyEmail(Bundle b) {
+        return b.getBoolean(MH01_Input_Phone.IS_REQUEST_VERIFY_BY_EMAIL, false);
+    }
+
+    private void requestVerifyByEmail(Bundle b) {
+        String number = b.getString(MH01_Input_Phone.PHONE_NUMBER, "");
+        boolean isForgetPassword = b.getBoolean(MH01_Input_Phone.IS_FORGET_PASSWORD, false);
+        if(isForgetPassword){//quen mat khau
+//            MyUtils.showAlertDialog(context, "Quen mat khau");
+        }else{//dang ky moi
+//            MyUtils.showAlertDialog(context, "Dang ky moi");
+        }
+
+        MH18_EmailVerifyActivity1.start(context, number, isForgetPassword);
+    }
+
 
 }
 

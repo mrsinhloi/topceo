@@ -14,6 +14,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.google.gson.Gson;
 import com.topceo.R;
 import com.topceo.activity.MH01_MainActivity;
 import com.topceo.ads.AdUtils;
@@ -21,10 +22,8 @@ import com.topceo.ads.AdsAppModel;
 import com.topceo.ads.ReturnResult;
 import com.topceo.config.MyApplication;
 import com.topceo.db.TinyDB;
-import com.topceo.login.WelcomeActivity;
 import com.topceo.onesignal.NotifyObject;
 import com.topceo.utils.MyUtils;
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -102,8 +101,8 @@ public class LoadingActivity extends AppCompatActivity {
             gotoMain();
 
         } else {
-            startActivity(new Intent(context, WelcomeActivity.class));
-            finish();
+//            startActivity(new Intent(context, WelcomeActivity.class));
+//            finish();
         }
         /////////////////////////////////////////
 

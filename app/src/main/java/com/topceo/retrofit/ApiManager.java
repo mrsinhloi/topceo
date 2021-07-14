@@ -377,10 +377,10 @@ public class ApiManager {
     }
 
     public void groupMutualList(long userId,
-                          String keyword,
-                          int pageIndex,
-                          int pageSize,
-                          Callback<JsonObject> callback) {
+                                String keyword,
+                                int pageIndex,
+                                int pageSize,
+                                Callback<JsonObject> callback) {
         Call<JsonObject> call = services.groupMutualList(userId, keyword, pageIndex, pageSize);
         call.enqueue(callback);
     }
@@ -592,6 +592,7 @@ public class ApiManager {
         Call<JsonObject> call = services.groupPendingPostAccept(itemId, isApprove ? 1 : 2, "");
         call.enqueue(callback);
     }
+
     /*public void groupPendingPostCancel(long itemId,
                                          Callback<JsonObject> callback) {
         Call<JsonObject> call = services.groupPendingPostCancel(itemId);
@@ -601,21 +602,24 @@ public class ApiManager {
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //login by firebase
     public void loginByFirebase(String code,
-                                  Callback<JsonObject> callback) {
+                                Callback<JsonObject> callback) {
         Call<JsonObject> call = services.loginByFirebase(code, Webservices.OS);
         call.enqueue(callback);
     }
+
     public void checkPhoneExists(String phone,
-                                Callback<JsonObject> callback) {
+                                 Callback<JsonObject> callback) {
         Call<JsonObject> call = services.checkPhoneExists(phone);
         call.enqueue(callback);
     }
+
     public void signupComplete(
             String Authorization,
             String UserName,
             String Password,
             int Gender,
             String FullName,
+            String Phone,
             Callback<JsonObject> callback) {
         Call<JsonObject> call = services.signupComplete(
                 Authorization,
@@ -626,14 +630,45 @@ public class ApiManager {
                 Gender,
                 Webservices.COUNTRY_ID,
                 Webservices.COUNTRY_NAME,
-                FullName
+                FullName,
+                Phone
         );
         call.enqueue(callback);
     }
+
     public void getReferralLink(Callback<JsonObject> callback) {
         Call<JsonObject> call = services.getReferralLink();
         call.enqueue(callback);
     }
+
+    public void sendVerifyEmail(String email,
+                                Callback<JsonObject> callback) {
+        Call<JsonObject> call = services.sendVerifyEmail(Webservices.OS, email);
+        call.enqueue(callback);
+    }
+
+    public void verifyEmailToken(String code,
+                                 Callback<JsonObject> callback) {
+        Call<JsonObject> call = services.verifyEmailToken(Webservices.OS, code);
+        call.enqueue(callback);
+    }
+
+
+    //quen mat khau
+    public void sendResetPassword(String email,
+                                  Callback<JsonObject> callback) {
+        Call<JsonObject> call = services.sendResetPassword(Webservices.OS, email);
+        call.enqueue(callback);
+    }
+
+    public void verifyPasswordResetCode(String ActionCode,
+                                        String ContinueUrl,
+                                        Callback<JsonObject> callback) {
+        Call<JsonObject> call = services.verifyPasswordResetCode(Webservices.OS, ActionCode, ContinueUrl);
+        call.enqueue(callback);
+    }
+
+
     ///////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////
 

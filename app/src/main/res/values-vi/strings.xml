@@ -15,7 +15,7 @@
     <string name="birthday">Ngày sinh</string>
     <string name="inputforcomplete">"Nhập thông tin để hoàn thành đăng kí"</string>
     <string name="country">"Quốc gia"</string>
-    <string name="phone">"Số điện thoại"</string>
+    <string name="phone">Số điện thoại</string>
     <string name="male">"Nam"</string>
     <string name="female">"Nữ"</string>
     <string name="otherkind">"Khoảnh khắc"</string>
@@ -62,7 +62,7 @@
     <string name="title_Contact">Danh bạ</string>
     <string name="title_photos">Hình của %1$s</string>
     <string name="photos">hình</string>
-    <string name="Send">Gửi</string>
+    <string name="send">Gửi</string>
     <string name="top_week">Top tuần</string>
     <string name="top_month">Top tháng</string>
     <string name="top_year">Top năm</string>
@@ -305,7 +305,7 @@
     <string name="name_request_validate">Tên đăng nhập chỉ cho phép ký tự viết thường, số, dấu chấm, dấu gạch dưới, và không có khoảng trắng</string>
     <string name="sign_up_success">Đăng ký thành công</string>
     <string name="phone_or_username">Phone/Username</string>
-    <string name="user_name_exist">Tên đăng nhập đã tồn tại</string>
+    <string name="user_name_exist">Tên đăng nhập đã có người đăng ký. Vui lòng chọn tên đăng nhập khác.</string>
     <string name="user_name_not_exist">Tên đăng nhập không tồn tại</string>
 
     <string name="sign_up_by_facebook">Đăng ký bằng Facebook</string>
@@ -407,7 +407,7 @@
     <string name="your_profile">Hồ sơ của bạn</string>
     <string name="next">Tiếp</string>
     <string name="fullname">Họ tên</string>
-    <string name="email">Email</string>
+    <string name="input_your_email">Email</string>
     <string name="please_input_fullname">Nhập họ tên</string>
     <string name="please_input_email">Nhập email</string>
     <string name="email_invalid">Email không hợp lệ</string>
@@ -432,9 +432,15 @@
     <string name="creating_account">Tạo tài khoản…</string>
     <string name="phone_not_detect">Không xác định được số điện thoại</string>
     <string name="checking">Checking...</string>
+<<<<<<< HEAD
     <string name="phone_exists">Số điện thoại đã tồn tại</string>
     <string name="phone_exists_please_chose_another_phone">Số điện thoại %1$s đã đăng ký, vui lòng chọn số điện thoại khác để đăng ký.</string>
     <string name="phone_not_exists_please_chose_another_phone">Số điện thoại %1$s chưa đăng ký tài khoản\nXin mời đăng ký.</string>
+=======
+    <string name="phone_exists">Số điện thoại đã được đăng ký, vui lòng chọn số khác</string>
+    <string name="phone_exists_please_chose_another_phone">Số điện thoại %1$s đã được đăng ký, vui lòng chọn số điện thoại khác để đăng ký.</string>
+    <string name="phone_not_exists_please_chose_another_phone">Số điện thoại %1$s không tồn tại, vui lòng chọn số điện thoại khác.</string>
+>>>>>>> phone-verification
     <string name="please_input_info">Vui lòng nhập đầy đủ thông tin yêu cầu</string>
     <string name="signin_">Đăng nhập...</string>
     <string name="phone_input_and_phone_validate_not_match">Số điện thoại yêu cầu thay đổi và số điện thoại xác thực không trùng nhau.</string>
@@ -526,7 +532,7 @@
     <string name="join_to_skysocial">Tham gia vào TopCEO</string>
     <string name="developing">Developing...</string>
     <string name="server_data_error">Data processing server error</string>
-    <string name="email_verify">Xác thực email</string>
+    <string name="email_verify">Xác minh qua email</string>
     <string name="user_info">Thông tin cá nhân</string>
     <string name="social_networking_site">Mạng xã hội</string>
     <string name="email_auth_please">Hãy xác thực email để hoàn thiện profile</string>
@@ -539,7 +545,7 @@
     <string name="new_post">Bài viết mới</string>
     <string name="accept">Đồng ý</string>
     <string name="ignore">Bỏ qua</string>
-    <string name="email_exist">Email đã tồn tại</string>
+    <string name="email_exist">Email đã được đăng ký, vui lòng chọn email khác</string>
     <string name="url">URL</string>
     <string name="username">Tên người dùng</string>
 
@@ -627,7 +633,7 @@
     <string name="privacy_private">Riêng tư</string>
     <string name="privacy_private_des">Chỉ thành viên mới nhìn thấy mọi người trong nhóm và những gì họ đăng</string>
     <string name="privacy_cannot_change_des">Để bảo vệ quyền riêng tư của thành viên, nhóm riêng tư không thể đổi thành công khai.</string>
-    <string name="group_creating">Đang tạo nhóm...</string>
+    <string name="group_creating">Đang tạo nhóm…</string>
     <string name="group_hide">Ẩn nhóm</string>
     <string name="show">Hiển thị</string>
     <string name="hide">Ẩn</string>
@@ -651,7 +657,7 @@
     <string name="add_new_post">Đăng bài viết</string>
     <string name="common_group">Nhóm chung</string>
     <string name="_more">More…</string>
-    <string name="atsign_username">&#64;username</string>
+    <string name="atsign_username">\@username</string>
     <string name="linkedin">LinkedIn</string>
     <string name="linkedin_invalid">LinkedIn không hợp lệ</string>
     <string name="name">Tên</string>
@@ -677,4 +683,10 @@
     <string name="username_hint">username</string>
     <string name="verification_code_sent_via_sms">Mã xác thực đã được gởi qua SMS</string>
     <string name="signup_with_email">Đăng ký bằng Email</string>
+    <string name="verification_link_sent_to_your_email">Một link xác thực đã được gởi đến email của bạn. Vui lòng kiểm tra email và nhấn vào link xác thực để hoàn thành đăng ký tài khoản.</string>
+    <string name="link_auth_expired_des">Link xác thực đã hết hiệu lực, vui lòng nhập email và xác thực lại.</string>
+    <string name="email_verify_sent_to_des"><![CDATA[Chúng tôi đã gởi một email tới <b><font color=\'#ff0000\'>%1$s</font></b><br/>Nhấp vào liên kết trong email để xác minh địa chỉ email của bạn<br/>(Đừng quên kiểm tra thư mục thư rác của bạn)]]></string>
+    <string name="email_verify_update_to_des"><![CDATA[Nếu <b><font color=\'#ff0000\'>%1$s</font></b> không phải là địa chỉ email chính xác của bạn?<br/>Cập nhật địa chỉ email của bạn]]></string>
+    <string name="register_account">Đăng ký tài khoản</string>
+
 </resources>
