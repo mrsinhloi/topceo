@@ -16,5 +16,6 @@
     <string name="the_verification_code_entered_was_invalid">Mã xác nhận không đúng</string>
     <string name="reading_info">Read user info…</string>
     <string name="forget_password_by_email">Quên mật khẩu bằng Email</string>
+    <string name="verify_by_email_des">Bạn không nhận được mã?\nVui lòng xác minh qua Email</string>
 
 </resources>

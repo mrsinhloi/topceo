@@ -63,7 +63,7 @@
     <string name="title_Contact">Contacts</string>
     <string name="title_photos">Image of %1$s</string>
     <string name="photos">photos</string>
-    <string name="Send">Submit</string>
+    <string name="send">Submit</string>
     <string name="top_week">Top week</string>
     <string name="top_month">Top month</string>
     <string name="top_year">Top year</string>
@@ -511,7 +511,7 @@
     <string name="login_to_skysocial">Login to TopCEO</string>
     <string name="developing">Developing…</string>
     <string name="server_data_error">Data processing server error</string>
-    <string name="email_verify">Email authentication</string>
+    <string name="email_verify">Email verification</string>
     <string name="user_info">User info</string>
     <string name="social_networking_site">Social networking site</string>
     <string name="email_auth_please">Please verify the email to complete the profile</string>
@@ -728,7 +728,7 @@
     <string name="add_new_post">Add new post</string>
     <string name="common_group">Common group</string>
     <string name="_more">More…</string>
-    <string name="atsign_username">&#64;username</string>
+    <string name="atsign_username">\@username</string>
     <string name="linkedin">LinkedIn</string>
     <string name="linkedin_invalid">LinkedIn invalid</string>
     <string name="name">Name</string>
@@ -759,4 +759,8 @@
     <string name="signup_with_email">Sign up with Email</string>
     <string name="verification_link_sent_to_your_email">A confirmation link has been sent to your email. Please check the email and click on the authentication link to complete the account registration.</string>
     <string name="link_auth_expired_des">The verification link has expired, please enter your email and re-verify.</string>
+    <string name="email_verify_sent_to_des"><![CDATA[We sent an email to <b><font color=\'#ff0000\'>%1$s</font></b><br/>Click the link in the email to verify your email address<br/>(Don\'t forget to check your spam folder)]]></string>
+    <string name="email_verify_update_to_des"><![CDATA[If <b><font color=\'#ff0000\'>%1$s</font></b> not your correct email address?<br/>Update your email address]]></string>
+    <string name="register_account">Register an account</string>
+
 </resources>

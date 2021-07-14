@@ -653,6 +653,22 @@ public class ApiManager {
         call.enqueue(callback);
     }
 
+
+    //quen mat khau
+    public void sendResetPassword(String email,
+                                  Callback<JsonObject> callback) {
+        Call<JsonObject> call = services.sendResetPassword(Webservices.OS, email);
+        call.enqueue(callback);
+    }
+
+    public void verifyPasswordResetCode(String ActionCode,
+                                        String ContinueUrl,
+                                        Callback<JsonObject> callback) {
+        Call<JsonObject> call = services.verifyPasswordResetCode(Webservices.OS, ActionCode, ContinueUrl);
+        call.enqueue(callback);
+    }
+
+
     ///////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////
 

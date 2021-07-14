@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit
 class MH02_Input_Code : AppCompatActivity() {
     companion object {
         const val TAG = "TAG_MH02_Input_Code"
-        const val TIMEOUT_SECONDS = 60L
+        const val TIMEOUT_SECONDS = 30L
 
         fun start(context: Context, phone: String, isValidateInLocal: Boolean, isForgetPassword:Boolean) {
             val intent = Intent(context, MH02_Input_Code::class.java)
@@ -61,27 +61,30 @@ class MH02_Input_Code : AppCompatActivity() {
 
         }
 
-        binding.otpView.requestFocusOTP()
+
         setContentView(binding.root)
         init()
         //start timer
         setState(SendCodeState.COUNTDOWN)
+
+        binding.otpView.requestFocusOTP()
         showKeyboard()
     }
 
 
-    var timer = object : CountDownTimer(TIMEOUT_SECONDS / 2 * 1000, 1000) {
+    var timer = object : CountDownTimer(TIMEOUT_SECONDS * 1000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             binding.state1Tv.text =
                 getString(R.string.resend_code_after_x, millisUntilFinished / 1000)
         }
 
         override fun onFinish() {
-            if (currentState == SendCodeState.COUNTDOWN) {//count down lan 1
-                setState(SendCodeState.RESEND)
-            } else if (currentState == SendCodeState.RESEND) {//count down lan 2
+            if (currentState == SendCodeState.COUNTDOWN) {//count down lan 1 -> đổi lại count down 1 lần
+//                setState(SendCodeState.RESEND)
                 setState(SendCodeState.SIGNUP)
-            }
+            } /*else if (currentState == SendCodeState.RESEND) {//count down lan 2
+                setState(SendCodeState.SIGNUP)
+            }*/
         }
 
     }
@@ -119,7 +122,7 @@ class MH02_Input_Code : AppCompatActivity() {
                 binding.state3Tv.visibility = View.VISIBLE
 
                 if(isForgetPassword){
-                    binding.state3Tv.text = getText(R.string.forget_password_by_email)
+//                    binding.state3Tv.text = getText(R.string.forget_password_by_email)
                     binding.state3Tv.setOnClickListener {
                         // forget password BY EMAIL
                         var data = Intent()
@@ -130,7 +133,7 @@ class MH02_Input_Code : AppCompatActivity() {
                         finish()
                     }
                 }else{
-                    binding.state3Tv.text = getText(R.string.sign_up_with_email)
+//                    binding.state3Tv.text = getText(R.string.sign_up_with_email)
                     binding.state3Tv.setOnClickListener {
                         // SIGNUP BY EMAIL
                         var data = Intent()
@@ -146,10 +149,7 @@ class MH02_Input_Code : AppCompatActivity() {
         }
     }
 
-    override fun onStop() {
-        hideKeyboard()
-        super.onStop()
-    }
+
     override fun onDestroy() {
         super.onDestroy()
         timer.cancel()

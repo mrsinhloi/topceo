@@ -2,8 +2,9 @@ package com.myxteam.phone_verification
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.textfield.TextInputEditText
 import com.myxteam.phone_verification.databinding.ActivityMh01InputPhoneBinding
 
 class MH01_Input_Phone : AppCompatActivity() {
@@ -28,7 +29,9 @@ class MH01_Input_Phone : AppCompatActivity() {
 
         //toolbar
         setSupportActionBar(binding.mToolbar)
-        binding.mToolbar.setNavigationOnClickListener { finish() }
+        binding.mToolbar.setNavigationOnClickListener {
+            finish()
+        }
 
         //views
         binding.ccp.registerPhoneNumberTextView(binding.phoneNumberEdt)
@@ -66,6 +69,11 @@ class MH01_Input_Phone : AppCompatActivity() {
 
         setContentView(binding.root)
         init()
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////
+        binding.phoneNumberEdt.focusAndShowKeyboard()
+
     }
 
     //INIT//////////////////////////////////////////////////////////////////////////////////////////
@@ -79,7 +87,6 @@ class MH01_Input_Phone : AppCompatActivity() {
         }
 
     }
-    //INIT//////////////////////////////////////////////////////////////////////////////////////////
 
 
 }

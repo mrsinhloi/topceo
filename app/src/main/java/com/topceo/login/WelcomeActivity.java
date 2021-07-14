@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import com.myxteam.phone_verification.MyExtensionKt;
 import com.topceo.R;
 import com.topceo.config.MyApplication;
 import com.topceo.db.TinyDB;
@@ -77,23 +78,26 @@ public class WelcomeActivity extends AppCompatActivity {
         });
 
         registerReceiver();
+
     }
 
     public static final String ACTION_FINISH = "ACTION_FINISH_WELCOME_ACTIVITY";
-    private BroadcastReceiver receiver;
+    private BroadcastReceiver receiver = null;
 
     private void registerReceiver() {
-        receiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equalsIgnoreCase(ACTION_FINISH)) {
-                    finish();
+        if (receiver == null) {
+            receiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    if (intent.getAction().equalsIgnoreCase(ACTION_FINISH)) {
+                        finish();
+                    }
                 }
-            }
-        };
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(ACTION_FINISH);
-        registerReceiver(receiver, filter);
+            };
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(ACTION_FINISH);
+            registerReceiver(receiver, filter);
+        }
     }
 
     @Override
@@ -112,6 +116,7 @@ public class WelcomeActivity extends AppCompatActivity {
             initUI();
         }*/
         initUI();
+        MyExtensionKt.hideKeyboard(this);
     }
 
     //init language

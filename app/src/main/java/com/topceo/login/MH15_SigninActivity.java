@@ -23,13 +23,12 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonObject;
 import com.myxteam.phone_verification.MH01_Input_Phone;
 import com.myxteam.phone_verification.MH02_Input_Code;
+import com.myxteam.phone_verification.MyExtensionKt;
 import com.topceo.BuildConfig;
 import com.topceo.R;
-import com.topceo.activity.MH01_MainActivity;
 import com.topceo.config.MyApplication;
 import com.topceo.db.TinyDB;
 import com.topceo.language.LocalizationUtil;
-import com.topceo.login.workchat.ui.InputPhoneActivityWc;
 import com.topceo.objects.other.User;
 import com.topceo.services.ReturnResult;
 import com.topceo.services.Webservices;
@@ -150,7 +149,8 @@ public class MH15_SigninActivity extends AppCompatActivity {
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////
-
+        _emailText.requestFocus();
+        MyExtensionKt.focusAndShowKeyboard(_emailText);
 
     }
 
@@ -432,6 +432,7 @@ public class MH15_SigninActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         // Disable going back to the MainActivity
         moveTaskToBack(true);
     }
@@ -701,7 +702,7 @@ public class MH15_SigninActivity extends AppCompatActivity {
 //            MyUtils.showAlertDialog(context, "Dang ky moi");
         }
 
-        MH18_EmailVerifyActivity.start(context, number, isForgetPassword);
+        MH18_EmailVerifyActivity1.start(context, number, isForgetPassword);
     }
 
 

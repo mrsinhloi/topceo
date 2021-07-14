@@ -25,6 +25,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.gson.Gson;
+import com.myxteam.phone_verification.MyExtensionKt;
 import com.topceo.R;
 import com.topceo.activity.MH01_MainActivity;
 import com.topceo.config.MyApplication;
@@ -212,16 +213,19 @@ public class MH16_SignupActivity extends AppCompatActivity {
         //chi xac thuc bang sdt hoac bang email
         if (user != null) {
             //neu co dien thoai thi xac thuc bang dien thoai, ko cho sua
-            if(!TextUtils.isEmpty(user.getPhone())) {
+            if (!TextUtils.isEmpty(user.getPhone())) {
                 txt4.setText(user.getPhone());
                 txt4.setEnabled(false);
+                txt5.requestFocus();
             }
 
             //neu xac thuc bang email, ko cho sua
-            if(!TextUtils.isEmpty(user.getEmail())) {
+            if (!TextUtils.isEmpty(user.getEmail())) {
                 txt5.setText(user.getEmail());
                 txt5.setEnabled(false);
+                txt4.requestFocus();
             }
+            MyExtensionKt.showKeyboard(this);
         }
 
     }
@@ -270,7 +274,7 @@ public class MH16_SignupActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 usernameTemp = s.toString();
-                if(usernameTemp.contains(" ")){
+                if (usernameTemp.contains(" ")) {
                     //tao nickname tu fullname, bo dau va bo khoang trang
                     String nickname = MyUtils.createNickname(usernameTemp);
                     txt2.setText(nickname);
@@ -915,16 +919,16 @@ public class MH16_SignupActivity extends AppCompatActivity {
                                     } else {
                                         //{"ErrorCode":107,"Message":{"Invalid":[],"Existed":["UserName"]}}
                                         String message = result.getErrorMessage();
-                                        if(message.contains("Existed")){
+                                        if (message.contains("Existed")) {
                                             try {
                                                 JSONObject exist = new JSONObject(message);
-                                                if(exist.has("Existed")){
+                                                if (exist.has("Existed")) {
                                                     String attr = exist.getString("Existed");
-                                                    if(attr.contains("UserName")) {
+                                                    if (attr.contains("UserName")) {
                                                         MyUtils.showAlertDialog(context, R.string.user_name_exist);
-                                                    }else if(attr.contains("Email")) {
+                                                    } else if (attr.contains("Email")) {
                                                         MyUtils.showAlertDialog(context, R.string.email_exist);
-                                                    }else if(attr.contains("Phone")) {
+                                                    } else if (attr.contains("Phone")) {
                                                         MyUtils.showAlertDialog(context, R.string.phone_exists);
                                                     }
                                                 }
@@ -932,7 +936,7 @@ public class MH16_SignupActivity extends AppCompatActivity {
                                                 e.printStackTrace();
                                             }
 
-                                        }else {
+                                        } else {
                                             //tai khoan da ton tai, thi dang nhap
                                             MyUtils.showAlertDialog(context, message);
                                         }
@@ -953,5 +957,11 @@ public class MH16_SignupActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //neu xac thuc tu email thi MH18 dang cho hoan tat dang ky, neu back ve thi can dong mh18 lai
+//        sendBroadcast(new Intent(MH18_EmailVerifyActivity1.ACTION_FINISH));
+    }
 }
 

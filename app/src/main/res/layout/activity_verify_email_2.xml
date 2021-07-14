@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_sky_light"
+    android:fitsSystemWindows="true"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="24dp"
+                    android:paddingTop="56dp"
+                    android:paddingRight="24dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="72dp"
+                        android:gravity="center"
+                        android:weightSum="5">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3.5"
+                            app:srcCompat="@drawable/ic_svg_logo_toolbar_40" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        style="@style/text_style_2"
+                        android:text="@string/email_verify"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/des1_tv"
+                        style="@style/text_style_2"
+                        android:layout_marginTop="0dp"
+                        android:gravity="center"
+                        android:lineSpacingMultiplier="1.2"
+                        android:text="@string/email_verify_sent_to_des" />
+
+                    <TextView
+                        android:id="@+id/des2_tv"
+                        style="@style/text_style_2"
+                        android:layout_marginTop="0dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:gravity="center"
+                        android:text="@string/email_verify_update_to_des" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_5dp"
+                        android:layout_marginTop="@dimen/margin_24dp"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:layout_marginBottom="@dimen/margin_24dp"
+                        android:hint="@string/input_your_email"
+                        app:endIconMode="clear_text"
+                        app:boxBackgroundMode="none"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_sky_rectangle_border"
+                            android:hint="@string/input_your_email"
+                            android:imeOptions="actionDone"
+                            android:inputType="textEmailAddress"
+                            android:text=""
+                            android:textSize="@dimen/font_medium" />
+
+                        <requestFocus />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn1"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginLeft="@dimen/margin_5dp"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:layout_marginBottom="3dp"
+                        android:backgroundTint="@color/grey_400"
+                        android:text="@string/update"
+                        android:enabled="false"
+                        android:textSize="@dimen/font_medium_"
+                        android:textColor="@color/white" />
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn2"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:visibility="gone"
+                        tools:visibility="visible"
+                        android:layout_marginLeft="@dimen/margin_5dp"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:layout_marginBottom="3dp"
+                        android:textSize="@dimen/font_medium_"
+                        android:backgroundTint="@color/light_blue_500"
+                        android:text="@string/update"
+                        android:textColor="@color/white" />
+
+
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:padding="@dimen/margin_16dp"
+            android:src="@drawable/ic_close_grey_500_24dp"
+            app:tint="@color/sky_end" />
+    </FrameLayout>
+
+</LinearLayout>

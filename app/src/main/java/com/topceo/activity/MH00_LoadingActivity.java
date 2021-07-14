@@ -18,7 +18,6 @@ import com.topceo.R;
 import com.topceo.config.MyApplication;
 import com.topceo.db.TinyDB;
 import com.topceo.dynamic_link.DynamicData;
-import com.topceo.login.MH18_EmailVerifyActivity;
 import com.topceo.login.WelcomeActivity;
 import com.topceo.onesignal.NotifyObject;
 import com.topceo.utils.MyUtils;

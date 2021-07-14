@@ -53,8 +53,7 @@
         android:supportsRtl="true"
         android:theme="@style/ThemeFullscreenDefault"
         android:usesCleartextTraffic="true"
-        tools:replace="android:theme,android:allowBackup"
-        >
+        tools:replace="android:theme,android:allowBackup">
 
         <activity
             android:name=".chat.MainChatActivity"
@@ -100,6 +99,7 @@
 
                 <!--dynamiclink-->
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -134,6 +134,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with "example://gizmos” -->
@@ -392,9 +393,14 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".login.MH18_EmailVerifyActivity"
+            android:name=".login.MH18_EmailVerifyActivity1"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.MH19_EmailVerifyActivity2"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
 
         <meta-data
@@ -495,16 +501,16 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:supportsPictureInPicture="true"
-            tools:ignore="LockedOrientationActivity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".mediaplayer.pip.VideoActivityPipList"
             android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:supportsPictureInPicture="true"
-            tools:ignore="LockedOrientationActivity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
 
 
     </application>

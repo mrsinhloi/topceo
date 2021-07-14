@@ -472,6 +472,10 @@ public class MyUtils {
 
 
     public static void showAlertDialog(Activity context, int message, boolean isFinish) {
+        showAlertDialog(context, context.getString(message), isFinish);
+    }
+
+    public static void showAlertDialog(Activity context, String message, boolean isFinish) {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
         alertDialogBuilder.setMessage(message);

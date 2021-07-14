@@ -651,4 +651,32 @@ public interface WebserviceApi {
             @Field("Code") String Code
     );
 
+    //reset pass by email
+
+    /**
+     * "API gửi email reset password tới email của user.
+     * Trả về thành công ErrorCode = 0 hoặc nếu ErrorCode != 0 thì Message là nội dung lỗi"
+     * @param os
+     * @param Email
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/sendResetPassword")
+    Call<JsonObject> sendResetPassword(
+            @Header("os") String os,
+            @Field("Email") String Email
+    );
+
+    /**
+     * "Gửi oobCode (ActionCode) & continueUrl (ContinueUrl) bắt đc từ link reset password trong Email
+     * về server để xác thực Code đúng hay ko? và gọi hàm /user/updatePassword
+     * Trả về token đăng nhập, Client dùng Token để update password cho User"
+     */
+    @FormUrlEncoded
+    @POST("user/verifyPasswordResetCode")
+    Call<JsonObject> verifyPasswordResetCode(
+            @Header("os") String os,
+            @Field("ActionCode") String ActionCode,
+            @Field("ContinueUrl") String ContinueUrl
+    );
 }

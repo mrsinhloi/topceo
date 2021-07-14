@@ -20,7 +20,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.androidnetworking.error.ANError;
 import com.google.android.material.textfield.TextInputEditText;
+import com.myxteam.phone_verification.MyExtensionKt;
 import com.topceo.R;
+import com.topceo.activity.MH00_LoadingActivity;
 import com.topceo.config.MyApplication;
 import com.topceo.db.TinyDB;
 import com.topceo.objects.other.User;
@@ -41,8 +43,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
     private TinyDB db;
 
 
-   /* @BindView(R.id.imgBack)
-    ImageView imgBack;*/
+    /* @BindView(R.id.imgBack)
+     ImageView imgBack;*/
     @BindView(R.id.pass1)
     TextInputEditText edit1;
     @BindView(R.id.pass2)
@@ -103,6 +105,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
 
                 //goi ham set password
+                MyExtensionKt.hideKeyboard(ResetPasswordActivity.this);
                 setPassword(phone, pass1);
 
 
@@ -151,12 +154,13 @@ public class ResetPasswordActivity extends AppCompatActivity {
                                     MyUtils.showToast(context, R.string.changepasswordsuccess);
 
                                     //dang nhap va vao app
-                                    Intent intent = new Intent(MH15_SigninActivity.AUTO_LOGIN_BY_PHONE_AND_PASSWORD);
+                                    /*Intent intent = new Intent(MH15_SigninActivity.AUTO_LOGIN_BY_PHONE_AND_PASSWORD);
                                     intent.putExtra(User.PHONE, phone);
                                     intent.putExtra(User.PASSWORD, password);
-                                    sendBroadcast(intent);
+                                    sendBroadcast(intent);*/
 
-                                    finish();
+                                    autoLogin(phone, password);
+
                                 } else {
                                     if (result.getErrorMessage() != null) {
                                         MyUtils.showAlertDialog(context, result.getErrorMessage());
@@ -180,7 +184,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                                 }
                             });
                         } else {
-                            if (task.getError()!=null && !TextUtils.isEmpty(task.getError().getMessage())) {
+                            if (task.getError() != null && !TextUtils.isEmpty(task.getError().getMessage())) {
                                 MyUtils.showAlertDialog(context, task.getError().getMessage());
                             }
                         }
@@ -196,8 +200,37 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
+    private void autoLogin(String username, String password) {
+        LoginUtils utils = new LoginUtils(this, event);
+        utils.login(username, password);
+    }
 
+    private LoginEvent event = new LoginEvent() {
+        @Override
+        public void whenloginByIdTokenSuccess() {
+            onLoginSuccess();
+        }
 
+        @Override
+        public void whenLoginByIdTokenFail() {
+            startActivity(new Intent(context, MH00_LoadingActivity.class));
+            finish();
+        }
+    };
+
+    public void onLoginSuccess() {
+//        _loginButton.setEnabled(true);
+        //Khi login thanh cong thi co cookie moi nen goi khoi tao retrofit
+        MyApplication.whenLoginSuccess();
+        //dong man hinh welcome
+        sendBroadcast(new Intent(WelcomeActivity.ACTION_FINISH));
+        //DONG MAN HINH LOGIN
+        sendBroadcast(new Intent(MH15_SigninActivity.FINISH_ACTIVITY));
+
+        //vao main de load cache truoc
+        MyUtils.gotoMain(context);
+        finish();
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
 
